@@ -24,6 +24,8 @@ SOFTWARE.
 #ifndef __DOTTH_SCENE_HPP__
 #define __DOTTH_SCENE_HPP__
 
+#include "node.hpp"
+
 namespace dotth {
 	class scene : public node {
 

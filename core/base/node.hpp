@@ -24,6 +24,8 @@ SOFTWARE.
 #ifndef __DOTTH_NODE_HPP__
 #define __DOTTH_NODE_HPP__
 
+#include "base.hpp"
+
 namespace dotth {
 	class node : public base {
 

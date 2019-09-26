@@ -25,7 +25,13 @@
 #define __DOTTH_HPP__
 
 namespace dotth {
-    
+    int test(int a, int b) {
+        return a + b;
+    }
+    int test2(int a)
+    {
+        return a;
+    }
 };
 
 #endif // __DOTTH_HPP__
