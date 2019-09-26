@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		27A45481233CF9E900A64A41 /* platform.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 27A4547F233CF9E900A64A41 /* platform.hpp */; };
+		27A45482233CF9E900A64A41 /* platform.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 27A45480233CF9E900A64A41 /* platform.cpp */; };
 		27C83AA3233CF00A00FF791B /* component.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 27C83A9B233CF00A00FF791B /* component.hpp */; };
 		27C83AA4233CF00A00FF791B /* node.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 27C83A9C233CF00A00FF791B /* node.cpp */; };
 		27C83AA5233CF00A00FF791B /* scene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 27C83A9D233CF00A00FF791B /* scene.cpp */; };
@@ -20,6 +22,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		27A4547A233CF75500A64A41 /* liblibdotth.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = liblibdotth.a; path = /Users/jwkim/Desktop/dotth/build/apple/libdotth/build/Debug/liblibdotth.a; sourceTree = "<absolute>"; };
+		27A4547F233CF9E900A64A41 /* platform.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = platform.hpp; path = ../../../core/platform/platform.hpp; sourceTree = "<group>"; };
+		27A45480233CF9E900A64A41 /* platform.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = platform.cpp; path = ../../../core/platform/platform.cpp; sourceTree = "<group>"; };
 		27C83A9B233CF00A00FF791B /* component.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = component.hpp; path = ../../../core/base/component.hpp; sourceTree = "<group>"; };
 		27C83A9C233CF00A00FF791B /* node.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = node.cpp; path = ../../../core/base/node.cpp; sourceTree = "<group>"; };
 		27C83A9D233CF00A00FF791B /* scene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = scene.cpp; path = ../../../core/base/scene.cpp; sourceTree = "<group>"; };
@@ -30,7 +35,6 @@
 		27C83AA2233CF00A00FF791B /* base.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = base.cpp; path = ../../../core/base/base.cpp; sourceTree = "<group>"; };
 		27C83AAB233CF01E00FF791B /* dotth.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = dotth.cpp; path = ../../../core/dotth.cpp; sourceTree = "<group>"; };
 		27C83AAC233CF01E00FF791B /* dotth.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = dotth.hpp; path = ../../../core/dotth.hpp; sourceTree = "<group>"; };
-		27C83ACA233CF18900FF791B /* liblibdotth.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = liblibdotth.a; path = /Users/jwkim/Desktop/dotth/build/apple/libdotth/build/Debug/liblibdotth.a; sourceTree = "<absolute>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -44,12 +48,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		27A4547E233CF9B200A64A41 /* platform */ = {
+			isa = PBXGroup;
+			children = (
+				27A45480233CF9E900A64A41 /* platform.cpp */,
+				27A4547F233CF9E900A64A41 /* platform.hpp */,
+			);
+			name = platform;
+			sourceTree = "<group>";
+		};
 		27C83A6E233CE1E900FF791B = {
 			isa = PBXGroup;
 			children = (
 				27C83AAB233CF01E00FF791B /* dotth.cpp */,
 				27C83AAC233CF01E00FF791B /* dotth.hpp */,
 				27C83A99233CEFE800FF791B /* base */,
+				27A4547E233CF9B200A64A41 /* platform */,
 			);
 			sourceTree = "<group>";
 		};
@@ -80,6 +94,7 @@
 				27C83AAE233CF01E00FF791B /* dotth.hpp in Headers */,
 				27C83AA8233CF00A00FF791B /* scene.hpp in Headers */,
 				27C83AA3233CF00A00FF791B /* component.hpp in Headers */,
+				27A45481233CF9E900A64A41 /* platform.hpp in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -100,7 +115,7 @@
 			);
 			name = libdotth;
 			productName = libdotth;
-			productReference = 27C83ACA233CF18900FF791B /* liblibdotth.a */;
+			productReference = 27A4547A233CF75500A64A41 /* liblibdotth.a */;
 			productType = "com.apple.product-type.library.static";
 		};
 /* End PBXNativeTarget section */
@@ -143,6 +158,7 @@
 				27C83AA5233CF00A00FF791B /* scene.cpp in Sources */,
 				27C83AAD233CF01E00FF791B /* dotth.cpp in Sources */,
 				27C83AA4233CF00A00FF791B /* node.cpp in Sources */,
+				27A45482233CF9E900A64A41 /* platform.cpp in Sources */,
 				27C83AA7233CF00A00FF791B /* component.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

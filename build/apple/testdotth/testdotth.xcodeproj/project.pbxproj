@@ -23,8 +23,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		27A4547B233CF75500A64A41 /* testdotth */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; name = testdotth; path = /Users/jwkim/Desktop/dotth/build/apple/testdotth/build/Debug/testdotth; sourceTree = "<absolute>"; };
 		27C83B04233CF29D00FF791B /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
-		27C83B09233CF2E400FF791B /* testdotth */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; name = testdotth; path = /Users/jwkim/Desktop/dotth/build/apple/testdotth/build/Debug/testdotth; sourceTree = "<absolute>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,7 +62,7 @@
 			);
 			name = testdotth;
 			productName = testdotth;
-			productReference = 27C83B09233CF2E400FF791B /* testdotth */;
+			productReference = 27A4547B233CF75500A64A41 /* testdotth */;
 			productType = "com.apple.product-type.tool";
 		};
 /* End PBXNativeTarget section */

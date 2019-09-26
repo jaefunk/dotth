@@ -21,11 +21,4 @@
  SOFTWARE.
  */
 
-#ifndef __DOTTH_HPP__
-#define __DOTTH_HPP__
-
-namespace dotth {
-
-};
-
-#endif // __DOTTH_HPP__
+#include "platform.hpp"

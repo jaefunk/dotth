@@ -39,3 +39,7 @@ build/apple/libdotth/Output/libdotth.build/
 build/apple/libdotth/Output/v5/
 build/apple/libdotth/Output/XCBuildData/
 build/apple/testdotth/Output
+build/apple/dotth.xcworkspace/xcuserdata/jwkim.xcuserdatad/UserInterfaceState.xcuserstate
+build/apple/dotth.xcworkspace/xcuserdata/jwkim.xcuserdatad/xcdebugger/Breakpoints_v2.xcbkptlist
+build/apple/libdotth/libdotth.xcodeproj/xcuserdata/jwkim.xcuserdatad/xcschemes/xcschememanagement.plist
+build/apple/testdotth/testdotth.xcodeproj/xcuserdata/jwkim.xcuserdatad/xcschemes/xcschememanagement.plist

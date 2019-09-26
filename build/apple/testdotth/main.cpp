@@ -1,19 +1,27 @@
-//
-//  main.cpp
-//  testdotth
-//
-//  Created by jwkim on 26/09/2019.
-//  Copyright © 2019 dotth. All rights reserved.
-//
-
-#include <iostream>
-
-#include "dotth.hpp"
+/*
+ Licensed under the MIT License <http://opensource.org/licenses/MIT>.
+ Copyright (c) 2019 jaefunk <https://github.com/jaefunk/dotth>.
+ 
+ Permission is hereby  granted, free of charge, to any  person obtaining a copy
+ of this software and associated  documentation files (the "Software"), to deal
+ in the Software  without restriction, including without  limitation the rights
+ to  use, copy,  modify, merge,  publish, distribute,  sublicense, and/or  sell
+ copies  of  the Software,  and  to  permit persons  to  whom  the Software  is
+ furnished to do so, subject to the following conditions:
+ 
+ The above copyright notice and this permission notice shall be included in all
+ copies or substantial portions of the Software.
+ 
+ THE SOFTWARE  IS PROVIDED "AS  IS", WITHOUT WARRANTY  OF ANY KIND,  EXPRESS OR
+ IMPLIED,  INCLUDING BUT  NOT  LIMITED TO  THE  WARRANTIES OF  MERCHANTABILITY,
+ FITNESS FOR  A PARTICULAR PURPOSE AND  NONINFRINGEMENT. IN NO EVENT  SHALL THE
+ AUTHORS  OR COPYRIGHT  HOLDERS  BE  LIABLE FOR  ANY  CLAIM,  DAMAGES OR  OTHER
+ LIABILITY, WHETHER IN AN ACTION OF  CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ OUT OF OR IN CONNECTION WITH THE SOFTWARE  OR THE USE OR OTHER DEALINGS IN THE
+ SOFTWARE.
+ */
 
 int main(int argc, const char * argv[]) {
-    // insert code here...
-    auto kk = dotth::test(1, 3);
-    std::cout << "Hello, World! %d\n" ;
-    dotth::test2(123);
+
     return 0;
 }
