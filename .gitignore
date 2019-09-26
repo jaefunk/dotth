@@ -33,3 +33,8 @@
 *.suo
 *.opendb
 *.db
+
+# xcode
+build/apple/libdotth/Output/libdotth.build/
+build/apple/libdotth/Output/v5/
+build/apple/libdotth/Output/XCBuildData/

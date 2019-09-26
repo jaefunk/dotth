@@ -30,4 +30,4 @@ namespace dotth {
 	};
 };
 
-#endif // __DTOTH_BASE_HPP__
+#endif // __DOTTH_BASE_HPP__

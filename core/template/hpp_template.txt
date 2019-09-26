@@ -30,4 +30,4 @@ namespace dotth {
 	};
 };
 
-#endif // __DTOTH_filenamebig_HPP__
+#endif // __DOTTH_filenamebig_HPP__

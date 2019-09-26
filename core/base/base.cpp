@@ -1,6 +1,6 @@
 /*
 Licensed under the MIT License <http://opensource.org/licenses/MIT>.
-Copyright (c) year jaefunk <https://github.com/jaefunk/dotth>.
+Copyright (c) 2019 jaefunk <https://github.com/jaefunk/dotth>.
 
 Permission is hereby  granted, free of charge, to any  person obtaining a copy
 of this software and associated  documentation files (the "Software"), to deal
