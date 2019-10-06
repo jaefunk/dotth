@@ -24,10 +24,30 @@ SOFTWARE.
 #ifndef __DOTTH_BASE_HPP__
 #define __DOTTH_BASE_HPP__
 
-namespace dotth {
-	class base {
+#include <string>
+#include <ctime>
 
-	};
+#include "utility.hpp"
+
+namespace dotth {
+    class base
+    {
+    private:
+        int _serial;
+        std::time_t _birth;
+    public:
+        base(void) {
+            static std::atomic<int> s;
+            _serial = s.fetch_add(1);
+            _birth = dotth::utility::timer::instance()->time_since_epoch();
+        }
+        const int& serial(void) {
+            return _serial;
+        }
+        const std::time_t& birth(void) {
+            return _birth;
+        }
+    };
 };
 
 #endif // __DOTTH_BASE_HPP__

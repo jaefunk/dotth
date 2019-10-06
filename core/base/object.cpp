@@ -21,11 +21,4 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE  OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-#ifndef __DOTTH_HPP__
-#define __DOTTH_HPP__
-
-namespace dotth {
-    
-};
-
-#endif // __DOTTH_HPP__
+#include "object.hpp"

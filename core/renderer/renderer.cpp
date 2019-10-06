@@ -21,11 +21,34 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE  OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-#ifndef __DOTTH_HPP__
-#define __DOTTH_HPP__
+#include "renderer.hpp"
 
-namespace dotth {
-    
-};
+void dotth::display(void) {
+    glClear(GL_COLOR_BUFFER_BIT);
+    glColor3f(0.3, 0.3, 0.7);
+    glutWireTeapot(1);
+    glFlush();
+}
 
-#endif // __DOTTH_HPP__
+void dotth::reshape(int width, int height) {
+    glViewport(0, 0, width, height);
+    glMatrixMode(GL_PROJECTION);
+    glLoadIdentity();
+    gluPerspective(30, static_cast<double>(width)/static_cast<double>(height), 1.0, 50.0);
+    glMatrixMode(GL_MODELVIEW);
+    glLoadIdentity();
+    gluLookAt(5.0, 5.0, 5.0, 0, 0.0, 0.0, 0.0, 1.0, 0.0);
+    glutPostRedisplay();
+}
+
+void dotth::renderer::init_gl(int argc, char** argv) {
+    glutInit(&argc, argv);
+    glutInitDisplayMode(GLUT_RGBA);
+    glutInitWindowSize(1024, 512);
+    glutInitWindowPosition(100, 100);
+    glutCreateWindow("asdf");
+    glClearColor(0, 0, 0, 0);
+    glutReshapeFunc(dotth::reshape);
+    glutDisplayFunc(dotth::display);
+    glutMainLoop();
+}

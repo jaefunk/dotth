@@ -21,11 +21,23 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE  OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-#ifndef __DOTTH_HPP__
-#define __DOTTH_HPP__
+#ifndef __DOTTH_RENDERER_HPP__
+#define __DOTTH_RENDERER_HPP__
+
+#define GL_SILENCE_DEPRECATION
+#include <GLUT/glut.h>
+
+#include "base/utility.hpp"
 
 namespace dotth {
     
+    void display(void);
+    void reshape(int width, int height);
+    
+    class renderer : public utility::singleton<renderer> {
+    public:
+        void init_gl(int argc, char** argv);
+    };
 };
 
-#endif // __DOTTH_HPP__
+#endif // __DOTTH_RENDERER_HPP__

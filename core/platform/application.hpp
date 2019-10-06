@@ -21,11 +21,29 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE  OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-#ifndef __DOTTH_HPP__
-#define __DOTTH_HPP__
+#ifndef __DOTTH_APPLICATION_HPP__
+#define __DOTTH_APPLICATION_HPP__
 
+#include "base/utility.hpp"
+#include "base/scene.hpp"
+#include "renderer/renderer.hpp"
 namespace dotth {
-    
+    class application : public utility::singleton<application> {
+    public:
+        void init(int argc, char ** argv) {
+            renderer::instance()->init_gl(argc, argv);
+        }
+        int process(void) {
+            // renderer init...
+            while (true) {
+                utility::timer::instance()->update();
+                scene_manager::instance()->update();
+                scene_manager::instance()->draw();
+                printf("\n");
+            }
+            return 0;
+        }
+    };
 };
 
-#endif // __DOTTH_HPP__
+#endif // __DOTTH_APPLICATION_HPP__

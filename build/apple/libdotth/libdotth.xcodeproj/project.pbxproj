@@ -7,6 +7,22 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2728DC7D2349AD81003DB7FA /* utility.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2728DC7B2349AD81003DB7FA /* utility.cpp */; };
+		2728DC7E2349AD81003DB7FA /* utility.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2728DC7C2349AD81003DB7FA /* utility.hpp */; };
+		2728DC812349B40F003DB7FA /* object.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2728DC7F2349B40F003DB7FA /* object.cpp */; };
+		2728DC822349B40F003DB7FA /* object.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2728DC802349B40F003DB7FA /* object.hpp */; };
+		2728DC852349C09E003DB7FA /* application.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2728DC832349C09E003DB7FA /* application.cpp */; };
+		2728DC862349C09E003DB7FA /* application.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2728DC842349C09E003DB7FA /* application.hpp */; };
+		2728DCA32349D8C0003DB7FA /* tinyxml2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2728DCA12349D8C0003DB7FA /* tinyxml2.cpp */; };
+		2728DCA42349D8C0003DB7FA /* tinyxml2.h in Headers */ = {isa = PBXBuildFile; fileRef = 2728DCA22349D8C0003DB7FA /* tinyxml2.h */; };
+		2728DCA62349D8CC003DB7FA /* task.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2728DCA52349D8CC003DB7FA /* task.hpp */; };
+		2728DCA82349D8D3003DB7FA /* json.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2728DCA72349D8D3003DB7FA /* json.hpp */; };
+		2728DCAA2349D8DA003DB7FA /* cpplinq.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2728DCA92349D8DA003DB7FA /* cpplinq.hpp */; };
+		2728DCAE2349DEE1003DB7FA /* renderer.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2728DCAC2349DEE1003DB7FA /* renderer.hpp */; };
+		2728DCAF2349DEE1003DB7FA /* renderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2728DCAD2349DEE1003DB7FA /* renderer.cpp */; };
+		2728DCB42349DF4D003DB7FA /* GLUT.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2728DCB12349DF4C003DB7FA /* GLUT.framework */; };
+		2728DCB52349DF4D003DB7FA /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2728DCB22349DF4C003DB7FA /* GLKit.framework */; };
+		2728DCB62349DF4D003DB7FA /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2728DCB32349DF4C003DB7FA /* OpenGL.framework */; };
 		27A45481233CF9E900A64A41 /* platform.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 27A4547F233CF9E900A64A41 /* platform.hpp */; };
 		27A45482233CF9E900A64A41 /* platform.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 27A45480233CF9E900A64A41 /* platform.cpp */; };
 		27C83AA3233CF00A00FF791B /* component.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 27C83A9B233CF00A00FF791B /* component.hpp */; };
@@ -22,7 +38,24 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		27A4547A233CF75500A64A41 /* liblibdotth.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = liblibdotth.a; path = /Users/jwkim/Desktop/dotth/build/apple/libdotth/build/Debug/liblibdotth.a; sourceTree = "<absolute>"; };
+		2728DC762349A931003DB7FA /* liblibdotth.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = liblibdotth.a; path = /Users/jwkim/Desktop/dotth/build/apple/libdotth/build/Debug/liblibdotth.a; sourceTree = "<absolute>"; };
+		2728DC7B2349AD81003DB7FA /* utility.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = utility.cpp; path = ../../../core/base/utility.cpp; sourceTree = "<group>"; };
+		2728DC7C2349AD81003DB7FA /* utility.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = utility.hpp; path = ../../../core/base/utility.hpp; sourceTree = "<group>"; };
+		2728DC7F2349B40F003DB7FA /* object.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = object.cpp; path = ../../../core/base/object.cpp; sourceTree = "<group>"; };
+		2728DC802349B40F003DB7FA /* object.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = object.hpp; path = ../../../core/base/object.hpp; sourceTree = "<group>"; };
+		2728DC832349C09E003DB7FA /* application.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = application.cpp; path = ../../../core/platform/application.cpp; sourceTree = "<group>"; };
+		2728DC842349C09E003DB7FA /* application.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = application.hpp; path = ../../../core/platform/application.hpp; sourceTree = "<group>"; };
+		2728DCA12349D8C0003DB7FA /* tinyxml2.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = tinyxml2.cpp; path = ../../../core/external/xml/tinyxml2.cpp; sourceTree = "<group>"; };
+		2728DCA22349D8C0003DB7FA /* tinyxml2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = tinyxml2.h; path = ../../../core/external/xml/tinyxml2.h; sourceTree = "<group>"; };
+		2728DCA52349D8CC003DB7FA /* task.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = task.hpp; path = ../../../core/external/task/task.hpp; sourceTree = "<group>"; };
+		2728DCA72349D8D3003DB7FA /* json.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = json.hpp; path = ../../../core/external/json/json.hpp; sourceTree = "<group>"; };
+		2728DCA92349D8DA003DB7FA /* cpplinq.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = cpplinq.hpp; path = ../../../core/external/cpplinq/cpplinq.hpp; sourceTree = "<group>"; };
+		2728DCAC2349DEE1003DB7FA /* renderer.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = renderer.hpp; path = ../../../core/renderer/renderer.hpp; sourceTree = "<group>"; };
+		2728DCAD2349DEE1003DB7FA /* renderer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = renderer.cpp; path = ../../../core/renderer/renderer.cpp; sourceTree = "<group>"; };
+		2728DCB12349DF4C003DB7FA /* GLUT.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLUT.framework; path = System/Library/Frameworks/GLUT.framework; sourceTree = SDKROOT; };
+		2728DCB22349DF4C003DB7FA /* GLKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLKit.framework; path = System/Library/Frameworks/GLKit.framework; sourceTree = SDKROOT; };
+		2728DCB32349DF4C003DB7FA /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
+		2728DCBE2349E51D003DB7FA /* libdotth.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; path = libdotth.xcodeproj; sourceTree = "<group>"; };
 		27A4547F233CF9E900A64A41 /* platform.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = platform.hpp; path = ../../../core/platform/platform.hpp; sourceTree = "<group>"; };
 		27A45480233CF9E900A64A41 /* platform.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = platform.cpp; path = ../../../core/platform/platform.cpp; sourceTree = "<group>"; };
 		27C83A9B233CF00A00FF791B /* component.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = component.hpp; path = ../../../core/base/component.hpp; sourceTree = "<group>"; };
@@ -42,15 +75,89 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2728DCB42349DF4D003DB7FA /* GLUT.framework in Frameworks */,
+				2728DCB52349DF4D003DB7FA /* GLKit.framework in Frameworks */,
+				2728DCB62349DF4D003DB7FA /* OpenGL.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2728DC882349C0B9003DB7FA /* renderer */ = {
+			isa = PBXGroup;
+			children = (
+				2728DCAD2349DEE1003DB7FA /* renderer.cpp */,
+				2728DCAC2349DEE1003DB7FA /* renderer.hpp */,
+			);
+			name = renderer;
+			sourceTree = "<group>";
+		};
+		2728DC8D2349C353003DB7FA /* external */ = {
+			isa = PBXGroup;
+			children = (
+				2728DCA02349D8A1003DB7FA /* cpplinq */,
+				2728DC9F2349D89E003DB7FA /* json */,
+				2728DC9E2349D89B003DB7FA /* task */,
+				2728DC9D2349D898003DB7FA /* xml */,
+			);
+			name = external;
+			sourceTree = "<group>";
+		};
+		2728DC9D2349D898003DB7FA /* xml */ = {
+			isa = PBXGroup;
+			children = (
+				2728DCA12349D8C0003DB7FA /* tinyxml2.cpp */,
+				2728DCA22349D8C0003DB7FA /* tinyxml2.h */,
+			);
+			name = xml;
+			sourceTree = "<group>";
+		};
+		2728DC9E2349D89B003DB7FA /* task */ = {
+			isa = PBXGroup;
+			children = (
+				2728DCA52349D8CC003DB7FA /* task.hpp */,
+			);
+			name = task;
+			sourceTree = "<group>";
+		};
+		2728DC9F2349D89E003DB7FA /* json */ = {
+			isa = PBXGroup;
+			children = (
+				2728DCA72349D8D3003DB7FA /* json.hpp */,
+			);
+			name = json;
+			sourceTree = "<group>";
+		};
+		2728DCA02349D8A1003DB7FA /* cpplinq */ = {
+			isa = PBXGroup;
+			children = (
+				2728DCA92349D8DA003DB7FA /* cpplinq.hpp */,
+			);
+			name = cpplinq;
+			sourceTree = "<group>";
+		};
+		2728DCB02349DF4C003DB7FA /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				2728DCBE2349E51D003DB7FA /* libdotth.xcodeproj */,
+				2728DCB22349DF4C003DB7FA /* GLKit.framework */,
+				2728DCB12349DF4C003DB7FA /* GLUT.framework */,
+				2728DCB32349DF4C003DB7FA /* OpenGL.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		2728DCBF2349E51D003DB7FA /* Products */ = {
+			isa = PBXGroup;
+			name = Products;
+			sourceTree = "<group>";
+		};
 		27A4547E233CF9B200A64A41 /* platform */ = {
 			isa = PBXGroup;
 			children = (
+				2728DC832349C09E003DB7FA /* application.cpp */,
+				2728DC842349C09E003DB7FA /* application.hpp */,
 				27A45480233CF9E900A64A41 /* platform.cpp */,
 				27A4547F233CF9E900A64A41 /* platform.hpp */,
 			);
@@ -62,8 +169,11 @@
 			children = (
 				27C83AAB233CF01E00FF791B /* dotth.cpp */,
 				27C83AAC233CF01E00FF791B /* dotth.hpp */,
-				27C83A99233CEFE800FF791B /* base */,
 				27A4547E233CF9B200A64A41 /* platform */,
+				27C83A99233CEFE800FF791B /* base */,
+				2728DC882349C0B9003DB7FA /* renderer */,
+				2728DC8D2349C353003DB7FA /* external */,
+				2728DCB02349DF4C003DB7FA /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -72,8 +182,12 @@
 			children = (
 				27C83AA2233CF00A00FF791B /* base.cpp */,
 				27C83AA1233CF00A00FF791B /* base.hpp */,
+				2728DC7B2349AD81003DB7FA /* utility.cpp */,
+				2728DC7C2349AD81003DB7FA /* utility.hpp */,
 				27C83A9F233CF00A00FF791B /* component.cpp */,
 				27C83A9B233CF00A00FF791B /* component.hpp */,
+				2728DC7F2349B40F003DB7FA /* object.cpp */,
+				2728DC802349B40F003DB7FA /* object.hpp */,
 				27C83A9C233CF00A00FF791B /* node.cpp */,
 				27C83A9E233CF00A00FF791B /* node.hpp */,
 				27C83A9D233CF00A00FF791B /* scene.cpp */,
@@ -90,11 +204,19 @@
 			buildActionMask = 2147483647;
 			files = (
 				27C83AA6233CF00A00FF791B /* node.hpp in Headers */,
+				2728DCA42349D8C0003DB7FA /* tinyxml2.h in Headers */,
 				27C83AA9233CF00A00FF791B /* base.hpp in Headers */,
+				2728DCAE2349DEE1003DB7FA /* renderer.hpp in Headers */,
 				27C83AAE233CF01E00FF791B /* dotth.hpp in Headers */,
 				27C83AA8233CF00A00FF791B /* scene.hpp in Headers */,
 				27C83AA3233CF00A00FF791B /* component.hpp in Headers */,
+				2728DCAA2349D8DA003DB7FA /* cpplinq.hpp in Headers */,
+				2728DC862349C09E003DB7FA /* application.hpp in Headers */,
+				2728DC7E2349AD81003DB7FA /* utility.hpp in Headers */,
+				2728DCA62349D8CC003DB7FA /* task.hpp in Headers */,
 				27A45481233CF9E900A64A41 /* platform.hpp in Headers */,
+				2728DC822349B40F003DB7FA /* object.hpp in Headers */,
+				2728DCA82349D8D3003DB7FA /* json.hpp in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -115,7 +237,7 @@
 			);
 			name = libdotth;
 			productName = libdotth;
-			productReference = 27A4547A233CF75500A64A41 /* liblibdotth.a */;
+			productReference = 2728DC762349A931003DB7FA /* liblibdotth.a */;
 			productType = "com.apple.product-type.library.static";
 		};
 /* End PBXNativeTarget section */
@@ -142,6 +264,12 @@
 			mainGroup = 27C83A6E233CE1E900FF791B;
 			productRefGroup = 27C83A6E233CE1E900FF791B;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 2728DCBF2349E51D003DB7FA /* Products */;
+					ProjectRef = 2728DCBE2349E51D003DB7FA /* libdotth.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				27C83A76233CE1E900FF791B /* libdotth */,
@@ -156,7 +284,12 @@
 			files = (
 				27C83AAA233CF00A00FF791B /* base.cpp in Sources */,
 				27C83AA5233CF00A00FF791B /* scene.cpp in Sources */,
+				2728DCA32349D8C0003DB7FA /* tinyxml2.cpp in Sources */,
+				2728DCAF2349DEE1003DB7FA /* renderer.cpp in Sources */,
+				2728DC812349B40F003DB7FA /* object.cpp in Sources */,
 				27C83AAD233CF01E00FF791B /* dotth.cpp in Sources */,
+				2728DC7D2349AD81003DB7FA /* utility.cpp in Sources */,
+				2728DC852349C09E003DB7FA /* application.cpp in Sources */,
 				27C83AA4233CF00A00FF791B /* node.cpp in Sources */,
 				27A45482233CF9E900A64A41 /* platform.cpp in Sources */,
 				27C83AA7233CF00A00FF791B /* component.cpp in Sources */,
