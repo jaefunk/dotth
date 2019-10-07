@@ -24,9 +24,6 @@ SOFTWARE.
 #ifndef __DOTTH_RENDERER_HPP__
 #define __DOTTH_RENDERER_HPP__
 
-#define GL_SILENCE_DEPRECATION
-#include <GLUT/glut.h>
-
 #include "base/utility.hpp"
 
 namespace dotth {

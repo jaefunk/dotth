@@ -39,35 +39,14 @@ namespace dotth {
         object(std::string name) : _name(name) { };
         
     public:
-        void set_timescale(const float & scale) {
-            _timescale = scale;
-        }
-        
-        const float& local_timescale(void) {
-            return _timescale;
-        }
-        
-        const float world_timescale(void) {
-            if (is_root())
-                return _timescale;
-            return _timescale * parent()->world_timescale();
-        }
+		void set_timescale(const float & scale);
+		const float& local_timescale(void);
+		const float world_timescale(void);
         
     public:
-        virtual bool init(void) {
-            return true;
-        }
-        virtual void update(void) final
-        {
-            float delta = utility::timer::instance()->delta() * world_timescale();
-            update(delta);
-            foreach<object>([delta](std::shared_ptr<object> obj) { obj->update(); });
-        }
-        virtual void draw(void) final
-        {
-            draw(0);
-            foreach<object>([](std::shared_ptr<object> obj) { obj->draw(); });
-        }
+		virtual bool init(void);
+		virtual void update(void) final;
+		virtual void draw(void) final;
         
     protected:
         virtual void update(float delta) {};

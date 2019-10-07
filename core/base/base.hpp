@@ -26,8 +26,7 @@ SOFTWARE.
 
 #include <string>
 #include <ctime>
-
-#include "utility.hpp"
+#include <atomic>
 
 namespace dotth {
     class base
@@ -36,17 +35,9 @@ namespace dotth {
         int _serial;
         std::time_t _birth;
     public:
-        base(void) {
-            static std::atomic<int> s;
-            _serial = s.fetch_add(1);
-            _birth = dotth::utility::timer::instance()->time_since_epoch();
-        }
-        const int& serial(void) {
-            return _serial;
-        }
-        const std::time_t& birth(void) {
-            return _birth;
-        }
+		base(void);
+		const int& serial(void);
+		const std::time_t& birth(void);
     };
 };
 

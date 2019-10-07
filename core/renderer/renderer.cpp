@@ -23,6 +23,14 @@ SOFTWARE.
 
 #include "renderer.hpp"
 
+#define GL_SILENCE_DEPRECATION
+
+#ifndef WIN32
+#include <gl\GLU.h>
+#else
+#include "external\opengl\win\glut.h"
+#endif
+
 void dotth::display(void) {
     glClear(GL_COLOR_BUFFER_BIT);
     glColor3f(0.3, 0.3, 0.7);

@@ -6,6 +6,9 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libdotth", "libdotth\libdotth.vcxproj", "{BFC6D0D4-CC4A-4A97-8669-3BB70461C957}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "testdotth", "testdotth\testdotth.vcxproj", "{776632C4-77BE-4C5F-B6F2-14EF8D0DB197}"
+	ProjectSection(ProjectDependencies) = postProject
+		{BFC6D0D4-CC4A-4A97-8669-3BB70461C957} = {BFC6D0D4-CC4A-4A97-8669-3BB70461C957}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

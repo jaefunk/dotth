@@ -21,4 +21,11 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE  OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-#include "node.hpp"
+#ifndef __DOTTH_PATH_HPP__
+#define __DOTTH_PATH_HPP__
+
+namespace dotth {
+    
+};
+
+#endif // __DOTTH_PATH_HPP__

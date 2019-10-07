@@ -28,12 +28,18 @@ SOFTWARE.
 #include <ctime>
 #include <chrono>
 #include <mutex>
+
+#ifndef WIN32
 #include <unistd.h>
+#else
+#include <Windows.h>
+#endif
 
 constexpr long long time_scale_millisecond = 1000;
 
 namespace dotth {
     namespace utility {
+		void sleep(int millisec);
         template<typename ty>
         class singleton {
         public:
@@ -52,10 +58,11 @@ namespace dotth {
         public:
             timer(void) { update(); }
             void update(void) {
-                usleep(1000);
+				sleep(1);
                 _now = time_since_epoch();
                 _delta = _now - _prev;
                 _prev = _now;
+				printf("%llu", _delta);
             }
             const float delta(void) {
                 return static_cast<float>(_delta) / static_cast<float>(time_scale_millisecond);

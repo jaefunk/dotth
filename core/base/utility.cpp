@@ -22,3 +22,11 @@ SOFTWARE.
 */
 
 #include "base/utility.hpp"
+
+void dotth::utility::sleep(int millisec) {
+#ifndef WIN32
+	usleep(millisec * 1000);
+#else
+	Sleep(millisec);
+#endif
+}

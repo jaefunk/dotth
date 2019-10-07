@@ -25,24 +25,12 @@ SOFTWARE.
 #define __DOTTH_APPLICATION_HPP__
 
 #include "base/utility.hpp"
-#include "base/scene.hpp"
-#include "renderer/renderer.hpp"
+
 namespace dotth {
     class application : public utility::singleton<application> {
     public:
-        void init(int argc, char ** argv) {
-            renderer::instance()->init_gl(argc, argv);
-        }
-        int process(void) {
-            // renderer init...
-            while (true) {
-                utility::timer::instance()->update();
-                scene_manager::instance()->update();
-                scene_manager::instance()->draw();
-                printf("\n");
-            }
-            return 0;
-        }
+		void init(int argc, char ** argv);
+		int process(void);
     };
 };
 

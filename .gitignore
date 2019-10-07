@@ -34,6 +34,9 @@
 *.opendb
 *.db
 
+build/microsoft/testdotth/Debug/
+build/microsoft/libdotth/Debug/
+
 # xcode
 build/apple/libdotth/Output/libdotth.build/
 build/apple/libdotth/Output/v5/

@@ -22,3 +22,21 @@ SOFTWARE.
 */
 
 #include "application.hpp"
+
+#include "base/scene.hpp"
+#include "renderer/renderer.hpp"
+
+void dotth::application::init(int argc, char ** argv) {
+	renderer::instance()->init_gl(argc, argv);
+}
+
+int dotth::application::process(void) {
+	// renderer init...
+	while (true) {
+		utility::timer::instance()->update();
+		scene_manager::instance()->update();
+		scene_manager::instance()->draw();
+		printf("\n");
+	}
+	return 0;
+}

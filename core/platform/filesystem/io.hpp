@@ -21,35 +21,42 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE  OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-#include "object.hpp"
+#ifndef __DOTTH_IO_HPP__
+#define __DOTTH_IO_HPP__
 
-void dotth::object::set_timescale(const float & scale) {
-	_timescale = scale;
-}
+#include <iostream>
+#include <fstream>
+#include <string>
+#include <vector>
 
-const float & dotth::object::local_timescale(void) {
-	return _timescale;
-}
+namespace dotth {
+	namespace io {
+		const std::string read_text(const std::string& path) {
+			FILE* hFile;
+			hFile = fopen(path.c_str(), "rt");
+			fseek(hFile, 0, SEEK_END);
+			auto size = ftell(hFile);
+			fseek(hFile, 0, SEEK_SET);
+			std::string strRet;
+			strRet.resize(size);
+			auto bSuccess = fread((void*)strRet.data(), 1, static_cast<int>(size), hFile);
+			fclose(hFile);
+			return strRet;
+		}
+		const std::string read_binary(const std::string& path) {
+			FILE* hFile;
+			hFile = fopen(path.c_str(), "rb");
+			fseek(hFile, 0, SEEK_END);
+			auto size = ftell(hFile);
+			fseek(hFile, 0, SEEK_SET);
+			
+			std::vector<char> ret;
+			ret.resize(size);
+			auto bSuccess = fread((void*)ret.data(), 1, static_cast<int>(size), hFile);
+			fclose(hFile);
+			return "";
+		}
+	}
+};
 
-const float dotth::object::world_timescale(void) {
-	if (is_root())
-		return _timescale;
-	return _timescale * parent()->world_timescale();
-}
-
-bool dotth::object::init(void) {
-	return true;
-}
-
-void dotth::object::update(void)
-{
-	float delta = utility::timer::instance()->delta() * world_timescale();
-	update(delta);
-	foreach<object>([delta](std::shared_ptr<object> obj) { obj->update(); });
-}
-
-void dotth::object::draw(void)
-{
-	draw(0);
-	foreach<object>([](std::shared_ptr<object> obj) { obj->draw(); });
-}
+#endif // __DOTTH_IO_HPP__

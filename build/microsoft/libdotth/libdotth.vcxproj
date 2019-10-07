@@ -18,6 +18,38 @@
       <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\core\base\base.cpp" />
+    <ClCompile Include="..\..\..\core\base\component.cpp" />
+    <ClCompile Include="..\..\..\core\base\object.cpp" />
+    <ClCompile Include="..\..\..\core\base\scene.cpp" />
+    <ClCompile Include="..\..\..\core\base\utility.cpp" />
+    <ClCompile Include="..\..\..\core\dotth.cpp" />
+    <ClCompile Include="..\..\..\core\external\xml\tinyxml2.cpp" />
+    <ClCompile Include="..\..\..\core\platform\application.cpp" />
+    <ClCompile Include="..\..\..\core\platform\filesystem\io.cpp" />
+    <ClCompile Include="..\..\..\core\platform\filesystem\path.cpp" />
+    <ClCompile Include="..\..\..\core\platform\platform.cpp" />
+    <ClCompile Include="..\..\..\core\renderer\renderer.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\core\base\base.hpp" />
+    <ClInclude Include="..\..\..\core\base\component.hpp" />
+    <ClInclude Include="..\..\..\core\base\node.hpp" />
+    <ClInclude Include="..\..\..\core\base\object.hpp" />
+    <ClInclude Include="..\..\..\core\base\scene.hpp" />
+    <ClInclude Include="..\..\..\core\base\utility.hpp" />
+    <ClInclude Include="..\..\..\core\dotth.hpp" />
+    <ClInclude Include="..\..\..\core\external\cpplinq\cpplinq.hpp" />
+    <ClInclude Include="..\..\..\core\external\json\json.hpp" />
+    <ClInclude Include="..\..\..\core\external\task\task.hpp" />
+    <ClInclude Include="..\..\..\core\external\xml\tinyxml2.h" />
+    <ClInclude Include="..\..\..\core\platform\application.hpp" />
+    <ClInclude Include="..\..\..\core\platform\filesystem\io.hpp" />
+    <ClInclude Include="..\..\..\core\platform\filesystem\path.hpp" />
+    <ClInclude Include="..\..\..\core\platform\platform.hpp" />
+    <ClInclude Include="..\..\..\core\renderer\renderer.hpp" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{BFC6D0D4-CC4A-4A97-8669-3BB70461C957}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
@@ -69,7 +101,12 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
-  <PropertyGroup />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <OutDir>$(Configuration)\</OutDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <OutDir>$(Configuration)\</OutDir>
+  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <PrecompiledHeader>
@@ -77,6 +114,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>../../../core</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -105,6 +143,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>../../../core</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
