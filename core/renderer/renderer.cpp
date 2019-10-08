@@ -31,14 +31,14 @@ SOFTWARE.
 #include "external\opengl\win\glut.h"
 #endif
 
-void dotth::display(void) {
+void dotth::gl_callback::display(void) {
     glClear(GL_COLOR_BUFFER_BIT);
     glColor3f(0.3, 0.3, 0.7);
     glutWireTeapot(1);
     glFlush();
 }
 
-void dotth::reshape(int width, int height) {
+void dotth::gl_callback::reshape(int width, int height) {
     glViewport(0, 0, width, height);
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
@@ -49,14 +49,32 @@ void dotth::reshape(int width, int height) {
     glutPostRedisplay();
 }
 
+void dotth::gl_callback::keyboard(unsigned char key, int x, int y) {
+	printf("%d, %d, %d\n", key, x, y);
+}
+
+void dotth::gl_callback::mouse(int button, int state, int x, int y) {
+	printf("%d, %d, %d, %d\n", button, state, x, y);
+}
+
+void dotth::gl_callback::timer(int value) {
+}
+
 void dotth::renderer::init_gl(int argc, char** argv) {
+	
     glutInit(&argc, argv);
     glutInitDisplayMode(GLUT_RGBA);
     glutInitWindowSize(1024, 512);
     glutInitWindowPosition(100, 100);
     glutCreateWindow("asdf");
     glClearColor(0, 0, 0, 0);
-    glutReshapeFunc(dotth::reshape);
-    glutDisplayFunc(dotth::display);
+    glutReshapeFunc(dotth::gl_callback::reshape);
+    glutDisplayFunc(dotth::gl_callback::display);
+	glutSetKeyRepeat(GLUT_KEY_REPEAT_OFF);
+
+	glutKeyboardFunc(dotth::gl_callback::keyboard);
+	glutKeyboardUpFunc(dotth::gl_callback::keyboard);
+	
+	//glutMouseFunc(dotth::gl_callback::mouse);
     glutMainLoop();
 }
