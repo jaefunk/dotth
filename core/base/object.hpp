@@ -26,10 +26,14 @@ SOFTWARE.
 
 #include "utility.hpp"
 #include "node.hpp"
-
+#include "external\xml\tinyxml2.h"
 namespace dotth {
     class object : public node<object>
     {
+	public:
+		void parse(const tinyxml2::XMLElement* pElement) {}
+		tinyxml2::XMLElement* dump(void) {}
+
     private:
         std::string _name;
         float _timescale = 1.f;
