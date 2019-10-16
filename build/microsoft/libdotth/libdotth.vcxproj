@@ -21,6 +21,7 @@
   <ItemGroup>
     <ClCompile Include="..\..\..\core\base\base.cpp" />
     <ClCompile Include="..\..\..\core\base\component.cpp" />
+    <ClCompile Include="..\..\..\core\base\drawable.cpp" />
     <ClCompile Include="..\..\..\core\base\object.cpp" />
     <ClCompile Include="..\..\..\core\base\scene.cpp" />
     <ClCompile Include="..\..\..\core\base\utility.cpp" />
@@ -35,6 +36,7 @@
   <ItemGroup>
     <ClInclude Include="..\..\..\core\base\base.hpp" />
     <ClInclude Include="..\..\..\core\base\component.hpp" />
+    <ClInclude Include="..\..\..\core\base\drawable.hpp" />
     <ClInclude Include="..\..\..\core\base\node.hpp" />
     <ClInclude Include="..\..\..\core\base\object.hpp" />
     <ClInclude Include="..\..\..\core\base\scene.hpp" />

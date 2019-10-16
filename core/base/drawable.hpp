@@ -21,36 +21,35 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE  OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-#ifndef __DOTTH_OBJECT_HPP__
-#define __DOTTH_OBJECT_HPP__
+#ifndef __DOTTH_DRAWABLE_HPP__
+#define __DOTTH_DRAWABLE_HPP__
 
-#include "utility.hpp"
-#include "node.hpp"
+#include <vector>
+
+#include "object.hpp"
+
 namespace dotth {
-    class object : public node<object>
-    {
-    private:
-        std::string _name;
-        float _timescale = 1.f;
-        
-    public:
-        object(void) = default;
-        object(std::string name) : _name(name) { };
-        
-    public:
-		void set_timescale(const float & scale);
-		const float& local_timescale(void);
-		const float world_timescale(void);
-        
-    public:
-		virtual bool init(void);
-		virtual void update(void) final;
-		virtual void draw(void) final;
-        
-    protected:
-        virtual void update(float delta) {};
-        virtual void draw(/*Renderer *renderer, const Mat4& transform, */int flags) {};
-    };
+	struct vector3 {
+		float x = 0.f;
+		float y = 0.f;
+		float z = 0.f;
+	};
+	struct color {
+		float r = 0.f;
+		float g = 0.f;
+		float b = 0.f;
+		float a = 0.f;
+	};
+	struct vertex {
+		vector3 pos;
+		color col;
+	};
+	class drawable : object
+	{
+	public:
+		std::vector<vertex> vertices;
+		virtual void draw(/*Renderer *renderer, const Mat4& transform, */int flags) {};
+	};
 };
 
-#endif // __DOTTH_OBJECT_HPP__
+#endif // __DOTTH_DRAWABLE_HPP__

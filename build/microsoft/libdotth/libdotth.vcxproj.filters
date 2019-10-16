@@ -35,6 +35,9 @@
     <ClCompile Include="..\..\..\core\platform\filesystem\path.cpp">
       <Filter>platform\filesystem</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\core\base\drawable.cpp">
+      <Filter>base</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\core\dotth.hpp" />
@@ -82,6 +85,9 @@
     </ClInclude>
     <ClInclude Include="..\..\..\core\platform\filesystem\path.hpp">
       <Filter>platform\filesystem</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\core\base\drawable.hpp">
+      <Filter>base</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -21,36 +21,4 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE  OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-#ifndef __DOTTH_OBJECT_HPP__
-#define __DOTTH_OBJECT_HPP__
-
-#include "utility.hpp"
-#include "node.hpp"
-namespace dotth {
-    class object : public node<object>
-    {
-    private:
-        std::string _name;
-        float _timescale = 1.f;
-        
-    public:
-        object(void) = default;
-        object(std::string name) : _name(name) { };
-        
-    public:
-		void set_timescale(const float & scale);
-		const float& local_timescale(void);
-		const float world_timescale(void);
-        
-    public:
-		virtual bool init(void);
-		virtual void update(void) final;
-		virtual void draw(void) final;
-        
-    protected:
-        virtual void update(float delta) {};
-        virtual void draw(/*Renderer *renderer, const Mat4& transform, */int flags) {};
-    };
-};
-
-#endif // __DOTTH_OBJECT_HPP__
+#include "drawable.hpp"
