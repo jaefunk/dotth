@@ -31,11 +31,24 @@ SOFTWARE.
 #include "external\opengl\win\glut.h"
 #endif
 
+float dotth::gl_callback::_x = 0.f;
+float dotth::gl_callback::_y = 0.f;
 void dotth::gl_callback::display(void) {
-    glClear(GL_COLOR_BUFFER_BIT);
-    glColor3f(0.3, 0.3, 0.7);
-    glutWireTeapot(1);
-    glFlush();
+	// clear the draw buffer .
+	glClear(GL_COLOR_BUFFER_BIT);
+	glBegin(GL_POLYGON); 
+	{
+		glColor3f(0.5, 0.0f, 0.0);
+		glVertex3f(_x + 0.0, _y + 0.5, 0.0);
+		glColor3f(0.0, 0.5, 0.0);
+		glVertex3f(_x + -0.5, _y + 0.0, 0.0);
+		glColor3f(0.0, 0.0, 0.5);
+		glVertex3f(_x + 0.5, _y + 0.0, 0.0);
+	} 
+	glEnd();
+
+	// flush the drawing to screen . 
+	glFlush();
 }
 
 void dotth::gl_callback::reshape(int width, int height) {
@@ -45,12 +58,21 @@ void dotth::gl_callback::reshape(int width, int height) {
     gluPerspective(30, static_cast<double>(width)/static_cast<double>(height), 1.0, 50.0);
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
-    gluLookAt(5.0, 5.0, 5.0, 0, 0.0, 0.0, 0.0, 1.0, 0.0);
+    gluLookAt(0.0, 0.0, 5.0, 0, 0.0, 0.0, 0.0, 1.0, 0.0);
     glutPostRedisplay();
 }
 
 void dotth::gl_callback::keyboard(unsigned char key, int x, int y) {
 	printf("%d, %d, %d\n", key, x, y);
+	if (key == 100)
+		_x += 0.01f;
+	if (key == 97)
+		_x -= 0.01f;
+
+	if (key == 119)
+		_y += 0.01f;
+	if (key == 115)
+		_y -= 0.01f;
 }
 
 void dotth::gl_callback::mouse(int button, int state, int x, int y) {
@@ -58,6 +80,8 @@ void dotth::gl_callback::mouse(int button, int state, int x, int y) {
 }
 
 void dotth::gl_callback::timer(int value) {
+	glutPostRedisplay();
+	glutTimerFunc(15, dotth::gl_callback::timer, 0);
 }
 
 void dotth::renderer::init_gl(int argc, char** argv) {
@@ -71,7 +95,7 @@ void dotth::renderer::init_gl(int argc, char** argv) {
     glutReshapeFunc(dotth::gl_callback::reshape);
     glutDisplayFunc(dotth::gl_callback::display);
 	glutSetKeyRepeat(GLUT_KEY_REPEAT_OFF);
-
+	glutTimerFunc(15, dotth::gl_callback::timer, 0);
 	glutKeyboardFunc(dotth::gl_callback::keyboard);
 	glutKeyboardUpFunc(dotth::gl_callback::keyboard);
 	

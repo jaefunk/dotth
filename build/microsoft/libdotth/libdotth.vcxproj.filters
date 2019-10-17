@@ -89,6 +89,18 @@
     <ClInclude Include="..\..\..\core\base\drawable.hpp">
       <Filter>base</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\core\math\math.hpp">
+      <Filter>math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\core\math\matrix.hpp">
+      <Filter>math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\core\math\transform.hpp">
+      <Filter>math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\core\math\vector.hpp">
+      <Filter>math</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="base">
@@ -117,6 +129,9 @@
     </Filter>
     <Filter Include="platform\filesystem">
       <UniqueIdentifier>{b212e6bd-416d-4399-8149-7fefbffdc49a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="math">
+      <UniqueIdentifier>{cf7386ec-26d7-4a20-ae77-126cec822dd3}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

@@ -21,28 +21,16 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE  OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-#ifndef __DOTTH_DRAWABLE_HPP__
-#define __DOTTH_DRAWABLE_HPP__
+#ifndef __DOTTH_MATH_HPP__
+#define __DOTTH_MATH_HPP__
 
-#include "object.hpp"
+#include <cmath>
 
-namespace dotth {
+#define MATH_DEG_TO_RAD(x)          ((x) * 0.0174532925f)
+#define MATH_RAD_TO_DEG(x)          ((x)* 57.29577951f)
+#define MATH_FLOAT_SMALL            1.0e-37f
+#define MATH_TOLERANCE              2e-37f
+#define MATH_PIOVER2                1.57079632679489661923f
+#define MATH_EPSILON                0.000001f
 
-	class drawable : object
-	{
-	};
-
-	class primitive : drawable
-	{
-	public:
-		virtual void draw(/*Renderer *renderer, const Mat4& transform, */int flags) {};
-	};
-
-	class image : drawable
-	{
-	public:
-		virtual void draw(/*Renderer *renderer, const Mat4& transform, */int flags) {};
-	};
-};
-
-#endif // __DOTTH_DRAWABLE_HPP__
+#endif // __DOTTH_MATH_HPP__

@@ -2,6 +2,7 @@
 
 #include "platform/application.hpp"
 #include "testscene.hpp"
+#include "base\drawable.hpp"
 
 int main(int argc, char * argv[]) {
 	dotth::scene_manager::instance()->assign_scene<testscene>("testscene");

@@ -29,6 +29,8 @@ SOFTWARE.
 namespace dotth {
 	class gl_callback {
 		friend class renderer;
+		static float _x;
+		static float _y;
 		static void display(void);
 		static void reshape(int width, int height);
 		static void keyboard(unsigned char key, int x, int y);

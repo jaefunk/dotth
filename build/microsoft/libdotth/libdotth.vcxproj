@@ -46,6 +46,10 @@
     <ClInclude Include="..\..\..\core\external\json\json.hpp" />
     <ClInclude Include="..\..\..\core\external\task\task.hpp" />
     <ClInclude Include="..\..\..\core\external\xml\tinyxml2.h" />
+    <ClInclude Include="..\..\..\core\math\math.hpp" />
+    <ClInclude Include="..\..\..\core\math\matrix.hpp" />
+    <ClInclude Include="..\..\..\core\math\transform.hpp" />
+    <ClInclude Include="..\..\..\core\math\vector.hpp" />
     <ClInclude Include="..\..\..\core\platform\application.hpp" />
     <ClInclude Include="..\..\..\core\platform\filesystem\io.hpp" />
     <ClInclude Include="..\..\..\core\platform\filesystem\path.hpp" />
