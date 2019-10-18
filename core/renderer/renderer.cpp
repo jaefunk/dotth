@@ -26,29 +26,34 @@ SOFTWARE.
 #define GL_SILENCE_DEPRECATION
 
 #ifndef WIN32
-#include <gl\GLU.h>
+#include <GLUT/GLUT.h>
 #else
 #include "external\opengl\win\glut.h"
 #endif
 
-float dotth::gl_callback::_x = 0.f;
-float dotth::gl_callback::_y = 0.f;
+#include "scene.hpp"
+
 void dotth::gl_callback::display(void) {
+    printf("display\n");
+    utility::timer::instance()->update();
+    scene_manager::instance()->update();
+    scene_manager::instance()->draw();
 	// clear the draw buffer .
 	glClear(GL_COLOR_BUFFER_BIT);
-	glBegin(GL_POLYGON); 
+	glBegin(GL_TRIANGLES);
 	{
-		glColor3f(0.5, 0.0f, 0.0);
-		glVertex3f(_x + 0.0, _y + 0.5, 0.0);
-		glColor3f(0.0, 0.5, 0.0);
-		glVertex3f(_x + -0.5, _y + 0.0, 0.0);
-		glColor3f(0.0, 0.0, 0.5);
-		glVertex3f(_x + 0.5, _y + 0.0, 0.0);
+        glColor3f(0.5, 0.0f, 0.0);
+        glVertex3f(0.0, 0.5, 0.0);
+        glColor3f(0.0, 0.5, 0.0);
+        glVertex3f(-0.5, 0.0, 0.0);
+        glColor3f(0.0, 0.0, 0.5);
+        glVertex3f(0.5, 0.0, 0.0);
 	} 
 	glEnd();
 
-	// flush the drawing to screen . 
-	glFlush();
+	// flush the drawing to screen .
+    glutSwapBuffers();
+    glutPostRedisplay();
 }
 
 void dotth::gl_callback::reshape(int width, int height) {
@@ -62,43 +67,16 @@ void dotth::gl_callback::reshape(int width, int height) {
     glutPostRedisplay();
 }
 
-void dotth::gl_callback::keyboard(unsigned char key, int x, int y) {
-	printf("%d, %d, %d\n", key, x, y);
-	if (key == 100)
-		_x += 0.01f;
-	if (key == 97)
-		_x -= 0.01f;
-
-	if (key == 119)
-		_y += 0.01f;
-	if (key == 115)
-		_y -= 0.01f;
-}
-
-void dotth::gl_callback::mouse(int button, int state, int x, int y) {
-	printf("%d, %d, %d, %d\n", button, state, x, y);
-}
-
-void dotth::gl_callback::timer(int value) {
-	glutPostRedisplay();
-	glutTimerFunc(15, dotth::gl_callback::timer, 0);
-}
-
 void dotth::renderer::init_gl(int argc, char** argv) {
 	
     glutInit(&argc, argv);
-    glutInitDisplayMode(GLUT_RGBA);
+    glutInitDisplayMode(GLUT_RGBA | GLUT_DOUBLE);
     glutInitWindowSize(1024, 512);
     glutInitWindowPosition(100, 100);
     glutCreateWindow("asdf");
     glClearColor(0, 0, 0, 0);
     glutReshapeFunc(dotth::gl_callback::reshape);
     glutDisplayFunc(dotth::gl_callback::display);
-	glutSetKeyRepeat(GLUT_KEY_REPEAT_OFF);
-	glutTimerFunc(15, dotth::gl_callback::timer, 0);
-	glutKeyboardFunc(dotth::gl_callback::keyboard);
-	glutKeyboardUpFunc(dotth::gl_callback::keyboard);
-	
-	//glutMouseFunc(dotth::gl_callback::mouse);
+//    glutTimerFunc(15, dotth::gl_callback::timer, 0);
     glutMainLoop();
 }

@@ -44,7 +44,9 @@ namespace dotth {
         class singleton {
         public:
             static const std::shared_ptr<ty>& instance() {
-                std::call_once(_flag, []() { _instance = std::make_shared<ty>(); });
+                std::call_once(_flag, []() {
+                    _instance = std::make_shared<ty>();
+                });
                 return _instance;
             }
         private:
@@ -62,7 +64,6 @@ namespace dotth {
                 _now = time_since_epoch();
                 _delta = _now - _prev;
                 _prev = _now;
-				printf("%llu", _delta);
             }
             const float delta(void) {
                 return static_cast<float>(_delta) / static_cast<float>(time_scale_millisecond);

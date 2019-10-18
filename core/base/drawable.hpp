@@ -27,21 +27,24 @@ SOFTWARE.
 #include "object.hpp"
 
 namespace dotth {
-
-	class drawable : object
+	class drawable : public object
 	{
+        
 	};
 
-	class primitive : drawable
+	class ortho : public drawable
 	{
-	public:
-		virtual void draw(/*Renderer *renderer, const Mat4& transform, */int flags) {};
+		
 	};
+    
+    class rectangle : public ortho
+    {
+        
+    };
 
-	class image : drawable
+	class image : public ortho
 	{
-	public:
-		virtual void draw(/*Renderer *renderer, const Mat4& transform, */int flags) {};
+
 	};
 };
 

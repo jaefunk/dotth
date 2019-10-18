@@ -27,18 +27,12 @@ SOFTWARE.
 #include "base/utility.hpp"
 
 namespace dotth {
-	class gl_callback {
-		friend class renderer;
-		static float _x;
-		static float _y;
-		static void display(void);
-		static void reshape(int width, int height);
-		static void keyboard(unsigned char key, int x, int y);
-		static void mouse(int button, int state, int x, int y);
-		static void timer(int value);
+	namespace gl_callback {
+        void timer(int value);
+        void display(void);
+        void reshape(int width, int height);
 	};
     class renderer : public utility::singleton<renderer> {
-		friend class gl_callback;
     public:
         void init_gl(int argc, char** argv);
     };

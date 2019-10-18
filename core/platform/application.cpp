@@ -33,9 +33,7 @@ void dotth::application::init(int argc, char ** argv) {
 int dotth::application::process(void) {
 	// renderer init...
 	while (true) {
-		utility::timer::instance()->update();
-		scene_manager::instance()->update();
-		scene_manager::instance()->draw();
+		
 		printf("\n");
 	}
 	return 0;
