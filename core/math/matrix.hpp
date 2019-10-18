@@ -38,7 +38,7 @@ namespace dotth {
 		}
 		matrix4(const float* mat) { set(mat); }
 		matrix4(const matrix4& copy) { memcpy_s(m, matrix_size, copy.m, matrix_size); }
-		static void createLookAt(const Vec3& eyePosition, const Vec3& targetPosition, const Vec3& up, matrix4* dst);
+		static void createLookAt(const vector4& eyePosition, const Vec3& targetPosition, const Vec3& up, matrix4* dst);
 
 		/**
 		* Creates a view matrix4 based on the specified input parameters.
@@ -58,20 +58,20 @@ namespace dotth {
 			float targetCenterX, float targetCenterY, float targetCenterZ,
 			float upX, float upY, float upZ, matrix4* dst) {
 			vector4 eye(eyePositionX, eyePositionY, eyePositionZ);
-			vector4 target(targetPositionX, targetPositionY, targetPositionZ);
+			vector4 target(targetCenterX, targetCenterY, targetCenterZ);
 			vector4 up(upX, upY, upZ);
 			up.normalize();
 
 			vector4 zaxis;
-			Vec3::subtract(eye, target, &zaxis);
+			vector4::subtract(eye, target, &zaxis);
 			zaxis.normalize();
 
 			vector4 xaxis;
-			Vec3::cross(up, zaxis, &xaxis);
+			vector4::cross(up, zaxis, &xaxis);
 			xaxis.normalize();
 
 			vector4 yaxis;
-			Vec3::cross(zaxis, xaxis, &yaxis);
+			vector4::cross(zaxis, xaxis, &yaxis);
 			yaxis.normalize();
 
 			dst->m[0] = xaxis.x;
@@ -95,20 +95,6 @@ namespace dotth {
 			dst->m[15] = 1.0f;
 		}
 
-		/**
-		* Builds a perspective projection matrix4 based on a field of view and returns by value.
-		*
-		* Projection space refers to the space after applying projection transformation from view space.
-		* After the projection transformation, visible content has x- and y-coordinates ranging from -1 to 1,
-		* and a z-coordinate ranging from 0 to 1. To obtain the viewable area (in world space) of a scene,
-		* create a BoundingFrustum and pass the combined view and projection matrix4 to the constructor.
-		*
-		* @param fieldOfView The field of view in the y direction (in degrees).
-		* @param aspectRatio The aspect ratio, defined as view space width divided by height.
-		* @param zNearPlane The distance to the near view plane.
-		* @param zFarPlane The distance to the far view plane.
-		* @param dst A matrix4 to store the result in.
-		*/
 		static void createPerspective(float fieldOfView, float aspectRatio, float zNearPlane, float zFarPlane, matrix4* dst)
 		{
 			GP_ASSERT(dst);

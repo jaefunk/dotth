@@ -35,32 +35,15 @@ namespace dotth {
 		vector4(const vector4&& v) : x(v.x), y(v.y), z(v.z), w(v.w) {};
 		static void clamp(const vector4& v, const vector4& min, const vector4& max, vector4* dst)
 		{
-			dst->x = v.x;
-			if (dst->x < min.x)
-				dst->x = min.x;
-			if (dst->x > max.x)
-				dst->x = max.x;
-
-			// Clamp the y value.
-			dst->y = v.y;
-			if (dst->y < min.y)
-				dst->y = min.y;
-			if (dst->y > max.y)
-				dst->y = max.y;
-
-			// Clamp the z value.
-			dst->z = v.z;
-			if (dst->z < min.z)
-				dst->z = min.z;
-			if (dst->z > max.z)
-				dst->z = max.z;
-
-			// Clamp the w value.
-			dst->w = v.w;
-			if (dst->w < min.w)
-				dst->w = min.w;
-			if (dst->w > max.w)
-				dst->w = max.w;
+			dst->x = v.x; dst->y = v.y; dst->z = v.z; dst->w = v.w;
+			if (dst->x < min.x) dst->x = min.x;
+			if (dst->x > max.x) dst->x = max.x;
+			if (dst->y < min.y) dst->y = min.y;
+			if (dst->y > max.y) dst->y = max.y;
+			if (dst->z < min.z) dst->z = min.z;
+			if (dst->z > max.z) dst->z = max.z;
+			if (dst->w < min.w) dst->w = min.w;
+			if (dst->w > max.w) dst->w = max.w;
 		}
 		static void add(const vector4& v1, const vector4& v2, vector4* dst)
 		{
@@ -78,7 +61,6 @@ namespace dotth {
 			float dx = v1.w * v2.x - v1.x * v2.w - v1.y * v2.z + v1.z * v2.y;
 			float dy = v1.w * v2.y - v1.y * v2.w - v1.z * v2.x + v1.x * v2.z;
 			float dz = v1.w * v2.z - v1.z * v2.w - v1.x * v2.y + v1.y * v2.x;
-
 			return std::atan2(std::sqrt(dx * dx + dy * dy + dz * dz), dot(v1, v2));
 		}
 		static void subtract(const vector4& v1, const vector4& v2, vector4* dst)
