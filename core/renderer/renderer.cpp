@@ -34,7 +34,6 @@ SOFTWARE.
 #include "scene.hpp"
 
 void dotth::gl_callback::display(void) {
-    printf("display\n");
     utility::timer::instance()->update();
     scene_manager::instance()->update();
     scene_manager::instance()->draw();

@@ -28,8 +28,7 @@ SOFTWARE.
 
 namespace dotth {
 	class component : public base {
-		component(void);;
-		//component(st)
+		component(void);
 	};
 };
 
