@@ -34,36 +34,54 @@ namespace dotth {
         void display(void);
         void reshape(int width, int height);
 	};
-    
+
+    enum class render_command_type {
+        unknown,
+        triangles,
+    };
     class render_command {
     public:
-        enum class command_type
-        {
-            unknown,    // Reserved type.*/
-            triangles,  // Triangles command, used to draw triangles.*/
-//            QUAD,       // Quad command, used for draw quad.*/
-//            CUSTOM,     // Custom command, used for calling callback for rendering.*/
-//            BATCH,      // Batch command, used for draw batches in texture atlas.*/
-//            GROUP,      // Group command, which can group command in a tree hierarchy.*/
-//            MESH,       // Mesh command, used to draw 3D meshes.*/
-//            PRIMITIVE,  // Primitive command, used to draw primitives such as lines, points and triangles.*/
-        };
-        
-    public:
-        const command_type type(void) { return _type; }
-        const float depth(void) { return _depth; }
-        
+        render_command(render_command_type type) : _type(type) {}
+        const render_command_type type(void) { return _type; }
     protected:
-        command_type _type = command_type::unknown;
-        float _depth = 0.f;
-        bool _ortho = false;
+        render_command_type _type = render_command_type::unknown;
+    };
+
+    enum render_queue_type {
+        perspective,
+        count = 1,
+    };
+    class render_queue {
+    public:
+        void push_back(render_command* command) {
+            commands.push_back(command);
+        }
+        void clear(void) {
+            commands.clear();
+        }
+        void process(void)
+        {
+            std::for_each(std::begin(commands), std::end(commands), render_queue::process_command);
+        }
+    private:
+        std::vector<render_command*> commands;
+        static void process_command(const decltype(commands)::value_type p)
+        {
+            switch (p->type())
+            {
+                case render_command_type::unknown: break;
+                case render_command_type::triangles: break;
+                default: break;
+            }
+        }
     };
     
     class renderer : public utility::singleton<renderer> {
     public:
         void init_gl(int argc, char** argv);
         
-        std::vector<render_command> a;
+    private:
+        std::vector<render_queue> queue[render_queue_type::count];
     };
 };
 
