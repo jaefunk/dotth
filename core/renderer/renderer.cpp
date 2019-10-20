@@ -41,12 +41,20 @@ void dotth::gl_callback::display(void) {
 	glClear(GL_COLOR_BUFFER_BIT);
 	glBegin(GL_TRIANGLES);
 	{
-        glColor3f(0.5, 0.0f, 0.0);
-        glVertex3f(0.0, 0.5, 0.0);
-        glColor3f(0.0, 0.5, 0.0);
-        glVertex3f(-0.5, 0.0, 0.0);
-        glColor3f(0.0, 0.0, 0.5);
-        glVertex3f(0.5, 0.0, 0.0);
+        glColor4f(0.5, 0.0f, 0.0, 0.5f);
+        glVertex3f(-1.0, 1.0, 1.0);
+        glColor4f(0.0, 0.5, 0.0, 0.5f);
+        glVertex3f(-1.0, -1.0, 1.0);
+        glColor4f(0.0, 0.0, 0.5, 0.5f);
+        glVertex3f(1.0, 1.0, 1.0);
+        
+        glColor4f(0.5, 0.0f, 0.0, 0.5f);
+        glVertex3f(1.0, 1.0, 1.0);
+        glColor4f(0.0, 0.5, 0.0, 0.5f);
+        glVertex3f(-1.0, -1.0, 1.0);
+        glColor4f(0.0, 0.0, 0.5, 0.5f);
+        glVertex3f(1.0, -1.0, 1.0);
+        
 	} 
 	glEnd();
 
@@ -62,7 +70,7 @@ void dotth::gl_callback::reshape(int width, int height) {
     gluPerspective(30, static_cast<double>(width)/static_cast<double>(height), 1.0, 50.0);
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
-    gluLookAt(0.0, 0.0, 5.0, 0, 0.0, 0.0, 0.0, 1.0, 0.0);
+    gluLookAt(0.0, 0.0, -5.0, 0, 0.0, 0.0, 0.0, 1.0, 0.0);
     glutPostRedisplay();
 }
 
@@ -74,6 +82,12 @@ void dotth::renderer::init_gl(int argc, char** argv) {
     glutInitWindowPosition(100, 100);
     glutCreateWindow("asdf");
     glClearColor(0, 0, 0, 0);
+    glEnable(GL_POINT_SMOOTH);
+    glEnable(GL_LINE_SMOOTH);
+    glEnable(GL_POLYGON_SMOOTH);
+    
+    
+    출처: https://wonjayk.tistory.com/35?category=535168 [배고파서 까먹고 만든 블로그]
     glutReshapeFunc(dotth::gl_callback::reshape);
     glutDisplayFunc(dotth::gl_callback::display);
 //    glutTimerFunc(15, dotth::gl_callback::timer, 0);

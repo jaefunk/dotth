@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		270B42A5235C33E500CBC007 /* matrix.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 270B42A4235C33E500CBC007 /* matrix.cpp */; };
 		2728DC7D2349AD81003DB7FA /* utility.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2728DC7B2349AD81003DB7FA /* utility.cpp */; };
 		2728DC7E2349AD81003DB7FA /* utility.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2728DC7C2349AD81003DB7FA /* utility.hpp */; };
 		2728DC812349B40F003DB7FA /* object.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2728DC7F2349B40F003DB7FA /* object.cpp */; };
@@ -43,6 +44,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		270B42A4235C33E500CBC007 /* matrix.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = matrix.cpp; path = ../../../../core/math/matrix.cpp; sourceTree = "<group>"; };
 		2728DC7B2349AD81003DB7FA /* utility.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = utility.cpp; path = ../../../core/base/utility.cpp; sourceTree = "<group>"; };
 		2728DC7C2349AD81003DB7FA /* utility.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = utility.hpp; path = ../../../core/base/utility.hpp; sourceTree = "<group>"; };
 		2728DC7F2349B40F003DB7FA /* object.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = object.cpp; path = ../../../core/base/object.cpp; sourceTree = "<group>"; };
@@ -213,6 +215,7 @@
 			isa = PBXGroup;
 			children = (
 				27F76B7F2359DC0F00299D9D /* math.hpp */,
+				270B42A4235C33E500CBC007 /* matrix.cpp */,
 				27F76B822359DC0F00299D9D /* matrix.hpp */,
 				27F76B802359DC0F00299D9D /* transform.hpp */,
 				27F76B812359DC0F00299D9D /* vector.hpp */,
@@ -319,6 +322,7 @@
 				2728DC812349B40F003DB7FA /* object.cpp in Sources */,
 				27C83AAD233CF01E00FF791B /* dotth.cpp in Sources */,
 				2728DC7D2349AD81003DB7FA /* utility.cpp in Sources */,
+				270B42A5235C33E500CBC007 /* matrix.cpp in Sources */,
 				2728DC852349C09E003DB7FA /* application.cpp in Sources */,
 				27A45482233CF9E900A64A41 /* platform.cpp in Sources */,
 				27C83AA7233CF00A00FF791B /* component.cpp in Sources */,

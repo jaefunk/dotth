@@ -24,6 +24,8 @@ SOFTWARE.
 #ifndef __DOTTH_RENDERER_HPP__
 #define __DOTTH_RENDERER_HPP__
 
+#include <vector>
+
 #include "base/utility.hpp"
 
 namespace dotth {
@@ -32,9 +34,36 @@ namespace dotth {
         void display(void);
         void reshape(int width, int height);
 	};
+    
+    class render_command {
+    public:
+        enum class command_type
+        {
+            unknown,    // Reserved type.*/
+            triangles,  // Triangles command, used to draw triangles.*/
+//            QUAD,       // Quad command, used for draw quad.*/
+//            CUSTOM,     // Custom command, used for calling callback for rendering.*/
+//            BATCH,      // Batch command, used for draw batches in texture atlas.*/
+//            GROUP,      // Group command, which can group command in a tree hierarchy.*/
+//            MESH,       // Mesh command, used to draw 3D meshes.*/
+//            PRIMITIVE,  // Primitive command, used to draw primitives such as lines, points and triangles.*/
+        };
+        
+    public:
+        const command_type type(void) { return _type; }
+        const float depth(void) { return _depth; }
+        
+    protected:
+        command_type _type = command_type::unknown;
+        float _depth = 0.f;
+        bool _ortho = false;
+    };
+    
     class renderer : public utility::singleton<renderer> {
     public:
         void init_gl(int argc, char** argv);
+        
+        std::vector<render_command> a;
     };
 };
 

@@ -29,23 +29,14 @@ SOFTWARE.
 namespace dotth {
 	class drawable : public object
 	{
-        
 	};
-
-	class ortho : public drawable
+	class orthograpchic : public drawable
 	{
-		
 	};
-    
-    class rectangle : public ortho
+    class rectangle : public orthograpchic
     {
-        
+        virtual void draw(const matrix4& transform, int flags = 0) {};
     };
-
-	class image : public ortho
-	{
-
-	};
 };
 
 #endif // __DOTTH_DRAWABLE_HPP__

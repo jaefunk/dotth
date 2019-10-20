@@ -50,6 +50,6 @@ void dotth::object::update(void)
 
 void dotth::object::draw(void)
 {
-	draw(0);
+	draw(_transform.worldmatrix());
 	foreach<object>([](std::shared_ptr<object> obj) { obj->draw(); });
 }

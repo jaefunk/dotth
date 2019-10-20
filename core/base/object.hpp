@@ -26,12 +26,17 @@ SOFTWARE.
 
 #include "utility.hpp"
 #include "node.hpp"
+#include "../math/transform.hpp"
+
 namespace dotth {
     class object : public node<object>
     {
     private:
         std::string _name;
         float _timescale = 1.f;
+        transform _transform;
+        vector4 _anchor;
+        vector4 _size;
         
     public:
         object(void) = default;
@@ -49,7 +54,7 @@ namespace dotth {
         
     protected:
         virtual void update(float delta) {};
-        virtual void draw(/*Renderer *renderer, const Mat4& transform, */int flags) {};
+        virtual void draw(const matrix4& transform, int flags = 0) {};
     };
 };
 
