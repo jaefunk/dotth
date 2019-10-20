@@ -105,7 +105,7 @@
 		27C83AF2233CF25D00FF791B /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 1030;
+				LastUpgradeCheck = 1110;
 				ORGANIZATIONNAME = dotth;
 				TargetAttributes = {
 					27C83AF9233CF25D00FF791B = {
@@ -119,6 +119,7 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				Base,
 			);
 			mainGroup = 27C83AF1233CF25D00FF791B;
 			productRefGroup = 27C83AF1233CF25D00FF791B;
@@ -257,6 +258,7 @@
 		27C83B02233CF25D00FF791B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				HEADER_SEARCH_PATHS = ../../../core/;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -266,6 +268,7 @@
 		27C83B03233CF25D00FF791B /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				HEADER_SEARCH_PATHS = ../../../core/;
 				PRODUCT_NAME = "$(TARGET_NAME)";
