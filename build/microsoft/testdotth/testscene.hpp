@@ -8,6 +8,5 @@ class testscene : public dotth::scene {
     virtual void update(float delta) override {
 		
     };
-    virtual void draw(/*Renderer *renderer, const Mat4& transform, */int flags) override {
-    };
+	virtual void draw(const dotth::matrix4& transform, int flags = 0) override {};
 };

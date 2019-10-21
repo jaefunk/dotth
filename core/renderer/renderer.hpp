@@ -24,13 +24,13 @@ SOFTWARE.
 #ifndef __DOTTH_RENDERER_HPP__
 #define __DOTTH_RENDERER_HPP__
 
+#include <algorithm>
 #include <vector>
 
 #include "base/utility.hpp"
 
 namespace dotth {
 	namespace gl_callback {
-        void timer(int value);
         void display(void);
         void reshape(int width, int height);
 	};
@@ -46,6 +46,23 @@ namespace dotth {
     protected:
         render_command_type _type = render_command_type::unknown;
     };
+
+	struct xyzrgba {
+		float x, y, z, r, g, b, a;
+	};
+	struct triangles {
+		xyzrgba* vertexs;
+		unsigned short* indexes;
+		int vertex_count;
+		int index_count;
+	};
+	class triangle_command : public render_command {
+		triangle_command(void) : render_command(render_command_type::triangles) {}
+		triangles _triangle;
+		void init(const triangles& triangle) {
+			_triangle = triangle;
+		}
+	};
 
     enum render_queue_type {
         perspective,
@@ -79,9 +96,11 @@ namespace dotth {
     class renderer : public utility::singleton<renderer> {
     public:
         void init_gl(int argc, char** argv);
-        
+		const render_queue& find_render_queue(const render_queue_type& type) {
+			return queue[type];
+		}
     private:
-        std::vector<render_queue> queue[render_queue_type::count];
+        std::map<render_queue_type, render_queue> queue[render_queue_type::count];
     };
 };
 

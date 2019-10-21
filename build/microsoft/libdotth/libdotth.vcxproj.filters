@@ -38,6 +38,9 @@
     <ClCompile Include="..\..\..\core\base\drawable.cpp">
       <Filter>base</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\core\math\matrix.cpp">
+      <Filter>math</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\core\dotth.hpp" />

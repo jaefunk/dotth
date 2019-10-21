@@ -27,6 +27,7 @@
     <ClCompile Include="..\..\..\core\base\utility.cpp" />
     <ClCompile Include="..\..\..\core\dotth.cpp" />
     <ClCompile Include="..\..\..\core\external\xml\tinyxml2.cpp" />
+    <ClCompile Include="..\..\..\core\math\matrix.cpp" />
     <ClCompile Include="..\..\..\core\platform\application.cpp" />
     <ClCompile Include="..\..\..\core\platform\filesystem\io.cpp" />
     <ClCompile Include="..\..\..\core\platform\filesystem\path.cpp" />

@@ -31,7 +31,7 @@ SOFTWARE.
 #include "external\opengl\win\glut.h"
 #endif
 
-#include "scene.hpp"
+#include "base\scene.hpp"
 
 void dotth::gl_callback::display(void) {
     utility::timer::instance()->update();
@@ -57,6 +57,8 @@ void dotth::gl_callback::display(void) {
         
 	} 
 	glEnd();
+
+	renderer::instance()->
 
 	// flush the drawing to screen .
     glutSwapBuffers();
@@ -87,7 +89,6 @@ void dotth::renderer::init_gl(int argc, char** argv) {
     glEnable(GL_POLYGON_SMOOTH);
     
     
-    출처: https://wonjayk.tistory.com/35?category=535168 [배고파서 까먹고 만든 블로그]
     glutReshapeFunc(dotth::gl_callback::reshape);
     glutDisplayFunc(dotth::gl_callback::display);
 //    glutTimerFunc(15, dotth::gl_callback::timer, 0);

@@ -26,7 +26,7 @@ SOFTWARE.
 
 #include "utility.hpp"
 #include "node.hpp"
-#include "../math/transform.hpp"
+#include "math\transform.hpp"
 
 namespace dotth {
     class object : public node<object>
@@ -54,7 +54,7 @@ namespace dotth {
         
     protected:
         virtual void update(float delta) {};
-        virtual void draw(const matrix4& transform, int flags = 0) {};
+        virtual void draw(const dotth::matrix4& transform, int flags = 0) {};
     };
 };
 
