@@ -24,14 +24,22 @@ SOFTWARE.
 #include "drawable.hpp"
 
 void dotth::rectangle::draw(const matrix4 & transform, int flags) {
+	_command._triangle.vertexs.clear();
+
 	xyzrgba a;
 	a.color(1.f, 0.f, 0.f, 1.f);
-	a.pos(0.f, 1.f, 0.f);
-	_command._triangle.vertexs.clear();
+	a.pos(-0.5f, 0.5f, 0.f);	
 	_command._triangle.vertexs.push_back(a);
-	a.pos(-1.f, 0.f, 0.f);
+	a.pos(-0.5f, -0.5f, 0.f);
 	_command._triangle.vertexs.push_back(a);
-	a.pos(1.f, 0.f, 0.f);
+	a.pos(0.5f, 0.5f, 0.f);
+	_command._triangle.vertexs.push_back(a);
+	a.color(0.f, 0.f, 1.f, 1.f);
+	a.pos(0.5f, 0.5f, 0.f);
+	_command._triangle.vertexs.push_back(a);
+	a.pos(-0.5f, -0.5f, 0.f);
+	_command._triangle.vertexs.push_back(a);
+	a.pos(0.5f, -0.5f, 0.f);
 	_command._triangle.vertexs.push_back(a);
 	renderer::instance()->push(&_command);
 }

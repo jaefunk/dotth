@@ -47,7 +47,6 @@ namespace dotth {
     protected:
         render_command_type _type = render_command_type::unknown;
     };
-
 	struct xyzrgba {
 		float x, y, z, r, g, b, a;
 		void pos(float x, float y, float z)
@@ -64,8 +63,30 @@ namespace dotth {
 			this->a = a;
 		}
 	};
+	struct xyz {
+		float x, y, z;
+		xyz(void) {};
+		xyz(float _x, float _y, float _z) : x(_x), y(_y), z(_z) {}
+	};
+	struct uv {
+		float u, v;
+		uv(void) {};
+		uv(float _u, float _v) : u(_u), v(_v) {}
+	};
+	struct rgba {
+		byte r, g, b, a;
+		rgba(void) {};
+		rgba(byte _r, byte _g, byte _b, byte _a) : r(_r), g(_g), b(_b), a(_a) {}
+	};
+	struct v3f_c4b {
+		xyz v;
+		rgba c;
+	};
+
 	struct triangles {
 		std::vector<xyzrgba> vertexs;
+		~triangles(void) {
+		}
 	};
 	struct triangle_command : public render_command {
 		triangle_command(void) : render_command(render_command_type::triangles) {}

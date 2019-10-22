@@ -31,14 +31,9 @@ namespace dotth {
 	class drawable : public object
 	{
 	};
-	class orthograpchic : public drawable
-	{
-	protected:
-		dotth::triangle_command _command;
-	};
-    class rectangle : public orthograpchic
+    class rectangle : public drawable
     {
-		
+		dotth::triangle_command _command;
 		virtual void draw(const matrix4& transform, int flags = 0);
     };
 };
