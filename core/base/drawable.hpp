@@ -25,6 +25,7 @@ SOFTWARE.
 #define __DOTTH_DRAWABLE_HPP__
 
 #include "object.hpp"
+#include "renderer\renderer.hpp"
 
 namespace dotth {
 	class drawable : public object
@@ -32,10 +33,13 @@ namespace dotth {
 	};
 	class orthograpchic : public drawable
 	{
+	protected:
+		dotth::triangle_command _command;
 	};
     class rectangle : public orthograpchic
     {
-        virtual void draw(const matrix4& transform, int flags = 0) {};
+		
+		virtual void draw(const matrix4& transform, int flags = 0);
     };
 };
 

@@ -26,6 +26,7 @@ SOFTWARE.
 
 #include <algorithm>
 #include <vector>
+#include <map>
 
 #include "base/utility.hpp"
 
@@ -49,14 +50,24 @@ namespace dotth {
 
 	struct xyzrgba {
 		float x, y, z, r, g, b, a;
+		void pos(float x, float y, float z)
+		{
+			this->x = x;
+			this->y = y;
+			this->z = z;
+		}
+		void color(float r, float g, float b, float a)
+		{
+			this->r = r;
+			this->g = g;
+			this->b = b;
+			this->a = a;
+		}
 	};
 	struct triangles {
-		xyzrgba* vertexs;
-		unsigned short* indexes;
-		int vertex_count;
-		int index_count;
+		std::vector<xyzrgba> vertexs;
 	};
-	class triangle_command : public render_command {
+	struct triangle_command : public render_command {
 		triangle_command(void) : render_command(render_command_type::triangles) {}
 		triangles _triangle;
 		void init(const triangles& triangle) {
@@ -76,31 +87,29 @@ namespace dotth {
         void clear(void) {
             commands.clear();
         }
-        void process(void)
-        {
-            std::for_each(std::begin(commands), std::end(commands), render_queue::process_command);
-        }
+		void process(void);
     private:
         std::vector<render_command*> commands;
-        static void process_command(const decltype(commands)::value_type p)
-        {
-            switch (p->type())
-            {
-                case render_command_type::unknown: break;
-                case render_command_type::triangles: break;
-                default: break;
-            }
-        }
     };
     
     class renderer : public utility::singleton<renderer> {
     public:
         void init_gl(int argc, char** argv);
+	public:
+		void push(render_command* command)
+		{
+			switch (command->type()) {
+				case render_command_type::triangles: 
+					queue[render_queue_type::perspective].push_back(command);
+				break;
+			}
+		}
+	
 		const render_queue& find_render_queue(const render_queue_type& type) {
 			return queue[type];
 		}
-    private:
-        std::map<render_queue_type, render_queue> queue[render_queue_type::count];
+	private:
+        std::map<render_queue_type, render_queue> queue;
     };
 };
 

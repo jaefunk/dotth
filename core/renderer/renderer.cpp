@@ -34,35 +34,22 @@ SOFTWARE.
 #include "base\scene.hpp"
 
 void dotth::gl_callback::display(void) {
-    utility::timer::instance()->update();
-    scene_manager::instance()->update();
-    scene_manager::instance()->draw();
-	// clear the draw buffer .
-	glClear(GL_COLOR_BUFFER_BIT);
-	glBegin(GL_TRIANGLES);
-	{
-        glColor4f(0.5, 0.0f, 0.0, 0.5f);
-        glVertex3f(-1.0, 1.0, 1.0);
-        glColor4f(0.0, 0.5, 0.0, 0.5f);
-        glVertex3f(-1.0, -1.0, 1.0);
-        glColor4f(0.0, 0.0, 0.5, 0.5f);
-        glVertex3f(1.0, 1.0, 1.0);
-        
-        glColor4f(0.5, 0.0f, 0.0, 0.5f);
-        glVertex3f(1.0, 1.0, 1.0);
-        glColor4f(0.0, 0.5, 0.0, 0.5f);
-        glVertex3f(-1.0, -1.0, 1.0);
-        glColor4f(0.0, 0.0, 0.5, 0.5f);
-        glVertex3f(1.0, -1.0, 1.0);
-        
-	} 
-	glEnd();
+	utility::timer::instance()->update();
+	scene_manager::instance()->update();
+	scene_manager::instance()->draw();
 
-	renderer::instance()->
+	{
+		glClear(GL_COLOR_BUFFER_BIT);
+		glBegin(GL_TRIANGLES);
+		auto queue = renderer::instance()->find_render_queue(render_queue_type::perspective);
+		queue.process();
+		glEnd();
+		queue.clear();
+	}
 
 	// flush the drawing to screen .
-    glutSwapBuffers();
-    glutPostRedisplay();
+	glutSwapBuffers();
+	glutPostRedisplay();
 }
 
 void dotth::gl_callback::reshape(int width, int height) {
@@ -93,4 +80,43 @@ void dotth::renderer::init_gl(int argc, char** argv) {
     glutDisplayFunc(dotth::gl_callback::display);
 //    glutTimerFunc(15, dotth::gl_callback::timer, 0);
     glutMainLoop();
+}
+
+//1void dotth::render_queue::process_command(const decltype(commands)::value_type p)
+//{
+//	switch (p->type())
+//	{
+//	case render_command_type::unknown: break;
+//	case render_command_type::triangles:
+//		auto jj = static_cast<triangle_command*>(p);
+//		for (auto const& vertex : jj->_triangle.vertexs)
+//		{
+//			glColor4f(vertex.r, vertex.g, vertex.b, vertex.a);
+//			glVertex3f(vertex.x, vertex.y, vertex.z);
+//		}
+//		break;
+//	default: break;
+//	}
+//}
+
+void dotth::render_queue::process(void)
+{
+	std::for_each(std::begin(commands), std::end(commands), [](render_command* p) {
+		switch (p->type())
+		{
+		case render_command_type::unknown: break;
+		case render_command_type::triangles:
+		{
+			auto jj = static_cast<triangle_command*>(p);
+			for (auto const& vertex : jj->_triangle.vertexs)
+			{
+				glColor4f(vertex.r, vertex.g, vertex.b, vertex.a);
+				glVertex3f(vertex.x, vertex.y, vertex.z);
+			}
+		}
+			
+			break;
+		default: break;
+		}
+	});
 }
