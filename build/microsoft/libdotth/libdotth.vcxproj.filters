@@ -41,6 +41,12 @@
     <ClCompile Include="..\..\..\core\math\matrix.cpp">
       <Filter>math</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\core\renderer\render_command.cpp">
+      <Filter>renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\core\external\stb\image\stb_image.cpp">
+      <Filter>external\stb\image</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\core\dotth.hpp" />
@@ -104,6 +110,12 @@
     <ClInclude Include="..\..\..\core\math\vector.hpp">
       <Filter>math</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\core\renderer\render_command.hpp">
+      <Filter>renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\core\external\stb\image\stb_image.h">
+      <Filter>external\stb\image</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="base">
@@ -135,6 +147,12 @@
     </Filter>
     <Filter Include="math">
       <UniqueIdentifier>{cf7386ec-26d7-4a20-ae77-126cec822dd3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="external\stb">
+      <UniqueIdentifier>{44101e3e-57b6-4bed-98ef-7f7179d3d4f0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="external\stb\image">
+      <UniqueIdentifier>{0976adeb-59f7-43f4-bcbe-92f32d6ba74d}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

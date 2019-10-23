@@ -21,52 +21,65 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE  OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-#ifndef __DOTTH_RENDERER_HPP__
-#define __DOTTH_RENDERER_HPP__
+#ifndef __DOTTH_RENDER_COMMAND_HPP__
+#define __DOTTH_RENDER_COMMAND_HPP__
 
-#include <map>
-
-#include "base/utility.hpp"
-#include "render_command.hpp"
+#include <vector>
 
 namespace dotth {
-	namespace gl_callback {
-        void display(void);
-        void reshape(int width, int height);
+	struct xyz {
+		float x, y, z;
+		xyz(void) {};
+		xyz(float _x, float _y, float _z) : x(_x), y(_y), z(_z) {}
+	};
+	struct uv {
+		float u, v;
+		uv(void) {};
+		uv(float _u, float _v) : u(_u), v(_v) {}
+	};
+	struct rgba {
+		float r, g, b, a;
+		rgba(void) {};
+		rgba(float _r, float _g, float _b, float _a) : r(_r), g(_g), b(_b), a(_a) {}
+	};
+	struct v3f_c4b {
+		xyz v;
+		rgba c;
 	};
 
-    class render_queue {
-    public:
-        void push_back(render_command* command) {
-            commands.push_back(command);
-        }
-        void clear(void) {
-            commands.clear();
-        }
-		void process(void);
-    private:
-        std::vector<render_command*> commands;
-    };
-    
-    class renderer : public utility::singleton<renderer> {
-    public:
-        void init_gl(int argc, char** argv);
+	struct polygon {
+		std::vector<xyz> v;
+		std::vector<rgba> c;
+		std::vector<uv> u;
+		std::vector<xyz> n;
+		std::vector<unsigned int> i;
+	};
+
+	enum render_queue_type {
+		perspective,
+		count = 1,
+	};
+
+	enum class render_command_type {
+		unknown,
+		polygons,
+	};
+
+	class render_command {
 	public:
-		void push(render_command* command)
-		{
-			switch (command->type()) {
-				case render_command_type::polygons: 
-					queue[render_queue_type::perspective].push_back(command);
-				break;
-			}
+		render_command(render_command_type type) : _type(type) {}
+		const render_command_type type(void) { return _type; }
+	protected:
+		render_command_type _type = render_command_type::unknown;
+	};
+
+	struct polygon_command : public render_command {
+		polygon_command(void) : render_command(render_command_type::polygons) {}
+		polygon _triangle;
+		void init(const polygon& triangle) {
+			_triangle = triangle;
 		}
-	
-		const render_queue& find_render_queue(const render_queue_type& type) {
-			return queue[type];
-		}
-	private:
-        std::map<render_queue_type, render_queue> queue;
-    };
+	};
 };
 
-#endif // __DOTTH_RENDERER_HPP__
+#endif // __DOTTH_RENDER_COMMAND_HPP__

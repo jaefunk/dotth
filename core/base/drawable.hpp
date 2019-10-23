@@ -36,7 +36,7 @@ namespace dotth {
 	public:
 		void init1(void);
 		void init2(void);
-		dotth::triangle_command _command;
+		dotth::polygon_command _command;
 		virtual void draw(const matrix4& transform, int flags = 0);
     };
 };

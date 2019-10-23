@@ -21,16 +21,16 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE  OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-#include "renderer.hpp"
+#include <algorithm>
 
 #define GL_SILENCE_DEPRECATION
-
 #ifndef WIN32
 #include <GLUT/GLUT.h>
 #else
 #include "external\opengl\win\glut.h"
 #endif
 
+#include "renderer.hpp"
 #include "base\scene.hpp"
 
 void dotth::gl_callback::display(void) {
@@ -100,9 +100,9 @@ void dotth::render_queue::process(void)
 		switch (p->type())
 		{
 		case render_command_type::unknown: break;
-		case render_command_type::triangles:
+		case render_command_type::polygons:
 		{
-			auto jj = static_cast<triangle_command*>(p);
+			auto jj = static_cast<polygon_command*>(p);
 			glEnableClientState(GL_VERTEX_ARRAY);
 			glVertexPointer(3, GL_FLOAT, 0, jj->_triangle.v.data());
 			glEnableClientState(GL_COLOR_ARRAY);

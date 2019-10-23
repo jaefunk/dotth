@@ -23,8 +23,12 @@ SOFTWARE.
 
 #include "drawable.hpp"
 
+#include "../external/stb/image/stb_image.h"
+
 void dotth::rectangle::init1(void)
 {
+	int X, Y, c1, c2;
+	auto b = stbi_load("../../resources/cat.jpg", &X, &Y, &c1, 0);
 	float x = -1.f;
 	_command._triangle.v.resize(4);
 	_command._triangle.v[0] = xyz(x + -0.5f, 0.5f, 0.f);
