@@ -74,9 +74,9 @@ namespace dotth {
 		uv(float _u, float _v) : u(_u), v(_v) {}
 	};
 	struct rgba {
-		byte r, g, b, a;
+		float r, g, b, a;
 		rgba(void) {};
-		rgba(byte _r, byte _g, byte _b, byte _a) : r(_r), g(_g), b(_b), a(_a) {}
+		rgba(float _r, float _g, float _b, float _a) : r(_r), g(_g), b(_b), a(_a) {}
 	};
 	struct v3f_c4b {
 		xyz v;
@@ -84,9 +84,11 @@ namespace dotth {
 	};
 
 	struct triangles {
-		std::vector<xyzrgba> vertexs;
-		~triangles(void) {
-		}
+		std::vector<xyz> v;
+		std::vector<rgba> c;
+		std::vector<uv> u;
+		std::vector<xyz> n;
+		std::vector<unsigned int> i;
 	};
 	struct triangle_command : public render_command {
 		triangle_command(void) : render_command(render_command_type::triangles) {}

@@ -38,16 +38,11 @@ void dotth::gl_callback::display(void) {
 	scene_manager::instance()->update();
 	scene_manager::instance()->draw();
 
-	{
-		glClear(GL_COLOR_BUFFER_BIT);
-		glBegin(GL_TRIANGLES);
-		auto queue = renderer::instance()->find_render_queue(render_queue_type::perspective);
-		queue.process();
-		glEnd();
-		queue.clear();
-	}
+	glClear(GL_COLOR_BUFFER_BIT);
+	auto queue = renderer::instance()->find_render_queue(render_queue_type::perspective);
+	queue.process();
 
-	// flush the drawing to screen .
+	//// flush the drawing to screen .
 	glutSwapBuffers();
 	glutPostRedisplay();
 }
@@ -59,7 +54,7 @@ void dotth::gl_callback::reshape(int width, int height) {
     gluPerspective(30, static_cast<double>(width)/static_cast<double>(height), 1.0, 50.0);
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
-    gluLookAt(0.0, 0.0, -5.0, 0, 0.0, 0.0, 0.0, 1.0, 0.0);
+    gluLookAt(0.0, 0.0, 5.0, 0, 0.0, 0.0, 0.0, 1.0, 0.0);
     glutPostRedisplay();
 }
 
@@ -108,13 +103,12 @@ void dotth::render_queue::process(void)
 		case render_command_type::triangles:
 		{
 			auto jj = static_cast<triangle_command*>(p);
-			for (auto const& vertex : jj->_triangle.vertexs)
-			{
-				glColor4f(vertex.r, vertex.g, vertex.b, vertex.a);
-				glVertex3f(vertex.x, vertex.y, vertex.z);
-			}
-		}
-			
+			glEnableClientState(GL_VERTEX_ARRAY);
+			glVertexPointer(3, GL_FLOAT, 0, jj->_triangle.v.data());
+			glEnableClientState(GL_COLOR_ARRAY);
+			glColorPointer(4, GL_FLOAT, 0, jj->_triangle.c.data());
+			glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, jj->_triangle.i.data());
+		}	
 			break;
 		default: break;
 		}
