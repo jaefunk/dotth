@@ -97,7 +97,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>libdotth.lib;%(AdditionalDependencies);glut32.lib</AdditionalDependencies>
+      <AdditionalDependencies>libdotth.lib;%(AdditionalDependencies);glut32.lib;Win32/glew32.lib</AdditionalDependencies>
       <AdditionalLibraryDirectories>..\libdotth\Debug\;../../../core/external/opengl/win/;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
@@ -130,7 +130,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalDependencies>libdotth.lib;%(AdditionalDependencies);glut32.lib</AdditionalDependencies>
+      <AdditionalDependencies>libdotth.lib;%(AdditionalDependencies);glut32.lib;Win32/glew32.lib</AdditionalDependencies>
       <AdditionalLibraryDirectories>..\libdotth\Debug\;../../../core/external/opengl/win/;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>

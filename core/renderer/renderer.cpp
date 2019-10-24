@@ -27,11 +27,13 @@ SOFTWARE.
 #ifndef WIN32
 #include <GLUT/GLUT.h>
 #else
+#include "external\opengl\win\glew.h"
 #include "external\opengl\win\glut.h"
 #endif
 
 #include "renderer.hpp"
 #include "base\scene.hpp"
+#include "../external/stb/image/stb_image.h"
 
 void dotth::gl_callback::display(void) {
 	utility::timer::instance()->update();
@@ -41,10 +43,26 @@ void dotth::gl_callback::display(void) {
 	glClear(GL_COLOR_BUFFER_BIT);
 	auto queue = renderer::instance()->find_render_queue(render_queue_type::perspective);
 	queue.process();
-
+	
 	//// flush the drawing to screen .
 	glutSwapBuffers();
 	glutPostRedisplay();
+	
+	//glUniform
+
+	/*
+	unsigned int texture;
+	glGenTextures(1, &texture);
+	glBindTexture(GL_TEXTURE_2D, texture);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	int X, Y, c1;
+	auto b = stbi_load("../../resources/cat.jpg", &X, &Y, &c1, 0);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, X, Y, 0, GL_RGB, GL_UNSIGNED_BYTE, b);
+	stbi_image_free(b);
+	*/
 }
 
 void dotth::gl_callback::reshape(int width, int height) {
