@@ -21,41 +21,9 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE  OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-#ifndef __DOTTH_OBJECT_HPP__
-#define __DOTTH_OBJECT_HPP__
-
-#include "utility.hpp"
-#include "node.hpp"
-#include "../math/transform.hpp"
-
-namespace dotth {
-    class object : public node<object>
-    {
-    private:
-        std::string _name;
-        float _timescale = 1.f;
-        transform _transform;
-        vector4 _anchor;
-        vector4 _size;
-        
-    public:
-        object(void) = default;
-        object(std::string name) : _name(name) { };
-        
-    public:
-		void set_timescale(const float & scale);
-		const float& local_timescale(void);
-		const float world_timescale(void);
-        
-    public:
-		virtual bool init(void);
-		virtual void update(void) final;
-		virtual void draw(void) final;
-        
-    protected:
-        virtual void update(float delta) {};
-        virtual void draw(const dotth::matrix4& transform, int flags = 0) {};
-    };
-};
-
-#endif // __DOTTH_OBJECT_HPP__
+attribute vec4 position;
+void main()
+{
+    gl_Position = position;
+    gl_Position.w = 1.0;
+}

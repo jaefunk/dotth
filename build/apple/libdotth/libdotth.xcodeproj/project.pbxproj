@@ -24,6 +24,12 @@
 		2728DCB42349DF4D003DB7FA /* GLUT.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2728DCB12349DF4C003DB7FA /* GLUT.framework */; };
 		2728DCB52349DF4D003DB7FA /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2728DCB22349DF4C003DB7FA /* GLKit.framework */; };
 		2728DCB62349DF4D003DB7FA /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2728DCB32349DF4C003DB7FA /* OpenGL.framework */; };
+		27292A61236703D3008CDFF7 /* render_command.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 27292A5F236703D3008CDFF7 /* render_command.cpp */; };
+		27292A62236703D3008CDFF7 /* render_command.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 27292A60236703D3008CDFF7 /* render_command.hpp */; };
+		27292A662367044E008CDFF7 /* stb_image.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 27292A642367044E008CDFF7 /* stb_image.cpp */; };
+		27292A672367044E008CDFF7 /* stb_image.h in Headers */ = {isa = PBXBuildFile; fileRef = 27292A652367044E008CDFF7 /* stb_image.h */; };
+		27292A6F23670B66008CDFF7 /* shader.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 27292A6D23670B66008CDFF7 /* shader.hpp */; };
+		27292A7023670B66008CDFF7 /* shader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 27292A6E23670B66008CDFF7 /* shader.cpp */; };
 		27A45481233CF9E900A64A41 /* platform.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 27A4547F233CF9E900A64A41 /* platform.hpp */; };
 		27A45482233CF9E900A64A41 /* platform.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 27A45480233CF9E900A64A41 /* platform.cpp */; };
 		27C83AA3233CF00A00FF791B /* component.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 27C83A9B233CF00A00FF791B /* component.hpp */; };
@@ -62,6 +68,13 @@
 		2728DCB22349DF4C003DB7FA /* GLKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLKit.framework; path = System/Library/Frameworks/GLKit.framework; sourceTree = SDKROOT; };
 		2728DCB32349DF4C003DB7FA /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
 		2728DCBE2349E51D003DB7FA /* libdotth.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; path = libdotth.xcodeproj; sourceTree = "<group>"; };
+		27292A5F236703D3008CDFF7 /* render_command.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = render_command.cpp; path = ../../../core/renderer/render_command.cpp; sourceTree = "<group>"; };
+		27292A60236703D3008CDFF7 /* render_command.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = render_command.hpp; path = ../../../core/renderer/render_command.hpp; sourceTree = "<group>"; };
+		27292A642367044E008CDFF7 /* stb_image.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = stb_image.cpp; path = ../../../core/external/stb/image/stb_image.cpp; sourceTree = "<group>"; };
+		27292A652367044E008CDFF7 /* stb_image.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = stb_image.h; path = ../../../core/external/stb/image/stb_image.h; sourceTree = "<group>"; };
+		27292A6D23670B66008CDFF7 /* shader.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = shader.hpp; path = ../../../core/renderer/shader.hpp; sourceTree = "<group>"; };
+		27292A6E23670B66008CDFF7 /* shader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = shader.cpp; path = ../../../core/renderer/shader.cpp; sourceTree = "<group>"; };
+		27292A7123670D76008CDFF7 /* resources */ = {isa = PBXFileReference; lastKnownFileType = folder; name = resources; path = ../../resources; sourceTree = "<group>"; };
 		27A4547F233CF9E900A64A41 /* platform.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = platform.hpp; path = ../../../core/platform/platform.hpp; sourceTree = "<group>"; };
 		27A45480233CF9E900A64A41 /* platform.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = platform.cpp; path = ../../../core/platform/platform.cpp; sourceTree = "<group>"; };
 		27C83A9B233CF00A00FF791B /* component.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = component.hpp; path = ../../../core/base/component.hpp; sourceTree = "<group>"; };
@@ -99,6 +112,10 @@
 		2728DC882349C0B9003DB7FA /* renderer */ = {
 			isa = PBXGroup;
 			children = (
+				27292A5F236703D3008CDFF7 /* render_command.cpp */,
+				27292A60236703D3008CDFF7 /* render_command.hpp */,
+				27292A6E23670B66008CDFF7 /* shader.cpp */,
+				27292A6D23670B66008CDFF7 /* shader.hpp */,
 				2728DCAD2349DEE1003DB7FA /* renderer.cpp */,
 				2728DCAC2349DEE1003DB7FA /* renderer.hpp */,
 			);
@@ -108,6 +125,7 @@
 		2728DC8D2349C353003DB7FA /* external */ = {
 			isa = PBXGroup;
 			children = (
+				27292A632367043B008CDFF7 /* stb */,
 				2728DCA02349D8A1003DB7FA /* cpplinq */,
 				2728DC9F2349D89E003DB7FA /* json */,
 				2728DC9E2349D89B003DB7FA /* task */,
@@ -165,6 +183,23 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		27292A632367043B008CDFF7 /* stb */ = {
+			isa = PBXGroup;
+			children = (
+				27292A682367045B008CDFF7 /* image */,
+			);
+			name = stb;
+			sourceTree = "<group>";
+		};
+		27292A682367045B008CDFF7 /* image */ = {
+			isa = PBXGroup;
+			children = (
+				27292A642367044E008CDFF7 /* stb_image.cpp */,
+				27292A652367044E008CDFF7 /* stb_image.h */,
+			);
+			name = image;
+			sourceTree = "<group>";
+		};
 		27A4547E233CF9B200A64A41 /* platform */ = {
 			isa = PBXGroup;
 			children = (
@@ -179,6 +214,7 @@
 		27C83A6E233CE1E900FF791B = {
 			isa = PBXGroup;
 			children = (
+				27292A7123670D76008CDFF7 /* resources */,
 				27C83AAB233CF01E00FF791B /* dotth.cpp */,
 				27C83AAC233CF01E00FF791B /* dotth.hpp */,
 				27A4547E233CF9B200A64A41 /* platform */,
@@ -232,10 +268,13 @@
 			files = (
 				27C83AA6233CF00A00FF791B /* node.hpp in Headers */,
 				2728DCA42349D8C0003DB7FA /* tinyxml2.h in Headers */,
+				27292A672367044E008CDFF7 /* stb_image.h in Headers */,
 				27C83AA9233CF00A00FF791B /* base.hpp in Headers */,
 				2728DCAE2349DEE1003DB7FA /* renderer.hpp in Headers */,
 				27F76B842359DC0F00299D9D /* transform.hpp in Headers */,
 				27C83AAE233CF01E00FF791B /* dotth.hpp in Headers */,
+				27292A6F23670B66008CDFF7 /* shader.hpp in Headers */,
+				27292A62236703D3008CDFF7 /* render_command.hpp in Headers */,
 				27F76B862359DC0F00299D9D /* matrix.hpp in Headers */,
 				27C83AA8233CF00A00FF791B /* scene.hpp in Headers */,
 				27C83AA3233CF00A00FF791B /* component.hpp in Headers */,
@@ -315,14 +354,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				27292A7023670B66008CDFF7 /* shader.cpp in Sources */,
 				27C83AAA233CF00A00FF791B /* base.cpp in Sources */,
 				27C83AA5233CF00A00FF791B /* scene.cpp in Sources */,
 				2728DCA32349D8C0003DB7FA /* tinyxml2.cpp in Sources */,
 				27F76B7D2359DBD500299D9D /* drawable.cpp in Sources */,
+				27292A61236703D3008CDFF7 /* render_command.cpp in Sources */,
 				2728DCAF2349DEE1003DB7FA /* renderer.cpp in Sources */,
 				2728DC812349B40F003DB7FA /* object.cpp in Sources */,
 				27C83AAD233CF01E00FF791B /* dotth.cpp in Sources */,
 				2728DC7D2349AD81003DB7FA /* utility.cpp in Sources */,
+				27292A662367044E008CDFF7 /* stb_image.cpp in Sources */,
 				270B42A5235C33E500CBC007 /* matrix.cpp in Sources */,
 				2728DC852349C09E003DB7FA /* application.cpp in Sources */,
 				27A45482233CF9E900A64A41 /* platform.cpp in Sources */,

@@ -57,6 +57,8 @@ namespace dotth {
 			switch (command->type()) {
 				case render_command_type::polygons: 
 					queue[render_queue_type::perspective].push_back(command);
+                case render_command_type::unknown:
+                default:
 				break;
 			}
 		}

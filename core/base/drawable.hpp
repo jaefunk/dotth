@@ -25,7 +25,7 @@ SOFTWARE.
 #define __DOTTH_DRAWABLE_HPP__
 
 #include "object.hpp"
-#include "renderer\renderer.hpp"
+#include "../renderer/renderer.hpp"
 
 namespace dotth {
 	class drawable : public object
