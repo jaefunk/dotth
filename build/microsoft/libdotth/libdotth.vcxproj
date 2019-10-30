@@ -35,6 +35,7 @@
     <ClCompile Include="..\..\..\core\platform\platform.cpp" />
     <ClCompile Include="..\..\..\core\renderer\renderer.cpp" />
     <ClCompile Include="..\..\..\core\renderer\render_command.cpp" />
+    <ClCompile Include="..\..\..\core\renderer\shader.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\core\base\base.hpp" />
@@ -47,6 +48,11 @@
     <ClInclude Include="..\..\..\core\dotth.hpp" />
     <ClInclude Include="..\..\..\core\external\cpplinq\cpplinq.hpp" />
     <ClInclude Include="..\..\..\core\external\json\json.hpp" />
+    <ClInclude Include="..\..\..\core\external\opengl\eglew.h" />
+    <ClInclude Include="..\..\..\core\external\opengl\glew.h" />
+    <ClInclude Include="..\..\..\core\external\opengl\glut.h" />
+    <ClInclude Include="..\..\..\core\external\opengl\glxew.h" />
+    <ClInclude Include="..\..\..\core\external\opengl\wglew.h" />
     <ClInclude Include="..\..\..\core\external\stb\image\stb_image.h" />
     <ClInclude Include="..\..\..\core\external\task\task.hpp" />
     <ClInclude Include="..\..\..\core\external\xml\tinyxml2.h" />
@@ -60,6 +66,7 @@
     <ClInclude Include="..\..\..\core\platform\platform.hpp" />
     <ClInclude Include="..\..\..\core\renderer\renderer.hpp" />
     <ClInclude Include="..\..\..\core\renderer\render_command.hpp" />
+    <ClInclude Include="..\..\..\core\renderer\shader.hpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{BFC6D0D4-CC4A-4A97-8669-3BB70461C957}</ProjectGuid>

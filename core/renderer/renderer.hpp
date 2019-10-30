@@ -26,6 +26,15 @@ SOFTWARE.
 
 #include <map>
 
+#define GL_SILENCE_DEPRECATION
+#ifndef WIN32
+#include <GLUT/GLUT.h>
+#else
+#include "../external/opengl/glew.h"
+#include "../external/opengl/glut.h"
+#pragma comment(lib, "glew32.lib")
+#endif
+
 #include "base/utility.hpp"
 #include "render_command.hpp"
 

@@ -23,14 +23,6 @@ SOFTWARE.
 
 #include <algorithm>
 
-#define GL_SILENCE_DEPRECATION
-#ifndef WIN32
-#include <GLUT/GLUT.h>
-#else
-#include "external\opengl\win\glew.h"
-#include "external\opengl\win\glut.h"
-#endif
-
 #include "renderer.hpp"
 #include "../base/scene.hpp"
 #include "../external/stb/image/stb_image.h"
@@ -38,7 +30,7 @@ SOFTWARE.
 
 
 void dotth::gl_callback::display(void) {
-    
+
 	utility::timer::instance()->update();
 	scene_manager::instance()->update();
 	scene_manager::instance()->draw();
@@ -46,74 +38,57 @@ void dotth::gl_callback::display(void) {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	auto queue = renderer::instance()->find_render_queue(render_queue_type::perspective);
 	queue.process();
-	
+
 	// flush the drawing to screen .
 	glutSwapBuffers();
 	glutPostRedisplay();
-    
-    
-	
-//	unsigned int texture;
-//	glGenTextures(1, &texture);
-//	glBindTexture(GL_TEXTURE_2D, texture);
-//	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-//	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-//	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-//	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-//	int X, Y, c1;
-//	auto b = stbi_load("../../resources/cat.jpg", &X, &Y, &c1, 0);
-//	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, X, Y, 0, GL_RGB, GL_UNSIGNED_BYTE, b);
-//	stbi_image_free(b);
+
+
+
+	//	unsigned int texture;
+	//	glGenTextures(1, &texture);
+	//	glBindTexture(GL_TEXTURE_2D, texture);
+	//	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+	//	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+	//	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	//	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	//	int X, Y, c1;
+	//	auto b = stbi_load("../../resources/cat.jpg", &X, &Y, &c1, 0);
+	//	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, X, Y, 0, GL_RGB, GL_UNSIGNED_BYTE, b);
+	//	stbi_image_free(b);
 }
 
 void dotth::gl_callback::reshape(int width, int height) {
-    glViewport(0, 0, width, height);
-    glMatrixMode(GL_PROJECTION);
-    glLoadIdentity();
-    gluPerspective(30, static_cast<double>(width)/static_cast<double>(height), 1.0, 50.0);
-    glMatrixMode(GL_MODELVIEW);
-    glLoadIdentity();
-    gluLookAt(0.0, 0.0, 5.0, 0, 0.0, 0.0, 0.0, 1.0, 0.0);
-    glutPostRedisplay();
+	glViewport(0, 0, width, height);
+	glMatrixMode(GL_PROJECTION);
+	glLoadIdentity();
+	gluPerspective(30, static_cast<double>(width) / static_cast<double>(height), 1.0, 50.0);
+	glMatrixMode(GL_MODELVIEW);
+	glLoadIdentity();
+	gluLookAt(0.0, 0.0, 5.0, 0, 0.0, 0.0, 0.0, 1.0, 0.0);
+	glutPostRedisplay();
 }
 
 void dotth::renderer::init_gl(int argc, char** argv) {
-	
-    glutInit(&argc, argv);
-    glutInitDisplayMode(GLUT_RGBA | GLUT_DOUBLE);
-    glutInitWindowSize(1024, 512);
-    glutInitWindowPosition(100, 100);
-    glutCreateWindow("asdf");
-    glClearColor(0, 0, 0, 0);
-    glEnable(GL_POINT_SMOOTH);
-    glEnable(GL_LINE_SMOOTH);
-    glEnable(GL_POLYGON_SMOOTH);
-    
-    glutReshapeFunc(dotth::gl_callback::reshape);
-    glutDisplayFunc(dotth::gl_callback::display);
 
-    auto program_id = dotth::shader::LoadShaders("Simple.vs", "Simple.fs");
-    
-//    glutTimerFunc(15, dotth::gl_callback::timer, 0);
-    glutMainLoop();
+	glutInit(&argc, argv);
+	glutInitDisplayMode(GLUT_RGBA | GLUT_DOUBLE);
+	glutInitWindowSize(1024, 512);
+	glutInitWindowPosition(100, 100);
+	glutCreateWindow("asdf");
+	glClearColor(0, 0, 0, 0);
+	glEnable(GL_POINT_SMOOTH);
+	glEnable(GL_LINE_SMOOTH);
+	glEnable(GL_POLYGON_SMOOTH);
+
+	glutReshapeFunc(dotth::gl_callback::reshape);
+	glutDisplayFunc(dotth::gl_callback::display);
+
+	//auto program_id = dotth::shader::LoadShaders("Simple.vs", "Simple.fs");
+
+	//    glutTimerFunc(15, dotth::gl_callback::timer, 0);
+	glutMainLoop();
 }
-
-//1void dotth::render_queue::process_command(const decltype(commands)::value_type p)
-//{
-//	switch (p->type())
-//	{
-//	case render_command_type::unknown: break;
-//	case render_command_type::triangles:
-//		auto jj = static_cast<triangle_command*>(p);
-//		for (auto const& vertex : jj->_triangle.vertexs)
-//		{
-//			glColor4f(vertex.r, vertex.g, vertex.b, vertex.a);
-//			glVertex3f(vertex.x, vertex.y, vertex.z);
-//		}
-//		break;
-//	default: break;
-//	}
-//}
 
 void dotth::render_queue::process(void)
 {
@@ -124,18 +99,18 @@ void dotth::render_queue::process(void)
 		case render_command_type::polygons:
 		{
 			auto jj = static_cast<polygon_command*>(p);
-            
-            glUseProgram(3);
-            auto loc = glGetAttribLocation(2, "position");
-            glEnableVertexAttribArray(loc);
+
+			//glUseProgram(3);
+			//auto loc = glGetAttribLocation(2, "position");
+			//glEnableVertexAttribArray(loc);
 			glEnableClientState(GL_VERTEX_ARRAY);
 			glVertexPointer(3, GL_FLOAT, 0, jj->_triangle.v.data());
 			glEnableClientState(GL_COLOR_ARRAY);
 			glColorPointer(4, GL_FLOAT, 0, jj->_triangle.c.data());
 			glDrawElements(GL_TRIANGLES, jj->_triangle.i.size(), GL_UNSIGNED_INT, jj->_triangle.i.data());
-            glUseProgram(0);
-		}	
-			break;
+			//glUseProgram(0);
+		}
+		break;
 		default: break;
 		}
 	});
