@@ -71,6 +71,7 @@ void dotth::gl_callback::reshape(int width, int height) {
 
 void dotth::renderer::init_gl(int argc, char** argv) {
 
+	
 	glutInit(&argc, argv);
 	glutInitDisplayMode(GLUT_RGBA | GLUT_DOUBLE);
 	glutInitWindowSize(1024, 512);
@@ -83,11 +84,11 @@ void dotth::renderer::init_gl(int argc, char** argv) {
 
 	glutReshapeFunc(dotth::gl_callback::reshape);
 	glutDisplayFunc(dotth::gl_callback::display);
-
-	//auto program_id = dotth::shader::LoadShaders("Simple.vs", "Simple.fs");
-
-	//    glutTimerFunc(15, dotth::gl_callback::timer, 0);
-	glutMainLoop();
+	if (glewInit() == GLEW_OK)
+	{
+		auto program_id = dotth::shader::LoadShaders("../../resources/glsl/Simple.vs", "../../resources/glsl/Simple.fs");
+		glutMainLoop();
+	}
 }
 
 void dotth::render_queue::process(void)
@@ -100,15 +101,15 @@ void dotth::render_queue::process(void)
 		{
 			auto jj = static_cast<polygon_command*>(p);
 
-			//glUseProgram(3);
-			//auto loc = glGetAttribLocation(2, "position");
-			//glEnableVertexAttribArray(loc);
+			glUseProgram(3);
+			auto loc = glGetAttribLocation(2, "position");
+			glEnableVertexAttribArray(loc);
 			glEnableClientState(GL_VERTEX_ARRAY);
 			glVertexPointer(3, GL_FLOAT, 0, jj->_triangle.v.data());
 			glEnableClientState(GL_COLOR_ARRAY);
 			glColorPointer(4, GL_FLOAT, 0, jj->_triangle.c.data());
 			glDrawElements(GL_TRIANGLES, jj->_triangle.i.size(), GL_UNSIGNED_INT, jj->_triangle.i.data());
-			//glUseProgram(0);
+			glUseProgram(0);
 		}
 		break;
 		default: break;

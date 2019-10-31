@@ -97,7 +97,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>libdotth.lib;%(AdditionalDependencies);glut32.lib;glew32.lib</AdditionalDependencies>
+      <AdditionalDependencies>libdotth.lib;%(AdditionalDependencies);glut32.lib;glew32.lib;</AdditionalDependencies>
       <AdditionalLibraryDirectories>..\libdotth\Debug\;../../../core/external/opengl/win/x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>

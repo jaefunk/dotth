@@ -32,7 +32,6 @@ SOFTWARE.
 #else
 #include "../external/opengl/glew.h"
 #include "../external/opengl/glut.h"
-#pragma comment(lib, "glew32.lib")
 #endif
 
 #include "base/utility.hpp"
