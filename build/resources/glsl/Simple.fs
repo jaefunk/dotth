@@ -21,7 +21,16 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE  OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-void main()
+varying vec4 out_color;
+varying vec2 out_uv;
+uniform sampler2D texture_0;
+
+void main (void)
 {
-    gl_FragColor = vec4(1.0, 1.0, 1.0, 1.0);
+    gl_FragColor = texture2D(texture_0, out_uv) * out_color;
+//    gl_FragColor.r = texture2D(texture_0, out_uv).r;//;
+//    gl_FragColor.x = out_uv.y;
+//    gl_FragColor.y = out_uv.x;
+//    gl_FragColor.z = out_uv.y;
+//    gl_FragColor.w = vUV.y;
 }

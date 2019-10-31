@@ -12,18 +12,20 @@
 		2728DCBC2349E0ED003DB7FA /* GLUT.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2728DCB92349E0ED003DB7FA /* GLUT.framework */; };
 		2728DCBD2349E0ED003DB7FA /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2728DCBA2349E0ED003DB7FA /* OpenGL.framework */; };
 		2728DCC22349E583003DB7FA /* liblibdotth.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2728DCC12349E583003DB7FA /* liblibdotth.a */; };
+		27292A722369B628008CDFF7 /* resources in CopyFiles */ = {isa = PBXBuildFile; fileRef = 2728DCAB2349D96B003DB7FA /* resources */; };
 		27C83B05233CF29D00FF791B /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 27C83B04233CF29D00FF791B /* main.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
 		27C83AF8233CF25D00FF791B /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = /usr/share/man/man1/;
-			dstSubfolderSpec = 0;
+			buildActionMask = 12;
+			dstPath = "";
+			dstSubfolderSpec = 16;
 			files = (
+				27292A722369B628008CDFF7 /* resources in CopyFiles */,
 			);
-			runOnlyForDeploymentPostprocessing = 1;
+			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
 

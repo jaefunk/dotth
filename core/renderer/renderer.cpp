@@ -42,20 +42,6 @@ void dotth::gl_callback::display(void) {
 	// flush the drawing to screen .
 	glutSwapBuffers();
 	glutPostRedisplay();
-
-
-
-	//	unsigned int texture;
-	//	glGenTextures(1, &texture);
-	//	glBindTexture(GL_TEXTURE_2D, texture);
-	//	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-	//	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-	//	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-	//	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-	//	int X, Y, c1;
-	//	auto b = stbi_load("../../resources/cat.jpg", &X, &Y, &c1, 0);
-	//	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, X, Y, 0, GL_RGB, GL_UNSIGNED_BYTE, b);
-	//	stbi_image_free(b);
 }
 
 void dotth::gl_callback::reshape(int width, int height) {
@@ -81,14 +67,37 @@ void dotth::renderer::init_gl(int argc, char** argv) {
 	glEnable(GL_POINT_SMOOTH);
 	glEnable(GL_LINE_SMOOTH);
 	glEnable(GL_POLYGON_SMOOTH);
-
 	glutReshapeFunc(dotth::gl_callback::reshape);
 	glutDisplayFunc(dotth::gl_callback::display);
+
+#ifdef WIN32
 	if (glewInit() == GLEW_OK)
+#endif
 	{
-		auto program_id = dotth::shader::LoadShaders("../../resources/glsl/Simple.vs", "../../resources/glsl/Simple.fs");
+#ifdef WIN32
+        auto program_id = dotth::shader::LoadShaders("../../resources/glsl/Simple.vs", "../../resources/glsl/Simple.fs");
+#else
+        auto program_id = dotth::shader::LoadShaders("resources/glsl/Simple.vs", "resources/glsl/Simple.fs");
+#endif
+		
+        unsigned int texture;
+        glGenTextures(1, &texture);
+        glBindTexture(GL_TEXTURE_2D, texture);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+        int X, Y, c1;
+        stbi_set_flip_vertically_on_load(true);
+        auto b = stbi_load("resources/cat.jpg", &X, &Y, &c1, 0);
+        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, X, Y, 0, GL_RGB, GL_UNSIGNED_BYTE, b);
+        glGenerateMipmap(GL_TEXTURE_2D);
+        stbi_image_free(b);
+        
+        
 		glutMainLoop();
 	}
+	
 }
 
 void dotth::render_queue::process(void)
@@ -101,14 +110,20 @@ void dotth::render_queue::process(void)
 		{
 			auto jj = static_cast<polygon_command*>(p);
 
-			glUseProgram(3);
-			auto loc = glGetAttribLocation(2, "position");
-			glEnableVertexAttribArray(loc);
-			glEnableClientState(GL_VERTEX_ARRAY);
-			glVertexPointer(3, GL_FLOAT, 0, jj->_triangle.v.data());
-			glEnableClientState(GL_COLOR_ARRAY);
-			glColorPointer(4, GL_FLOAT, 0, jj->_triangle.c.data());
-			glDrawElements(GL_TRIANGLES, jj->_triangle.i.size(), GL_UNSIGNED_INT, jj->_triangle.i.data());
+            int use_program = 3;
+			glUseProgram(use_program);
+            
+            glEnableClientState(GL_VERTEX_ARRAY);
+            glEnableClientState(GL_COLOR_ARRAY);
+            
+            glVertexPointer(3, GL_FLOAT, 0, jj->_triangle.v.data());
+            glColorPointer(4, GL_FLOAT, 0, jj->_triangle.c.data());
+            
+            auto uv = glGetAttribLocation(use_program, "in_uv");
+			glEnableVertexAttribArray(uv);
+            glVertexAttribPointer(uv, 2, GL_FLOAT, GL_FALSE, 0, jj->_triangle.u.data());
+            
+			glDrawElements(GL_TRIANGLES, static_cast<int32_t>(jj->_triangle.i.size()), GL_UNSIGNED_INT, jj->_triangle.i.data());
 			glUseProgram(0);
 		}
 		break;

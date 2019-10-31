@@ -21,9 +21,22 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE  OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-attribute vec4 position;
-void main()
+//attribute vec4 position;
+//void main()
+//{
+//    gl_Position = position;
+//    gl_Position.w = 1.0;
+//}
+
+attribute vec2 in_uv;
+
+varying vec4 out_color;
+varying vec2 out_uv;
+
+void main(void)
 {
-    gl_Position = position;
-    gl_Position.w = 1.0;
+    out_color = gl_Color;
+    out_uv = in_uv;
+    
+    gl_Position = gl_ModelViewProjectionMatrix * gl_Vertex;
 }

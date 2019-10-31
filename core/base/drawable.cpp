@@ -27,18 +27,23 @@ SOFTWARE.
 
 void dotth::rectangle::init1(void)
 {
-	float x = -0.f;
 	_command._triangle.v.resize(4);
-	_command._triangle.v[0] = xyz(x + -0.5f, 0.5f, 0.f);
-	_command._triangle.v[1] = xyz(x + 0.5f, 0.5f, 0.f);
-	_command._triangle.v[2] = xyz(x + -0.5f, -0.5f, 0.f);
-	_command._triangle.v[3] = xyz(x + 0.5f, -0.5f, 0.f);
+	_command._triangle.v[0] = xyz(-0.5f, 0.5f, 0.f);
+	_command._triangle.v[1] = xyz(0.5f, 0.5f, 0.f);
+	_command._triangle.v[2] = xyz(-0.5f, -0.5f, 0.f);
+	_command._triangle.v[3] = xyz(0.5f, -0.5f, 0.f);
 
 	_command._triangle.c.resize(4);
-	_command._triangle.c[0] = rgba(1.f, 0.f, 0.f, 1.f);
-	_command._triangle.c[1] = rgba(0.f, 1.f, 0.f, 1.f);
-	_command._triangle.c[2] = rgba(0.f, 0.f, 1.f, 1.f);
+	_command._triangle.c[0] = rgba(1.f, 1.f, 1.f, 1.f);
+	_command._triangle.c[1] = rgba(1.f, 1.f, 1.f, 1.f);
+	_command._triangle.c[2] = rgba(1.f, 1.f, 1.f, 1.f);
 	_command._triangle.c[3] = rgba(1.f, 1.f, 1.f, 1.f);
+    
+    _command._triangle.u.resize(4);
+    _command._triangle.u[0] = uv(0.f, 1.f);
+    _command._triangle.u[1] = uv(1.f, 1.f);
+    _command._triangle.u[2] = uv(0.f, 0.f);
+    _command._triangle.u[3] = uv(1.f, 0.f);
 
 	_command._triangle.i.resize(6);
 	_command._triangle.i[0] = 0;
