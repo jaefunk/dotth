@@ -51,7 +51,7 @@ void dotth::gl_callback::reshape(int width, int height) {
 	gluPerspective(30, static_cast<double>(width) / static_cast<double>(height), 1.0, 50.0);
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
-	gluLookAt(0.0, 0.0, 5.0, 0, 0.0, 0.0, 0.0, 1.0, 0.0);
+	gluLookAt(2.0, 3.0, -5.0, 0, 0.0, 0.0, 0.0, 1.0, 0.0);
 	glutPostRedisplay();
 }
 
@@ -89,12 +89,11 @@ void dotth::renderer::init_gl(int argc, char** argv) {
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
         int X, Y, c1;
         stbi_set_flip_vertically_on_load(true);
-        auto b = stbi_load("resources/cat.jpg", &X, &Y, &c1, 0);
-        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, X, Y, 0, GL_RGB, GL_UNSIGNED_BYTE, b);
+        auto b = stbi_load("../../resources/usagi.png", &X, &Y, &c1, 0);
+        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, X, Y, 0, GL_RGBA, GL_UNSIGNED_BYTE, b);
         glGenerateMipmap(GL_TEXTURE_2D);
         stbi_image_free(b);
-        
-        
+
 		glutMainLoop();
 	}
 	
@@ -113,8 +112,8 @@ void dotth::render_queue::process(void)
             int use_program = 3;
 			glUseProgram(use_program);
             
-            glEnableClientState(GL_VERTEX_ARRAY);
-            glEnableClientState(GL_COLOR_ARRAY);
+			glEnableClientState(GL_VERTEX_ARRAY);
+			glEnableClientState(GL_COLOR_ARRAY);
             
             glVertexPointer(3, GL_FLOAT, 0, jj->_triangle.v.data());
             glColorPointer(4, GL_FLOAT, 0, jj->_triangle.c.data());

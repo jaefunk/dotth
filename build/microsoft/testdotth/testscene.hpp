@@ -5,7 +5,7 @@
 class testscene : public dotth::scene {
     virtual void init(json data) override {
 		auto jj = std::make_shared<dotth::rectangle>();
-		jj->init1();
+		jj->init2();
 		attach(jj);
 		//jj = std::make_shared<dotth::rectangle>();
 		//jj->init2();

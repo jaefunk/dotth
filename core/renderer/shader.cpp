@@ -71,7 +71,6 @@ unsigned int dotth::shader::LoadShaders(const char * vertex_file_path, const cha
 	GLint Result = GL_FALSE;
 	int InfoLogLength;
 
-
 	// 버텍스 쉐이더를 컴파일
 	printf("Compiling shader : %s\n", vertex_file_path);
 	char const * VertexSourcePointer = VertexShaderCode.c_str();
@@ -86,8 +85,6 @@ unsigned int dotth::shader::LoadShaders(const char * vertex_file_path, const cha
 		glGetShaderInfoLog(VertexShaderID, InfoLogLength, NULL, &VertexShaderErrorMessage[0]);
 		printf("%s\n", &VertexShaderErrorMessage[0]);
 	}
-
-
 
 	// 프래그먼트 쉐이더를 컴파일
 	printf("Compiling shader : %s\n", fragment_file_path);
@@ -104,8 +101,6 @@ unsigned int dotth::shader::LoadShaders(const char * vertex_file_path, const cha
 		printf("%s\n", &FragmentShaderErrorMessage[0]);
 	}
 
-
-
 	// 프로그램에 링크
 	printf("Linking program\n");
 	GLuint ProgramID = glCreateProgram();
@@ -121,7 +116,6 @@ unsigned int dotth::shader::LoadShaders(const char * vertex_file_path, const cha
 		glGetProgramInfoLog(ProgramID, InfoLogLength, NULL, &ProgramErrorMessage[0]);
 		printf("%s\n", &ProgramErrorMessage[0]);
 	}
-
 
 	glDetachShader(ProgramID, VertexShaderID);
 	glDetachShader(ProgramID, FragmentShaderID);
