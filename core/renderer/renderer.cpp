@@ -67,6 +67,10 @@ void dotth::renderer::init_gl(int argc, char** argv) {
 	glEnable(GL_POINT_SMOOTH);
 	glEnable(GL_LINE_SMOOTH);
 	glEnable(GL_POLYGON_SMOOTH);
+	// Enable depth test
+	glEnable(GL_DEPTH_TEST);
+	// Accept fragment if it closer to the camera than the former one
+	glDepthFunc(GL_LESS);
 	glutReshapeFunc(dotth::gl_callback::reshape);
 	glutDisplayFunc(dotth::gl_callback::display);
 
@@ -88,7 +92,7 @@ void dotth::renderer::init_gl(int argc, char** argv) {
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
         int X, Y, c1;
-        stbi_set_flip_vertically_on_load(true);
+        //stbi_set_flip_vertically_on_load(true);
         auto b = stbi_load("../../resources/usagi.png", &X, &Y, &c1, 0);
         glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, X, Y, 0, GL_RGBA, GL_UNSIGNED_BYTE, b);
         glGenerateMipmap(GL_TEXTURE_2D);
@@ -113,10 +117,10 @@ void dotth::render_queue::process(void)
 			glUseProgram(use_program);
             
 			glEnableClientState(GL_VERTEX_ARRAY);
-			glEnableClientState(GL_COLOR_ARRAY);
+			//glEnableClientState(GL_COLOR_ARRAY);
             
             glVertexPointer(3, GL_FLOAT, 0, jj->_triangle.v.data());
-            glColorPointer(4, GL_FLOAT, 0, jj->_triangle.c.data());
+            //glColorPointer(4, GL_FLOAT, 0, jj->_triangle.c.data());
             
             auto uv = glGetAttribLocation(use_program, "in_uv");
 			glEnableVertexAttribArray(uv);
