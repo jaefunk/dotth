@@ -56,7 +56,7 @@ void dotth::rectangle::init1(void)
 
 void dotth::rectangle::init2(void)
 {
-	_command._triangle.v.resize(8);
+	_command._triangle.v.resize(8); 
 	_command._triangle.v[0] = xyz(-0.5f, 0.5f, -0.5f);
 	_command._triangle.v[1] = xyz(0.5f, 0.5f, -0.5f);
 	_command._triangle.v[2] = xyz(-0.5f, -0.5f, -0.5f);
