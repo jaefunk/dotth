@@ -57,21 +57,23 @@ void dotth::rectangle::init1(void)
 void dotth::rectangle::init2(void)
 {
 	_command._triangle.v.clear();
-	// front
-	_command._triangle.v.push_back(xyz(-0.5f, 0.5f, -0.5f));
-	_command._triangle.v.push_back(xyz(0.5f, 0.5f, -0.5f));
-	_command._triangle.v.push_back(xyz(-0.5f, -0.5f, -0.5f));
-	_command._triangle.v.push_back(xyz(0.5f, -0.5f, -0.5f));
+	
+    
+    // right
+    _command._triangle.v.push_back(xyz(0.5f, 0.5f, -0.5f));
+    _command._triangle.v.push_back(xyz(0.5f, 0.5f, 0.5f));
+    _command._triangle.v.push_back(xyz(0.5f, -0.5f, -0.5f));
+    _command._triangle.v.push_back(xyz(0.5f, -0.5f, 0.5f));
 	// back
-	_command._triangle.v.push_back(xyz(-0.5f, 0.5f, 0.5f));
-	_command._triangle.v.push_back(xyz(0.5f, 0.5f, 0.5f));
-	_command._triangle.v.push_back(xyz(-0.5f, -0.5f, 0.5f));
-	_command._triangle.v.push_back(xyz(0.5f, -0.5f, 0.5f));
-	// top
-	_command._triangle.v.push_back(xyz(-0.5f, 0.5f, 0.5f));
-	_command._triangle.v.push_back(xyz(0.5f, 0.5f, 0.5f));
-	_command._triangle.v.push_back(xyz(-0.5f, 0.5f, -0.5f));
-	_command._triangle.v.push_back(xyz(0.5f, 0.5f, -0.5f));	
+    _command._triangle.v.push_back(xyz(-0.5f, 0.5f, -0.5f));
+    _command._triangle.v.push_back(xyz(0.5f, 0.5f, -0.5f));
+    _command._triangle.v.push_back(xyz(-0.5f, -0.5f, -0.5f));
+    _command._triangle.v.push_back(xyz(0.5f, -0.5f, -0.5f));
+    // top
+    _command._triangle.v.push_back(xyz(-0.5f, 0.5f, 0.5f));
+    _command._triangle.v.push_back(xyz(0.5f, 0.5f, 0.5f));
+    _command._triangle.v.push_back(xyz(-0.5f, 0.5f, -0.5f));
+    _command._triangle.v.push_back(xyz(0.5f, 0.5f, -0.5f));
 	// down
 	_command._triangle.v.push_back(xyz(-0.5f, -0.5f, -0.5f));
 	_command._triangle.v.push_back(xyz(0.5f, -0.5f, -0.5f));
@@ -79,14 +81,14 @@ void dotth::rectangle::init2(void)
 	_command._triangle.v.push_back(xyz(0.5f, -0.5f, 0.5f));
 	// left
 	_command._triangle.v.push_back(xyz(-0.5f, 0.5f, -0.5f));
-	_command._triangle.v.push_back(xyz(-0.5f, 0.5f, 0.5f)); 
+	_command._triangle.v.push_back(xyz(-0.5f, 0.5f, 0.5f));
 	_command._triangle.v.push_back(xyz(-0.5f, -0.5f, -0.5f));
 	_command._triangle.v.push_back(xyz(-0.5f, -0.5f, 0.5f));
-	// right
-	_command._triangle.v.push_back(xyz(0.5f, 0.5f, -0.5f));
-	_command._triangle.v.push_back(xyz(0.5f, 0.5f, 0.5f)); 
-	_command._triangle.v.push_back(xyz(0.5f, -0.5f, -0.5f));
-	_command._triangle.v.push_back(xyz(0.5f, -0.5f, 0.5f));
+	// front
+    _command._triangle.v.push_back(xyz(-0.5f, 0.5f, 0.5f));
+    _command._triangle.v.push_back(xyz(0.5f, 0.5f, 0.5f));
+    _command._triangle.v.push_back(xyz(-0.5f, -0.5f, 0.5f));
+    _command._triangle.v.push_back(xyz(0.5f, -0.5f, 0.5f));
 
 	_command._triangle.u.clear();
 	for (auto i = 0; i < 6; ++i)

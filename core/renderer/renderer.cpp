@@ -49,10 +49,10 @@ void dotth::gl_callback::reshape(int width, int height) {
 	glViewport(0, 0, width, height);
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
-	gluPerspective(30, static_cast<double>(width) / static_cast<double>(height), 1.0, 50.0);
+	gluPerspective(50, static_cast<double>(width) / static_cast<double>(height), 1.0, 100.0);
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
-	gluLookAt(-3.0, 5.0, 5.0, 0, 0.0, 0.0, 0.0, 1.0, 0.0);
+	gluLookAt(0.0, 3.0, 5.0, 0, 0.0, 0.0, 0.0, 1.0, 0.0);
 	glutPostRedisplay();
 }
 
@@ -60,23 +60,21 @@ void dotth::renderer::init_gl(int argc, char** argv) {
 
 	
 	glutInit(&argc, argv);
-	glutInitDisplayMode(GLUT_RGBA | GLUT_DOUBLE);
+    glutInitDisplayMode(GLUT_RGBA|GLUT_DOUBLE|GLUT_DEPTH);
 	glutInitWindowSize(1024, 512);
 	glutInitWindowPosition(100, 100);
 	glutCreateWindow("asdf");
 	glClearColor(0, 0, 0, 0);
+    
 	glEnable(GL_POINT_SMOOTH);
 	glEnable(GL_LINE_SMOOTH);
 	glEnable(GL_POLYGON_SMOOTH);
-	// Enable depth test
-	glEnable(GL_DEPTH_TEST);
-	// Accept fragment if it closer to the camera than the former one
+    glEnable(GL_DEPTH_TEST);
 	glDepthFunc(GL_LESS);
 	glutReshapeFunc(dotth::gl_callback::reshape);
 	glutDisplayFunc(dotth::gl_callback::display);
-
-	queue[render_queue_type::perspective] = std::make_shared<render_queue>();
-
+	
+    queue[render_queue_type::perspective] = std::make_shared<render_queue>();
 #ifdef WIN32
 	if (glewInit() == GLEW_OK)
 #endif
@@ -97,6 +95,8 @@ void dotth::renderer::init_gl(int argc, char** argv) {
         int X, Y, c1;
         //stbi_set_flip_vertically_on_load(true);
         auto b = stbi_load("../../resources/usagi.png", &X, &Y, &c1, 0);
+        if (b == nullptr)
+            b = stbi_load("resources/usagi.png", &X, &Y, &c1, 0);
         glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, X, Y, 0, GL_RGBA, GL_UNSIGNED_BYTE, b);
         glGenerateMipmap(GL_TEXTURE_2D);
         stbi_image_free(b);
