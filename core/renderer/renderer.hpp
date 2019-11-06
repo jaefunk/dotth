@@ -64,18 +64,17 @@ namespace dotth {
 		{
 			switch (command->type()) {
 				case render_command_type::polygons: 
-					queue[render_queue_type::perspective].push_back(command);
+					queue[render_queue_type::perspective]->push_back(command);
                 case render_command_type::unknown:
                 default:
 				break;
 			}
 		}
-	
-		const render_queue& find_render_queue(const render_queue_type& type) {
+		const std::shared_ptr<render_queue> find_render_queue(const render_queue_type& type) {
 			return queue[type];
 		}
 	private:
-        std::map<render_queue_type, render_queue> queue;
+        std::map<render_queue_type, std::shared_ptr<render_queue>> queue;
     };
 };
 

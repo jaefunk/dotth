@@ -28,10 +28,10 @@ SOFTWARE.
 void dotth::rectangle::init1(void)
 {
 	_command._triangle.v.resize(4);
-	_command._triangle.v[0] = xyz(-0.5f, 0.5f, 0.f);
-	_command._triangle.v[1] = xyz(0.5f, 0.5f, 0.f);
-	_command._triangle.v[2] = xyz(-0.5f, -0.5f, 0.f);
-	_command._triangle.v[3] = xyz(0.5f, -0.5f, 0.f);
+	_command._triangle.v[0] = xyz(-10.f, -0.5f, 10.f);
+	_command._triangle.v[1] = xyz(10.f, -0.5f, 10.f);
+	_command._triangle.v[2] = xyz(-10.f, -0.5f, -10.f);
+	_command._triangle.v[3] = xyz(10.f, -0.5f, -10.f);
 
 	_command._triangle.c.resize(4);
 	_command._triangle.c[0] = rgba(1.f, 1.f, 1.f, 1.f);
@@ -68,10 +68,10 @@ void dotth::rectangle::init2(void)
 	_command._triangle.v.push_back(xyz(-0.5f, -0.5f, 0.5f));
 	_command._triangle.v.push_back(xyz(0.5f, -0.5f, 0.5f));
 	// top
-	_command._triangle.v.push_back(xyz(-0.5f, 0.5f, -0.5f));
-	_command._triangle.v.push_back(xyz(0.5f, 0.5f, -0.5f));
 	_command._triangle.v.push_back(xyz(-0.5f, 0.5f, 0.5f));
 	_command._triangle.v.push_back(xyz(0.5f, 0.5f, 0.5f));
+	_command._triangle.v.push_back(xyz(-0.5f, 0.5f, -0.5f));
+	_command._triangle.v.push_back(xyz(0.5f, 0.5f, -0.5f));	
 	// down
 	_command._triangle.v.push_back(xyz(-0.5f, -0.5f, -0.5f));
 	_command._triangle.v.push_back(xyz(0.5f, -0.5f, -0.5f));
@@ -79,17 +79,16 @@ void dotth::rectangle::init2(void)
 	_command._triangle.v.push_back(xyz(0.5f, -0.5f, 0.5f));
 	// left
 	_command._triangle.v.push_back(xyz(-0.5f, 0.5f, -0.5f));
+	_command._triangle.v.push_back(xyz(-0.5f, 0.5f, 0.5f)); 
 	_command._triangle.v.push_back(xyz(-0.5f, -0.5f, -0.5f));
-	_command._triangle.v.push_back(xyz(-0.5f, 0.5f, 0.5f));
 	_command._triangle.v.push_back(xyz(-0.5f, -0.5f, 0.5f));
 	// right
 	_command._triangle.v.push_back(xyz(0.5f, 0.5f, -0.5f));
+	_command._triangle.v.push_back(xyz(0.5f, 0.5f, 0.5f)); 
 	_command._triangle.v.push_back(xyz(0.5f, -0.5f, -0.5f));
-	_command._triangle.v.push_back(xyz(0.5f, 0.5f, 0.5f));
 	_command._triangle.v.push_back(xyz(0.5f, -0.5f, 0.5f));
 
 	_command._triangle.u.clear();
-
 	for (auto i = 0; i < 6; ++i)
 	{
 		_command._triangle.u.push_back(uv(0.f, 0.f));
@@ -110,14 +109,8 @@ void dotth::rectangle::init2(void)
 	}
 
 	_command._triangle.c.clear();
-	_command._triangle.c.push_back(rgba(1.f, 0.f, 0.f, 1.f));
-	_command._triangle.c.push_back(rgba(1.f, 1.f, 1.f, 1.f));
-	_command._triangle.c.push_back(rgba(1.f, 1.f, 1.f, 1.f));
-	_command._triangle.c.push_back(rgba(1.f, 1.f, 1.f, 1.f));
-	_command._triangle.c.push_back(rgba(1.f, 1.f, 1.f, 1.f));
-	_command._triangle.c.push_back(rgba(1.f, 1.f, 1.f, 1.f));
-	_command._triangle.c.push_back(rgba(1.f, 1.f, 1.f, 1.f));
-	_command._triangle.c.push_back(rgba(1.f, 1.f, 1.f, 1.f));
+	for (std::size_t i = 0; i < _command._triangle.v.size(); ++i)
+		_command._triangle.c.push_back(rgba());
 }
 
 void dotth::rectangle::draw(const matrix4 & transform, int flags) {

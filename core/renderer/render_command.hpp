@@ -39,7 +39,7 @@ namespace dotth {
 	};
 	struct rgba {
 		float r, g, b, a;
-		rgba(void) {};
+		rgba(void) { r = 1.f; g = 1.f; b = 1.f; a = 1.f; };
 		rgba(float _r, float _g, float _b, float _a) : r(_r), g(_g), b(_b), a(_a) {}
 	};
 	struct v3f_c4b {

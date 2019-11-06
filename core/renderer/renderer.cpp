@@ -36,10 +36,11 @@ void dotth::gl_callback::display(void) {
 	scene_manager::instance()->draw();
 
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	auto queue = renderer::instance()->find_render_queue(render_queue_type::perspective);
-	queue.process();
-
-	// flush the drawing to screen .
+	if (auto queue = renderer::instance()->find_render_queue(render_queue_type::perspective))
+	{
+		queue->process();
+		queue->clear();
+	}
 	glutSwapBuffers();
 	glutPostRedisplay();
 }
@@ -51,7 +52,7 @@ void dotth::gl_callback::reshape(int width, int height) {
 	gluPerspective(30, static_cast<double>(width) / static_cast<double>(height), 1.0, 50.0);
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
-	gluLookAt(2.0, 3.0, -5.0, 0, 0.0, 0.0, 0.0, 1.0, 0.0);
+	gluLookAt(-3.0, 5.0, 5.0, 0, 0.0, 0.0, 0.0, 1.0, 0.0);
 	glutPostRedisplay();
 }
 
@@ -73,6 +74,8 @@ void dotth::renderer::init_gl(int argc, char** argv) {
 	glDepthFunc(GL_LESS);
 	glutReshapeFunc(dotth::gl_callback::reshape);
 	glutDisplayFunc(dotth::gl_callback::display);
+
+	queue[render_queue_type::perspective] = std::make_shared<render_queue>();
 
 #ifdef WIN32
 	if (glewInit() == GLEW_OK)
@@ -117,10 +120,10 @@ void dotth::render_queue::process(void)
 			glUseProgram(use_program);
             
 			glEnableClientState(GL_VERTEX_ARRAY);
-			//glEnableClientState(GL_COLOR_ARRAY);
+			glEnableClientState(GL_COLOR_ARRAY);
             
             glVertexPointer(3, GL_FLOAT, 0, jj->_triangle.v.data());
-            //glColorPointer(4, GL_FLOAT, 0, jj->_triangle.c.data());
+            glColorPointer(4, GL_FLOAT, 0, jj->_triangle.c.data());
             
             auto uv = glGetAttribLocation(use_program, "in_uv");
 			glEnableVertexAttribArray(uv);
@@ -133,4 +136,5 @@ void dotth::render_queue::process(void)
 		default: break;
 		}
 	});
+	clear();
 }
