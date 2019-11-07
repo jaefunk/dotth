@@ -52,7 +52,7 @@ void dotth::gl_callback::reshape(int width, int height) {
 	gluPerspective(50, static_cast<double>(width) / static_cast<double>(height), 1.0, 100.0);
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
-	gluLookAt(0.0, 3.0, 5.0, 0, 0.0, 0.0, 0.0, 1.0, 0.0);
+	gluLookAt(3.0, 3.0, 5.0, 0, 0.0, 0.0, 0.0, 1.0, 0.0);
 	glutPostRedisplay();
 }
 
