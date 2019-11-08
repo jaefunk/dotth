@@ -37,43 +37,42 @@ SOFTWARE.
 #include "../external/opengl/glut.h"
 #endif
 
-unsigned int dotth::shader::LoadShaders(const char * vertex_file_path, const char * fragment_file_path) {
+const bool dotth::shader_manager::load(std::string key, const char * file_path) {
 
-	// 쉐이더들 생성
-	GLuint VertexShaderID = glCreateShader(GL_VERTEX_SHADER);
-	GLuint FragmentShaderID = glCreateShader(GL_FRAGMENT_SHADER);
-
-	// 버텍스 쉐이더 코드를 파일에서 읽기
-	std::string VertexShaderCode;
-	std::ifstream VertexShaderStream(vertex_file_path, std::ios::in);
-	if (VertexShaderStream.is_open()) {
+	// 쉐이더 코드를 파일에서 읽기
+	std::string ShaderCode;
+	std::ifstream ShaderStream(file_path, std::ios::in);
+	if (ShaderStream.is_open()) {
 		std::stringstream sstr;
-		sstr << VertexShaderStream.rdbuf();
-		VertexShaderCode = sstr.str();
-		VertexShaderStream.close();
+		sstr << ShaderStream.rdbuf();
+		ShaderCode = sstr.str();
+		ShaderStream.close();
 	}
 	else {
-		printf("파일 %s 를 읽을 수 없음. 정확한 디렉토리를 사용 중입니까 ? FAQ 를 우선 읽어보는 걸 잊지 마세요!\n", vertex_file_path);
+		printf("파일 %s 를 읽을 수 없음. 정확한 디렉토리를 사용 중입니까 ? FAQ 를 우선 읽어보는 걸 잊지 마세요!\n", file_path);
 		getchar();
-		return 0;
+		return false;
 	}
 
-	// 프래그먼트 쉐이더 코드를 파일에서 읽기
-	std::string FragmentShaderCode;
-	std::ifstream FragmentShaderStream(fragment_file_path, std::ios::in);
-	if (FragmentShaderStream.is_open()) {
-		std::stringstream sstr;
-		sstr << FragmentShaderStream.rdbuf();
-		FragmentShaderCode = sstr.str();
-		FragmentShaderStream.close();
+	auto vertext_begin = ShaderCode.find("// vertext shader");
+	auto fragment_begin = ShaderCode.find("// fragment shader");
+	if (vertext_begin == std::string::npos || fragment_begin == std::string::npos)
+	{
+		printf("파일 %s 를 읽을 수 없음. 정확한 디렉토리를 사용 중입니까 ? FAQ 를 우선 읽어보는 걸 잊지 마세요!\n", file_path);
+		return false;
 	}
+	std::string vertext_shader = ShaderCode.substr(vertext_begin, fragment_begin - vertext_begin);
+	std::string fragment_shader = ShaderCode.substr(fragment_begin, ShaderCode.size());
+
+	GLuint VertexShaderID = glCreateShader(GL_VERTEX_SHADER);
+	GLuint FragmentShaderID = glCreateShader(GL_FRAGMENT_SHADER);
 
 	GLint Result = GL_FALSE;
 	int InfoLogLength;
 
 	// 버텍스 쉐이더를 컴파일
-	printf("Compiling shader : %s\n", vertex_file_path);
-	char const * VertexSourcePointer = VertexShaderCode.c_str();
+	printf("Compiling vertex shader : %s\n", file_path);
+	char const * VertexSourcePointer = vertext_shader.c_str();
 	glShaderSource(VertexShaderID, 1, &VertexSourcePointer, NULL);
 	glCompileShader(VertexShaderID);
 
@@ -87,8 +86,8 @@ unsigned int dotth::shader::LoadShaders(const char * vertex_file_path, const cha
 	}
 
 	// 프래그먼트 쉐이더를 컴파일
-	printf("Compiling shader : %s\n", fragment_file_path);
-	char const * FragmentSourcePointer = FragmentShaderCode.c_str();
+	printf("Compiling fragment shader : %s\n", file_path);
+	char const * FragmentSourcePointer = fragment_shader.c_str();
 	glShaderSource(FragmentShaderID, 1, &FragmentSourcePointer, NULL);
 	glCompileShader(FragmentShaderID);
 
@@ -123,5 +122,8 @@ unsigned int dotth::shader::LoadShaders(const char * vertex_file_path, const cha
 	glDeleteShader(VertexShaderID);
 	glDeleteShader(FragmentShaderID);
 
-	return ProgramID;
+	dotth::shader s;
+	s._program = ProgramID;
+	shaders.insert({ key, s });
+	return true;
 }

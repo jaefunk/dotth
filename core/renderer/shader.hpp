@@ -24,12 +24,30 @@ SOFTWARE.
 #ifndef __DOTTH_SHADER_HPP__
 #define __DOTTH_SHADER_HPP__
 
+#include <map>
+#include "base\utility.hpp"
+
 namespace dotth {
     class shader
     {
+	private:
+		friend class shader_manager;	
+		unsigned int _program = 0;
     public:
-		static unsigned int LoadShaders(const char * vertex_file_path, const char * fragment_file_path);
+		unsigned int program() 
+		{ 
+			return _program; 
+		}
     };
+
+	class shader_manager : public dotth::utility::singleton<shader_manager>
+	{
+	private:
+		std::map<std::string, dotth::shader> shaders;
+	public:
+		const bool load(std::string key, const char* file_path);
+
+	};
 };
 
 #endif // __DOTTH_SHADER_HPP__

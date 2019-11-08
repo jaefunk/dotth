@@ -80,9 +80,10 @@ void dotth::renderer::init_gl(int argc, char** argv) {
 #endif
 	{
 #ifdef WIN32
-        auto program_id = dotth::shader::LoadShaders("../../resources/glsl/Simple.vs", "../../resources/glsl/Simple.fs");
+        //auto program_id = dotth::shader::LoadShaders("../../resources/glsl/Simple.vs", "../../resources/glsl/Simple.fs");
+		dotth::shader_manager::instance()->load("simple", "../../resources/glsl/Simple.glsl");
 #else
-        auto program_id = dotth::shader::LoadShaders("resources/glsl/Simple.vs", "resources/glsl/Simple.fs");
+		dotth::shader_manager::instance()->load("simple", "resources/glsl/Simple.glsl");
 #endif
 		
         unsigned int texture;
@@ -106,35 +107,18 @@ void dotth::renderer::init_gl(int argc, char** argv) {
 	
 }
 
-void dotth::render_queue::process(void)
+void dotth::renderer::push(dotth::render_command * command)
 {
-	std::for_each(std::begin(commands), std::end(commands), [](render_command* p) {
-		switch (p->type())
-		{
-		case render_command_type::unknown: break;
-		case render_command_type::polygons:
-		{
-			auto jj = static_cast<polygon_command*>(p);
-
-            int use_program = 3;
-			glUseProgram(use_program);
-            
-			glEnableClientState(GL_VERTEX_ARRAY);
-			glEnableClientState(GL_COLOR_ARRAY);
-            
-            glVertexPointer(3, GL_FLOAT, 0, jj->_triangle.v.data());
-            glColorPointer(4, GL_FLOAT, 0, jj->_triangle.c.data());
-            
-            auto uv = glGetAttribLocation(use_program, "in_uv");
-			glEnableVertexAttribArray(uv);
-            glVertexAttribPointer(uv, 2, GL_FLOAT, GL_FALSE, 0, jj->_triangle.u.data());
-            
-			glDrawElements(GL_TRIANGLES, static_cast<int32_t>(jj->_triangle.i.size()), GL_UNSIGNED_INT, jj->_triangle.i.data());
-			glUseProgram(0);
-		}
+	switch (command->type()) {
+	case render_command_type::polygons:
+		queue[render_queue_type::perspective]->push_back(command);
+	case render_command_type::unknown:
+	default:
 		break;
-		default: break;
-		}
-	});
-	clear();
+	}
 }
+
+const std::shared_ptr<dotth::render_queue> dotth::renderer::find_render_queue(const render_queue_type & type) {
+	return queue[type];
+}
+

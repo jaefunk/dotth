@@ -24,9 +24,18 @@ SOFTWARE.
 #ifndef __DOTTH_RENDER_QUEUE_HPP__
 #define __DOTTH_RENDER_QUEUE_HPP__
 
+#include <algorithm>
+#include <vector>
+#include "render_command.hpp"
+
 namespace dotth {
 	class render_queue {
-
+	public:
+		void push_back(render_command* command);
+		void clear(void);
+		void process(void);
+	private:
+		std::vector<render_command*> commands;
 	};
 };
 

@@ -35,46 +35,22 @@ SOFTWARE.
 #endif
 
 #include "base/utility.hpp"
-#include "render_command.hpp"
+#include "render_queue.hpp"
 
 namespace dotth {
 	namespace gl_callback {
         void display(void);
         void reshape(int width, int height);
 	};
-
-    class render_queue {
-    public:
-        void push_back(render_command* command) {
-            commands.push_back(command);
-        }
-        void clear(void) {
-            commands.clear();
-        }
-		void process(void);
-    private:
-        std::vector<render_command*> commands;
-    };
     
     class renderer : public utility::singleton<renderer> {
     public:
         void init_gl(int argc, char** argv);
 	public:
-		void push(render_command* command)
-		{
-			switch (command->type()) {
-				case render_command_type::polygons: 
-					queue[render_queue_type::perspective]->push_back(command);
-                case render_command_type::unknown:
-                default:
-				break;
-			}
-		}
-		const std::shared_ptr<render_queue> find_render_queue(const render_queue_type& type) {
-			return queue[type];
-		}
+		void push(dotth::render_command* command);
+		const std::shared_ptr<dotth::render_queue> find_render_queue(const render_queue_type& type);
 	private:
-        std::map<render_queue_type, std::shared_ptr<render_queue>> queue;
+        std::map<render_queue_type, std::shared_ptr<dotth::render_queue>> queue;
     };
 };
 
