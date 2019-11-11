@@ -27,7 +27,7 @@ SOFTWARE.
 #include "../base/scene.hpp"
 #include "../external/stb/image/stb_image.h"
 #include "shader.hpp"
-
+#include "platform/filesystem/path.hpp"
 
 void dotth::gl_callback::display(void) {
 
@@ -79,13 +79,7 @@ void dotth::renderer::init_gl(int argc, char** argv) {
 	if (glewInit() == GLEW_OK)
 #endif
 	{
-#ifdef WIN32
-        //auto program_id = dotth::shader::LoadShaders("../../resources/glsl/Simple.vs", "../../resources/glsl/Simple.fs");
-		dotth::shader_manager::instance()->load("simple", "../../resources/glsl/Simple.glsl");
-#else
-		dotth::shader_manager::instance()->load("simple", "resources/glsl/Simple.glsl");
-#endif
-		
+		dotth::shader_manager::instance()->load("simple", dotth::path("resources/glsl/Simple.glsl").c_str());		
         unsigned int texture;
         glGenTextures(1, &texture);
         glBindTexture(GL_TEXTURE_2D, texture);
@@ -95,16 +89,14 @@ void dotth::renderer::init_gl(int argc, char** argv) {
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
         int X, Y, c1;
         //stbi_set_flip_vertically_on_load(true);
-        auto b = stbi_load("../../resources/usagi.png", &X, &Y, &c1, 0);
-        if (b == nullptr)
-            b = stbi_load("resources/usagi.png", &X, &Y, &c1, 0);
+		
+        auto b = stbi_load(dotth::path("resources/usagi.png").c_str(), &X, &Y, &c1, 0);
         glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, X, Y, 0, GL_RGBA, GL_UNSIGNED_BYTE, b);
         glGenerateMipmap(GL_TEXTURE_2D);
         stbi_image_free(b);
 
 		glutMainLoop();
 	}
-	
 }
 
 void dotth::renderer::push(dotth::render_command * command)

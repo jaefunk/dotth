@@ -24,8 +24,17 @@ SOFTWARE.
 #ifndef __DOTTH_PATH_HPP__
 #define __DOTTH_PATH_HPP__
 
+#include <string>
+
 namespace dotth {
-    
+	const std::string path(std::string path)
+	{
+#ifdef WIN32
+		return std::string("../../") + path;
+#else
+		return path;
+#endif
+	}
 };
 
 #endif // __DOTTH_PATH_HPP__
