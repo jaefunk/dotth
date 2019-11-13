@@ -24,6 +24,8 @@ SOFTWARE.
 #ifndef __DOTTH_SPRITE_HPP__
 #define __DOTTH_SPRITE_HPP__
 
+#include "external/stb/image/stb_image.h"
+
 namespace dotth {
 	class sprite {
 

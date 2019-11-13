@@ -21,35 +21,30 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE  OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-#include "object.hpp"
+#include "polygon_command.hpp"
+#include "renderer.hpp"
 
-void dotth::object::set_timescale(const float & scale) {
-	_timescale = scale;
+void dotth::polygon_command::init(const dotth::drawinfo::polygon & triangle)
+{
+	_triangle = triangle;
 }
 
-const float & dotth::object::local_timescale(void) {
-	return _timescale;
-}
+const bool dotth::polygon_command::draw(void)
+{
+	int use_program = 3;
+	glUseProgram(use_program);
 
-const float dotth::object::world_timescale(void) {
-	if (is_root())
-		return _timescale;
-	return _timescale * parent()->world_timescale();
-}
+	glEnableClientState(GL_VERTEX_ARRAY);
+	glEnableClientState(GL_COLOR_ARRAY);
 
-bool dotth::object::init(void) {
+	glVertexPointer(3, GL_FLOAT, 0, _triangle.v.data());
+	glColorPointer(4, GL_FLOAT, 0, _triangle.c.data());
+
+	auto uv = glGetAttribLocation(use_program, "in_uv");
+	glEnableVertexAttribArray(uv);
+	glVertexAttribPointer(uv, 2, GL_FLOAT, GL_FALSE, 0, _triangle.u.data());
+
+	glDrawElements(GL_TRIANGLES, static_cast<int32_t>(_triangle.i.size()), GL_UNSIGNED_INT, _triangle.i.data());
+	glUseProgram(0);
 	return true;
-}
-
-void dotth::object::update(void)
-{
-	float delta = utility::timer::instance()->delta() * world_timescale();
-	update(delta);
-	foreach<object>([delta](std::shared_ptr<object> obj) { obj->update(); });
-}
-
-void dotth::object::draw(void)
-{
-	draw(0);
-	foreach<object>([](std::shared_ptr<object> obj) { obj->draw(); });
 }

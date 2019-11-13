@@ -47,13 +47,15 @@ namespace dotth {
 		rgba c;
 	};
 
-	struct polygon {
-		std::vector<xyz> v;
-		std::vector<rgba> c;
-		std::vector<uv> u;
-		std::vector<xyz> n;
-		std::vector<unsigned int> i;
-	};
+	namespace drawinfo {
+		struct polygon {
+			std::vector<xyz> v;
+			std::vector<rgba> c;
+			std::vector<uv> u;
+			std::vector<xyz> n;
+			std::vector<unsigned int> i;
+		};
+	}
 
 	enum render_queue_type {
 		perspective,
@@ -69,16 +71,9 @@ namespace dotth {
 	public:
 		render_command(render_command_type type) : _type(type) {}
 		const render_command_type type(void) { return _type; }
+		virtual const bool draw(void) = 0;
 	protected:
 		render_command_type _type = render_command_type::unknown;
-	};
-
-	struct polygon_command : public render_command {
-		polygon_command(void) : render_command(render_command_type::polygons) {}
-		polygon _triangle;
-		void init(const polygon& triangle) {
-			_triangle = triangle;
-		}
 	};
 };
 

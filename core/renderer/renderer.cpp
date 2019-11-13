@@ -57,8 +57,6 @@ void dotth::gl_callback::reshape(int width, int height) {
 }
 
 void dotth::renderer::init_gl(int argc, char** argv) {
-
-	
 	glutInit(&argc, argv);
     glutInitDisplayMode(GLUT_RGBA|GLUT_DOUBLE|GLUT_DEPTH);
 	glutInitWindowSize(1024, 512);

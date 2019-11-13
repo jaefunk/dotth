@@ -21,16 +21,9 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE  OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-#define GL_SILENCE_DEPRECATION
-#ifndef WIN32
-#include <GLUT/GLUT.h>
-#else
-#include "../external/opengl/glew.h"
-#include "../external/opengl/glut.h"
-#endif
-
 #include "render_queue.hpp"
-
+#include "renderer.hpp"
+#include "polygon_command.hpp"
 void dotth::render_queue::push_back(dotth::render_command * command) {
 	commands.push_back(command);
 }
@@ -47,27 +40,11 @@ void dotth::render_queue::process(void)
 		case render_command_type::unknown: break;
 		case render_command_type::polygons:
 		{
-			auto jj = static_cast<polygon_command*>(p);
-
-			int use_program = 3;
-			glUseProgram(use_program);
-
-			glEnableClientState(GL_VERTEX_ARRAY);
-			glEnableClientState(GL_COLOR_ARRAY);
-
-			glVertexPointer(3, GL_FLOAT, 0, jj->_triangle.v.data());
-			glColorPointer(4, GL_FLOAT, 0, jj->_triangle.c.data());
-
-			auto uv = glGetAttribLocation(use_program, "in_uv");
-			glEnableVertexAttribArray(uv);
-			glVertexAttribPointer(uv, 2, GL_FLOAT, GL_FALSE, 0, jj->_triangle.u.data());
-
-			glDrawElements(GL_TRIANGLES, static_cast<int32_t>(jj->_triangle.i.size()), GL_UNSIGNED_INT, jj->_triangle.i.data());
-			glUseProgram(0);
+			if (auto command = dynamic_cast<polygon_command*>(p))
+				command->draw();
 		}
 		break;
 		default: break;
 		}
 	});
-	clear();
 }

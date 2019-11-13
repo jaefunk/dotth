@@ -21,35 +21,19 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE  OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-#include "object.hpp"
+#ifndef __DOTTH_POLYGON_COMMAND_HPP__
+#define __DOTTH_POLYGON_COMMAND_HPP__
 
-void dotth::object::set_timescale(const float & scale) {
-	_timescale = scale;
-}
+#include "render_command.hpp"
 
-const float & dotth::object::local_timescale(void) {
-	return _timescale;
-}
+namespace dotth {
+	struct polygon_command : public render_command 
+	{
+		polygon_command(void) : render_command(render_command_type::polygons) {}
+		dotth::drawinfo::polygon _triangle;
+		void init(const dotth::drawinfo::polygon& triangle);
+		virtual const bool draw(void) override;
+	};
+};
 
-const float dotth::object::world_timescale(void) {
-	if (is_root())
-		return _timescale;
-	return _timescale * parent()->world_timescale();
-}
-
-bool dotth::object::init(void) {
-	return true;
-}
-
-void dotth::object::update(void)
-{
-	float delta = utility::timer::instance()->delta() * world_timescale();
-	update(delta);
-	foreach<object>([delta](std::shared_ptr<object> obj) { obj->update(); });
-}
-
-void dotth::object::draw(void)
-{
-	draw(0);
-	foreach<object>([](std::shared_ptr<object> obj) { obj->draw(); });
-}
+#endif // __DOTTH_POLYGON_COMMAND_HPP__

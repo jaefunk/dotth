@@ -29,13 +29,7 @@ SOFTWARE.
 #include <sstream>
 #include <vector>
 
-#define GL_SILENCE_DEPRECATION
-#ifndef WIN32
-#include <GLUT/GLUT.h>
-#else
-#include "../external/opengl/glew.h"
-#include "../external/opengl/glut.h"
-#endif
+#include "renderer.hpp"
 
 const bool dotth::shader_manager::load(std::string key, const char * file_path) {
 

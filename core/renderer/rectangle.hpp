@@ -24,9 +24,17 @@ SOFTWARE.
 #ifndef __DOTTH_RECTANGLE_HPP__
 #define __DOTTH_RECTANGLE_HPP__
 
-namespace dotth {
-	class rectangle {
+#include "base/drawable.hpp"
+#include "polygon_command.hpp"
 
+namespace dotth {
+	class rectangle : public drawable
+	{
+	public:
+		void init1(void);
+		void init2(void);
+		dotth::polygon_command _command;
+		virtual void draw(int flags) override;
 	};
 };
 

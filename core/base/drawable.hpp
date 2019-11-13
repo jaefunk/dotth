@@ -25,20 +25,11 @@ SOFTWARE.
 #define __DOTTH_DRAWABLE_HPP__
 
 #include "object.hpp"
-#include "../renderer/renderer.hpp"
 
 namespace dotth {
 	class drawable : public object
 	{
 	};
-    class rectangle : public drawable
-    {
-	public:
-		void init1(void);
-		void init2(void);
-		dotth::polygon_command _command;
-		virtual void draw(const matrix4& transform, int flags = 0);
-    };
 };
 
 #endif // __DOTTH_DRAWABLE_HPP__

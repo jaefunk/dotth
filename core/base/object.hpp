@@ -34,9 +34,6 @@ namespace dotth {
     private:
         std::string _name;
         float _timescale = 1.f;
-        transform _transform;
-        vector4 _anchor;
-        vector4 _size;
         
     public:
         object(void) = default;
@@ -53,8 +50,8 @@ namespace dotth {
 		virtual void draw(void) final;
         
     protected:
-        virtual void update(float delta) {};
-        virtual void draw(const dotth::matrix4& transform, int flags = 0) {};
+        virtual void update(const float delta) {};
+        virtual void draw(int flags) {};
     };
 };
 
