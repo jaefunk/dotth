@@ -24,8 +24,8 @@ SOFTWARE.
 #ifndef __DOTTH_OBJECT_HPP__
 #define __DOTTH_OBJECT_HPP__
 
-#include "utility.hpp"
 #include "node.hpp"
+#include "utility.hpp"
 #include "../math/transform.hpp"
 
 namespace dotth {

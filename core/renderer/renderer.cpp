@@ -21,13 +21,10 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE  OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-#include <algorithm>
-
 #include "renderer.hpp"
-#include "../base/scene.hpp"
-#include "../external/stb/image/stb_image.h"
-#include "shader.hpp"
+#include "base/scene.hpp"
 #include "platform/filesystem/path.hpp"
+#include "shader.hpp"
 
 void dotth::gl_callback::display(void) {
 

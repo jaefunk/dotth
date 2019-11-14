@@ -24,16 +24,7 @@ SOFTWARE.
 #ifndef __DOTTH_UTILITY_HPP__
 #define __DOTTH_UTILITY_HPP__
 
-#include <memory>
-#include <ctime>
-#include <chrono>
-#include <mutex>
-
-#ifndef WIN32
-#include <unistd.h>
-#else
-#include <Windows.h>
-#endif
+#include "dotth.hpp"
 
 constexpr long long time_scale_millisecond = 1000;
 

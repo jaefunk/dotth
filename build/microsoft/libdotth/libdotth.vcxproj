@@ -23,6 +23,7 @@
     <ClCompile Include="..\..\..\core\base\component.cpp" />
     <ClCompile Include="..\..\..\core\base\drawable.cpp" />
     <ClCompile Include="..\..\..\core\base\object.cpp" />
+    <ClCompile Include="..\..\..\core\base\resource.cpp" />
     <ClCompile Include="..\..\..\core\base\scene.cpp" />
     <ClCompile Include="..\..\..\core\base\utility.cpp" />
     <ClCompile Include="..\..\..\core\dotth.cpp" />
@@ -47,6 +48,7 @@
     <ClInclude Include="..\..\..\core\base\drawable.hpp" />
     <ClInclude Include="..\..\..\core\base\node.hpp" />
     <ClInclude Include="..\..\..\core\base\object.hpp" />
+    <ClInclude Include="..\..\..\core\base\resource.hpp" />
     <ClInclude Include="..\..\..\core\base\scene.hpp" />
     <ClInclude Include="..\..\..\core\base\utility.hpp" />
     <ClInclude Include="..\..\..\core\dotth.hpp" />

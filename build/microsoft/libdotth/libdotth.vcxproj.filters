@@ -62,6 +62,9 @@
     <ClCompile Include="..\..\..\core\renderer\polygon_command.cpp">
       <Filter>renderer</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\core\base\resource.cpp">
+      <Filter>base</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\core\dotth.hpp" />
@@ -160,6 +163,9 @@
     </ClInclude>
     <ClInclude Include="..\..\..\core\renderer\polygon_command.hpp">
       <Filter>renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\core\base\resource.hpp">
+      <Filter>base</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

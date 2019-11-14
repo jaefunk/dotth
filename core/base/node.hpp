@@ -24,9 +24,6 @@ SOFTWARE.
 #ifndef __DOTTH_NODE_HPP__
 #define __DOTTH_NODE_HPP__
 
-#include <memory>
-#include <list>
-
 #include "base.hpp"
 
 namespace dotth {

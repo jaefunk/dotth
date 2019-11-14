@@ -24,6 +24,36 @@ SOFTWARE.
 #ifndef __DOTTH_HPP__
 #define __DOTTH_HPP__
 
+#ifndef WIN32
+#include <unistd.h>
+#else
+#include <Windows.h>
+#endif
+
+#include <string>
+#include <ctime>
+#include <atomic>
+#include <memory>
+#include <chrono>
+#include <mutex>
+#include <unordered_map>
+#include <stack>
+#include <vector>
+#include <list>
+#include <algorithm>
+
+#include "external/json/json.hpp"
+#include "external/xml/tinyxml2.h"
+#include "external/stb/image/stb_image.h"
+
+#define GL_SILENCE_DEPRECATION
+#ifndef WIN32
+#include <GLUT/GLUT.h>
+#else
+#include "external/opengl/glew.h"
+#include "external/opengl/glut.h"
+#endif
+
 namespace dotth {
     
 };

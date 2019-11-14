@@ -23,11 +23,7 @@ SOFTWARE.
 #ifndef __DOTTH_SCENE_HPP__
 #define __DOTTH_SCENE_HPP__
 
-#include <unordered_map>
-#include <stack>
-
-#include "external/json/json.hpp"
-#include "external/xml/tinyxml2.h"
+#include "dotth.hpp"
 #include "base/object.hpp"
 
 namespace dotth {

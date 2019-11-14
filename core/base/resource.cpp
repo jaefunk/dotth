@@ -21,15 +21,6 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE  OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-#ifndef __DOTTH_SPRITE_HPP__
-#define __DOTTH_SPRITE_HPP__
+#include "resource.hpp"
 
-#include "dotth.hpp"
-
-namespace dotth {
-	class sprite {
-
-	};
-};
-
-#endif // __DOTTH_SPRITE_HPP__
+dotth::resource::resource(void) {}

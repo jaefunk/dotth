@@ -24,9 +24,7 @@ SOFTWARE.
 #ifndef __DOTTH_BASE_HPP__
 #define __DOTTH_BASE_HPP__
 
-#include <string>
-#include <ctime>
-#include <atomic>
+#include "dotth.hpp"
 
 namespace dotth {
     class base

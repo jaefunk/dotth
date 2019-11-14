@@ -21,15 +21,22 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE  OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-#ifndef __DOTTH_SPRITE_HPP__
-#define __DOTTH_SPRITE_HPP__
+#ifndef __DOTTH_RESOURCE_HPP__
+#define __DOTTH_RESOURCE_HPP__
 
-#include "dotth.hpp"
+#include "base.hpp"
+#include "utility.hpp"
 
 namespace dotth {
-	class sprite {
+	class resource : public base {
+	public:
+		resource(void);
 
+	public:
+	};
+	class resource_manager : public dotth::utility::singleton<resource_manager>
+	{
 	};
 };
 
-#endif // __DOTTH_SPRITE_HPP__
+#endif // __DOTTH_RESOURCE_HPP__

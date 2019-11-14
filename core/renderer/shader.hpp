@@ -24,8 +24,8 @@ SOFTWARE.
 #ifndef __DOTTH_SHADER_HPP__
 #define __DOTTH_SHADER_HPP__
 
-#include <map>
-#include "base\utility.hpp"
+#include "dotth.hpp"
+#include "base/utility.hpp"
 
 namespace dotth {
     class shader
