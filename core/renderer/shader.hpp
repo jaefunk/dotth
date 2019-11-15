@@ -25,7 +25,6 @@ SOFTWARE.
 #define __DOTTH_SHADER_HPP__
 
 #include "dotth.hpp"
-#include "base/utility.hpp"
 
 namespace dotth {
     class shader

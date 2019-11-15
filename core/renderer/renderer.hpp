@@ -25,7 +25,6 @@ SOFTWARE.
 #define __DOTTH_RENDERER_HPP__
 
 #include "dotth.hpp"
-#include "base/utility.hpp"
 #include "render_queue.hpp"
 
 namespace dotth {

@@ -21,7 +21,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE  OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-#include "base/utility.hpp"
+#include "utility.hpp"
 
 void dotth::utility::sleep(int millisec) {
 #ifndef WIN32

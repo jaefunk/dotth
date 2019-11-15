@@ -24,7 +24,7 @@ SOFTWARE.
 #ifndef __DOTTH_APPLICATION_HPP__
 #define __DOTTH_APPLICATION_HPP__
 
-#include "base/utility.hpp"
+#include "dotth.hpp"
 
 namespace dotth {
     class application : public utility::singleton<application> {

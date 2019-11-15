@@ -29,7 +29,7 @@ SOFTWARE.
 #else
 #include <Windows.h>
 #endif
-
+#include <cstring>
 #include <string>
 #include <ctime>
 #include <atomic>
@@ -53,6 +53,8 @@ SOFTWARE.
 #include "external/opengl/glew.h"
 #include "external/opengl/glut.h"
 #endif
+
+#include "base/utility.hpp"
 
 namespace dotth {
     

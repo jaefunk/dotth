@@ -25,7 +25,6 @@ SOFTWARE.
 #define __DOTTH_RESOURCE_HPP__
 
 #include "base.hpp"
-#include "utility.hpp"
 
 namespace dotth {
 	class resource : public base {

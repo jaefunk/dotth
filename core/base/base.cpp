@@ -22,7 +22,6 @@ SOFTWARE.
 */
 
 #include "base.hpp"
-#include "utility.hpp"
 
 dotth::base::base(void) {
 	static std::atomic<int> s;

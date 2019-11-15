@@ -24,9 +24,7 @@ SOFTWARE.
 #ifndef __DOTTH_MATRIX_HPP__
 #define __DOTTH_MATRIX_HPP__
 
-#include "vector.hpp"
-
-#define MATRIX_SIZE ( sizeof(float) * 16)
+#include "dotth.hpp"
 
 namespace dotth {
 	struct matrix4 {
@@ -38,17 +36,9 @@ namespace dotth {
                 float _31, float _32, float _33, float _34,
                 float _41, float _42, float _43, float _44);
         
-        
-        
-        void create_scale(float x, float y, float z, matrix4* dst);
-        void create_translation(float x, float y, float z, matrix4* dst);
-        const dotth::vector4 row(int row) const;
-        const dotth::vector4 column(int col) const;
-        
-        static void multiply(const matrix4& m1, const matrix4& m2, matrix4* dst);
-        
-        static const matrix4 IDENTITY;
-        static const matrix4 ZERO;
+		static const std::size_t matrix_size;
+        static const matrix4 identity;
+        static const matrix4 zero;
 	};
 };
 

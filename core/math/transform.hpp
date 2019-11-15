@@ -24,8 +24,10 @@ SOFTWARE.
 #ifndef __DOTTH_TRANSFORM_HPP__
 #define __DOTTH_TRANSFORM_HPP__
 
+#include "dotth.hpp"
 #include "vector.hpp"
 #include "matrix.hpp"
+
 namespace dotth {
     class transform {
     private:

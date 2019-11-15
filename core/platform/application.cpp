@@ -22,8 +22,6 @@ SOFTWARE.
 */
 
 #include "application.hpp"
-
-#include "base/scene.hpp"
 #include "renderer/renderer.hpp"
 
 void dotth::application::init(int argc, char ** argv) {
@@ -31,10 +29,5 @@ void dotth::application::init(int argc, char ** argv) {
 }
 
 int dotth::application::process(void) {
-	// renderer init...
-	while (true) {
-		
-		printf("\n");
-	}
 	return 0;
 }
