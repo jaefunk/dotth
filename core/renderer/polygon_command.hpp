@@ -30,6 +30,7 @@ namespace dotth {
 	struct polygon_command : public render_command 
 	{
 		polygon_command(void) : render_command(render_command_type::polygons) {}
+        unsigned int _binded_texture = 0;
 		dotth::drawinfo::polygon _triangle;
 		void init(const dotth::drawinfo::polygon& triangle);
 		virtual const bool draw(void) override;

@@ -21,15 +21,44 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE  OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-#ifndef __DOTTH_SPRITE_HPP__
-#define __DOTTH_SPRITE_HPP__
+#ifndef __DOTTH_PRIMITIVE_HPP__
+#define __DOTTH_PRIMITIVE_HPP__
 
-#include "dotth.hpp"
+#include "base/drawable.hpp"
+#include "polygon_command.hpp"
+#include "texture.hpp"
 
 namespace dotth {
-	class sprite {
-
+	class rectangle : public dotth::drawable
+	{
+	public:
+        dotth::polygon_command _command;
+		virtual void init(void) override;
+        void add_position_x(float x) {
+            for(auto& c : _command._triangle.v)
+            {
+                c.x += x;
+            }
+        }
+        void load_sprite(const char* name) {
+            auto t = dotth::resource_manager::instance()->find<texture>(name);
+            if (t != nullptr)
+            {
+                _command._binded_texture = t->texture_id();
+            }
+        }
+    private:
+		virtual void draw(int flags) override;
 	};
+
+    class cube : public dotth::drawable
+    {
+    public:
+        dotth::polygon_command _command;
+        virtual void init(void) override;
+    private:
+        virtual void draw(int flags) override;
+    };
 };
 
-#endif // __DOTTH_SPRITE_HPP__
+#endif // __DOTTH_PRIMITIVE_HPP__

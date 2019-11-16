@@ -37,8 +37,7 @@ const float dotth::object::world_timescale(void) {
 	return _timescale * parent()->world_timescale();
 }
 
-bool dotth::object::init(void) {
-	return true;
+void dotth::object::init(void) {
 }
 
 void dotth::object::update(void)

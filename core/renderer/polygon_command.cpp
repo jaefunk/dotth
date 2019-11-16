@@ -23,6 +23,7 @@ SOFTWARE.
 
 #include "polygon_command.hpp"
 #include "renderer.hpp"
+#include "texture.hpp"
 
 void dotth::polygon_command::init(const dotth::drawinfo::polygon & triangle)
 {
@@ -31,6 +32,9 @@ void dotth::polygon_command::init(const dotth::drawinfo::polygon & triangle)
 
 const bool dotth::polygon_command::draw(void)
 {
+    if (_binded_texture != 0)
+        glBindTexture(GL_TEXTURE_2D, _binded_texture);
+        
 	int use_program = 3;
 	glUseProgram(use_program);
 
@@ -46,5 +50,8 @@ const bool dotth::polygon_command::draw(void)
 
 	glDrawElements(GL_TRIANGLES, static_cast<int32_t>(_triangle.i.size()), GL_UNSIGNED_INT, _triangle.i.data());
 	glUseProgram(0);
+    
+    if (_binded_texture != 0)
+        glBindTexture(GL_TEXTURE_2D, 0);
 	return true;
 }

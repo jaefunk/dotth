@@ -43,7 +43,7 @@ namespace dotth {
 		const float world_timescale(void);
         
     public:
-		virtual bool init(void);
+		virtual void init(void);
 		virtual void update(void) final;
 		virtual void draw(void) final;
         

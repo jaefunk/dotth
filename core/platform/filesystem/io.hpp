@@ -24,35 +24,10 @@ SOFTWARE.
 #ifndef __DOTTH_IO_HPP__
 #define __DOTTH_IO_HPP__
 
-#include <string>
-#include <vector>
+#include "dotth.hpp"
 
 namespace dotth {
 	namespace io {
-		const std::string read_text(const std::string& path) {
-			FILE* hFile;
-			fopen_s(&hFile, path.c_str(), "rt");
-			fseek(hFile, 0, SEEK_END);
-			auto size = ftell(hFile);
-			fseek(hFile, 0, SEEK_SET);
-			std::string strRet;
-			strRet.resize(size);
-			auto bSuccess = fread((void*)strRet.data(), 1, static_cast<int>(size), hFile);
-			fclose(hFile);
-			return strRet;
-		}
-		const std::vector<char> read_binary(const std::string& path) {
-			FILE* hFile;
-			fopen_s(&hFile, path.c_str(), "rt");
-			fseek(hFile, 0, SEEK_END);
-			auto size = ftell(hFile);
-			fseek(hFile, 0, SEEK_SET);
-			std::vector<char> ret;
-			ret.resize(size);
-			auto bSuccess = fread((void*)ret.data(), 1, static_cast<int>(size), hFile);
-			fclose(hFile);
-			return ret;
-		}
 	}
 };
 

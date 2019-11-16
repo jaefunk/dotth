@@ -29,5 +29,7 @@ void dotth::application::init(int argc, char ** argv) {
 }
 
 int dotth::application::process(void) {
+    while(true) {
+    }
 	return 0;
 }
