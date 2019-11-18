@@ -40,6 +40,7 @@ void dotth::gl_callback::display(void) {
 		queue->clear();
 	}
 	glutSwapBuffers();
+	glutPostRedisplay();
 }
 
 void dotth::gl_callback::reshape(int width, int height) {
@@ -72,14 +73,14 @@ void dotth::renderer::init_gl(int argc, char** argv) {
     glutReshapeFunc(dotth::gl_callback::reshape);
     queue[render_queue_type::perspective] = std::make_shared<render_queue>();
 //#ifdef WIN32
-//	if (glewInit() == GLEW_OK)
+	if (glewInit() == GLEW_OK)
 //#endif
-//	{
+	{
         dotth::shader_manager::instance()->load("simple", dotth::path("resources/glsl/Simple.glsl").c_str());
         dotth::resource_manager::instance()->load(type::resource::image, "resources/cat2.png", "cat");
         dotth::resource_manager::instance()->load(type::resource::image, "resources/usagi.png", "usagi");
         glutMainLoop();
-//	}
+	}
 }
 
 void dotth::renderer::push(dotth::render_command * command)

@@ -1,6 +1,6 @@
 
 #include "base/scene.hpp"
-#include "renderer/rectangle.hpp"
+#include "renderer/primitive.hpp"
 
 class testscene : public dotth::scene {
 	virtual void init(json data) override;

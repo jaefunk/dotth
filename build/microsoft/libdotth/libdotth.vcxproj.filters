@@ -50,13 +50,7 @@
     <ClCompile Include="..\..\..\core\renderer\shader.cpp">
       <Filter>renderer</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\core\renderer\rectangle.cpp">
-      <Filter>renderer</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\core\renderer\render_queue.cpp">
-      <Filter>renderer</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\core\renderer\sprite.cpp">
       <Filter>renderer</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\core\renderer\polygon_command.cpp">
@@ -64,6 +58,9 @@
     </ClCompile>
     <ClCompile Include="..\..\..\core\base\resource.cpp">
       <Filter>base</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\core\renderer\primitive.cpp">
+      <Filter>renderer</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -152,13 +149,7 @@
     <ClInclude Include="..\..\..\core\external\opengl\wglew.h">
       <Filter>external\opengl</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\core\renderer\rectangle.hpp">
-      <Filter>renderer</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\core\renderer\render_queue.hpp">
-      <Filter>renderer</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\core\renderer\sprite.hpp">
       <Filter>renderer</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\core\renderer\polygon_command.hpp">
@@ -166,6 +157,9 @@
     </ClInclude>
     <ClInclude Include="..\..\..\core\base\resource.hpp">
       <Filter>base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\core\renderer\primitive.hpp">
+      <Filter>renderer</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
