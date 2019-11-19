@@ -96,6 +96,12 @@ void dotth::renderer::push(dotth::render_command * command)
 	}
 }
 
+#include "base/drawable.hpp"
+void dotth::renderer::push_back(drawable * drawable)
+{
+	//drawable->get
+}
+
 const std::shared_ptr<dotth::render_queue> dotth::renderer::find_render_queue(const render_queue_type & type) {
 	return queue[type];
 }

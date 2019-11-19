@@ -23,13 +23,20 @@ SOFTWARE.
 
 #include "render_queue.hpp"
 #include "renderer.hpp"
+#include "base/drawable.hpp"
 #include "polygon_command.hpp"
 void dotth::render_queue::push_back(dotth::render_command * command) {
 	commands.push_back(command);
 }
 
+void dotth::render_queue::push_back(dotth::drawable* drawable)
+{
+	drawables.push_back(drawable);
+}
+
 void dotth::render_queue::clear(void) {
 	commands.clear();
+	drawables.clear();
 }
 
 void dotth::render_queue::process(void)
@@ -46,5 +53,12 @@ void dotth::render_queue::process(void)
 		break;
 		default: break;
 		}
+	});
+}
+
+void dotth::render_queue::process2(void)
+{
+	std::for_each(std::begin(drawables), std::end(drawables), [](dotth::drawable* p) {
+		p->draw();
 	});
 }

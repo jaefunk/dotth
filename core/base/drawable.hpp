@@ -25,8 +25,17 @@ SOFTWARE.
 #define __DOTTH_DRAWABLE_HPP__
 
 #include "object.hpp"
+#include "renderer/shader.hpp"
 
 namespace dotth {
+	namespace render {
+		enum class type {
+			none,
+			perspective,
+			orthographic,
+		};
+	}
+
 	class drawable : public object
 	{
 	};

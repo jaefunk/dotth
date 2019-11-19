@@ -45,7 +45,12 @@ namespace dotth {
 		std::map<std::string, dotth::shader> shaders;
 	public:
 		const bool load(std::string key, const char* file_path);
-
+		const dotth::shader find(std::string key) {
+			auto iter = shaders.find(key);
+			if (iter != shaders.end())
+				return iter->second;
+			return dotth::shader();
+		}
 	};
 };
 
