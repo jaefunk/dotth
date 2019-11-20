@@ -37,11 +37,10 @@ namespace dotth {
     public:
         void init_gl(int argc, char** argv);
 	public:
-		void push(dotth::render_command* command);
 		void push_back(class drawable* drawable);
-		const std::shared_ptr<dotth::render_queue> find_render_queue(const render_queue_type& type);
+		const std::shared_ptr<dotth::render_queue> find_render_queue(const dotth::render::draw_type& type);
 	private:
-        std::map<render_queue_type, std::shared_ptr<dotth::render_queue>> queue;
+        std::map<dotth::render::draw_type, std::shared_ptr<dotth::render_queue>> queue;
     };
 };
 

@@ -53,9 +53,6 @@
     <ClCompile Include="..\..\..\core\renderer\render_queue.cpp">
       <Filter>renderer</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\core\renderer\polygon_command.cpp">
-      <Filter>renderer</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\core\base\resource.cpp">
       <Filter>base</Filter>
     </ClCompile>
@@ -150,9 +147,6 @@
       <Filter>external\opengl</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\core\renderer\render_queue.hpp">
-      <Filter>renderer</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\core\renderer\polygon_command.hpp">
       <Filter>renderer</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\core\base\resource.hpp">

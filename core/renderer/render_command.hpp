@@ -43,6 +43,14 @@ namespace dotth {
 		rgba(float _r, float _g, float _b, float _a) : r(_r), g(_g), b(_b), a(_a) {}
 	};
 
+	namespace render {
+		enum class draw_type {
+			none,
+			perspective,
+			orthographic,
+		};
+	}
+
 	namespace drawinfo {
 		struct polygon {
 			std::vector<xyz> v;
@@ -52,25 +60,6 @@ namespace dotth {
 			std::vector<unsigned int> i;
 		};
 	}
-
-	enum render_queue_type {
-		perspective,
-		count = 1,
-	};
-
-	enum class render_command_type {
-		unknown,
-		polygons,
-	};
-
-	class render_command {
-	public:
-		render_command(render_command_type type) : _type(type) {}
-		const render_command_type type(void) { return _type; }
-		virtual const bool draw(void) = 0;
-	protected:
-		render_command_type _type = render_command_type::unknown;
-	};
 };
 
 #endif // __DOTTH_RENDER_COMMAND_HPP__

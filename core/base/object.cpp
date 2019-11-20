@@ -37,18 +37,15 @@ const float dotth::object::world_timescale(void) {
 	return _timescale * parent()->world_timescale();
 }
 
-void dotth::object::init(void) {
-}
-
 void dotth::object::update(void)
 {
 	float delta = utility::timer::instance()->delta() * world_timescale();
 	update(delta);
-	foreach<object>([delta](std::shared_ptr<object> obj) { obj->update(); });
+	foreach<object>([](std::shared_ptr<object> obj) { obj->update(); });
 }
 
-void dotth::object::draw(void)
+void dotth::object::push_render_queue(void)
 {
-	draw(0);
-	foreach<object>([](std::shared_ptr<object> obj) { obj->draw(); });
+	push_render_queue(0);
+	foreach<object>([](std::shared_ptr<object> obj) { obj->push_render_queue(); });
 }

@@ -96,7 +96,7 @@ namespace dotth {
         void draw(void) {
             if (_current == nullptr)
                 return;
-            _current->draw();
+            _current->push_render_queue();
         }
     };
 };

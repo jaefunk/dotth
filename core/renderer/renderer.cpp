@@ -26,6 +26,7 @@ SOFTWARE.
 #include "platform/filesystem/path.hpp"
 #include "shader.hpp"
 #include "base/resource.hpp"
+#include "base/drawable.hpp"
 
 void dotth::gl_callback::display(void) {
 
@@ -34,7 +35,7 @@ void dotth::gl_callback::display(void) {
 	scene_manager::instance()->draw();
 
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	if (auto queue = renderer::instance()->find_render_queue(render_queue_type::perspective))
+	if (auto queue = renderer::instance()->find_render_queue(dotth::render::draw_type::perspective))
 	{
 		queue->process();
 		queue->clear();
@@ -71,7 +72,7 @@ void dotth::renderer::init_gl(int argc, char** argv) {
 
     glutDisplayFunc(dotth::gl_callback::display);
     glutReshapeFunc(dotth::gl_callback::reshape);
-    queue[render_queue_type::perspective] = std::make_shared<render_queue>();
+    queue[dotth::render::draw_type::perspective] = std::make_shared<render_queue>();
 //#ifdef WIN32
 	if (glewInit() == GLEW_OK)
 //#endif
@@ -83,25 +84,11 @@ void dotth::renderer::init_gl(int argc, char** argv) {
 	}
 }
 
-void dotth::renderer::push(dotth::render_command * command)
-{
-	switch (command->type()) {
-	case render_command_type::polygons:
-            queue[render_queue_type::perspective]->push_back(command);
-            break;
-	case render_command_type::unknown:
-            break;
-	default:
-            break;
-	}
-}
-
-#include "base/drawable.hpp"
 void dotth::renderer::push_back(drawable * drawable)
 {
-	//drawable->get
+	queue[drawable->draw_type()]->push_back(drawable);
 }
 
-const std::shared_ptr<dotth::render_queue> dotth::renderer::find_render_queue(const render_queue_type & type) {
+const std::shared_ptr<dotth::render_queue> dotth::renderer::find_render_queue(const dotth::render::draw_type & type) {
 	return queue[type];
 }

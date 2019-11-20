@@ -24,10 +24,6 @@ SOFTWARE.
 #include "render_queue.hpp"
 #include "renderer.hpp"
 #include "base/drawable.hpp"
-#include "polygon_command.hpp"
-void dotth::render_queue::push_back(dotth::render_command * command) {
-	commands.push_back(command);
-}
 
 void dotth::render_queue::push_back(dotth::drawable* drawable)
 {
@@ -35,30 +31,12 @@ void dotth::render_queue::push_back(dotth::drawable* drawable)
 }
 
 void dotth::render_queue::clear(void) {
-	commands.clear();
 	drawables.clear();
 }
 
 void dotth::render_queue::process(void)
 {
-	std::for_each(std::begin(commands), std::end(commands), [](dotth::render_command* p) {
-		switch (p->type())
-		{
-		case render_command_type::unknown: break;
-		case render_command_type::polygons:
-		{
-			if (auto command = dynamic_cast<polygon_command*>(p))
-				command->draw();
-		}
-		break;
-		default: break;
-		}
-	});
-}
-
-void dotth::render_queue::process2(void)
-{
 	std::for_each(std::begin(drawables), std::end(drawables), [](dotth::drawable* p) {
-		p->draw();
+		p->draw(0);
 	});
 }

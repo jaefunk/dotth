@@ -22,3 +22,8 @@ SOFTWARE.
 */
 
 #include "drawable.hpp"
+
+void dotth::drawable::push_render_queue(const int flags) 
+{
+	dotth::renderer::instance()->push_back(this);
+}

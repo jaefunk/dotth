@@ -24,20 +24,24 @@ SOFTWARE.
 #ifndef __DOTTH_DRAWABLE_HPP__
 #define __DOTTH_DRAWABLE_HPP__
 
+
 #include "object.hpp"
-#include "renderer/shader.hpp"
+#include "renderer/renderer.hpp"
 
 namespace dotth {
-	namespace render {
-		enum class type {
-			none,
-			perspective,
-			orthographic,
-		};
-	}
-
 	class drawable : public object
 	{
+	private:
+		dotth::render::draw_type _draw_type = dotth::render::draw_type::none;
+	public:
+		drawable(dotth::render::draw_type _draw_type) : _draw_type(_draw_type) {
+		}
+		const dotth::render::draw_type draw_type(void) {
+			return _draw_type;
+		}
+	public:
+		virtual void push_render_queue(const int flags) final;
+		virtual void draw(const int flags) = 0;
 	};
 };
 

@@ -30,13 +30,10 @@ SOFTWARE.
 namespace dotth {
 	class render_queue {
 	public:
-		void push_back(render_command* command);
 		void push_back(class drawable* drawable);
 		void clear(void);
 		void process(void);
-		void process2(void);
 	private:
-		std::vector<render_command*> commands;
 		std::vector<class drawable*> drawables;
 	};
 };

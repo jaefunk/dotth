@@ -25,17 +25,18 @@ SOFTWARE.
 #define __DOTTH_PRIMITIVE_HPP__
 
 #include "base/drawable.hpp"
-#include "polygon_command.hpp"
 #include "texture.hpp"
 
 namespace dotth {
 	class rectangle : public dotth::drawable
 	{
 	public:
-        dotth::polygon_command _command;
+		rectangle(void);
+		unsigned int _binded_texture = 0;
+		dotth::drawinfo::polygon _vertex_list;
 		virtual void init(void) override;
-        void add_position_x(float x) {
-            for(auto& c : _command._triangle.v)
+        void add_position_x(float x) { 
+            for(auto& c : _vertex_list.v)
             {
                 c.x += x;
             }
@@ -44,21 +45,22 @@ namespace dotth {
             auto t = dotth::resource_manager::instance()->find<texture>(name);
             if (t != nullptr)
             {
-                _command._binded_texture = t->texture_id();
+				_binded_texture = t->texture_id();
             }
         }
     private:
-		virtual void draw(int flags) override;
+		virtual void draw(const int flags) override;
 	};
 
-    class cube : public dotth::drawable
-    {
-    public:
-        dotth::polygon_command _command;
-        virtual void init(void) override;
-    private:
-        virtual void draw(int flags) override;
-    };
+  //  class cube : public dotth::drawable
+  //  {
+  //  public:
+		//cube(void) : dotth::drawable(dotth::render::draw_type::perspective) {}
+  //      dotth::polygon_command _command;
+  //      virtual void init(void) override;
+  //  private:
+  //      virtual void draw(int flags) override;
+  //  };
 };
 
 #endif // __DOTTH_PRIMITIVE_HPP__

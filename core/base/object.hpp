@@ -43,13 +43,14 @@ namespace dotth {
 		const float world_timescale(void);
         
     public:
-		virtual void init(void);
+		virtual void init(void) {};
 		virtual void update(void) final;
-		virtual void draw(void) final;
+		virtual void push_render_queue(void) final;
         
     protected:
-        virtual void update(const float delta) {};
-        virtual void draw(int flags) {};
+		virtual void update(const float delta) {};
+		virtual void push_render_queue(const int flags) {};
+        virtual void draw(const int flags) {};
     };
 };
 
