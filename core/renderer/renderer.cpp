@@ -29,17 +29,16 @@ SOFTWARE.
 #include "base/drawable.hpp"
 
 void dotth::gl_callback::display(void) {
-
+	
+	renderer::instance()->clear_all_queue();
 	utility::timer::instance()->update();
 	scene_manager::instance()->update();
 	scene_manager::instance()->draw();
 
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	if (auto queue = renderer::instance()->find_render_queue(dotth::render::draw_type::perspective))
-	{
 		queue->process();
-		queue->clear();
-	}
+
 	glutSwapBuffers();
 	glutPostRedisplay();
 }
@@ -80,13 +79,24 @@ void dotth::renderer::init_gl(int argc, char** argv) {
         dotth::shader_manager::instance()->load("simple", dotth::path("resources/glsl/Simple.glsl").c_str());
         dotth::resource_manager::instance()->load(type::resource::image, "resources/cat2.png", "cat");
         dotth::resource_manager::instance()->load(type::resource::image, "resources/usagi.png", "usagi");
-        glutMainLoop();
+	}
+
+	glutMainLoop();
+}
+
+void dotth::renderer::clear_all_queue(void)
+{
+	for (auto q : queue)
+	{
+		if(auto aa = q.second)
+			aa->clear();
 	}
 }
 
 void dotth::renderer::push_back(drawable * drawable)
 {
-	queue[drawable->draw_type()]->push_back(drawable);
+	if (auto q = queue[drawable->draw_type()])
+		queue[drawable->draw_type()]->push_back(drawable);
 }
 
 const std::shared_ptr<dotth::render_queue> dotth::renderer::find_render_queue(const dotth::render::draw_type & type) {
