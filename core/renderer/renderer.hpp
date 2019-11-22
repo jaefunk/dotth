@@ -36,12 +36,12 @@ namespace dotth {
     class renderer : public utility::singleton<renderer> {
     public:
         void init_gl(int argc, char** argv);
-		void clear_all_queue(void);
+		void flush(void);
 	public:
 		void push_back(class drawable* drawable);
-		const std::shared_ptr<dotth::render_queue> find_render_queue(const dotth::render::draw_type& type);
+		void process(const dotth::render::draw_type& type);
 	private:
-        std::map<dotth::render::draw_type, std::shared_ptr<dotth::render_queue>> queue;
+        std::map<dotth::render::draw_type, dotth::render_queue> queue;
     };
 };
 

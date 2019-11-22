@@ -23,22 +23,19 @@ SOFTWARE.
 
 #include "renderer.hpp"
 #include "base/scene.hpp"
-#include "platform/filesystem/path.hpp"
 #include "shader.hpp"
 #include "base/resource.hpp"
 #include "base/drawable.hpp"
 
 void dotth::gl_callback::display(void) {
 	
-	renderer::instance()->clear_all_queue();
 	utility::timer::instance()->update();
 	scene_manager::instance()->update();
 	scene_manager::instance()->draw();
 
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	if (auto queue = renderer::instance()->find_render_queue(dotth::render::draw_type::perspective))
-		queue->process();
-
+	renderer::instance()->process(dotth::render::draw_type::perspective);
+	renderer::instance()->flush();
 	glutSwapBuffers();
 	glutPostRedisplay();
 }
@@ -61,22 +58,21 @@ void dotth::renderer::init_gl(int argc, char** argv) {
     glutInitWindowSize(1024, 512);
     glutInitWindowPosition(0, 0);
     glutCreateWindow("asdf");
-    glClearColor(0, 0, 0, 0);
-
+    glClearColor(1, 1, 1, 1);
+	glEnable(GL_BLEND);
     glEnable(GL_POINT_SMOOTH);
     glEnable(GL_LINE_SMOOTH);
     glEnable(GL_POLYGON_SMOOTH);
     glEnable(GL_DEPTH_TEST);
     glDepthFunc(GL_LESS);
-
     glutDisplayFunc(dotth::gl_callback::display);
     glutReshapeFunc(dotth::gl_callback::reshape);
-    queue[dotth::render::draw_type::perspective] = std::make_shared<render_queue>();
+    //queue[dotth::render::draw_type::perspective] = std::make_shared<render_queue>();
 //#ifdef WIN32
 	if (glewInit() == GLEW_OK)
 //#endif
 	{
-        dotth::shader_manager::instance()->load("simple", dotth::path("resources/glsl/Simple.glsl").c_str());
+        dotth::shader_manager::instance()->load("simple", "resources/glsl/Simple.glsl");
         dotth::resource_manager::instance()->load(type::resource::image, "resources/cat2.png", "cat");
         dotth::resource_manager::instance()->load(type::resource::image, "resources/usagi.png", "usagi");
 	}
@@ -84,21 +80,17 @@ void dotth::renderer::init_gl(int argc, char** argv) {
 	glutMainLoop();
 }
 
-void dotth::renderer::clear_all_queue(void)
+void dotth::renderer::flush(void)
 {
-	for (auto q : queue)
-	{
-		if(auto aa = q.second)
-			aa->clear();
-	}
+	for (auto& q : queue)
+		q.second.clear();
 }
 
 void dotth::renderer::push_back(drawable * drawable)
 {
-	if (auto q = queue[drawable->draw_type()])
-		queue[drawable->draw_type()]->push_back(drawable);
+	queue[drawable->draw_type()].push_back(drawable);
 }
 
-const std::shared_ptr<dotth::render_queue> dotth::renderer::find_render_queue(const dotth::render::draw_type & type) {
-	return queue[type];
+void dotth::renderer::process(const dotth::render::draw_type & type) {
+	queue[type].process();
 }

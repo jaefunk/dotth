@@ -43,6 +43,8 @@ SOFTWARE.
 #include <algorithm>
 #include <future>
 #include <thread>
+#include <fstream>
+#include <sstream>
 
 #include "external/json/json.hpp"
 #include "external/xml/tinyxml2.h"

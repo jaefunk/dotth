@@ -34,7 +34,7 @@ void dotth::render_queue::clear(void) {
 	drawables.clear();
 }
 
-void dotth::render_queue::process(void)
+void dotth::render_queue::process(void) const
 {
 	std::for_each(std::begin(drawables), std::end(drawables), [](dotth::drawable* p) {
 		p->draw(0);
