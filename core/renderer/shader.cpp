@@ -41,15 +41,17 @@ const bool dotth::shader_manager::load(std::string key, const char * file_path) 
 		return false;
 	}
 
-	auto vertext_begin = ShaderCode.find("// vertext shader");
+	auto vertext_begin = ShaderCode.find("// vertex shader");
 	auto fragment_begin = ShaderCode.find("// fragment shader");
-	if (vertext_begin == std::string::npos || fragment_begin == std::string::npos)
+	auto blender_begin = ShaderCode.find("// pixel blender");
+	if (vertext_begin == std::string::npos || fragment_begin == std::string::npos || blender_begin == std::string::npos)
 	{
 		printf("파일 %s 를 읽을 수 없음. 정확한 디렉토리를 사용 중입니까 ? FAQ 를 우선 읽어보는 걸 잊지 마세요!\n", strPath.c_str());
 		return false;
 	}
 	std::string vertext_shader = ShaderCode.substr(vertext_begin, fragment_begin - vertext_begin);
-	std::string fragment_shader = ShaderCode.substr(fragment_begin, ShaderCode.size());
+	std::string fragment_shader = ShaderCode.substr(fragment_begin, blender_begin - fragment_begin);
+	std::string blender_type = ShaderCode.substr(blender_begin, ShaderCode.size() - blender_begin);
 
 	GLuint VertexShaderID = glCreateShader(GL_VERTEX_SHADER);
 	GLuint FragmentShaderID = glCreateShader(GL_FRAGMENT_SHADER);
@@ -133,7 +135,7 @@ const bool dotth::shader_manager::load(std::string key, const char * file_path) 
 			s._uniforms.insert({ name, glGetAttribLocation(ProgramID, name) });
 		}
 	}
-
+	blender_type;
 
 	return true;
 }
