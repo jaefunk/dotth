@@ -1,4 +1,4 @@
-﻿/*
+/*
 Licensed under the MIT License <http://opensource.org/licenses/MIT>.
 Copyright (c) 2019 jaefunk <https://github.com/jaefunk/dotth>.
 
@@ -53,6 +53,8 @@ namespace dotth {
 		unsigned int _program = 0;
 		std::map<const char*, int> _uniforms;
 		std::map<const char*, int> _attributes;
+        GLenum _blend_src = 0;
+        GLenum _blend_dst = 0;
     public:
 		const bool set_uniform(const char* name, const float& value)
 		{
@@ -77,6 +79,7 @@ namespace dotth {
 //#define GL_ONE_MINUS_DST_COLOR 0x0307
 //#define GL_SRC_ALPHA_SATURATE 0x0308
 			//glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+            return true;
 		}
 		const unsigned int program() 
 		{ 
@@ -88,6 +91,17 @@ namespace dotth {
 	{
 	private:
 		std::map<std::string, dotth::shader> shaders;
+        std::map<std::string, GLenum> _blend_type = {
+            { "GL_SRC_COLOR", GL_SRC_COLOR },
+            { "GL_ONE_MINUS_SRC_COLOR", GL_ONE_MINUS_SRC_COLOR },
+            { "GL_SRC_ALPHA", GL_SRC_ALPHA },
+            { "GL_ONE_MINUS_SRC_ALPHA", GL_ONE_MINUS_SRC_ALPHA },
+            { "GL_DST_ALPHA", GL_DST_ALPHA },
+            { "GL_ONE_MINUS_DST_ALPHA", GL_ONE_MINUS_DST_ALPHA },
+            { "GL_DST_COLOR", GL_DST_COLOR },
+            { "GL_ONE_MINUS_DST_COLOR", GL_ONE_MINUS_DST_COLOR },
+            { "GL_SRC_ALPHA_SATURATE", GL_SRC_ALPHA_SATURATE },
+        };
 	public:
 		const bool load(std::string key, const char* file_path);
 		const dotth::shader find(std::string key) {

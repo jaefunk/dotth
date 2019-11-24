@@ -1,4 +1,4 @@
-﻿/*
+/*
 Licensed under the MIT License <http://opensource.org/licenses/MIT>.
 Copyright (c) 2019 jaefunk <https://github.com/jaefunk/dotth>.
 
@@ -135,7 +135,19 @@ const bool dotth::shader_manager::load(std::string key, const char * file_path) 
 			s._uniforms.insert({ name, glGetAttribLocation(ProgramID, name) });
 		}
 	}
-	blender_type;
+    
+    auto src = blender_type.find("src:");
+    auto dst = blender_type.find("dst:");
+    if(src != std::string::npos && dst != std::string::npos)
+    {
+        std::string strSrc = blender_type.substr(src, blender_type.find('\n'));
+        strSrc = strSrc.substr(strSrc.find(":") + 1, strSrc.size());
+        s._blend_src = _blend_type[strSrc];
+        std::string strDst = blender_type.substr(dst, blender_type.size());
+        s._blend_dst = _blend_type[strDst];
+        strDst = strDst.substr(0, strDst.find('\n'));
+        strDst = strDst.substr(strDst.find(":") + 1, strDst.size());
+    }
 
 	return true;
 }

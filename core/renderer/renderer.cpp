@@ -68,9 +68,9 @@ void dotth::renderer::init_gl(int argc, char** argv) {
     glutDisplayFunc(dotth::gl_callback::display);
     glutReshapeFunc(dotth::gl_callback::reshape);
     //queue[dotth::render::draw_type::perspective] = std::make_shared<render_queue>();
-//#ifdef WIN32
+#ifdef WIN32
 	if (glewInit() == GLEW_OK)
-//#endif
+#endif
 	{
         dotth::shader_manager::instance()->load("simple", "resources/glsl/Simple.glsl");
         dotth::resource_manager::instance()->load(type::resource::image, "resources/cat2.png", "cat");
