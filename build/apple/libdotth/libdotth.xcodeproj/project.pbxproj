@@ -34,10 +34,8 @@
 		2760CC57237FA96F008C9AA4 /* primitive.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2760CC4F237FA96F008C9AA4 /* primitive.hpp */; };
 		2760CC58237FA96F008C9AA4 /* texture.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2760CC50237FA96F008C9AA4 /* texture.cpp */; };
 		2760CC59237FA96F008C9AA4 /* texture.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2760CC51237FA96F008C9AA4 /* texture.hpp */; };
-		2760CC5A237FA96F008C9AA4 /* polygon_command.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2760CC52237FA96F008C9AA4 /* polygon_command.hpp */; };
 		2760CC5B237FA96F008C9AA4 /* render_queue.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2760CC53237FA96F008C9AA4 /* render_queue.cpp */; };
 		2760CC5C237FA96F008C9AA4 /* primitive.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2760CC54237FA96F008C9AA4 /* primitive.cpp */; };
-		2760CC5D237FA96F008C9AA4 /* polygon_command.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2760CC55237FA96F008C9AA4 /* polygon_command.cpp */; };
 		2760CC60237FA97F008C9AA4 /* resource.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 2760CC5E237FA97F008C9AA4 /* resource.hpp */; };
 		2760CC61237FA97F008C9AA4 /* resource.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2760CC5F237FA97F008C9AA4 /* resource.cpp */; };
 		2760CC67237FA9F8008C9AA4 /* io.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2760CC63237FA9F7008C9AA4 /* io.cpp */; };
@@ -93,10 +91,8 @@
 		2760CC4F237FA96F008C9AA4 /* primitive.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = primitive.hpp; path = ../../../core/renderer/primitive.hpp; sourceTree = "<group>"; };
 		2760CC50237FA96F008C9AA4 /* texture.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = texture.cpp; path = ../../../core/renderer/texture.cpp; sourceTree = "<group>"; };
 		2760CC51237FA96F008C9AA4 /* texture.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = texture.hpp; path = ../../../core/renderer/texture.hpp; sourceTree = "<group>"; };
-		2760CC52237FA96F008C9AA4 /* polygon_command.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = polygon_command.hpp; path = ../../../core/renderer/polygon_command.hpp; sourceTree = "<group>"; };
 		2760CC53237FA96F008C9AA4 /* render_queue.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = render_queue.cpp; path = ../../../core/renderer/render_queue.cpp; sourceTree = "<group>"; };
 		2760CC54237FA96F008C9AA4 /* primitive.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = primitive.cpp; path = ../../../core/renderer/primitive.cpp; sourceTree = "<group>"; };
-		2760CC55237FA96F008C9AA4 /* polygon_command.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = polygon_command.cpp; path = ../../../core/renderer/polygon_command.cpp; sourceTree = "<group>"; };
 		2760CC5E237FA97F008C9AA4 /* resource.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = resource.hpp; path = ../../../core/base/resource.hpp; sourceTree = "<group>"; };
 		2760CC5F237FA97F008C9AA4 /* resource.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = resource.cpp; path = ../../../core/base/resource.cpp; sourceTree = "<group>"; };
 		2760CC63237FA9F7008C9AA4 /* io.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = io.cpp; path = ../../../core/platform/filesystem/io.cpp; sourceTree = "<group>"; };
@@ -140,8 +136,6 @@
 		2728DC882349C0B9003DB7FA /* renderer */ = {
 			isa = PBXGroup;
 			children = (
-				2760CC55237FA96F008C9AA4 /* polygon_command.cpp */,
-				2760CC52237FA96F008C9AA4 /* polygon_command.hpp */,
 				2760CC54237FA96F008C9AA4 /* primitive.cpp */,
 				2760CC4F237FA96F008C9AA4 /* primitive.hpp */,
 				2760CC53237FA96F008C9AA4 /* render_queue.cpp */,
@@ -330,7 +324,6 @@
 				27292A62236703D3008CDFF7 /* render_command.hpp in Headers */,
 				27F76B862359DC0F00299D9D /* matrix.hpp in Headers */,
 				27C83AA8233CF00A00FF791B /* scene.hpp in Headers */,
-				2760CC5A237FA96F008C9AA4 /* polygon_command.hpp in Headers */,
 				27C83AA3233CF00A00FF791B /* component.hpp in Headers */,
 				2760CC69237FA9F8008C9AA4 /* path.hpp in Headers */,
 				2760CC60237FA97F008C9AA4 /* resource.hpp in Headers */,
@@ -421,7 +414,6 @@
 				27292A61236703D3008CDFF7 /* render_command.cpp in Sources */,
 				2760CC68237FA9F8008C9AA4 /* path.cpp in Sources */,
 				2728DCAF2349DEE1003DB7FA /* renderer.cpp in Sources */,
-				2760CC5D237FA96F008C9AA4 /* polygon_command.cpp in Sources */,
 				2728DC812349B40F003DB7FA /* object.cpp in Sources */,
 				27C83AAD233CF01E00FF791B /* dotth.cpp in Sources */,
 				2728DC7D2349AD81003DB7FA /* utility.cpp in Sources */,
