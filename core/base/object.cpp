@@ -40,12 +40,12 @@ const float dotth::object::world_timescale(void) {
 void dotth::object::update(void)
 {
 	float delta = utility::timer::instance()->delta() * world_timescale();
-	update(delta);
+	on_update(delta);
 	foreach<object>([](std::shared_ptr<object> obj) { obj->update(); });
 }
 
 void dotth::object::push_render_queue(void)
 {
-	push_render_queue(0);
+	on_push_render_queue();
 	foreach<object>([](std::shared_ptr<object> obj) { obj->push_render_queue(); });
 }

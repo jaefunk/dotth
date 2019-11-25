@@ -39,7 +39,7 @@ namespace dotth {
 		drawable(const dotth::render::draw_type _draw_type) : _draw_type(_draw_type) {}
 		const dotth::render::draw_type draw_type(void) { return _draw_type; }
 	public:
-		virtual void push_render_queue(const int flags) final;
+		virtual void on_push_render_queue(void) final;
 		virtual void draw(const int flags) = 0;
 	};
 };

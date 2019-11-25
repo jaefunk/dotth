@@ -56,22 +56,35 @@ void dotth::rectangle::draw(const int flags)
 {
 	glBindTexture(GL_TEXTURE_2D, _binded_texture);
 
-	glEnableClientState(GL_VERTEX_ARRAY);
-	glVertexPointer(3, GL_FLOAT, 0, _vertex_list.v.data());
-	glEnableClientState(GL_COLOR_ARRAY);
-	glColorPointer(4, GL_FLOAT, 0, _vertex_list.c.data());
 
 	int use_program = 3;
 	glUseProgram(use_program);
-	auto uv = glGetAttribLocation(use_program, "in_uv");
-	glEnableVertexAttribArray(uv);
-	glVertexAttribPointer(uv, 2, GL_FLOAT, GL_FALSE, 0, _vertex_list.u.data());
-	glDrawElements(GL_TRIANGLES, static_cast<int32_t>(_vertex_list.i.size()), GL_UNSIGNED_INT, _vertex_list.i.data());
-	glUseProgram(0);
-	
 
-	//if (_binded_texture != 0)
-	//	glBindTexture(GL_TEXTURE_2D, 0);
+	if (!_vertex_list.v.empty())
+	{
+		glEnableClientState(GL_VERTEX_ARRAY);
+		glVertexPointer(3, GL_FLOAT, 0, _vertex_list.v.data());
+	}
+
+	if (!_vertex_list.c.empty())
+	{
+		glEnableClientState(GL_COLOR_ARRAY);
+		glColorPointer(4, GL_FLOAT, 0, _vertex_list.c.data());
+	}
+	
+	if (!_vertex_list.u.empty())
+	{
+		auto uv = glGetAttribLocation(use_program, "in_uv");
+		glEnableVertexAttribArray(uv);
+		glVertexAttribPointer(uv, 2, GL_FLOAT, GL_FALSE, 0, _vertex_list.u.data());
+	}
+
+	if (!_vertex_list.i.empty())
+	{
+		glDrawElements(GL_TRIANGLES, static_cast<int32_t>(_vertex_list.i.size()), GL_UNSIGNED_INT, _vertex_list.i.data());
+	}
+
+	glUseProgram(0);
 }
 
 //void dotth::cube::init(void)

@@ -30,9 +30,9 @@ namespace dotth {
     class scene : public object
     {
     public:
-        virtual void init(json data = json()) {};
+        virtual void init(const json& data = json()) {};
     protected:
-		bool loadview(std::string path);
+		bool loadview(const std::string& path);
     };
     
     class scene_manager : public utility::singleton<scene_manager>

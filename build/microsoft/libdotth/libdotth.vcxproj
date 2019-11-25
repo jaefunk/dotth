@@ -39,6 +39,7 @@
     <ClCompile Include="..\..\..\core\renderer\render_command.cpp" />
     <ClCompile Include="..\..\..\core\renderer\render_queue.cpp" />
     <ClCompile Include="..\..\..\core\renderer\shader.cpp" />
+    <ClCompile Include="..\..\..\core\renderer\texture.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\core\base\base.hpp" />
@@ -73,6 +74,7 @@
     <ClInclude Include="..\..\..\core\renderer\render_command.hpp" />
     <ClInclude Include="..\..\..\core\renderer\render_queue.hpp" />
     <ClInclude Include="..\..\..\core\renderer\shader.hpp" />
+    <ClInclude Include="..\..\..\core\renderer\texture.hpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{BFC6D0D4-CC4A-4A97-8669-3BB70461C957}</ProjectGuid>

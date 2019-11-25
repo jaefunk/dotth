@@ -1,7 +1,7 @@
 
 #include "testscene.hpp"
 
-void testscene::init(json data) 
+void testscene::init(const json& data) 
 {
 	auto jj = std::make_shared<dotth::rectangle>();
 	jj = std::make_shared<dotth::rectangle>();
@@ -21,7 +21,7 @@ void testscene::init(json data)
 	attach(jj);
 }
 
-void testscene::update(float delta) 
+void testscene::on_update(const float& delta) 
 {
 	printf("%f\n", dotth::utility::timer::instance()->delta());
 }

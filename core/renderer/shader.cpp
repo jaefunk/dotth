@@ -1,4 +1,4 @@
-/*
+﻿/*
 Licensed under the MIT License <http://opensource.org/licenses/MIT>.
 Copyright (c) 2019 jaefunk <https://github.com/jaefunk/dotth>.
 
@@ -24,7 +24,7 @@ SOFTWARE.
 #include "shader.hpp"
 #include "platform/filesystem/path.hpp"
 
-const bool dotth::shader_manager::load(std::string key, const char * file_path) {
+const bool dotth::shader_manager::load(const char* key, const char * file_path) {
 	std::string strPath = dotth::path(file_path);
 	// 쉐이더 코드를 파일에서 읽기
 	std::string ShaderCode;
@@ -126,13 +126,19 @@ const bool dotth::shader_manager::load(std::string key, const char * file_path) 
 		for (auto i = 0; i < count; ++i)
 		{
 			glGetActiveAttrib(ProgramID, (GLuint)i, bufSize, &length, &size, &type, name);
-			s._attributes.insert({ name, glGetAttribLocation(ProgramID, name) });
+			shader::render_parameter rp;
+			rp._location = glGetAttribLocation(ProgramID, name);
+			rp._type = type;
+			s._parameters.insert({ name, rp });
 		}
 		glGetProgramiv(ProgramID, GL_ACTIVE_UNIFORMS, &count);
 		for (auto i = 0; i < count; i++)
 		{
 			glGetActiveUniform(ProgramID, (GLuint)i, bufSize, &length, &size, &type, name);
-			s._uniforms.insert({ name, glGetAttribLocation(ProgramID, name) });
+			shader::render_parameter rp;
+			rp._location = glGetAttribLocation(ProgramID, name);
+			rp._type = type;
+			s._parameters.insert({ name, rp });
 		}
 	}
     
@@ -142,12 +148,12 @@ const bool dotth::shader_manager::load(std::string key, const char * file_path) 
     {
         std::string strSrc = blender_type.substr(src, blender_type.find('\n'));
         strSrc = strSrc.substr(strSrc.find(":") + 1, strSrc.size());
-        s._blend_src = _blend_type[strSrc];
+        s._blend_src = _blend_type[strSrc.c_str()];
         std::string strDst = blender_type.substr(dst, blender_type.size());
-        s._blend_dst = _blend_type[strDst];
         strDst = strDst.substr(0, strDst.find('\n'));
         strDst = strDst.substr(strDst.find(":") + 1, strDst.size());
-    }
+		s._blend_dst = _blend_type[strDst.c_str()]; 
+    }    
 
 	return true;
 }

@@ -48,9 +48,8 @@ namespace dotth {
 		virtual void push_render_queue(void) final;
         
     protected:
-		virtual void update(const float delta) {};
-		virtual void push_render_queue(const int flags) {};
-        virtual void draw(const int flags) {};
+		virtual void on_update(const float& delta) {};
+		virtual void on_push_render_queue(void) {};
     };
 };
 

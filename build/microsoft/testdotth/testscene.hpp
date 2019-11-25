@@ -3,7 +3,6 @@
 #include "renderer/primitive.hpp"
 
 class testscene : public dotth::scene {
-	virtual void init(json data) override;
-	virtual void update(const float delta) override;;
-	//virtual void draw(const dotth::matrix4& transform, int flags = 0) override {};
+	virtual void init(const json& data) override;
+	virtual void on_update(const float& delta) override;
 };

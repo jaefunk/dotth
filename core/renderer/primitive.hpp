@@ -32,6 +32,7 @@ namespace dotth {
 	{
 	public:
 		rectangle(void);
+		dotth::texture _texture;
 		unsigned int _binded_texture = 0;
 		dotth::drawinfo::polygon _vertex_list;
 		virtual void init(void) override;
