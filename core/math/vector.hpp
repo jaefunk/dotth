@@ -28,24 +28,51 @@ SOFTWARE.
 
 namespace dotth {
 	template <typename ty>
-	struct vector4 {
-		union { struct { ty x, y, z, w; }; struct { ty r, g, b, a; }; };
-		vector4(const ty& v) : x(v), y(v), z(v), w(v) {};
-		vector4(const ty& xx, const ty& yy, const ty& zz, const ty& ww) : x(xx), y(yy), z(zz), w(ww) {};
-		vector4(const vector4<ty>& v) : x(v.x), y(v.y), z(v.z), w(v.w) {};
-		vector4(const vector4<ty>&& v) : x(v.x), y(v.y), z(v.z), w(v.w) {};
-		const float length(void) { return std::sqrt((x * x) + (y * y) + (z * z) + (w * w)); }
-		const float dot(const vector4<ty>& v) { return (x * v.x) + (y * v.y) + (z * v.z) + (w * v.w); };
-		
-		template <typename ty = float>
-		const bool is_zero(void) { return x == 0.f && y == 0.f && z == 0.f && w == 0.f; }
-		template <typename ty = int>
-		const bool is_zero(void) { return x == 0 && y == 0 && z == 0 && w == 0; }
-		template <typename ty = double>
-		const bool is_zero(void) { return x == 0.0 && y == 0.0 && z == 0.0 && w == 0.0; }
-
-		const float distance(const vector4<ty>& v) { ty dx = v.x - x; ty dy = v.y - y; ty dz = v.z - z; ty dw = v.w - w; return std::sqrt(dx * dx + dy * dy + dz * dz + dw * dw); }
+	struct vector3 {
+		union { struct { ty x, y, z; }; };
+		vector3(void) {}
+		vector3(const ty& v) : x(v), y(v), z(v) {}
+		vector3(const ty& xx, const ty& yy, const ty& zz) : x(xx), y(yy), z(zz) {}
+		vector3(const vector3<ty>& v) : x(v.x), y(v.y), z(v.z) {}
+		vector3(const vector3<ty>&& v) : x(v.x), y(v.y), z(v.z) {}
+		const ty length(void) { 
+			return std::sqrt((x * x) + (y * y) + (z * z)); 
+		}
+		const ty dot(const vector3<ty>& v) { 
+			return (x * v.x) + (y * v.y) + (z * v.z); 
+		}
+		void add(const vector3<ty>& v) {
+			x += v.x;
+			y += v.y;
+			z += v.z;
+		}
+		void subtract(const vector3<ty>& v) {
+			add(v.negate());
+		}
+		void multiply(const ty& v) {
+			x *= v;
+			y *= v;
+			z *= v;
+		}
+		void divide(const ty& v) {
+			x /= v;
+			y /= v;
+			z /= v;
+		}
+		void negate(void) {
+			multiply(-static_cast<ty>(1));
+		}
+		const ty normalize(void) {
+			ty l = length();
+			if (l < FLT_EPSILON)
+				return static_cast<ty>(0);
+			multiply(static_cast<ty>(1) / l);
+			return l;
+		}
 	};
+	using vector3i = vector3<int>;
+	using vector3f = vector3<float>;
+	using vector3d = vector3<double>;
 };
 
 #endif // __DOTTH_VECTOR_HPP__
