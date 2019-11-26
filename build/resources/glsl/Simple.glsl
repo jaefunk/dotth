@@ -1,13 +1,15 @@
 
 // vertex shader
-attribute vec2 in_uv;
-varying vec4 out_color;
+attribute vec4 position;
+attribute vec2 uv;
+attribute vec4 color;
 varying vec2 out_uv;
+varying vec4 out_color;
 void main(void)
 {
-    out_color = gl_Color;
-    out_uv = in_uv;
-    gl_Position = gl_ModelViewProjectionMatrix * gl_Vertex;
+    out_color = color;
+    out_uv = uv;
+    gl_Position = gl_ModelViewProjectionMatrix * position;
 }
 
 // fragment shader
@@ -16,7 +18,12 @@ varying vec2 out_uv;
 uniform sampler2D texture_0;
 void main (void)
 {
-    gl_FragColor = texture2D(texture_0, out_uv) * out_color;
+    gl_FragColor = texture2D(texture_0, out_uv);
+	
+	gl_FragColor.a *= out_color.a;
+	gl_FragColor.r *= out_color.r;
+	gl_FragColor.g *= out_color.g;
+	gl_FragColor.b *= out_color.b;
 }
 
 // pixel blender

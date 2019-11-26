@@ -111,8 +111,8 @@ const bool dotth::shader_manager::load(const char* key, const char * file_path) 
 	glDeleteShader(VertexShaderID);
 	glDeleteShader(FragmentShaderID);
 
-	dotth::shader s;
-	s._program = ProgramID;
+	std::shared_ptr<dotth::shader> s = std::make_shared<dotth::shader>();
+	s->_program = ProgramID;
 	shaders.insert({ key, s });
 
 	{
@@ -129,7 +129,7 @@ const bool dotth::shader_manager::load(const char* key, const char * file_path) 
 			shader::render_parameter rp;
 			rp._location = glGetAttribLocation(ProgramID, name);
 			rp._type = type;
-			s._parameters.insert({ name, rp });
+			s->_parameters.insert({ name, rp });
 		}
 		glGetProgramiv(ProgramID, GL_ACTIVE_UNIFORMS, &count);
 		for (auto i = 0; i < count; i++)
@@ -138,7 +138,7 @@ const bool dotth::shader_manager::load(const char* key, const char * file_path) 
 			shader::render_parameter rp;
 			rp._location = glGetAttribLocation(ProgramID, name);
 			rp._type = type;
-			s._parameters.insert({ name, rp });
+			s->_parameters.insert({ name, rp });
 		}
 	}
     
@@ -148,11 +148,11 @@ const bool dotth::shader_manager::load(const char* key, const char * file_path) 
     {
         std::string strSrc = blender_type.substr(src, blender_type.find('\n'));
         strSrc = strSrc.substr(strSrc.find(":") + 1, strSrc.size());
-        s._blend_src = _blend_type[strSrc.c_str()];
+		s->_blend_src = _blend_type[strSrc.c_str()];
         std::string strDst = blender_type.substr(dst, blender_type.size());
         strDst = strDst.substr(0, strDst.find('\n'));
         strDst = strDst.substr(strDst.find(":") + 1, strDst.size());
-		s._blend_dst = _blend_type[strDst.c_str()]; 
+		s->_blend_dst = _blend_type[strDst.c_str()];
     }    
 
 	return true;

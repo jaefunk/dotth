@@ -25,15 +25,13 @@ SOFTWARE.
 #define __DOTTH_PRIMITIVE_HPP__
 
 #include "base/drawable.hpp"
-#include "texture.hpp"
 
 namespace dotth {
 	class rectangle : public dotth::drawable
 	{
 	public:
 		rectangle(void);
-		dotth::texture _texture;
-		unsigned int _binded_texture = 0;
+		std::shared_ptr<class texture> _texture;
 		dotth::drawinfo::polygon _vertex_list;
 		virtual void init(void) override;
         void add_position_x(float x) { 
@@ -42,13 +40,7 @@ namespace dotth {
                 c.x += x;
             }
         }
-        void load_sprite(const char* name) {
-            auto t = dotth::resource_manager::instance()->find<texture>(name);
-            if (t != nullptr)
-            {
-				_binded_texture = t->texture_id();
-            }
-        }
+		void load_sprite(const char* name);
     private:
 		virtual void draw(const int flags) override;
 	};

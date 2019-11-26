@@ -23,68 +23,53 @@ SOFTWARE.
 
 #include "primitive.hpp"
 #include "renderer.hpp"
+#include "texture.hpp"
 
 dotth::rectangle::rectangle(void) : dotth::drawable(dotth::render::draw_type::perspective)
 {
+	set_shader("simple");
 }
 
 void dotth::rectangle::init(void)
 {
-    _vertex_list.v.clear();
-	_vertex_list.v.push_back(xyz(-0.5f, 0.5f, 0.f));
-    _vertex_list.v.push_back(xyz(0.5f, 0.5f, 0.f));
-    _vertex_list.v.push_back(xyz(-0.5f, -0.5f, 0.f));
-    _vertex_list.v.push_back(xyz(0.5f, -0.5f, 0.f));
-
-    _vertex_list.c.clear();
-	_vertex_list.c.push_back(rgba(1.f, 1.f, 1.f, 1.f));
-	_vertex_list.c.push_back(rgba(1.f, 1.f, 1.f, 1.f));
-    _vertex_list.c.push_back(rgba(1.f, 1.f, 1.f, 1.f));
-    _vertex_list.c.push_back(rgba(1.f, 1.f, 1.f, 1.f));
-
-    _vertex_list.u.clear();
-	_vertex_list.u.push_back(uv(0.f, 1.f));
-    _vertex_list.u.push_back(uv(1.f, 1.f));
-    _vertex_list.u.push_back(uv(0.f, 0.f));
-    _vertex_list.u.push_back(uv(1.f, 0.f));
-
-    _vertex_list.i.clear();
+	_vertex_list.v = { xyz(-0.5f, 0.5f, 0.f), xyz(0.5f, 0.5f, 0.f), xyz(-0.5f, -0.5f, 0.f), xyz(0.5f, -0.5f, 0.f) };
+	_vertex_list.c = { rgba(), rgba(), rgba(), rgba() };
+	_vertex_list.u = { uv(0.f, 1.f), uv(1.f, 1.f), uv(0.f, 0.f), uv(1.f, 0.f) };
     _vertex_list.i = { 0, 1, 2, 1, 3, 2 };
 }
 
-void dotth::rectangle::draw(const int flags) 
+void dotth::rectangle::load_sprite(const char * name) 
 {
-	glBindTexture(GL_TEXTURE_2D, _binded_texture);
+	_texture = dotth::resource_manager::instance()->find<texture>(name);
+	if (_texture == nullptr)
+		printf("%s is not valid sprite", name);
+}
 
+void dotth::rectangle::draw(const int flags)
+{
+	if (_texture)
+		_texture->bind();
+	if (_shader)
+		_shader->bind();
 
-	int use_program = 3;
-	glUseProgram(use_program);
+	auto p = glGetAttribLocation(_shader->program(), "position");
+	glEnableVertexAttribArray(p);
+	glVertexAttribPointer(p, 3, GL_FLOAT, GL_FALSE, 0, _vertex_list.v.data());
 
-	if (!_vertex_list.v.empty())
-	{
-		glEnableClientState(GL_VERTEX_ARRAY);
-		glVertexPointer(3, GL_FLOAT, 0, _vertex_list.v.data());
-	}
+	auto c = glGetAttribLocation(_shader->program(), "color");
+	glEnableVertexAttribArray(c);
+	glVertexAttribPointer(c, 4, GL_FLOAT, GL_FALSE, 0, _vertex_list.c.data());
 
-	if (!_vertex_list.c.empty())
-	{
-		glEnableClientState(GL_COLOR_ARRAY);
-		glColorPointer(4, GL_FLOAT, 0, _vertex_list.c.data());
-	}
-	
-	if (!_vertex_list.u.empty())
-	{
-		auto uv = glGetAttribLocation(use_program, "in_uv");
-		glEnableVertexAttribArray(uv);
-		glVertexAttribPointer(uv, 2, GL_FLOAT, GL_FALSE, 0, _vertex_list.u.data());
-	}
+	auto uv = glGetAttribLocation(_shader->program(), "uv");
+	glEnableVertexAttribArray(uv);
+	glVertexAttribPointer(uv, 2, GL_FLOAT, GL_FALSE, 0, _vertex_list.u.data());
 
-	if (!_vertex_list.i.empty())
-	{
-		glDrawElements(GL_TRIANGLES, static_cast<int32_t>(_vertex_list.i.size()), GL_UNSIGNED_INT, _vertex_list.i.data());
-	}
+	glDrawElements(GL_TRIANGLES, static_cast<int32_t>(_vertex_list.i.size()), GL_UNSIGNED_INT, _vertex_list.i.data());
 
-	glUseProgram(0);
+	if (_texture)
+		_texture->unbind();
+	if (_shader)
+		_shader->unbind();
 }
 
 //void dotth::cube::init(void)

@@ -71,9 +71,6 @@ namespace dotth {
 		std::map<std::string, render_parameter> _parameters;
         unsigned int _blend_src = 0;
 		unsigned int _blend_dst = 0;
-	public:
-		const unsigned int& blend_src(void) { return _blend_src; }
-		const unsigned int& blend_dst(void) { return _blend_dst; }
     public:
 		const bool set_parameter(const char* name, const float& value)
 		{
@@ -86,12 +83,19 @@ namespace dotth {
 		{ 
 			return _program; 
 		}
+		void bind(void) {
+			glUseProgram(_program);
+			glBlendFunc(_blend_src, _blend_dst);
+		}
+		void unbind(void) {
+			glUseProgram(0);
+		}
     };
 
 	class shader_manager : public dotth::utility::singleton<shader_manager>
 	{
 	private:
-		std::map<std::string, dotth::shader> shaders;
+		std::map<std::string, std::shared_ptr<dotth::shader>> shaders;
         std::map<std::string, GLenum> _blend_type = {
             { "GL_SRC_COLOR", GL_SRC_COLOR },
             { "GL_SRC_ALPHA", GL_SRC_ALPHA },
@@ -105,11 +109,11 @@ namespace dotth {
         };
 	public:
 		const bool load(const char* key, const char* file_path);
-		const dotth::shader find(const char* key) {
+		const std::shared_ptr<dotth::shader> find(const char* key) {
 			auto iter = shaders.find(key);
 			if (iter != shaders.end())
 				return iter->second;
-			return dotth::shader();
+			return nullptr;
 		}
 	};
 };

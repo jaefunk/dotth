@@ -58,7 +58,7 @@ void dotth::renderer::init_gl(int argc, char** argv) {
     glutInitWindowSize(1024, 512);
     glutInitWindowPosition(0, 0);
     glutCreateWindow("asdf");
-    glClearColor(1, 1, 1, 1);
+    glClearColor(0, 0, 0, 0);
 	glEnable(GL_BLEND);
     glEnable(GL_POINT_SMOOTH);
     glEnable(GL_LINE_SMOOTH);
@@ -67,7 +67,7 @@ void dotth::renderer::init_gl(int argc, char** argv) {
     glDepthFunc(GL_LESS);
     glutDisplayFunc(dotth::gl_callback::display);
     glutReshapeFunc(dotth::gl_callback::reshape);
-    //queue[dotth::render::draw_type::perspective] = std::make_shared<render_queue>();
+
 #ifdef WIN32
 	if (glewInit() == GLEW_OK)
 #endif
