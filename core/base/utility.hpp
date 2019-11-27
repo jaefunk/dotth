@@ -55,11 +55,11 @@ namespace dotth {
             timer(void) { update(); }
             void update(void) {
                 _now = time_since_epoch();
-                _delta = _now - _prev;
+                _delta = static_cast<float>(_now - _prev) / static_cast<float>(time_scale_millisecond);
                 _prev = _now;
             }
             const float delta(void) {
-                return static_cast<float>(_delta) / static_cast<float>(time_scale_millisecond);
+                return _delta;
             }
             std::time_t time_since_epoch(const long long time_scale = time_scale_millisecond) {
                 return std::chrono::system_clock::now().time_since_epoch().count() / time_scale;
@@ -67,7 +67,7 @@ namespace dotth {
         private:
             std::time_t _prev = 0;
             std::time_t _now = 0;
-            std::time_t _delta = 0;
+            float _delta = 0.f;
         };
     };
 };

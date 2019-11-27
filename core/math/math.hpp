@@ -24,13 +24,9 @@ SOFTWARE.
 #ifndef __DOTTH_MATH_HPP__
 #define __DOTTH_MATH_HPP__
 
-#include <cmath>
-
-#define MATH_DEG_TO_RAD(x)          ((x) * 0.0174532925f)
-#define MATH_RAD_TO_DEG(x)          ((x) *  57.29577951f)
-#define MATH_FLOAT_SMALL            1.0e-37f
-#define MATH_TOLERANCE              2e-37f
-#define MATH_PIOVER2                1.57079632679489661923f
-#define MATH_EPSILON                0.000001f
+#define deg_to_rad(x)          ((x) * 0.0174532925f)
+#define rad_to_deg(x)          ((x) *  57.29577951f)
+#define pi						3.14159265358f
+#define half_pi					1.57079632675f
 
 #endif // __DOTTH_MATH_HPP__

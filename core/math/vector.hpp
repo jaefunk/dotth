@@ -25,6 +25,7 @@ SOFTWARE.
 #define __DOTTH_VECTOR_HPP__
 
 #include "dotth.hpp"
+#include "math.hpp"	
 
 namespace dotth {
 	struct vector3 {

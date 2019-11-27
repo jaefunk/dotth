@@ -25,6 +25,7 @@ SOFTWARE.
 #define __DOTTH_OBJECT_HPP__
 
 #include "node.hpp"
+#include "math/transform.hpp"
 
 namespace dotth {
     class object : public node<object>
@@ -36,6 +37,7 @@ namespace dotth {
     public:
         object(void) = default;
         object(std::string name) : _name(name) { };
+		transform trans;
         
     public:
 		void set_timescale(const float & scale);

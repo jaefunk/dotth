@@ -37,9 +37,37 @@ namespace dotth {
                 float _41, float _42, float _43, float _44);
 		
 
-		void scale(matrix4& dst, const vector3& value);
-		void rotate(matrix4& dst, const vector3& value);
-		void position(matrix4& dst, const vector3& value);
+		static void scale(matrix4& dst, const vector3& value)
+		{
+			dst.m[0] = value.x;
+			dst.m[5] = value.y;
+			dst.m[10] = value.z;
+		}
+		static void rotate(matrix4& dst, const vector3& value)
+		{
+			float sx = sin(deg_to_rad(value.x));
+			float cx = cos(deg_to_rad(value.x));
+			float sy = sin(deg_to_rad(value.y));
+			float cy = cos(deg_to_rad(value.y));
+			float sz = sin(deg_to_rad(value.z));
+			float cz = cos(deg_to_rad(value.z));
+			
+			dst.m[0] = cz * cy;
+			dst.m[4] = cz * sy * sx - sz * cy;
+			dst.m[8] = cz * sy * cx + sz * sx;
+			dst.m[1] = sz * cy;
+			dst.m[5] = sz * sy * sx + cz * cx;
+			dst.m[9] = sz * sy * cx + cz * sx;
+			dst.m[2] = -sy;
+			dst.m[6] = cy * sx;
+			dst.m[10] = cy * cx;
+		}
+		static void position(matrix4& dst, const vector3& value)
+		{
+			dst.m[3] = value.x;
+			dst.m[7] = value.y;
+			dst.m[11] = value.z;
+		}
         
 		static const std::size_t matrix_size;
         static const matrix4 identity;
