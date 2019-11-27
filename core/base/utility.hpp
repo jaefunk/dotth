@@ -30,6 +30,9 @@ constexpr long long time_scale_millisecond = 1000;
 
 namespace dotth {
     namespace utility {
+		namespace string {
+			std::string format(const char* format, ...);
+		}
 		void sleep(int millisec);
         template<typename ty>
         class singleton {
@@ -51,7 +54,6 @@ namespace dotth {
         public:
             timer(void) { update(); }
             void update(void) {
-				sleep(1);
                 _now = time_since_epoch();
                 _delta = _now - _prev;
                 _prev = _now;

@@ -24,56 +24,42 @@ SOFTWARE.
 #ifndef __DOTTH_TRANSFORM_HPP__
 #define __DOTTH_TRANSFORM_HPP__
 
-#include "dotth.hpp"
 #include "vector.hpp"
 #include "matrix.hpp"
 
 namespace dotth {
     class transform {
     private:
-        vector4 _position;
-        vector4 _scale;
-        vector4 _rotation;
-        matrix4 _localmatrix;
-        matrix4 _worldmatrix;
-        matrix4 _inversematrix;
-        
-    private:
-        void calculate_local(void) {
-            
-        }
-        
-    public:
-        void update(const matrix4& parentworld) {
-            calculate_local();
-            //_worldmatrix = _worldmatrix * parentworld;
-        }
+		vector3 _pos = { 0.f, 0.f, 0.f };
+		vector3 _scl = { 1.f, 1.f, 1.f };
+        vector3 _rot = { 0.f, 0.f, 0.f };
+        matrix4 _matrix;
     
     public: // set
-        void set_position(const vector4& v) {
-            set_position(v.x, v.y, v.z);
-        }
-        void set_position(const float& x, const float& y, const float& z) {
-            _position.x = x; _position.y = y; _position.z = z;
-        }
-        void set_scale(const vector4& v) {
-            set_scale(v.x, v.y, v.z);
-        }
-        void set_scale(const float& x, const float& y, const float& z) {
-            _scale.x = x; _scale.y = y; _scale.z = z;
-        }
-        void set_rotation(const vector4& v) {
-            set_rotation(v.x, v.y, v.z);
-        }
-        void set_rotation(const float& x, const float& y, const float& z) {
-            _rotation.x = x; _rotation.y = y; _rotation.z = z;
-        }
+		void position(const float& x, const float& y, const float& z) { _pos.x = x; _pos.y = y; _pos.z = z; }
+        void position(const vector3& v) { position(v.x, v.y, v.z); }
+		void position_x(const float& v) { _pos.x = v; }
+		void position_y(const float& v) { _pos.y = v; }
+		void position_z(const float& v) { _pos.z = v; }
+		
+		void scale(const float& x, const float& y, const float& z) { _scl.x = x; _scl.y = y; _scl.z = z; }
+		void scale(const vector3& v) { scale(v.x, v.y, v.z); }
+		void scale_x(const float& v) { _scl.x = v; }
+		void scale_y(const float& v) { _scl.y = v; }
+		void scale_z(const float& v) { _scl.z = v; }
+
+		void rotate(const float& x, const float& y, const float& z) { _rot.x = x; _rot.y = y; _rot.z = z; }
+		void rotate(const vector3& v) { rotate(v.x, v.y, v.z); }
+		void rotate_x(const float& v) { _rot.x = v; }
+		void rotate_y(const float& v) { _rot.y = v; }
+		void rotate_z(const float& v) { _rot.z = v; }
+        
+        
     public: // get
-        const vector4& position(void) { return _position; }
-        const vector4& scale(void) { return _scale; }
-        const vector4& rotation(void) { return _rotation; }
-        const matrix4& localmatrix(void) { return _localmatrix; }
-        const matrix4& worldmatrix(void) { return _worldmatrix; }
+        const vector3& position(void) { return _pos; }
+        const vector3& scale(void) { return _scl; }
+        const vector3& rotation(void) { return _rot; }
+        const matrix4& matrix(void) { return _matrix; }
     };
 };
 

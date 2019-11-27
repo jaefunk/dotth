@@ -24,7 +24,7 @@ SOFTWARE.
 #ifndef __DOTTH_MATRIX_HPP__
 #define __DOTTH_MATRIX_HPP__
 
-#include "dotth.hpp"
+#include "vector.hpp"
 
 namespace dotth {
 	struct matrix4 {
@@ -35,6 +35,11 @@ namespace dotth {
                 float _21, float _22, float _23, float _24,
                 float _31, float _32, float _33, float _34,
                 float _41, float _42, float _43, float _44);
+		
+
+		void scale(matrix4& dst, const vector3& value);
+		void rotate(matrix4& dst, const vector3& value);
+		void position(matrix4& dst, const vector3& value);
         
 		static const std::size_t matrix_size;
         static const matrix4 identity;

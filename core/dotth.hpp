@@ -45,6 +45,7 @@ SOFTWARE.
 #include <thread>
 #include <fstream>
 #include <sstream>
+#include <cmath>
 
 #include "external/json/json.hpp"
 #include "external/xml/tinyxml2.h"

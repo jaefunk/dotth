@@ -24,55 +24,37 @@ SOFTWARE.
 #ifndef __DOTTH_VECTOR_HPP__
 #define __DOTTH_VECTOR_HPP__
 
-#include "math.hpp"
+#include "dotth.hpp"
 
 namespace dotth {
-	template <typename ty>
 	struct vector3 {
-		union { struct { ty x, y, z; }; };
+		float x, y, z;
 		vector3(void) {}
-		vector3(const ty& v) : x(v), y(v), z(v) {}
-		vector3(const ty& xx, const ty& yy, const ty& zz) : x(xx), y(yy), z(zz) {}
-		vector3(const vector3<ty>& v) : x(v.x), y(v.y), z(v.z) {}
-		vector3(const vector3<ty>&& v) : x(v.x), y(v.y), z(v.z) {}
-		const ty length(void) { 
-			return std::sqrt((x * x) + (y * y) + (z * z)); 
-		}
-		const ty dot(const vector3<ty>& v) { 
-			return (x * v.x) + (y * v.y) + (z * v.z); 
-		}
-		void add(const vector3<ty>& v) {
-			x += v.x;
-			y += v.y;
-			z += v.z;
-		}
-		void subtract(const vector3<ty>& v) {
-			add(v.negate());
-		}
-		void multiply(const ty& v) {
-			x *= v;
-			y *= v;
-			z *= v;
-		}
-		void divide(const ty& v) {
-			x /= v;
-			y /= v;
-			z /= v;
-		}
-		void negate(void) {
-			multiply(-static_cast<ty>(1));
-		}
-		const ty normalize(void) {
-			ty l = length();
-			if (l < FLT_EPSILON)
-				return static_cast<ty>(0);
-			multiply(static_cast<ty>(1) / l);
+		vector3(const float& v) : x(v), y(v), z(v) {}
+		vector3(const float& x, const float& y, const float& z) : x(x), y(y), z(z) {}
+		vector3(const vector3& v) : x(v.x), y(v.y), z(v.z) {}
+		vector3(const vector3&& v) : x(v.x), y(v.y), z(v.z) {}
+		const float length(void) { return std::sqrt((x * x) + (y * y) + (z * z)); }
+		const float dot(const vector3& v) { return (x * v.x) + (y * v.y) + (z * v.z); }
+		void add(const vector3& v) { x += v.x; y += v.y; z += v.z; }
+		void subtract(const vector3& v) { x -= v.x; y -= v.y; z -= v.z; }
+		void multiply(const float& v) { x *= v; y *= v; z *= v; }
+		void divide(const float& v) { x /= v; y /= v; z /= v; }
+		void negate(void) { multiply(-1.f); }
+		const float normalize(void) {
+			float l = length(); 
+			if (l < FLT_EPSILON) 
+				return 0.f;
+			multiply(1.f / l); 
 			return l;
 		}
+		const char* c_str(void) {
+			return to_string().c_str();
+		}
+		std::string to_string(void) {
+			return utility::string::format("x:%f y:%f z:%f", x, y, z);
+		}
 	};
-	using vector3i = vector3<int>;
-	using vector3f = vector3<float>;
-	using vector3d = vector3<double>;
 };
 
 #endif // __DOTTH_VECTOR_HPP__
