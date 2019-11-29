@@ -68,11 +68,19 @@ void dotth::renderer::init_gl(int argc, char** argv) {
     glutDisplayFunc(dotth::gl_callback::display);
     glutReshapeFunc(dotth::gl_callback::reshape);
 
+	_camera = std::make_shared<camera>();
+	_camera->set_view(vector3(0.f, 0.f, -5.f), vector3(0.f, 1.f, 0.f), vector3(0.f, 0.f, 0.f));
+	_camera->sync_view();
+	_camera->set_proj(1.f, 100.f, 1024.f, 512.f, 60.f);
+	_camera->sync_proj();
+	
+
 #ifdef WIN32
 	if (glewInit() == GLEW_OK)
 #endif
 	{
         dotth::shader_manager::instance()->load("simple", "resources/glsl/Simple.glsl");
+		dotth::shader_manager::instance()->load("mvp", "resources/glsl/mvp.glsl");
         dotth::resource_manager::instance()->load(type::resource::image, "resources/cat2.png", "cat");
         dotth::resource_manager::instance()->load(type::resource::image, "resources/usagi.png", "usagi");
 	}

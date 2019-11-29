@@ -21,30 +21,30 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE  OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-#ifndef __DOTTH_MATRIX_HPP__
-#define __DOTTH_MATRIX_HPP__
+#include "camera.hpp"
 
-#include "vector.hpp"
+void dotth::camera::sync_view(void) {
+	vector3 axis_z = _eye.subtract(_at).normalize();
+	vector3 axis_x = _up.cross(axis_z).normalize();
+	vector3 axis_y = axis_z.cross(axis_x);
+	_view.m[0] = axis_x.x;
+	_view.m[4] = axis_x.y;
+	_view.m[8] = axis_x.z;
 
-namespace dotth {
-	struct matrix4 {
-		float m[16];
-        matrix4(void);
-        matrix4(const matrix4& copy);
-        matrix4(float _11, float _12, float _13, float _14,
-                float _21, float _22, float _23, float _24,
-                float _31, float _32, float _33, float _34,
-                float _41, float _42, float _43, float _44);
-		
+	_view.m[1] = axis_y.x;
+	_view.m[5] = axis_y.y;
+	_view.m[9] = axis_y.z;
 
-		static void scale(matrix4& dst, const vector3& value);
-		static void rotate(matrix4& dst, const vector3& value);
-		static void position(matrix4& dst, const vector3& value);
-        
-		static const size_t matrix_size;
-        static const matrix4 identity;
-        static const matrix4 zero;
-	};
-};
+	_view.m[2] = axis_z.x;
+	_view.m[6] = axis_z.y;
+	_view.m[10] = axis_z.z;
 
-#endif // __DOTTH_MATRIX_HPP__
+	_view.m[3] = 0.f;
+	_view.m[7] = 0.f;
+	_view.m[11] = 0.f;
+
+	_view.m[12] = -axis_x.dot(_eye);
+	_view.m[13] = -axis_y.dot(_eye);
+	_view.m[14] = -axis_z.dot(_eye);
+	_view.m[15] = 1.f;
+}

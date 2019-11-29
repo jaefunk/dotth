@@ -3,18 +3,20 @@
 
 void testscene::init(const json& data) 
 {
-	auto jj = std::make_shared<dotth::rectangle>();
-	jj = std::make_shared<dotth::rectangle>();
-	jj->init();
-	jj->load_sprite("usagi");
-	jj->add_position_x(+0.25f);
-	attach(jj);
-	jj = std::make_shared<dotth::rectangle>();
-	jj->init();
-	jj->load_sprite("cat");
-	//jj->add_position_x(-0.25f);
-	jj->trans.position_x(1.f);
-	attach(jj);
+	{
+		
+		auto jj = std::make_shared<dotth::rectangle2>();
+		jj->init();
+		jj->load_sprite("usagi");
+		attach(jj);
+	}
+	{
+		auto jj = std::make_shared<dotth::rectangle>();
+		jj->init();
+		jj->load_sprite("cat");
+		attach(jj);
+	}
+	
 
 	//jj = std::make_shared<dotth::rectangle>();
 	//jj->init();

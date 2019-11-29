@@ -24,7 +24,7 @@ SOFTWARE.
 #ifndef __DOTTH_RENDER_COMMAND_HPP__
 #define __DOTTH_RENDER_COMMAND_HPP__
 
-#include <vector>
+#include "dotth.hpp"
 
 namespace dotth {
 	struct xyz {

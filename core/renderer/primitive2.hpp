@@ -21,30 +21,29 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE  OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-#ifndef __DOTTH_MATRIX_HPP__
-#define __DOTTH_MATRIX_HPP__
+#ifndef __DOTTH_PRIMITIVE2_HPP__
+#define __DOTTH_PRIMITIVE2_HPP__
 
-#include "vector.hpp"
+#include "base/drawable.hpp"
 
 namespace dotth {
-	struct matrix4 {
-		float m[16];
-        matrix4(void);
-        matrix4(const matrix4& copy);
-        matrix4(float _11, float _12, float _13, float _14,
-                float _21, float _22, float _23, float _24,
-                float _31, float _32, float _33, float _34,
-                float _41, float _42, float _43, float _44);
-		
-
-		static void scale(matrix4& dst, const vector3& value);
-		static void rotate(matrix4& dst, const vector3& value);
-		static void position(matrix4& dst, const vector3& value);
-        
-		static const size_t matrix_size;
-        static const matrix4 identity;
-        static const matrix4 zero;
+	class rectangle2 : public dotth::drawable
+	{
+	public:
+		rectangle2(void);
+		std::shared_ptr<class texture> _texture;
+		dotth::drawinfo::polygon _vertex_list;
+		virtual void init(void) override;
+        void add_position_x(float x) { 
+            for(auto& c : _vertex_list.v)
+            {
+                c.x += x;
+            }
+        }
+		void load_sprite(const char* name);
+    private:
+		virtual void draw(const int flags) override;
 	};
 };
 
-#endif // __DOTTH_MATRIX_HPP__
+#endif // __DOTTH_PRIMITIVE2_HPP__

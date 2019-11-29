@@ -26,6 +26,7 @@ SOFTWARE.
 
 #include "dotth.hpp"
 #include "render_queue.hpp"
+#include "camera.hpp"
 
 namespace dotth {
 	namespace gl_callback {
@@ -40,8 +41,10 @@ namespace dotth {
 	public:
 		void push_back(class drawable* drawable);
 		void process(const dotth::render::draw_type& type);
+		std::shared_ptr<camera> get_camera(void) { return _camera; }
 	private:
         std::map<dotth::render::draw_type, dotth::render_queue> queue;
+		std::shared_ptr<camera> _camera;
     };
 };
 

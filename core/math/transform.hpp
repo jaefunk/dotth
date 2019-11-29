@@ -24,7 +24,6 @@ SOFTWARE.
 #ifndef __DOTTH_TRANSFORM_HPP__
 #define __DOTTH_TRANSFORM_HPP__
 
-#include "vector.hpp"
 #include "matrix.hpp"
 
 namespace dotth {
@@ -53,7 +52,6 @@ namespace dotth {
 		void rotate_x(const float& v) { _rot.x = v; }
 		void rotate_y(const float& v) { _rot.y = v; }
 		void rotate_z(const float& v) { _rot.z = v; }
-        
         
     public: // get
         const vector3& position(void) { return _pos; }

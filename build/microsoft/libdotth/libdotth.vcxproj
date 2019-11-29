@@ -30,11 +30,14 @@
     <ClCompile Include="..\..\..\core\external\stb\image\stb_image.cpp" />
     <ClCompile Include="..\..\..\core\external\xml\tinyxml2.cpp" />
     <ClCompile Include="..\..\..\core\math\matrix.cpp" />
+    <ClCompile Include="..\..\..\core\math\vector.cpp" />
     <ClCompile Include="..\..\..\core\platform\application.cpp" />
     <ClCompile Include="..\..\..\core\platform\filesystem\io.cpp" />
     <ClCompile Include="..\..\..\core\platform\filesystem\path.cpp" />
     <ClCompile Include="..\..\..\core\platform\platform.cpp" />
+    <ClCompile Include="..\..\..\core\renderer\camera.cpp" />
     <ClCompile Include="..\..\..\core\renderer\primitive.cpp" />
+    <ClCompile Include="..\..\..\core\renderer\primitive2.cpp" />
     <ClCompile Include="..\..\..\core\renderer\renderer.cpp" />
     <ClCompile Include="..\..\..\core\renderer\render_command.cpp" />
     <ClCompile Include="..\..\..\core\renderer\render_queue.cpp" />
@@ -69,7 +72,9 @@
     <ClInclude Include="..\..\..\core\platform\filesystem\io.hpp" />
     <ClInclude Include="..\..\..\core\platform\filesystem\path.hpp" />
     <ClInclude Include="..\..\..\core\platform\platform.hpp" />
+    <ClInclude Include="..\..\..\core\renderer\camera.hpp" />
     <ClInclude Include="..\..\..\core\renderer\primitive.hpp" />
+    <ClInclude Include="..\..\..\core\renderer\primitive2.hpp" />
     <ClInclude Include="..\..\..\core\renderer\renderer.hpp" />
     <ClInclude Include="..\..\..\core\renderer\render_command.hpp" />
     <ClInclude Include="..\..\..\core\renderer\render_queue.hpp" />
