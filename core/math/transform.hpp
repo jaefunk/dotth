@@ -52,12 +52,30 @@ namespace dotth {
 		void rotate_x(const float& v) { _rot.x = v; }
 		void rotate_y(const float& v) { _rot.y = v; }
 		void rotate_z(const float& v) { _rot.z = v; }
+
+	public:
+		void sync(void)
+		{
+			auto _matrix_scale = matrix4::identity;
+			matrix4::scale(_matrix_scale, _scl);
+
+			auto _matrix_rotate = matrix4::identity;
+			matrix4::rotate(_matrix_rotate, _rot);
+
+			auto _matrix_position = matrix4::identity;
+			matrix4::position(_matrix_position, _pos);
+
+			matrix4 a;
+			matrix4::multiply(_matrix_scale, _matrix_rotate, a);
+			matrix4::multiply(_matrix_position, a, _matrix);
+		}
         
     public: // get
         const vector3& position(void) { return _pos; }
         const vector3& scale(void) { return _scl; }
         const vector3& rotation(void) { return _rot; }
         const matrix4& matrix(void) { return _matrix; }
+		const float* result(void) { return _matrix.m; }
     };
 };
 

@@ -42,8 +42,10 @@ namespace dotth {
 		matrix4 _view;
 		matrix4 _proj;
 	public:
-		const float* view(void) { return _view.m; }
-		const float* proj(void) { return _proj.m; }
+		const float* view(void);
+		const float* proj(void);
+		const matrix4 view_matrix(void) { return _view; }
+		const matrix4 proj_matrix(void) { return _proj; }
 	public:
 		void set_view(const vector3& eye, const vector3& up, const vector3& at) {
 			set_eye(eye), set_up(up), set_at(at);
@@ -61,13 +63,7 @@ namespace dotth {
 		void set_fov(const float& v) { _fov = v; }
 
 		void sync_view(void);
-		void sync_proj(void) {
-			float h = 1 / tanf(_fov / 2.f);
-			float w = h / _width / _height;
-			float a = _far / (_far - _near);
-			float b = -_near * a;
-			_proj = matrix4(w, 0.f, 0.f, 0.f, 0.f, h, 0.f, 0.f, 0.f, 0.f, a, 1.f, 0.f, 0.f, b, 0.f);
-		}
+		void sync_proj(void);
 	};
 };
 

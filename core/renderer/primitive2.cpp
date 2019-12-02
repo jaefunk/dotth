@@ -34,33 +34,24 @@ void dotth::rectangle2::init(void)
 {
 	_vertex_list.v = { xyz(-0.5f, 0.5f, 0.f), xyz(0.5f, 0.5f, 0.f), xyz(-0.5f, -0.5f, 0.f), xyz(0.5f, -0.5f, 0.f) };
 	_vertex_list.c = { rgba(), rgba(), rgba(), rgba() };
-	_vertex_list.u = { uv(0.f, 1.f), uv(1.f, 1.f), uv(0.f, 0.f), uv(1.f, 0.f) };
     _vertex_list.i = { 0, 1, 2, 1, 3, 2 };
-}
-
-void dotth::rectangle2::load_sprite(const char * name)
-{
-	_texture = dotth::resource_manager::instance()->find<texture>(name);
-	if (_texture == nullptr)
-		printf("%s is not valid sprite", name);
 }
 
 void dotth::rectangle2::draw(const int flags)
 {
-	if (_texture)
-		_texture->bind();
+	//if (_texture)
+	//	_texture->bind();
 	if (_shader)
 		_shader->bind();
 
-	auto m = glGetUniformLocation(_shader->program(), "model");
-	//glUniformMatrix4fv(m, 16, GL_FALSE, trans.matrix().m);
-	glUniformMatrix4fv(m, 16, GL_FALSE, matrix4::identity.m);
+	auto m = glGetUniformLocation(_shader->program(), "model");	
+	glUniformMatrix4fv(m, 1, GL_FALSE, trans.result());
 
 	auto v = glGetUniformLocation(_shader->program(), "view");
-	glUniformMatrix4fv(v, 16, GL_FALSE, renderer::instance()->get_camera()->view());
+	glUniformMatrix4fv(v, 1, GL_FALSE, renderer::instance()->get_camera()->view());	
 
 	auto p = glGetUniformLocation(_shader->program(), "proj");
-	glUniformMatrix4fv(p, 16, GL_FALSE, renderer::instance()->get_camera()->proj());
+	glUniformMatrix4fv(p, 1, GL_FALSE, renderer::instance()->get_camera()->proj());
 
 
 	auto pos = glGetAttribLocation(_shader->program(), "position");
@@ -71,14 +62,10 @@ void dotth::rectangle2::draw(const int flags)
 	glEnableVertexAttribArray(col);
 	glVertexAttribPointer(col, 4, GL_FLOAT, GL_FALSE, 0, _vertex_list.c.data());
 
-	auto uv = glGetAttribLocation(_shader->program(), "uv");
-	glEnableVertexAttribArray(uv);
-	glVertexAttribPointer(uv, 2, GL_FLOAT, GL_FALSE, 0, _vertex_list.u.data());
-
 	glDrawElements(GL_TRIANGLES, static_cast<int32_t>(_vertex_list.i.size()), GL_UNSIGNED_INT, _vertex_list.i.data());
 
-	if (_texture)
-		_texture->unbind();
+	//if (_texture)
+	//	_texture->unbind();
 	if (_shader)
 		_shader->unbind();
 }

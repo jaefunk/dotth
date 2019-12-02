@@ -22,6 +22,17 @@ SOFTWARE.
 */
 
 #include "camera.hpp"
+#include "math/math.hpp"
+
+const float * dotth::camera::view(void) {
+	//glGetFloatv(GL_MODELVIEW_MATRIX, _view.m);
+	return _view.m;
+}
+
+const float * dotth::camera::proj(void) {
+	glGetFloatv(GL_PROJECTION_MATRIX, _proj.m);
+	return _proj.m;
+}
 
 void dotth::camera::sync_view(void) {
 	vector3 axis_z = _eye.subtract(_at).normalize();
@@ -47,4 +58,16 @@ void dotth::camera::sync_view(void) {
 	_view.m[13] = -axis_y.dot(_eye);
 	_view.m[14] = -axis_z.dot(_eye);
 	_view.m[15] = 1.f;
+}
+
+void dotth::camera::sync_proj(void) {
+	float h = 1 / tanf(deg_to_rad(_fov) / 2.f);
+	float w = h / (_width / _height);
+	float a = _far / (_far - _near);
+	float b = -_near * a;
+	_proj = matrix4(
+		w, 0.f, 0.f, 0.f, 
+		0.f, h, 0.f, 0.f, 
+		0.f, 0.f, a, -1, 
+		0.f, 0.f, b, 0.f);
 }

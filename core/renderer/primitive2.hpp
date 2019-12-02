@@ -34,13 +34,6 @@ namespace dotth {
 		std::shared_ptr<class texture> _texture;
 		dotth::drawinfo::polygon _vertex_list;
 		virtual void init(void) override;
-        void add_position_x(float x) { 
-            for(auto& c : _vertex_list.v)
-            {
-                c.x += x;
-            }
-        }
-		void load_sprite(const char* name);
     private:
 		virtual void draw(const int flags) override;
 	};

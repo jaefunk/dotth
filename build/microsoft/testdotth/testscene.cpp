@@ -7,14 +7,13 @@ void testscene::init(const json& data)
 		
 		auto jj = std::make_shared<dotth::rectangle2>();
 		jj->init();
-		jj->load_sprite("usagi");
 		attach(jj);
 	}
 	{
-		auto jj = std::make_shared<dotth::rectangle>();
-		jj->init();
-		jj->load_sprite("cat");
-		attach(jj);
+		//auto jj = std::make_shared<dotth::rectangle>();
+		//jj->init();
+		//jj->load_sprite("cat");
+		//attach(jj);
 	}
 	
 

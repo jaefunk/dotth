@@ -44,14 +44,14 @@ dotth::matrix4::matrix4(float _11, float _12, float _13, float _14, float _21, f
     m[3]  = _41; m[7]  = _42; m[11] = _43; m[15] = _44;
 }
 
-inline void dotth::matrix4::scale(matrix4 & dst, const vector3 & value)
+void dotth::matrix4::scale(matrix4 & dst, const vector3 & value)
 {
 	dst.m[0] = value.x;
 	dst.m[5] = value.y;
 	dst.m[10] = value.z;
 }
 
-inline void dotth::matrix4::rotate(matrix4 & dst, const vector3 & value)
+void dotth::matrix4::rotate(matrix4 & dst, const vector3 & value)
 {
 	float sx = sin(deg_to_rad(value.x));
 	float cx = cos(deg_to_rad(value.x));
@@ -71,11 +71,11 @@ inline void dotth::matrix4::rotate(matrix4 & dst, const vector3 & value)
 	dst.m[10] = cy * cx;
 }
 
-inline void dotth::matrix4::position(matrix4 & dst, const vector3 & value)
+void dotth::matrix4::position(matrix4 & dst, const vector3 & value)
 {
-	dst.m[3] = value.x;
-	dst.m[7] = value.y;
-	dst.m[11] = value.z;
+	dst.m[12] = value.x;
+	dst.m[13] = value.y;
+	dst.m[14] = value.z;
 }
 
 const size_t dotth::matrix4::matrix_size = sizeof(float) * 16;

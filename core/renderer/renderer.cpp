@@ -42,14 +42,19 @@ void dotth::gl_callback::display(void) {
 
 void dotth::gl_callback::reshape(int width, int height) {
     
-	glViewport(0, 0, width, height);
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
-	gluPerspective(45, static_cast<double>(width) / static_cast<double>(height), 1.0, 100.0);
-	glMatrixMode(GL_MODELVIEW);
-	glLoadIdentity();
+	gluPerspective(60, static_cast<double>(width) / static_cast<double>(height), 1.0, 100.0);
+	renderer::instance()->get_camera()->set_proj(1.f, 100.f, static_cast<float>(width), static_cast<float>(height), 60.f);
+	renderer::instance()->get_camera()->sync_proj();
+
+	//glMatrixMode(GL_MODELVIEW);
+	//glLoadIdentity();
+ //   gluLookAt(0.0, 0.0, 5.0, 0, 0.0, 0.0, 0.0, 1.0, 0.0);
+	renderer::instance()->get_camera()->set_view(vector3(0.f, 0.f, 5.f), vector3(0.f, 1.f, 0.f), vector3(0.f, 0.f, 0.f));
+	renderer::instance()->get_camera()->sync_view();
+
 	glutPostRedisplay();
-    gluLookAt(0.0, 0.0, 5.0, 0, 0.0, 0.0, 0.0, 1.0, 0.0);
 }
 
 void dotth::renderer::init_gl(int argc, char** argv) {
@@ -68,12 +73,7 @@ void dotth::renderer::init_gl(int argc, char** argv) {
     glutDisplayFunc(dotth::gl_callback::display);
     glutReshapeFunc(dotth::gl_callback::reshape);
 
-	_camera = std::make_shared<camera>();
-	_camera->set_view(vector3(0.f, 0.f, -5.f), vector3(0.f, 1.f, 0.f), vector3(0.f, 0.f, 0.f));
-	_camera->sync_view();
-	_camera->set_proj(1.f, 100.f, 1024.f, 512.f, 60.f);
-	_camera->sync_proj();
-	
+	_camera = std::make_shared<dotth::camera>();
 
 #ifdef WIN32
 	if (glewInit() == GLEW_OK)
