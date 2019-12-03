@@ -1,15 +1,14 @@
 
 // vertex shader
-uniform mat4 view;
-uniform mat4 proj;
 uniform mat4 model;
-attribute vec4 position;
+uniform mat4 view_pers;
+attribute vec4 vertex;
 attribute vec4 color;
 varying vec4 out_color;
 
 void main(void)
 {
-	gl_Position = proj * view * model * position;
+	gl_Position = view_pers * model * vertex;
     out_color = color;
 }
 

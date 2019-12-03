@@ -23,49 +23,4 @@ SOFTWARE.
 
 #include "primitive2.hpp"
 #include "renderer.hpp"
-#include "texture.hpp"
 
-dotth::rectangle2::rectangle2(void) : dotth::drawable(dotth::render::draw_type::perspective)
-{
-	set_shader("mvp");
-}
-
-void dotth::rectangle2::init(void)
-{
-	_vertex_list.v = { xyz(-0.5f, 0.5f, 0.f), xyz(0.5f, 0.5f, 0.f), xyz(-0.5f, -0.5f, 0.f), xyz(0.5f, -0.5f, 0.f) };
-	_vertex_list.c = { rgba(), rgba(), rgba(), rgba() };
-    _vertex_list.i = { 0, 1, 2, 1, 3, 2 };
-}
-
-void dotth::rectangle2::draw(const int flags)
-{
-	//if (_texture)
-	//	_texture->bind();
-	if (_shader)
-		_shader->bind();
-
-	auto m = glGetUniformLocation(_shader->program(), "model");	
-	glUniformMatrix4fv(m, 1, GL_FALSE, trans.result());
-
-	auto v = glGetUniformLocation(_shader->program(), "view");
-	glUniformMatrix4fv(v, 1, GL_FALSE, renderer::instance()->get_camera()->view());	
-
-	auto p = glGetUniformLocation(_shader->program(), "proj");
-	glUniformMatrix4fv(p, 1, GL_FALSE, renderer::instance()->get_camera()->proj());
-
-
-	auto pos = glGetAttribLocation(_shader->program(), "position");
-	glEnableVertexAttribArray(pos);
-	glVertexAttribPointer(pos, 3, GL_FLOAT, GL_FALSE, 0, _vertex_list.v.data());
-
-	auto col = glGetAttribLocation(_shader->program(), "color");
-	glEnableVertexAttribArray(col);
-	glVertexAttribPointer(col, 4, GL_FLOAT, GL_FALSE, 0, _vertex_list.c.data());
-
-	glDrawElements(GL_TRIANGLES, static_cast<int32_t>(_vertex_list.i.size()), GL_UNSIGNED_INT, _vertex_list.i.data());
-
-	//if (_texture)
-	//	_texture->unbind();
-	if (_shader)
-		_shader->unbind();
-}

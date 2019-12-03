@@ -29,12 +29,25 @@ const float * dotth::camera::view(void) {
 	return _view.m;
 }
 
-const float * dotth::camera::proj(void) {
-	glGetFloatv(GL_PROJECTION_MATRIX, _proj.m);
-	return _proj.m;
+const float * dotth::camera::pers(void) {
+	//glGetFloatv(GL_PROJECTION_MATRIX, _proj.m);
+	return _pers.m;
+}
+
+const float * dotth::camera::view_pers(void) {
+	return _view_pers.m;
+}
+
+void dotth::camera::sync_all(void)
+{
+	sync_view(), sync_pers();
+	_dirty_view = _dirty_pers = true;
+	matrix4::multiply(_pers, _view, _view_pers);
 }
 
 void dotth::camera::sync_view(void) {
+	if (_dirty_view == false)
+		return;
 	vector3 axis_z = _eye.subtract(_at).normalize();
 	vector3 axis_x = _up.cross(axis_z).normalize();
 	vector3 axis_y = axis_z.cross(axis_x);
@@ -60,14 +73,20 @@ void dotth::camera::sync_view(void) {
 	_view.m[15] = 1.f;
 }
 
-void dotth::camera::sync_proj(void) {
-	float h = 1 / tanf(deg_to_rad(_fov) / 2.f);
-	float w = h / (_width / _height);
-	float a = _far / (_far - _near);
-	float b = -_near * a;
-	_proj = matrix4(
-		w, 0.f, 0.f, 0.f, 
-		0.f, h, 0.f, 0.f, 
-		0.f, 0.f, a, -1, 
-		0.f, 0.f, b, 0.f);
+void dotth::camera::sync_pers(void) {
+	if (_dirty_pers == false)
+		return;
+	float ar = _width / _height;
+	float range = _near - _far;
+	float tan = tanf(deg_to_rad(_fov) / 2.f);
+	float _00 = 1.f / (tan * ar);
+	float _11 = 1.f / tan;
+	float _22 = -(-_near - _far) / range;
+	float _23 = 2.f * _far * _near / range;
+	float _32 = -1.f;
+	_pers = matrix4(
+		_00, 0.f, 0.f, 0.f, 
+		0.f, _11, 0.f, 0.f, 
+		0.f, 0.f, _22, _23, 
+		0.f, 0.f, _32, 0.f);
 }

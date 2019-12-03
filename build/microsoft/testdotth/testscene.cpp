@@ -5,7 +5,7 @@ void testscene::init(const json& data)
 {
 	{
 		
-		auto jj = std::make_shared<dotth::rectangle2>();
+		auto jj = std::make_shared<dotth::rectangle>();
 		jj->init();
 		attach(jj);
 	}

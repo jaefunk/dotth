@@ -31,29 +31,12 @@ namespace dotth {
 	{
 	public:
 		rectangle(void);
-		std::shared_ptr<class texture> _texture;
-		dotth::drawinfo::polygon _vertex_list;
 		virtual void init(void) override;
-        void add_position_x(float x) { 
-            for(auto& c : _vertex_list.v)
-            {
-                c.x += x;
-            }
-        }
-		void load_sprite(const char* name);
-    private:
+	protected:
+		dotth::drawinfo::color_vertex _vertex;
+	private:
 		virtual void draw(const int flags) override;
 	};
-
-  //  class cube : public dotth::drawable
-  //  {
-  //  public:
-		//cube(void) : dotth::drawable(dotth::render::draw_type::perspective) {}
-  //      dotth::polygon_command _command;
-  //      virtual void init(void) override;
-  //  private:
-  //      virtual void draw(int flags) override;
-  //  };
 };
 
 #endif // __DOTTH_PRIMITIVE_HPP__

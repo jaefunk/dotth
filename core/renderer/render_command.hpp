@@ -52,11 +52,14 @@ namespace dotth {
 	}
 
 	namespace drawinfo {
-		struct polygon {
+		struct inherit {
+			virtual void draw(void) {
+
+			};
+		};
+		struct color_vertex {
 			std::vector<xyz> v;
 			std::vector<rgba> c;
-			std::vector<uv> u;
-			std::vector<xyz> n;
 			std::vector<unsigned int> i;
 		};
 	}

@@ -27,16 +27,18 @@ SOFTWARE.
 #include "base/drawable.hpp"
 
 namespace dotth {
-	class rectangle2 : public dotth::drawable
-	{
-	public:
-		rectangle2(void);
-		std::shared_ptr<class texture> _texture;
-		dotth::drawinfo::polygon _vertex_list;
-		virtual void init(void) override;
-    private:
-		virtual void draw(const int flags) override;
-	};
+	
+
+
+	//  class cube : public dotth::drawable
+	//  {
+	//  public:
+	//cube(void) : dotth::drawable(dotth::render::draw_type::perspective) {}
+	//      dotth::polygon_command _command;
+	//      virtual void init(void) override;
+	//  private:
+	//      virtual void draw(int flags) override;
+	//  };
 };
 
 #endif // __DOTTH_PRIMITIVE2_HPP__

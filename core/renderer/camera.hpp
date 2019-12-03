@@ -27,8 +27,11 @@ SOFTWARE.
 #include "math/matrix.hpp"
 
 namespace dotth {
-	class camera {
+	class camera : public utility::singleton<camera> {
 	private:
+		bool _dirty_view = false;
+		bool _dirty_pers = false;
+		bool _dirty_orth = false;
 		vector3 _eye;
 		vector3 _up = vector3(0.f, 1.f, 0.f);
 		vector3 _at;
@@ -40,30 +43,32 @@ namespace dotth {
 		float _height;
 
 		matrix4 _view;
-		matrix4 _proj;
+		matrix4 _pers;
+		matrix4 _orth;
+		matrix4 _view_pers;
 	public:
 		const float* view(void);
-		const float* proj(void);
-		const matrix4 view_matrix(void) { return _view; }
-		const matrix4 proj_matrix(void) { return _proj; }
+		void sync_view(void);
+		const float* pers(void);
+		void sync_pers(void);
+		const float* view_pers(void);
+		void sync_all(void);		
+		
 	public:
 		void set_view(const vector3& eye, const vector3& up, const vector3& at) {
 			set_eye(eye), set_up(up), set_at(at);
 		}
-		void set_eye(const vector3& v) { _eye = v; }
-		void set_up(const vector3& v) { _up = v; }
-		void set_at(const vector3& v) { _at = v; }
+		void set_eye(const vector3& v) { _dirty_view = true, _eye = v; }
+		void set_up(const vector3& v) { _dirty_view = true, _up = v; }
+		void set_at(const vector3& v) { _dirty_view = true, _at = v; }
 		
-		void set_proj(const float& z_near, const float& z_far, const float& width, const float& height, const float& fov) {
+		void set_pers(const float& z_near, const float& z_far, const float& width, const float& height, const float& fov) {
 			set_near(z_near), set_far(z_far), set_aspect(width, height), set_fov(fov);
 		}
-		void set_near(const float& v) { _near = v; }
-		void set_far(const float& v) { _far = v; }
-		void set_aspect(const float& w, const float& h) { _width = w, _height = h; }
-		void set_fov(const float& v) { _fov = v; }
-
-		void sync_view(void);
-		void sync_proj(void);
+		void set_near(const float& v) { _dirty_pers = true, _near = v; }
+		void set_far(const float& v) { _dirty_pers = true, _far = v; }
+		void set_aspect(const float& w, const float& h) { _dirty_pers = true, _width = w, _height = h; }
+		void set_fov(const float& v) { _dirty_pers = true, _fov = v; }
 	};
 };
 

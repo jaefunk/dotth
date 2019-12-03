@@ -85,7 +85,7 @@ namespace dotth {
 		}
 		void bind(void) {
 			glUseProgram(_program);
-			glBlendFunc(_blend_src, _blend_dst);
+			//glBlendFunc(_blend_src, _blend_dst);
 		}
 		void unbind(void) {
 			glUseProgram(0);
