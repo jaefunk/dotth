@@ -3,24 +3,20 @@
 
 void testscene::init(const json& data) 
 {
-	{
-		
-		auto jj = std::make_shared<dotth::rectangle>();
-		jj->init();
-		attach(jj);
-	}
-	{
-		//auto jj = std::make_shared<dotth::rectangle>();
-		//jj->init();
-		//jj->load_sprite("cat");
-		//attach(jj);
-	}
-	
+	auto jj = std::make_shared<dotth::rectangle>();
+	jj->init();
+	jj->set_color({ 1.f, 1.f, 0.f, 1.f });
+	attach(jj);
 
-	//jj = std::make_shared<dotth::rectangle>();
-	//jj->init();
-	//jj->add_position_x(1.0f);
-	//attach(jj);
+	auto kk = std::make_shared<dotth::rectangle>();
+	kk->init();
+	kk->set_color({ 1.f, 0.f, 1.f, 1.f });
+	kk->trans.position_x(2.f);
+	//kk->trans.scale_x(10.f);
+	//kk->trans.scale_y(10.f);
+	//kk->trans.rotate_x(90.f);
+	kk->trans.sync();
+	attach(kk); 
 }
 
 void testscene::on_update(const float& delta) 

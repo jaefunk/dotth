@@ -32,9 +32,15 @@ namespace dotth {
 	public:
 		rectangle(void);
 		virtual void init(void) override;
+		void set_color(const rgba& _color)
+		{
+			for (auto& c : _vertex.c)
+				c = _color;
+		}
 	protected:
-		dotth::drawinfo::color_vertex _vertex;
+		dotth::draw_command::color_vertex _vertex;
 	private:
+		
 		virtual void draw(const int flags) override;
 	};
 };

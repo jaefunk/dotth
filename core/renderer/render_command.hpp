@@ -51,16 +51,16 @@ namespace dotth {
 		};
 	}
 
-	namespace drawinfo {
+	namespace draw_command {
 		struct inherit {
-			virtual void draw(void) {
-
-			};
+			float _model[16];
+			//virtual void draw(void) = 0;
 		};
-		struct color_vertex {
+		struct color_vertex : public inherit {
 			std::vector<xyz> v;
 			std::vector<rgba> c;
 			std::vector<unsigned int> i;
+			//virtual void draw(void) {};
 		};
 	}
 };

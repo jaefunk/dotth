@@ -66,7 +66,7 @@ namespace dotth {
 			matrix4::position(_matrix_position, _pos);
 
 			matrix4 a;
-			matrix4::multiply(_matrix_scale, _matrix_rotate, a);
+			matrix4::multiply(_matrix_rotate, _matrix_scale, a);
 			matrix4::multiply(_matrix_position, a, _matrix);
 		}
         
