@@ -49,6 +49,7 @@ void dotth::rectangle::draw(const int flags)
 
 	auto vp = glGetUniformLocation(_shader->program(), "view_pers");
 	glUniformMatrix4fv(vp, 1, GL_FALSE, camera::instance()->view_pers());
+	//glUniformMatrix4fv(vp, 1, GL_FALSE, camera::instance()->ortho());
 	auto m = glGetUniformLocation(_shader->program(), "model");
 	glUniformMatrix4fv(m, 1, GL_FALSE, trans.result());
 	auto vtx = glGetAttribLocation(_shader->program(), "vertex");

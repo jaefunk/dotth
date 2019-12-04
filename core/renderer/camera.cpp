@@ -40,8 +40,8 @@ const float * dotth::camera::view_pers(void) {
 
 void dotth::camera::sync_all(void)
 {
-	sync_view(), sync_pers();
-	_dirty_view = _dirty_pers = true;
+	sync_view(), sync_pers(), sync_ortho();
+	_dirty_view = _dirty_pers = _dirty_ortho = true;
 	matrix4::multiply(_view, _pers, _view_pers);
 }
 
@@ -77,16 +77,39 @@ void dotth::camera::sync_pers(void) {
 	if (_dirty_pers == false)
 		return;
 	float ar = _width / _height;
-	float range = _near - _far;
+	float range = _pers_near - _pers_far;
 	float tan = tanf(deg_to_rad(_fov) / 2.f);
-	float _00 = 1.f / (tan * ar);
-	float _11 = 1.f / tan;
-	float _22 = -(-_near - _far) / range;
-	float _23 = 2.f * _far * _near / range;
-	float _32 = -1.f;
+	float _11 = 1.f / (tan * ar);
+	float _22 = 1.f / tan;
+	float _33 = -(-_pers_near - _pers_far) / range;
+	float _34 = 2.f * _pers_far * _pers_near / range;
+	float _43 = -1.f;
 	_pers = matrix4(
-		_00, 0.f, 0.f, 0.f, 
-		0.f, _11, 0.f, 0.f, 
-		0.f, 0.f, _22, _23, 
-		0.f, 0.f, _32, 0.f);
+		_11, 0.f, 0.f, 0.f, 
+		0.f, _22, 0.f, 0.f, 
+		0.f, 0.f, _33, _34, 
+		0.f, 0.f, _43, 0.f);
+}
+
+const float * dotth::camera::ortho(void)
+{
+	return _ortho.m;
+}
+
+void dotth::camera::sync_ortho(void)
+{
+	if (_dirty_ortho == false)
+		return;
+	float _11 = 2.f / (_right - _left);
+	float _14 = -(_right + _left) / (_right - _left);
+	float _22 = 2.f / (_top - _bottom);
+	float _24 = -(_top + _bottom) / (_top - _bottom);
+	float _33 = -2.f / (_ortho_far - _ortho_near);
+	float _34 = -(_ortho_far + _ortho_near) / (_ortho_far - _ortho_near);
+	float _44 = 1.f;
+	_ortho = matrix4(
+		_11, 0.f, 0.f, _14,
+		0.f, _22, 0.f, _24,
+		0.f, 0.f, _33, _34,
+		0.f, 0.f, 0.f, _44);
 }
