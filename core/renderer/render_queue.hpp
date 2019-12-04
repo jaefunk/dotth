@@ -25,7 +25,6 @@ SOFTWARE.
 #define __DOTTH_RENDER_QUEUE_HPP__
 
 #include "dotth.hpp"
-#include "render_command.hpp"
 
 namespace dotth {
 	class render_queue {

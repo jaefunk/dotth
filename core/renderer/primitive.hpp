@@ -25,6 +25,7 @@ SOFTWARE.
 #define __DOTTH_PRIMITIVE_HPP__
 
 #include "base/drawable.hpp"
+#include "primitive_command.hpp"
 
 namespace dotth {
 	class rectangle : public dotth::drawable
@@ -32,15 +33,10 @@ namespace dotth {
 	public:
 		rectangle(void);
 		virtual void init(void) override;
-		void set_color(const rgba& _color)
-		{
-			for (auto& c : _vertex.c)
-				c = _color;
-		}
+		void set_color(const render::rgba& _color);
 	protected:
-		dotth::draw_command::color_vertex _vertex;
-	private:
-		
+		render::command::primitive _vertex;
+	private:		
 		virtual void draw(const int flags) override;
 	};
 };

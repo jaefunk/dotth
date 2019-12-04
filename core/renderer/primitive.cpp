@@ -31,9 +31,15 @@ dotth::rectangle::rectangle(void) : dotth::drawable(dotth::render::draw_type::pe
 
 void dotth::rectangle::init(void)
 {
-	_vertex.v = { xyz(-0.5f, 0.5f, 0.f), xyz(0.5f, 0.5f, 0.f), xyz(-0.5f, -0.5f, 0.f), xyz(0.5f, -0.5f, 0.f) };
-	_vertex.c = { rgba(), rgba(), rgba(), rgba() };
+	_vertex.v = { {-0.5f, 0.5f, 0.f}, {0.5f, 0.5f, 0.f}, {-0.5f, -0.5f, 0.f}, {0.5f, -0.5f, 0.f} };
+	_vertex.c = { {}, {}, {}, {} };
 	_vertex.i = { 0, 1, 2, 1, 3, 2 };
+}
+
+void dotth::rectangle::set_color(const render::rgba & _color)
+{
+	for (auto& c : _vertex.c)
+		c = _color;
 }
 
 void dotth::rectangle::draw(const int flags)

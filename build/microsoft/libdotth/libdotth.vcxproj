@@ -36,10 +36,11 @@
     <ClCompile Include="..\..\..\core\platform\filesystem\path.cpp" />
     <ClCompile Include="..\..\..\core\platform\platform.cpp" />
     <ClCompile Include="..\..\..\core\renderer\camera.cpp" />
+    <ClCompile Include="..\..\..\core\renderer\draw_command.cpp" />
     <ClCompile Include="..\..\..\core\renderer\primitive.cpp" />
     <ClCompile Include="..\..\..\core\renderer\primitive2.cpp" />
     <ClCompile Include="..\..\..\core\renderer\renderer.cpp" />
-    <ClCompile Include="..\..\..\core\renderer\render_command.cpp" />
+    <ClCompile Include="..\..\..\core\renderer\primitive_command.cpp" />
     <ClCompile Include="..\..\..\core\renderer\render_queue.cpp" />
     <ClCompile Include="..\..\..\core\renderer\shader.cpp" />
     <ClCompile Include="..\..\..\core\renderer\texture.cpp" />
@@ -73,10 +74,11 @@
     <ClInclude Include="..\..\..\core\platform\filesystem\path.hpp" />
     <ClInclude Include="..\..\..\core\platform\platform.hpp" />
     <ClInclude Include="..\..\..\core\renderer\camera.hpp" />
+    <ClInclude Include="..\..\..\core\renderer\draw_command.hpp" />
     <ClInclude Include="..\..\..\core\renderer\primitive.hpp" />
     <ClInclude Include="..\..\..\core\renderer\primitive2.hpp" />
     <ClInclude Include="..\..\..\core\renderer\renderer.hpp" />
-    <ClInclude Include="..\..\..\core\renderer\render_command.hpp" />
+    <ClInclude Include="..\..\..\core\renderer\primitive_command.hpp" />
     <ClInclude Include="..\..\..\core\renderer\render_queue.hpp" />
     <ClInclude Include="..\..\..\core\renderer\shader.hpp" />
     <ClInclude Include="..\..\..\core\renderer\texture.hpp" />

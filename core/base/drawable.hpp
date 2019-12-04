@@ -26,7 +26,7 @@ SOFTWARE.
 
 
 #include "object.hpp"
-#include "renderer/render_command.hpp"
+#include "renderer/draw_command.hpp"
 #include "renderer/shader.hpp"
 
 namespace dotth {
