@@ -42,7 +42,7 @@ void dotth::camera::sync_all(void)
 {
 	sync_view(), sync_pers();
 	_dirty_view = _dirty_pers = true;
-	matrix4::multiply(_pers, _view, _view_pers);
+	matrix4::multiply(_view, _pers, _view_pers);
 }
 
 void dotth::camera::sync_view(void) {

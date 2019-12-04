@@ -35,23 +35,23 @@ namespace dotth {
         matrix4 _matrix;
     
     public: // set
-		void position(const float& x, const float& y, const float& z) { _pos.x = x; _pos.y = y; _pos.z = z; }
-        void position(const vector3& v) { position(v.x, v.y, v.z); }
-		void position_x(const float& v) { _pos.x = v; }
-		void position_y(const float& v) { _pos.y = v; }
-		void position_z(const float& v) { _pos.z = v; }
+		void pos(const float& x, const float& y, const float& z) { _pos.x = x; _pos.y = y; _pos.z = z; }
+        void pos(const vector3& v) { pos(v.x, v.y, v.z); }
+		void pos_x(const float& v) { _pos.x = v; }
+		void pos_y(const float& v) { _pos.y = v; }
+		void pos_z(const float& v) { _pos.z = v; }
 		
-		void scale(const float& x, const float& y, const float& z) { _scl.x = x; _scl.y = y; _scl.z = z; }
-		void scale(const vector3& v) { scale(v.x, v.y, v.z); }
-		void scale_x(const float& v) { _scl.x = v; }
-		void scale_y(const float& v) { _scl.y = v; }
-		void scale_z(const float& v) { _scl.z = v; }
+		void scl(const float& x, const float& y, const float& z) { _scl.x = x; _scl.y = y; _scl.z = z; }
+		void scl(const vector3& v) { scl(v.x, v.y, v.z); }
+		void scl_x(const float& v) { _scl.x = v; }
+		void scl_y(const float& v) { _scl.y = v; }
+		void scl_z(const float& v) { _scl.z = v; }
 
-		void rotate(const float& x, const float& y, const float& z) { _rot.x = x; _rot.y = y; _rot.z = z; }
-		void rotate(const vector3& v) { rotate(v.x, v.y, v.z); }
-		void rotate_x(const float& v) { _rot.x = v; }
-		void rotate_y(const float& v) { _rot.y = v; }
-		void rotate_z(const float& v) { _rot.z = v; }
+		void rot(const float& x, const float& y, const float& z) { _rot.x = x; _rot.y = y; _rot.z = z; }
+		void rot(const vector3& v) { rot(v.x, v.y, v.z); }
+		void rot_x(const float& v) { _rot.x = v; }
+		void rot_y(const float& v) { _rot.y = v; }
+		void rot_z(const float& v) { _rot.z = v; }
 
 	public:
 		void sync(void)
@@ -65,15 +65,15 @@ namespace dotth {
 			auto _matrix_position = matrix4::identity;
 			matrix4::position(_matrix_position, _pos);
 
-			matrix4 a;
-			matrix4::multiply(_matrix_rotate, _matrix_scale, a);
-			matrix4::multiply(_matrix_position, a, _matrix);
+			matrix4 m;
+			matrix4::multiply(_matrix_scale, _matrix_rotate, m);
+			matrix4::multiply(m, _matrix_position, _matrix);
 		}
         
     public: // get
-        const vector3& position(void) { return _pos; }
-        const vector3& scale(void) { return _scl; }
-        const vector3& rotation(void) { return _rot; }
+        const vector3& pos(void) { return _pos; }
+        const vector3& scl(void) { return _scl; }
+        const vector3& rot(void) { return _rot; }
         const matrix4& matrix(void) { return _matrix; }
 		const float* result(void) { return _matrix.m; }
     };

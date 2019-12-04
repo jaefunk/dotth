@@ -11,7 +11,7 @@ void testscene::init(const json& data)
 	auto kk = std::make_shared<dotth::rectangle>();
 	kk->init();
 	kk->set_color({ 1.f, 0.f, 1.f, 1.f });
-	kk->trans.position_x(2.f);
+	kk->trans.pos_x(2.f);
 	//kk->trans.scale_x(10.f);
 	//kk->trans.scale_y(10.f);
 	//kk->trans.rotate_x(90.f);
