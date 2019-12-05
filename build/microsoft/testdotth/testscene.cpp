@@ -3,20 +3,18 @@
 
 void testscene::init(const json& data) 
 {
-	auto jj = std::make_shared<dotth::rectangle>();
-	jj->init();
-	jj->set_color({ 1.f, 1.f, 0.f, 1.f });
-	attach(jj);
+	auto parent = std::make_shared<dotth::rectangle>();
+	parent->init();
+	parent->set_color({ 1.f, 0.f, 0.f, 0.5f });
+	parent->trans.scl(0.5f);
+	parent->trans.rot_z(45.f);
+	attach(parent);
 
-	auto kk = std::make_shared<dotth::rectangle>();
-	kk->init();
-	kk->set_color({ 1.f, 0.f, 1.f, 1.f });
-	kk->trans.pos_x(2.f);
-	//kk->trans.scale_x(10.f);
-	//kk->trans.scale_y(10.f);
-	//kk->trans.rotate_x(90.f);
-	kk->trans.sync();
-	attach(kk); 
+	auto child = std::make_shared<dotth::rectangle>();
+	child->init();
+	child->set_color({ 1.f, 1.f, 0.f, 1.f });
+	child->trans.pos_x(2.f);
+	parent->attach(child);
 }
 
 void testscene::on_update(const float& delta) 

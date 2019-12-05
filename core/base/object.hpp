@@ -8,6 +8,11 @@ namespace dotth {
     class object : public node<object>
     {
     private:
+		struct {
+			bool visible = true;
+			bool active = true;
+			bool alive = true;
+		} flags;
         std::string _name;
         float _timescale = 1.f;
         

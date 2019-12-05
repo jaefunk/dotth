@@ -19,6 +19,11 @@ void dotth::rectangle::set_color(const render::rgba & _color)
 		c = _color;
 }
 
+void dotth::rectangle::on_update(const float& delta)
+{
+
+}
+
 void dotth::rectangle::draw(const int flags)
 {
 	if (_shader)
@@ -40,110 +45,3 @@ void dotth::rectangle::draw(const int flags)
 	if (_shader)
 		_shader->unbind();
 }
-
-
-//dotth::rectangle::rectangle(void) : dotth::drawable(dotth::render::draw_type::perspective)
-//{
-//	set_shader("simple");
-//}
-//
-//void dotth::rectangle::init(void)
-//{
-//	_vertex_list.v = { xyz(-0.5f, 0.5f, 0.f), xyz(0.5f, 0.5f, 0.f), xyz(-0.5f, -0.5f, 0.f), xyz(0.5f, -0.5f, 0.f) };
-//	_vertex_list.c = { rgba(), rgba(), rgba(), rgba() };
-//	_vertex_list.u = { uv(0.f, 1.f), uv(1.f, 1.f), uv(0.f, 0.f), uv(1.f, 0.f) };
-//    _vertex_list.i = { 0, 1, 2, 1, 3, 2 };
-//}
-//
-//void dotth::rectangle::load_sprite(const char * name) 
-//{
-//	_texture = dotth::resource_manager::instance()->find<texture>(name);
-//	if (_texture == nullptr)
-//		printf("%s is not valid sprite", name);
-//}
-//
-//void dotth::rectangle::draw(const int flags)
-//{
-//	if (_texture)
-//		_texture->bind();
-//	if (_shader)
-//		_shader->bind();
-//
-//	auto p = glGetAttribLocation(_shader->program(), "position");
-//	glEnableVertexAttribArray(p);
-//	glVertexAttribPointer(p, 3, GL_FLOAT, GL_FALSE, 0, _vertex_list.v.data());
-//
-//	auto c = glGetAttribLocation(_shader->program(), "color");
-//	glEnableVertexAttribArray(c);
-//	glVertexAttribPointer(c, 4, GL_FLOAT, GL_FALSE, 0, _vertex_list.c.data());
-//
-//	auto uv = glGetAttribLocation(_shader->program(), "uv");
-//	glEnableVertexAttribArray(uv);
-//	glVertexAttribPointer(uv, 2, GL_FLOAT, GL_FALSE, 0, _vertex_list.u.data());
-//
-//	glDrawElements(GL_TRIANGLES, static_cast<int32_t>(_vertex_list.i.size()), GL_UNSIGNED_INT, _vertex_list.i.data());
-//
-//	if (_texture)
-//		_texture->unbind();
-//	if (_shader)
-//		_shader->unbind();
-//}
-
-//void dotth::cube::init(void)
-//{
-//    _command._triangle.v.clear();
-//    _command._triangle.v.push_back(xyz(0.5f, 0.5f, -0.5f));
-//    _command._triangle.v.push_back(xyz(0.5f, 0.5f, 0.5f));
-//    _command._triangle.v.push_back(xyz(0.5f, -0.5f, -0.5f));
-//    _command._triangle.v.push_back(xyz(0.5f, -0.5f, 0.5f));
-//    _command._triangle.v.push_back(xyz(-0.5f, 0.5f, -0.5f));
-//    _command._triangle.v.push_back(xyz(0.5f, 0.5f, -0.5f));
-//    _command._triangle.v.push_back(xyz(-0.5f, -0.5f, -0.5f));
-//    _command._triangle.v.push_back(xyz(0.5f, -0.5f, -0.5f));
-//    _command._triangle.v.push_back(xyz(-0.5f, 0.5f, 0.5f));
-//    _command._triangle.v.push_back(xyz(0.5f, 0.5f, 0.5f));
-//    _command._triangle.v.push_back(xyz(-0.5f, 0.5f, -0.5f));
-//    _command._triangle.v.push_back(xyz(0.5f, 0.5f, -0.5f));
-//    _command._triangle.v.push_back(xyz(-0.5f, -0.5f, -0.5f));
-//    _command._triangle.v.push_back(xyz(0.5f, -0.5f, -0.5f));
-//    _command._triangle.v.push_back(xyz(-0.5f, -0.5f, 0.5f));
-//    _command._triangle.v.push_back(xyz(0.5f, -0.5f, 0.5f));
-//    _command._triangle.v.push_back(xyz(-0.5f, 0.5f, -0.5f));
-//    _command._triangle.v.push_back(xyz(-0.5f, 0.5f, 0.5f));
-//    _command._triangle.v.push_back(xyz(-0.5f, -0.5f, -0.5f));
-//    _command._triangle.v.push_back(xyz(-0.5f, -0.5f, 0.5f));
-//    _command._triangle.v.push_back(xyz(-0.5f, 0.5f, 0.5f));
-//    _command._triangle.v.push_back(xyz(0.5f, 0.5f, 0.5f));
-//    _command._triangle.v.push_back(xyz(-0.5f, -0.5f, 0.5f));
-//    _command._triangle.v.push_back(xyz(0.5f, -0.5f, 0.5f));
-//
-//    _command._triangle.u.clear();
-//    for (auto i = 0; i < 6; ++i)
-//    {
-//        _command._triangle.u.push_back(uv(0.f, 0.f));
-//        _command._triangle.u.push_back(uv(1.f, 0.f));
-//        _command._triangle.u.push_back(uv(0.f, 1.f));
-//        _command._triangle.u.push_back(uv(1.f, 1.f));
-//    }
-//
-//    _command._triangle.i.clear();
-//    for (auto i = 0; i < 6; ++i)
-//    {
-//        _command._triangle.i.push_back(0 + 4 * i);
-//        _command._triangle.i.push_back(1 + 4 * i);
-//        _command._triangle.i.push_back(2 + 4 * i);
-//        _command._triangle.i.push_back(1 + 4 * i);
-//        _command._triangle.i.push_back(3 + 4 * i);
-//        _command._triangle.i.push_back(2 + 4 * i);
-//    }
-//
-//    _command._triangle.c.clear();
-//    for (std::size_t i = 0; i < _command._triangle.v.size(); ++i)
-//        _command._triangle.c.push_back(rgba());
-//}
-//
-//void dotth::cube::draw(int flags) {
-//    if (_command._triangle.v.empty())
-//        return;
-//    renderer::instance()->push(&_command);
-//}

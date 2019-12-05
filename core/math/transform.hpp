@@ -31,20 +31,20 @@ namespace dotth {
 		void rot_z(const float& v) { _rot.z = v; }
 
 	public:
-		void sync(void)
+		void sync(const matrix4& parent)
 		{
-			auto _matrix_scale = matrix4::identity;
-			matrix4::scale(_matrix_scale, _scl);
+			auto matrix_scale = matrix4::identity;
+			auto matrix_rotate = matrix4::identity;
+			auto matrix_position = matrix4::identity;
 
-			auto _matrix_rotate = matrix4::identity;
-			matrix4::rotate(_matrix_rotate, _rot);
-
-			auto _matrix_position = matrix4::identity;
-			matrix4::position(_matrix_position, _pos);
-
-			matrix4 m;
-			matrix4::multiply(_matrix_scale, _matrix_rotate, m);
-			matrix4::multiply(m, _matrix_position, _matrix);
+			matrix4::scale(matrix_scale, _scl);
+			matrix4::rotate(matrix_rotate, _rot);
+			matrix4::position(matrix_position, _pos);
+			matrix4 scale_rotate;
+			matrix4::multiply(matrix_scale, matrix_rotate, scale_rotate);
+			matrix4 scale_rotate_position;
+			matrix4::multiply(scale_rotate, matrix_position, scale_rotate_position);
+			matrix4::multiply(scale_rotate_position, parent, _matrix);
 		}
         
     public: // get

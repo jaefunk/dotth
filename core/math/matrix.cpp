@@ -54,6 +54,26 @@ void dotth::matrix4::position(matrix4 & dst, const vector3 & value)
 	dst.m[14] = value.z;
 }
 
+void dotth::matrix4::multiply(const matrix4 & l, const matrix4 & r, matrix4 & dst)
+{
+	dst.m[0] = r.m[0] * l.m[0] + r.m[4] * l.m[1] + r.m[8] * l.m[2] + r.m[12] * l.m[3];
+	dst.m[1] = r.m[1] * l.m[0] + r.m[5] * l.m[1] + r.m[9] * l.m[2] + r.m[13] * l.m[3];
+	dst.m[2] = r.m[2] * l.m[0] + r.m[6] * l.m[1] + r.m[10] * l.m[2] + r.m[14] * l.m[3];
+	dst.m[3] = r.m[3] * l.m[0] + r.m[7] * l.m[1] + r.m[11] * l.m[2] + r.m[15] * l.m[3];
+	dst.m[4] = r.m[0] * l.m[4] + r.m[4] * l.m[5] + r.m[8] * l.m[6] + r.m[12] * l.m[7];
+	dst.m[5] = r.m[1] * l.m[4] + r.m[5] * l.m[5] + r.m[9] * l.m[6] + r.m[13] * l.m[7];
+	dst.m[6] = r.m[2] * l.m[4] + r.m[6] * l.m[5] + r.m[10] * l.m[6] + r.m[14] * l.m[7];
+	dst.m[7] = r.m[3] * l.m[4] + r.m[7] * l.m[5] + r.m[11] * l.m[6] + r.m[15] * l.m[7];
+	dst.m[8] = r.m[0] * l.m[8] + r.m[4] * l.m[9] + r.m[8] * l.m[10] + r.m[12] * l.m[11];
+	dst.m[9] = r.m[1] * l.m[8] + r.m[5] * l.m[9] + r.m[9] * l.m[10] + r.m[13] * l.m[11];
+	dst.m[10] = r.m[2] * l.m[8] + r.m[6] * l.m[9] + r.m[10] * l.m[10] + r.m[14] * l.m[11];
+	dst.m[11] = r.m[3] * l.m[8] + r.m[7] * l.m[9] + r.m[11] * l.m[10] + r.m[15] * l.m[11];
+	dst.m[12] = r.m[0] * l.m[12] + r.m[4] * l.m[13] + r.m[8] * l.m[14] + r.m[12] * l.m[15];
+	dst.m[13] = r.m[1] * l.m[12] + r.m[5] * l.m[13] + r.m[9] * l.m[14] + r.m[13] * l.m[15];
+	dst.m[14] = r.m[2] * l.m[12] + r.m[6] * l.m[13] + r.m[10] * l.m[14] + r.m[14] * l.m[15];
+	dst.m[15] = r.m[3] * l.m[12] + r.m[7] * l.m[13] + r.m[11] * l.m[14] + r.m[15] * l.m[15];
+}
+
 const size_t dotth::matrix4::matrix_size = sizeof(float) * 16;
 const dotth::matrix4 dotth::matrix4::identity = matrix4(1.f, 0.f, 0.f, 0.f, 0.f, 1.f, 0.f, 0.f, 0.f, 0.f, 1.f, 0.f, 0.f, 0.f, 0.f, 1.f);
 const dotth::matrix4 dotth::matrix4::zero = matrix4(0.f, 0.f, 0.f, 0.f, 0.f, 0.f, 0.f, 0.f, 0.f, 0.f, 0.f, 0.f, 0.f, 0.f, 0.f, 0.f);

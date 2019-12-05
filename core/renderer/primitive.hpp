@@ -14,7 +14,8 @@ namespace dotth {
 	protected:
 		render::command::primitive _vertex;
 	private:		
-		virtual void draw(const int flags) override;
+		virtual void on_update(const float& delta) override;
+		virtual void draw(const int flags) override;		
 	};
 };
 
