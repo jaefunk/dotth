@@ -12,7 +12,7 @@ namespace dotth {
 		};
 		struct xyz {
 			float x, y, z;
-			xyz(void) { x = 0.f, y = 0.f, z = 0.f; };
+            xyz(void) { x = 0.f; y = 0.f; z = 0.f; };
 			xyz(float _x, float _y, float _z) : x(_x), y(_y), z(_z) {}
 		};
 		struct uv {

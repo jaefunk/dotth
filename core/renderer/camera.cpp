@@ -17,7 +17,7 @@ const float * dotth::camera::view_pers(void) {
 
 void dotth::camera::sync_all(void)
 {
-	sync_view(), sync_pers(), sync_ortho();
+    sync_view(); sync_pers(); sync_ortho();
 	_dirty_view = _dirty_pers = _dirty_ortho = true;
 	matrix4::multiply(_view, _pers, _view_pers);
 }

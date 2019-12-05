@@ -42,27 +42,27 @@ namespace dotth {
 		
 	public:
 		void set_view(const vector3& eye, const vector3& up, const vector3& at) {
-			set_eye(eye), set_up(up), set_at(at);
+            set_eye(eye); set_up(up); set_at(at);
 		}
-		void set_eye(const vector3& v) { _dirty_view = true, _eye = v; }
-		void set_up(const vector3& v) { _dirty_view = true, _up = v; }
-		void set_at(const vector3& v) { _dirty_view = true, _at = v; }
+        void set_eye(const vector3& v) { _dirty_view = true; _eye = v; }
+        void set_up(const vector3& v) { _dirty_view = true; _up = v; }
+        void set_at(const vector3& v) { _dirty_view = true; _at = v; }
 		
 		void set_pers(const float& z_near, const float& z_far, const float& width, const float& height, const float& fov) {
-			set_pers_near(z_near), set_pers_far(z_far), set_aspect(width, height), set_fov(fov);
+            set_pers_near(z_near); set_pers_far(z_far); set_aspect(width, height); set_fov(fov);
 		}
 		
-		void set_pers_near(const float& v) { _dirty_pers = true, _pers_near = v; }
-		void set_pers_far(const float& v) { _dirty_pers = true, _pers_far = v; }
-		void set_aspect(const float& w, const float& h) { _dirty_pers = true, _width = w, _height = h; }
-		void set_fov(const float& v) { _dirty_pers = true, _fov = v; }
+        void set_pers_near(const float& v) { _dirty_pers = true; _pers_near = v; }
+        void set_pers_far(const float& v) { _dirty_pers = true; _pers_far = v; }
+        void set_aspect(const float& w, const float& h) { _dirty_pers = true; _width = w; _height = h; }
+        void set_fov(const float& v) { _dirty_pers = true; _fov = v; }
 
 		void set_ortho(const float& z_near, const float& z_far, const float& left, const float& top, const float& right, const float& bottom) {
-			set_ortho_near(z_near), set_ortho_far(z_far), set_ltrb(left, top, right, bottom);
+            set_ortho_near(z_near); set_ortho_far(z_far); set_ltrb(left, top, right, bottom);
 		}
-		void set_ortho_near(const float& v) { _dirty_ortho = true, _ortho_near = v; }
-		void set_ortho_far(const float& v) { _dirty_ortho = true, _ortho_far = v; }
-		void set_ltrb(const float& l, const float& t, const float& r, const float& b) { _dirty_ortho = true, _left = l, _top = t, _right = r, _bottom = b; }
+        void set_ortho_near(const float& v) { _dirty_ortho = true; _ortho_near = v; }
+        void set_ortho_far(const float& v) { _dirty_ortho = true; _ortho_far = v; }
+        void set_ltrb(const float& l, const float& t, const float& r, const float& b) { _dirty_ortho = true; _left = l; _top = t; _right = r; _bottom = b; }
 	};
 };
 

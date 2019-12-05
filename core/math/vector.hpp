@@ -12,7 +12,7 @@ namespace dotth {
 		vector3(const vector3& v);
 		vector3(const vector3&& v);
 		const vector3 operator=(const vector3& v) {
-			x = v.x, y = v.y, z = v.z;
+            x = v.x; y = v.y; z = v.z;
 			return *this;
 		}
 		const float length(void) const {
@@ -38,7 +38,7 @@ namespace dotth {
 		}
 		const vector3 normalize(void) const {
 			float l = length();
-			if (l < FLT_EPSILON)
+			if (l < 0.00001f)
 				return vector3(0.f);
 			return multiply(1.f / l);
 		}
