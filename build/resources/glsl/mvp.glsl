@@ -16,10 +16,10 @@ void main(void)
 varying vec4 out_color;
 void main (void)
 {	
-	gl_FragColor.a = out_color.a;
 	gl_FragColor.r = out_color.r;
 	gl_FragColor.g = out_color.g;
 	gl_FragColor.b = out_color.b;
+	gl_FragColor.a = out_color.a;
 }
 
 // pixel blender

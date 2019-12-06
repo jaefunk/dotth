@@ -3,6 +3,8 @@
 
 #include "math/matrix.hpp"
 
+#define VIEW_MATRIX_X_INVERSE
+
 namespace dotth {
 	class camera : public utility::singleton<camera> {
 	private:

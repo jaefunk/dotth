@@ -21,7 +21,6 @@ void dotth::rectangle::set_color(const render::rgba & _color)
 
 void dotth::rectangle::on_update(const float& delta)
 {
-
 }
 
 void dotth::rectangle::draw(const int flags)

@@ -61,8 +61,9 @@ namespace dotth {
 			return _program; 
 		}
 		void bind(void) {
-			glUseProgram(_program);
+			glEnable(GL_BLEND);
 			glBlendFunc(_blend_src, _blend_dst);
+			glUseProgram(_program);
 		}
 		void unbind(void) {
 			glUseProgram(0);
@@ -74,6 +75,7 @@ namespace dotth {
 	private:
 		std::map<std::string, std::shared_ptr<dotth::shader>> shaders;
         std::map<std::string, GLenum> _blend_type = {
+			{ "GL_ONE", GL_ONE },
             { "GL_SRC_COLOR", GL_SRC_COLOR },
             { "GL_SRC_ALPHA", GL_SRC_ALPHA },
             { "GL_DST_ALPHA", GL_DST_ALPHA },

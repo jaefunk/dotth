@@ -48,6 +48,12 @@ void dotth::camera::sync_view(void) {
 	_view.m[13] = -axis_y.dot(_eye);
 	_view.m[14] = -axis_z.dot(_eye);
 	_view.m[15] = 1.f;
+
+#ifdef VIEW_MATRIX_X_INVERSE
+	matrix4 matrix_x_inverse;
+	matrix4::scale(matrix_x_inverse, { -1.f, 1.f, 1.f });
+	matrix4::multiply(_view, matrix_x_inverse, _view);
+#endif
 }
 
 void dotth::camera::sync_pers(void) {
