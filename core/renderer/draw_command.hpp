@@ -26,12 +26,13 @@ namespace dotth {
 			rgba(float _r, float _g, float _b, float _a) : r(_r), g(_g), b(_b), a(_a) {}
 		};
 		namespace command {
-			struct inherit {
+			class inherit {
+			public:
 				draw_type type = draw_type::none;
 				float model[16];
 				float view[16];
 				float proj[16];
-				unsigned int program;
+				unsigned int program = 0;
 				virtual void draw(void) = 0;
 			};
 		}

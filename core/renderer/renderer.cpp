@@ -20,7 +20,7 @@ void dotth::gl_callback::display(void) {
 
 void dotth::gl_callback::reshape(int width, int height) {
     
-	camera::instance()->set_pers(1.f, 100.f, static_cast<float>(width), static_cast<float>(height), 60.f);
+	camera::instance()->set_pers(0.1f, 100.f, static_cast<float>(width), static_cast<float>(height), 90.f);
 	camera::instance()->set_view(vector3(0.f, 0.f, -5.f), vector3(0.f, 1.f, 0.f), vector3(0.f, 0.f, 0.f));
 	camera::instance()->set_ortho_near(-1.f);
 	camera::instance()->set_ortho_far(1.f);
@@ -42,8 +42,8 @@ void dotth::renderer::init_gl(int argc, char** argv) {
     //glEnable(GL_LINE_SMOOTH);
     //glEnable(GL_POLYGON_SMOOTH);
 	//glPolygonMode(GL_FRONT, GL_LINE);
-    //glEnable(GL_DEPTH_TEST);
-    //glDepthFunc(GL_LESS);
+    glEnable(GL_DEPTH_TEST);
+    glDepthFunc(GL_LESS);
     glutDisplayFunc(dotth::gl_callback::display);
     glutReshapeFunc(dotth::gl_callback::reshape);
 

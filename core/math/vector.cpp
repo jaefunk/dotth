@@ -1,6 +1,5 @@
 
 #include "vector.hpp"
-#include "math.hpp"
 
 dotth::vector3::vector3(void) { x = y = z = 0.f; }
 

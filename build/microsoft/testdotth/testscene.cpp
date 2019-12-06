@@ -7,7 +7,7 @@ void testscene::init(const json& data)
 	parent->init();
 	parent->set_color({ 1.f, 0.f, 0.f, 1.0f });
 	//parent->trans.rot_z(45.f);
-	parent->trans.pos_z(10.f);
+	//parent->trans.pos_z(10.f);
 	attach(parent);
 
 	auto child = std::make_shared<dotth::rectangle>();
@@ -15,6 +15,7 @@ void testscene::init(const json& data)
 	child->set_color({ 0.f, 1.f, 0.f, 1.f });
 	child->trans.pos_x(0.5f);
 	child->trans.pos_y(0.5f);
+	child->trans.pos_z(-0.1f);
 
 	
 	parent->attach(child);

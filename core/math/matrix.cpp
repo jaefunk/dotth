@@ -1,6 +1,4 @@
 #include "matrix.hpp"
-#include "math.hpp"
-#include "base/utility.hpp"
 
 dotth::matrix4::matrix4(void)
 {
