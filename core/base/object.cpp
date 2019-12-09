@@ -26,10 +26,10 @@ void dotth::object::update(void)
 		return;
 	}
 	
-	matrix4 parent_matrix = matrix4::identity;
+	transform parent_transform;
 	if (is_root() == false)
-		parent_matrix = parent<object>()->trans.matrix();
-	trans.sync(parent_matrix);
+		parent_transform = parent<object>()->trans;
+	trans.sync(parent_transform);
 	on_update(utility::timer::instance()->delta() * world_timescale());
 	foreach<object>([](std::shared_ptr<object> obj) { obj->update(); });
 }

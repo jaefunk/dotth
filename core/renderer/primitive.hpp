@@ -2,20 +2,20 @@
 #define __DOTTH_PRIMITIVE_HPP__
 
 #include "base/drawable.hpp"
-#include "primitive_command.hpp"
 
 namespace dotth {
 	class rectangle : public dotth::drawable
 	{
 	public:
-		rectangle(void);
 		virtual void init(void) override;
-		void set_color(const render::rgba& _color);
-	protected:
-		render::command::primitive _vertex;
-	private:		
 		virtual void on_update(const float& delta) override;
-		virtual void draw(const int flags) override;		
+
+	public:
+		// anchor left = -1.f top = 1.f right = 1.f bottom = -1.f
+		// size
+		void set_size(const int& width, const int& height);
+		void set_anchor(const float& x, const float& y);
+		void set_color(const render::rgba& _color);
 	};
 };
 

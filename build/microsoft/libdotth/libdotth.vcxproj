@@ -30,6 +30,7 @@
     <ClCompile Include="..\..\..\core\external\stb\image\stb_image.cpp" />
     <ClCompile Include="..\..\..\core\external\xml\tinyxml2.cpp" />
     <ClCompile Include="..\..\..\core\math\matrix.cpp" />
+    <ClCompile Include="..\..\..\core\math\transform.cpp" />
     <ClCompile Include="..\..\..\core\math\vector.cpp" />
     <ClCompile Include="..\..\..\core\platform\application.cpp" />
     <ClCompile Include="..\..\..\core\platform\filesystem\io.cpp" />

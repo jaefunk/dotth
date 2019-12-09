@@ -2,6 +2,7 @@
 #define __DOTTH_DRAW_COMMAND_HPP__
 
 #include "dotth.hpp"
+#include "shader.hpp"
 
 namespace dotth {
 	namespace render {
@@ -28,11 +29,9 @@ namespace dotth {
 		namespace command {
 			class inherit {
 			public:
-				draw_type type = draw_type::none;
-				float model[16];
-				float view[16];
-				float proj[16];
-				unsigned int program = 0;
+				draw_type _type = draw_type::none;
+				float _model[16];
+				dotth::shader _shader;
 				virtual void draw(void) = 0;
 			};
 		}

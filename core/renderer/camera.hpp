@@ -28,6 +28,8 @@ namespace dotth {
 		float _right;
 		float _bottom;
 
+		float _ortho1px;
+
 		matrix4 _view;
 		matrix4 _pers;
 		matrix4 _ortho;
@@ -38,9 +40,10 @@ namespace dotth {
 		const float* pers(void);
 		void sync_pers(void);
 		const float* ortho(void);
+		const float& ortho1px(void);
 		void sync_ortho(void);
 		const float* view_pers(void);
-		void sync_all(void);		
+		void sync_all(void);
 		
 	public:
 		void set_view(const vector3& eye, const vector3& up, const vector3& at) {
@@ -65,6 +68,7 @@ namespace dotth {
         void set_ortho_near(const float& v) { _dirty_ortho = true; _ortho_near = v; }
         void set_ortho_far(const float& v) { _dirty_ortho = true; _ortho_far = v; }
         void set_ltrb(const float& l, const float& t, const float& r, const float& b) { _dirty_ortho = true; _left = l; _top = t; _right = r; _bottom = b; }
+		void set_ortho1px(const float& _1px) { _ortho1px = _1px; }
 	};
 };
 

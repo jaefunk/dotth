@@ -1,46 +1,35 @@
 #include "primitive.hpp"
-#include "camera.hpp"
-
-dotth::rectangle::rectangle(void) : dotth::drawable(dotth::render::draw_type::perspective)
-{
-	set_shader("mvp");
-}
+#include "primitive_command.hpp"
 
 void dotth::rectangle::init(void)
-{
-	_vertex.v = { {-0.5f, 0.5f, 0.f}, {0.5f, 0.5f, 0.f}, {-0.5f, -0.5f, 0.f}, {0.5f, -0.5f, 0.f} };
-	_vertex.c = { {}, {}, {}, {} };
-	_vertex.i = { 0, 1, 2, 1, 3, 2 };
-}
-
-void dotth::rectangle::set_color(const render::rgba & _color)
-{
-	for (auto& c : _vertex.c)
-		c = _color;
+{	
+	auto cmd = std::make_shared<dotth::render::command::primitive>();
+	cmd->_shader = dotth::shader_manager::instance()->find("ortho");
+	cmd->_type = dotth::render::draw_type::orthographic;
+	cmd->v = { { -0.5f, 0.5f, 0.f },{ 0.5f, 0.5f, 0.f },{ -0.5f, -0.5f, 0.f },{ 0.5f, -0.5f, 0.f } };
+	cmd->c = { {},{},{},{} };
+	cmd->i = { 0, 1, 2, 1, 3, 2 };
+	_command = cmd;
 }
 
 void dotth::rectangle::on_update(const float& delta)
 {
+	memcpy(_command->_model, trans.result(), matrix4::matrix_size);
 }
 
-void dotth::rectangle::draw(const int flags)
+void dotth::rectangle::set_size(const int& width, const int& height)
 {
-	if (_shader)
-		_shader->bind();
+	//trans.scl()
+}
 
-	auto vp = glGetUniformLocation(_shader->program(), "view_pers");
-	glUniformMatrix4fv(vp, 1, GL_FALSE, camera::instance()->view_pers());
-	//glUniformMatrix4fv(vp, 1, GL_FALSE, camera::instance()->ortho());
-	auto m = glGetUniformLocation(_shader->program(), "model");
-	glUniformMatrix4fv(m, 1, GL_FALSE, trans.result());
-	auto vtx = glGetAttribLocation(_shader->program(), "vertex");
-	glEnableVertexAttribArray(vtx);
-	glVertexAttribPointer(vtx, 3, GL_FLOAT, GL_FALSE, 0, _vertex.v.data());
-	auto col = glGetAttribLocation(_shader->program(), "color");
-	glEnableVertexAttribArray(col);
-	glVertexAttribPointer(col, 4, GL_FLOAT, GL_FALSE, 0, _vertex.c.data());
-	glDrawElements(GL_TRIANGLES, static_cast<int32_t>(_vertex.i.size()), GL_UNSIGNED_INT, _vertex.i.data());
+void dotth::rectangle::set_anchor(const float& x, const float& y)
+{
 
-	if (_shader)
-		_shader->unbind();
+}
+
+void dotth::rectangle::set_color(const render::rgba & _color)
+{
+	auto cmd = std::static_pointer_cast<dotth::render::command::primitive>(_command);
+	for (auto& c : cmd->c)
+		c = _color;
 }

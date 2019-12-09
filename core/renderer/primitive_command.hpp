@@ -4,14 +4,13 @@
 #include "draw_command.hpp"
 
 namespace dotth {
-
 	namespace render {
 		namespace command {
 			struct primitive : public render::command::inherit {
 				std::vector<render::xyz> v;
 				std::vector<render::rgba> c;
 				std::vector<unsigned int> i;
-				virtual void draw(void) {};
+				virtual void draw(void);
 			};
 		}
 	}

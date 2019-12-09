@@ -79,6 +79,11 @@ const float * dotth::camera::ortho(void)
 	return _ortho.m;
 }
 
+const float & dotth::camera::ortho1px(void) 
+{
+	return _ortho1px; 
+}
+
 void dotth::camera::sync_ortho(void)
 {
 	if (_dirty_ortho == false)

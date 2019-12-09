@@ -88,11 +88,11 @@ namespace dotth {
         };
 	public:
 		const bool load(const char* key, const char* file_path);
-		const std::shared_ptr<dotth::shader> find(const char* key) {
+		const dotth::shader find(const char* key) {
 			auto iter = shaders.find(key);
 			if (iter != shaders.end())
-				return iter->second;
-			return nullptr;
+				return *iter->second;
+			return dotth::shader();
 		}
 	};
 };

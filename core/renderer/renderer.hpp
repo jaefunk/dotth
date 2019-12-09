@@ -2,7 +2,6 @@
 #define __DOTTH_RENDERER_HPP__
 
 #include "dotth.hpp"
-#include "draw_command.hpp"
 #include "render_queue.hpp"
 
 namespace dotth {
@@ -16,10 +15,10 @@ namespace dotth {
         void init_gl(int argc, char** argv);
 		void flush(void);
 	public:
-		void push_back(class drawable* drawable);
+		void push_back(dotth::render::command::inherit* inherit);
 		void process(const dotth::render::draw_type& type);
 	private:
-        std::map<dotth::render::draw_type, dotth::render_queue> queue;
+        std::map<dotth::render::draw_type, dotth::render_queue> _queue;
     };
 };
 
