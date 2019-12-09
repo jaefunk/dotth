@@ -64,6 +64,7 @@
 		27C83AAA233CF00A00FF791B /* base.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 27C83AA2233CF00A00FF791B /* base.cpp */; };
 		27C83AAD233CF01E00FF791B /* dotth.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 27C83AAB233CF01E00FF791B /* dotth.cpp */; };
 		27C83AAE233CF01E00FF791B /* dotth.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 27C83AAC233CF01E00FF791B /* dotth.hpp */; };
+		27D58ED9239E696C009ADC5C /* transform.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 27D58ED8239E696C009ADC5C /* transform.cpp */; };
 		27F76B7C2359DBD500299D9D /* drawable.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 27F76B7A2359DBD400299D9D /* drawable.hpp */; };
 		27F76B7D2359DBD500299D9D /* drawable.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 27F76B7B2359DBD500299D9D /* drawable.cpp */; };
 /* End PBXBuildFile section */
@@ -127,6 +128,7 @@
 		27C83AA2233CF00A00FF791B /* base.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = base.cpp; path = ../../../core/base/base.cpp; sourceTree = "<group>"; };
 		27C83AAB233CF01E00FF791B /* dotth.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = dotth.cpp; path = ../../../core/dotth.cpp; sourceTree = "<group>"; };
 		27C83AAC233CF01E00FF791B /* dotth.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = dotth.hpp; path = ../../../core/dotth.hpp; sourceTree = "<group>"; };
+		27D58ED8239E696C009ADC5C /* transform.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = transform.cpp; path = ../../../../core/math/transform.cpp; sourceTree = "<group>"; };
 		27F76B792359DB6A00299D9D /* liblibdotth.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = liblibdotth.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		27F76B7A2359DBD400299D9D /* drawable.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = drawable.hpp; path = ../../../core/base/drawable.hpp; sourceTree = "<group>"; };
 		27F76B7B2359DBD500299D9D /* drawable.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = drawable.cpp; path = ../../../core/base/drawable.cpp; sourceTree = "<group>"; };
@@ -269,6 +271,7 @@
 		27ADA9F123991A6C009254B1 /* math */ = {
 			isa = PBXGroup;
 			children = (
+				27D58ED8239E696C009ADC5C /* transform.cpp */,
 				27ADA9F423991A7C009254B1 /* math.hpp */,
 				27ADA9F523991A7C009254B1 /* matrix.cpp */,
 				27ADA9F323991A7C009254B1 /* matrix.hpp */,
@@ -427,6 +430,7 @@
 				2760CC68237FA9F8008C9AA4 /* path.cpp in Sources */,
 				2728DCAF2349DEE1003DB7FA /* renderer.cpp in Sources */,
 				27ADA9E923991A16009254B1 /* primitive_command.cpp in Sources */,
+				27D58ED9239E696C009ADC5C /* transform.cpp in Sources */,
 				2728DC812349B40F003DB7FA /* object.cpp in Sources */,
 				27C83AAD233CF01E00FF791B /* dotth.cpp in Sources */,
 				2728DC7D2349AD81003DB7FA /* utility.cpp in Sources */,

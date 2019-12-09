@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		27D58EDB239E6D63009ADC5C /* liblibdotth.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 27D58EDA239E6D63009ADC5C /* liblibdotth.a */; };
+		27D58EDF239E6E5A009ADC5C /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 27D58EDC239E6E5A009ADC5C /* GLKit.framework */; };
+		27D58EE0239E6E5A009ADC5C /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 27D58EDD239E6E5A009ADC5C /* OpenGL.framework */; };
+		27D58EE1239E6E5A009ADC5C /* GLUT.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 27D58EDE239E6E5A009ADC5C /* GLUT.framework */; };
+		27D58EEA239E7DFA009ADC5C /* resources in Resources */ = {isa = PBXBuildFile; fileRef = 27D58EE9239E7DFA009ADC5C /* resources */; };
+		27D58EED239E7E64009ADC5C /* testscene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 27D58EEC239E7E64009ADC5C /* testscene.cpp */; };
 		27D89FF1239924490011ED1B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 27D89FEA239924490011ED1B /* main.m */; };
 		27D89FF4239924490011ED1B /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 27D89FEE239924490011ED1B /* AppDelegate.m */; };
 		27D89FF72399275B0011ED1B /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 27D89FF62399275B0011ED1B /* Cocoa.framework */; };
@@ -17,6 +23,13 @@
 /* Begin PBXFileReference section */
 		27ADAA2E239923FA009254B1 /* testdotth2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = testdotth2.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		27ADAA37239923FC009254B1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
+		27D58EDA239E6D63009ADC5C /* liblibdotth.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = liblibdotth.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		27D58EDC239E6E5A009ADC5C /* GLKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLKit.framework; path = System/Library/Frameworks/GLKit.framework; sourceTree = SDKROOT; };
+		27D58EDD239E6E5A009ADC5C /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
+		27D58EDE239E6E5A009ADC5C /* GLUT.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLUT.framework; path = System/Library/Frameworks/GLUT.framework; sourceTree = SDKROOT; };
+		27D58EE9239E7DFA009ADC5C /* resources */ = {isa = PBXFileReference; lastKnownFileType = folder; name = resources; path = ../../resources; sourceTree = "<group>"; };
+		27D58EEB239E7E64009ADC5C /* testscene.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = testscene.hpp; sourceTree = "<group>"; };
+		27D58EEC239E7E64009ADC5C /* testscene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = testscene.cpp; sourceTree = "<group>"; };
 		27D89FE9239924490011ED1B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		27D89FEA239924490011ED1B /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		27D89FEB239924490011ED1B /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -31,6 +44,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				27D58EDF239E6E5A009ADC5C /* GLKit.framework in Frameworks */,
+				27D58EE0239E6E5A009ADC5C /* OpenGL.framework in Frameworks */,
+				27D58EE1239E6E5A009ADC5C /* GLUT.framework in Frameworks */,
+				27D58EDB239E6D63009ADC5C /* liblibdotth.a in Frameworks */,
 				27D89FF72399275B0011ED1B /* Cocoa.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -41,7 +58,10 @@
 		27ADAA25239923FA009254B1 = {
 			isa = PBXGroup;
 			children = (
+				27D58EE9239E7DFA009ADC5C /* resources */,
 				27D89FEB239924490011ED1B /* AppDelegate.h */,
+				27D58EEC239E7E64009ADC5C /* testscene.cpp */,
+				27D58EEB239E7E64009ADC5C /* testscene.hpp */,
 				27D89FEE239924490011ED1B /* AppDelegate.m */,
 				27D89FE9239924490011ED1B /* Assets.xcassets */,
 				27D89FEC239924490011ED1B /* Info.plist */,
@@ -64,6 +84,10 @@
 		27D89FF52399275B0011ED1B /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				27D58EDC239E6E5A009ADC5C /* GLKit.framework */,
+				27D58EDE239E6E5A009ADC5C /* GLUT.framework */,
+				27D58EDD239E6E5A009ADC5C /* OpenGL.framework */,
+				27D58EDA239E6D63009ADC5C /* liblibdotth.a */,
 				27D89FF62399275B0011ED1B /* Cocoa.framework */,
 			);
 			name = Frameworks;
@@ -126,6 +150,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				27D58EEA239E7DFA009ADC5C /* resources in Resources */,
 				27D89FF8239929C30011ED1B /* Assets.xcassets in Resources */,
 				27D89FFB239929C30011ED1B /* MainMenu.xib in Resources */,
 			);
@@ -139,6 +164,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				27D89FF4239924490011ED1B /* AppDelegate.m in Sources */,
+				27D58EED239E7E64009ADC5C /* testscene.cpp in Sources */,
 				27D89FF1239924490011ED1B /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -275,6 +301,7 @@
 				CODE_SIGN_ENTITLEMENTS = testdotth2.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
+				HEADER_SEARCH_PATHS = ../../../core/;
 				INFOPLIST_FILE = "$(SRCROOT)/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -292,6 +319,7 @@
 				CODE_SIGN_ENTITLEMENTS = testdotth2.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
+				HEADER_SEARCH_PATHS = ../../../core/;
 				INFOPLIST_FILE = "$(SRCROOT)/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

@@ -10,8 +10,5 @@ void dotth::application::init(int argc, char ** argv) {
 }
 
 int dotth::application::process(void) {
-    while(true) {
-		printf("as");
-    }
 	return 0;
 }
