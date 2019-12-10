@@ -53,7 +53,7 @@ namespace dotth {
 		vector3(const vector3& v);
 		vector3(const vector3&& v);
 		const vector3 operator=(const vector3& v) {
-            x = v.x; y = v.y; z = v.z;
+			x = v.x; y = v.y; z = v.z;
 			return *this;
 		}
 		const float length(void) const {
@@ -70,6 +70,9 @@ namespace dotth {
 		}
 		const vector3 multiply(const float& v) const {
 			return vector3(x * v, y * v, z * v);
+		}
+		const vector3 multiply(const vector3 v) const {
+			return vector3(x * v.x, y * v.y, z * v.z);
 		}
 		const vector3 divide(const float& v) const {
 			return vector3(x / v, y / v, z / v);

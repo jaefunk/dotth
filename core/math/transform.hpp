@@ -10,9 +10,10 @@ namespace dotth {
 		vector3 _pos = { 0.f, 0.f, 0.f };
 		vector3 _scl = { 1.f, 1.f, 1.f };
         vector3 _rot = { 0.f, 0.f, 0.f };
-		vector2 _size = { 0.f, 0.f };
-		vector2 _anchor = { 0.f, 0.f };
+		vector3 _size = { 0.f, 0.f, 0.f };
+		vector3 _anchor = { 0.f, 0.f, 0.f };
         matrix4 _matrix;
+		matrix4 _matrix_without_scale;
     
     public: // set
 		void set_ortho(const bool& is_ortho) { _ortho = is_ortho; }
@@ -52,9 +53,10 @@ namespace dotth {
         const vector3& pos(void) { return _pos; }
         const vector3& scl(void) { return _scl; }
         const vector3& rot(void) { return _rot; }
-		const vector2& size(void) { return _size; }
-		const vector2& anchor(void) { return _anchor; }
+		const vector3& size(void) { return _size; }
+		const vector3& anchor(void) { return _anchor; }
         const matrix4& matrix(void) { return _matrix; }
+		const matrix4& matrix_without_scale(void) { return _matrix_without_scale; }
 		const float* result(void) { return _matrix.m; }
     };
 };
