@@ -19,7 +19,8 @@ namespace dotth {
     public:
         object(void) = default;
         object(std::string name) : _name(name) { };
-		transform trans;
+		transform2d trans2d;
+		transform3d trans3d;
         
     public:
 		void set_timescale(const float & scale);

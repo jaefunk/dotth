@@ -4,20 +4,52 @@
 #include "matrix.hpp"
 
 namespace dotth {
-    class transform {
+	class transform2d {
+	private:
+		vector2 _pos = { 0.f, 0.f };
+		vector2 _scl = { 1.f, 1.f };
+		float _rot = 0.f;
+		vector2 _size = { 0.f, 0.f };		
+		vector2 _anchor = { 0.f, 0.f };		
+		matrix4 _matrix;
+	public: // set
+		void pos(const float& x, const float& y) { _pos.x = x; _pos.y = y; }
+		void pos(const vector2& v) { pos(v.x, v.y); }
+		void pos_x(const float& v) { _pos.x = v; }
+		void pos_y(const float& v) { _pos.y = v; }
+
+		void scl(const float& x, const float& y) { _scl.x = x; _scl.y = y; }
+		void scl(const vector2& v) { scl(v.x, v.y); }
+		void scl_x(const float& v) { _scl.x = v; }
+		void scl_y(const float& v) { _scl.y = v; }
+
+		void rot(const float& v) { _rot = v; }
+
+		void anchor(const float& x, const float& y) { _anchor.x = x; _anchor.y = y; }
+		void anchor(const vector2& v) { anchor(v.x, v.y); }
+		void anchor_x(const float& v) { _anchor.x = v; }
+		void anchor_y(const float& v) { _anchor.y = v; }
+
+	public:
+		void sync(const transform2d& parent);
+
+	public: // get
+		const vector2& pos(void) { return _pos; }
+		const vector2& scl(void) { return _scl; }
+		const float& rot(void) { return _rot; }
+		const vector2& anchor(void) { return _anchor; }
+		const matrix4& matrix(void) { return _matrix; }
+		const float* result(void) { return _matrix.m; }
+	};
+
+    class transform3d {
     private:
-		bool _ortho = false;
 		vector3 _pos = { 0.f, 0.f, 0.f };
 		vector3 _scl = { 1.f, 1.f, 1.f };
         vector3 _rot = { 0.f, 0.f, 0.f };
-		vector3 _size = { 0.f, 0.f, 0.f };
-		vector3 _anchor = { 0.f, 0.f, 0.f };
         matrix4 _matrix;
-		matrix4 _matrix_without_scale;
     
     public: // set
-		void set_ortho(const bool& is_ortho) { _ortho = is_ortho; }
-
 		void pos(const float& x, const float& y, const float& z = 0.f) { _pos.x = x; _pos.y = y; _pos.z = z; }
         void pos(const vector3& v) { pos(v.x, v.y, v.z); }
 		void pos_x(const float& v) { _pos.x = v; }
@@ -36,27 +68,14 @@ namespace dotth {
 		void rot_y(const float& v) { _rot.y = v; }
 		void rot_z(const float& v) { _rot.z = v; }
 
-		void size(const float& w, const float& h) { _size.x = w; _size.y = h; }
-		void size(const vector2& v) { size(v.x, v.y); }
-		void size_x(const float& v) { _size.x = v; }
-		void size_y(const float& v) { _size.y = v; }
-
-		void anchor(const float& w, const float& h) { _anchor.x = w; _anchor.y = h; }
-		void anchor(const vector2& v) { anchor(v.x, v.y); }
-		void anchor_x(const float& v) { _anchor.x = v; }
-		void anchor_y(const float& v) { _anchor.y = v; }
-
 	public:
-		void sync(const transform& parent);
+		void sync(const transform3d& parent);
         
     public: // get
         const vector3& pos(void) { return _pos; }
         const vector3& scl(void) { return _scl; }
         const vector3& rot(void) { return _rot; }
-		const vector3& size(void) { return _size; }
-		const vector3& anchor(void) { return _anchor; }
         const matrix4& matrix(void) { return _matrix; }
-		const matrix4& matrix_without_scale(void) { return _matrix_without_scale; }
 		const float* result(void) { return _matrix.m; }
     };
 };

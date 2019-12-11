@@ -14,7 +14,7 @@ void dotth::rectangle::init(void)
 
 void dotth::rectangle::on_update(const float& delta)
 {
-	memcpy(_command->_model, trans.result(), matrix4::matrix_size);
+	memcpy(_command->_model, trans2d.result(), matrix4::matrix_size);
 }
 
 void dotth::rectangle::set_size(const int& width, const int& height)

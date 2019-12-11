@@ -50,8 +50,14 @@ namespace dotth {
 		vector3(void);
 		vector3(const float& v);
 		vector3(const float& x, const float& y, const float& z);
+		vector3(const vector2& v);
+		vector3(const vector2&& v);
 		vector3(const vector3& v);
 		vector3(const vector3&& v);
+		const vector3 operator=(const vector2& v) {
+			x = v.x; y = v.y; z = 0.f;
+			return *this;
+		}
 		const vector3 operator=(const vector3& v) {
 			x = v.x; y = v.y; z = v.z;
 			return *this;
