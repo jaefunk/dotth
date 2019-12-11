@@ -19,6 +19,7 @@ void dotth::rectangle::on_update(const float& delta)
 
 void dotth::rectangle::set_size(const int& width, const int& height)
 {
+	trans2d.size(width, height);
 	//trans.scl()
 }
 

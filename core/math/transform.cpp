@@ -5,14 +5,11 @@ void dotth::transform2d::sync(const transform2d & parent)
 {
 	float const& _1px = camera::instance()->ortho1px();
 
-	vector3 last_scale = { 1.f, 1.f, 1.f };
-	last_scale = _size.multiply(_1px);
-	last_scale = last_scale.multiply(_scl);
 	matrix4 matrix_scale;
-	matrix4::scale(matrix_scale, last_scale);
+	matrix4::scale(matrix_scale, _scl);
 
 	matrix4 matrix_rotate;
-	matrix4::rotate(matrix_rotate, { 0.f, 0.f, _rot });
+	matrix4::rotate(matrix_rotate, _rot);
 
 	matrix4 matrix_position;
 	matrix4::position(matrix_position, _pos);
