@@ -11,10 +11,6 @@ namespace dotth {
 		virtual void on_update(const float& delta) override;
 
 	public:
-		// anchor left = -1.f top = 1.f right = 1.f bottom = -1.f
-		// size
-		void set_size(const int& width, const int& height);
-		void set_anchor(const float& x, const float& y);
 		void set_color(const render::rgba& _color);
 	};
 };

@@ -3,6 +3,7 @@
 
 void dotth::rectangle::init(void)
 {	
+	trans = std::make_shared<transform2d>();
 	auto cmd = std::make_shared<dotth::render::command::primitive>();
 	cmd->_shader = dotth::shader_manager::instance()->find("ortho");
 	cmd->_type = dotth::render::draw_type::orthographic;
@@ -14,18 +15,7 @@ void dotth::rectangle::init(void)
 
 void dotth::rectangle::on_update(const float& delta)
 {
-	memcpy(_command->_model, trans2d.result(), matrix4::matrix_size);
-}
-
-void dotth::rectangle::set_size(const int& width, const int& height)
-{
-	trans2d.size(width, height);
-	//trans.scl()
-}
-
-void dotth::rectangle::set_anchor(const float& x, const float& y)
-{
-
+	memcpy(_command->_model, trans->result(), matrix4::matrix_size);
 }
 
 void dotth::rectangle::set_color(const render::rgba & _color)

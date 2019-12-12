@@ -4,31 +4,47 @@
 #include "matrix.hpp"
 
 namespace dotth {
-	class transform2d {
-	private:
+	class transform {
+	protected:
 		vector3 _pos = { 0.f, 0.f, 0.f };
 		vector3 _scl = { 1.f, 1.f, 1.f };
 		vector3 _rot = { 0.f, 0.f, 0.f };
+		matrix4 _matrix;
+		matrix4 _matrix_without_scale;
+	public:
+		virtual void sync(const transform* parent) = 0;
 
-		vector2 _size = { 1024.f, 512.f };		
+	public: // set
+		void pos(const float& x, const float& y, const float& z) { _pos.x = x; _pos.y = y; _pos.z = z; }
+		void scl(const float& x, const float& y, const float& z) { _scl.x = x; _scl.y = y; _scl.z = z; }
+		void rot(const float& x, const float& y, const float& z) { _rot.x = x; _rot.y = y; _rot.z = z; }
+
+	public: // get
+		const vector3& pos(void) const { return _pos; }
+		const vector3& scl(void) const { return _scl; }
+		const vector3& rot(void) const { return _rot; }
+		const matrix4& matrix(void) const { return _matrix; }
+		const matrix4& matrix_without_scale(void) const { return _matrix_without_scale; }
+		const float* result(void) const { return _matrix.m; }
+	};
+
+	class transform2d : public transform {
+	private:
+		vector2 _size = { 0.f, 0.f };		
 		vector2 _anchor = { 0.f, 0.f };	
 
-		matrix4 _matrix;
 	public: // set
-		void pos(const float& x, const float& y, const float& z = 0.f) { _pos.x = x; _pos.y = y; _pos.z = z; }
-		void pos(const vector3& v) { pos(v.x, v.y, v.z); }
+		void pos(const vector3& v) { transform::pos(v.x, v.y, v.z); }
 		void pos_x(const float& v) { _pos.x = v; }
 		void pos_y(const float& v) { _pos.y = v; }
 		void pos_z(const float& v) { _pos.z = v; }
 
-		void scl(const float& x, const float& y, const float& z = 1.f) { _scl.x = x; _scl.y = y; _scl.z = z; }
-		void scl(const vector3& v) { scl(v.x, v.y, v.z); }
+		void scl(const vector3& v) { transform::scl(v.x, v.y, v.z); }
 		void scl_x(const float& v) { _scl.x = v; }
 		void scl_y(const float& v) { _scl.y = v; }
 		void scl_z(const float& v) { _scl.z = v; }
 
-		void rot(const float& x, const float& y, const float& z) { _rot.x = x; _rot.y = y; _rot.z = z; }
-		void rot(const vector3& v) { rot(v.x, v.y, v.z); }
+		void rot(const vector3& v) { transform::rot(v.x, v.y, v.z); }
 		void rot_x(const float& v) { _rot.x = v; }
 		void rot_y(const float& v) { _rot.y = v; }
 		void rot_z(const float& v) { _rot.z = v; }
@@ -44,52 +60,34 @@ namespace dotth {
 		void anchor_y(const float& v) { _anchor.y = v; }
 
 	public:
-		void sync(const transform2d& parent);
+		virtual void sync(const transform* parent) override;
 
 	public: // get
-		const vector3& pos(void) { return _pos; }
-		const vector3& scl(void) { return _scl; }
-		const vector3& rot(void) { return _rot; }
 		const vector2& anchor(void) { return _anchor; }
-		const matrix4& matrix(void) { return _matrix; }
-		const float* result(void) { return _matrix.m; }
 	};
 
-    class transform3d {
-    private:
-		vector3 _pos = { 0.f, 0.f, 0.f };
-		vector3 _scl = { 1.f, 1.f, 1.f };
-        vector3 _rot = { 0.f, 0.f, 0.f };
-        matrix4 _matrix;
-    
+    class transform3d : public transform {
     public: // set
-		void pos(const float& x, const float& y, const float& z = 0.f) { _pos.x = x; _pos.y = y; _pos.z = z; }
-        void pos(const vector3& v) { pos(v.x, v.y, v.z); }
+
+        void pos(const vector3& v) { transform::pos(v.x, v.y, v.z); }
 		void pos_x(const float& v) { _pos.x = v; }
 		void pos_y(const float& v) { _pos.y = v; }
 		void pos_z(const float& v) { _pos.z = v; }
 		
-		void scl(const float& x, const float& y, const float& z = 1.f) { _scl.x = x; _scl.y = y; _scl.z = z; }
-		void scl(const vector3& v) { scl(v.x, v.y, v.z); }
+		
+		void scl(const vector3& v) { transform::scl(v.x, v.y, v.z); }
 		void scl_x(const float& v) { _scl.x = v; }
 		void scl_y(const float& v) { _scl.y = v; }
 		void scl_z(const float& v) { _scl.z = v; }
 
-		void rot(const float& x, const float& y, const float& z) { _rot.x = x; _rot.y = y; _rot.z = z; }
-		void rot(const vector3& v) { rot(v.x, v.y, v.z); }
+		
+		void rot(const vector3& v) { transform::rot(v.x, v.y, v.z); }
 		void rot_x(const float& v) { _rot.x = v; }
 		void rot_y(const float& v) { _rot.y = v; }
 		void rot_z(const float& v) { _rot.z = v; }
-
+	
 	public:
-		void sync(const transform3d& parent);
-        
-    public: // get
-        const vector3& pos(void) { return _pos; }
-        const vector3& scl(void) { return _scl; }
-        const vector3& rot(void) { return _rot; }
-        const matrix4& matrix(void) { return _matrix; }
-		const float* result(void) { return _matrix.m; }
+		virtual void sync(const transform* parent) override;
     };
 };
 
