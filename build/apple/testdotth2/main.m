@@ -1,11 +1,16 @@
+//
+//  main.m
+//  testdotth2
+//
+//  Created by jwkim on 2019/12/05.
+//  Copyright © 2019 dotth. All rights reserved.
+//
 
-#include "platform/application.hpp"
-#include "testscene.hpp"
+#import <Cocoa/Cocoa.h>
 
-int main(int argc, char * argv[]) {
-
-    dotth::scene_manager::instance()->assign_scene<testscene>("testscene");
-    dotth::scene_manager::instance()->push("testscene", "1234");
-    dotth::application::instance()->init(argc, argv);
-    return dotth::application::instance()->process();
+int main(int argc, const char * argv[]) {
+    @autoreleasepool {
+        // Setup code that might create autoreleased objects goes here.
+    }
+    return NSApplicationMain(argc, argv);
 }

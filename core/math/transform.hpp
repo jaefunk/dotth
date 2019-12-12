@@ -9,6 +9,9 @@ namespace dotth {
 		vector3 _pos = { 0.f, 0.f, 0.f };
 		vector3 _scl = { 1.f, 1.f, 1.f };
 		vector3 _rot = { 0.f, 0.f, 0.f };
+        vector3 _wscl = { 1.f, 1.f, 1.f };
+        vector3 _wpos = { 0.f, 0.f, 0.f };
+        vector3 _wrot = { 0.f, 0.f, 0.f };
 		matrix4 _matrix;
 		matrix4 _matrix_without_scale;
 	public:
@@ -22,6 +25,7 @@ namespace dotth {
 	public: // get
 		const vector3& pos(void) const { return _pos; }
 		const vector3& scl(void) const { return _scl; }
+        const vector3& world_scl(void) const { return _wscl; }
 		const vector3& rot(void) const { return _rot; }
 		const matrix4& matrix(void) const { return _matrix; }
 		const matrix4& matrix_without_scale(void) const { return _matrix_without_scale; }

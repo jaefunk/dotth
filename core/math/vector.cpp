@@ -30,6 +30,6 @@ dotth::vector3::vector3(const vector3 & v) : x(v.x), y(v.y), z(v.z) {}
 
 dotth::vector3::vector3(const vector3 && v) : x(v.x), y(v.y), z(v.z) {}
 
-inline const char * dotth::vector3::c_str(void) const {
+const char * dotth::vector3::c_str(void) const {
 	return utility::string::format("x:%f y:%f z:%f", x, y, z).c_str();
 }

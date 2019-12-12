@@ -4,26 +4,22 @@
 void dotth::transform2d::sync(const transform* parent)
 {
 	float const& _1px = camera::instance()->ortho1px();
-	_size = { 100.f, 100.f };
+	_size = { 200.f, 200.f };
 	_pos = { 50.f, 0.f };
 	
+    _wscl = parent != nullptr ? _scl.multiply(parent->world_scl()) : _scl;
+    
 	vector3 _tmp_scale = _size;
-	_tmp_scale = _tmp_scale.multiply(_scl);
-	if (parent != nullptr)
-		_tmp_scale  = _tmp_scale.multiply(parent->scl());
+    _tmp_scale = _tmp_scale.multiply(_wscl);
 	_tmp_scale = _tmp_scale.multiply(_1px);
-
-	vector3 _tmp_pos = _pos.multiply(_scl);
-	if (parent != nullptr)
-		_tmp_pos = _tmp_pos.multiply(parent->scl());
-	_tmp_pos = _tmp_pos.multiply(_1px);
-
-	matrix4 matrix_scale;
-	matrix4::scale(matrix_scale, _tmp_scale);
-
+    matrix4 matrix_scale;
+    matrix4::scale(matrix_scale, _tmp_scale);
+    
 	matrix4 matrix_rotate;
 	matrix4::rotate(matrix_rotate, _rot);
 
+    vector3 _tmp_pos = _pos.multiply(_wscl);
+    _tmp_pos = _tmp_pos.multiply(_1px);
 	matrix4 matrix_position;
 	matrix4::position(matrix_position, _tmp_pos);
 

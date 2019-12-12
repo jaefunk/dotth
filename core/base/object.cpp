@@ -26,11 +26,8 @@ void dotth::object::update(void)
 		return;
 	}
 
-	transform* _parent_trans = nullptr;
-	if (is_root() == false)
-		_parent_trans = parent<object>()->trans.get();
 	if (trans != nullptr)
-		trans->sync(_parent_trans);
+		trans->sync(is_root() == false ? parent<object>()->trans.get() : nullptr);
 
 	on_update(utility::timer::instance()->delta() * world_timescale());
 	foreach<object>([](std::shared_ptr<object> obj) { obj->update(); });
