@@ -40,10 +40,11 @@ void dotth::renderer::init_gl(int argc, char** argv) {
     glutInitWindowSize(1024, 512);
     glutInitWindowPosition(0, 0);
     glClearColor(0, 0, 0, 0);
+	glutCreateWindow("asdf");
 	glEnable(GL_BLEND);
     glEnable(GL_DEPTH_TEST);
     glDepthFunc(GL_LESS);
-	glutCreateWindow("asdf");
+	
     glutDisplayFunc(dotth::gl_callback::display);
     glutReshapeFunc(dotth::gl_callback::reshape);
 

@@ -35,7 +35,9 @@ void dotth::cube::init(void)
 		//{ +0.5f, +0.5f, +0.5f },{ +0.5f, +0.5f, -0.5f },{ +0.5f, -0.5f, +0.5f },{ +0.5f, -0.5f, -0.5f },	// right
 	};
 	command<primitive_perspective>()->c = { 
-		{1.f, 0.f, 0.f, 1.f},{ 0.f, 1.f, 0.f, 1.f },{ 0.f, 0.f, 1.f, 1.f },{},{},{},{},{ 1.f, 0.f, 0.f, 1.f } };
+		{1.f, 0.f, 0.f, 1.f},{ 0.f, 1.f, 0.f, 1.f },{ 0.f, 0.f, 1.f, 1.f },{},
+		{},{ 0.f, 0.f, 1.f, 1.f },{ 0.f, 1.f, 0.f, 1.f },{ 1.f, 0.f, 0.f, 1.f }
+	};
 	command<primitive_perspective>()->i = { 
 		0, 1, 2, 1, 3, 2,	// front
 		4, 5, 6, 5, 7, 6,	// back
@@ -49,8 +51,9 @@ void dotth::cube::init(void)
 void dotth::cube::on_update(const float& delta)
 {
 	static float f = 0.f;
-	trans()->rot_y(f);
-	f += delta * 2.f;
+	//trans()->rot_y(f);
+	trans()->rot_x(f);
+	f += delta * 10.f;
 }
 
 void dotth::cube::set_color(const render::rgba & _color)
