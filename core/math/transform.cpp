@@ -4,10 +4,9 @@
 void dotth::transform2d::sync(const transform* parent)
 {
 	float const& _1px = camera::instance()->ortho1px();
-	_size = { 100.f, 100.f };
 	
     _wscl = parent != nullptr ? _scl.multiply(parent->wscl()) : _scl;
-    
+	_size = { 100.f, 100.f };
 	vector3 _tmp_scale = _size;
     _tmp_scale = _tmp_scale.multiply(_wscl);
 	_tmp_scale = _tmp_scale.multiply(_1px);
@@ -29,14 +28,16 @@ void dotth::transform2d::sync(const transform* parent)
 	matrix4::multiply(scale_rotate, matrix_position, scale_rotate_position);
 	
 	if (parent == nullptr)
-		matrix4::copy(_matrix, scale_rotate_position);
+		matrix4::copy(scale_rotate_position, _matrix);
 	else
 		matrix4::multiply(scale_rotate_position, parent->matrix_without_scale(), _matrix);
 
-	matrix4::multiply(matrix_rotate, matrix_position, _matrix_without_scale);
-	if (parent != nullptr)
-		matrix4::multiply(_matrix_without_scale, parent->matrix_without_scale(), _matrix_without_scale);
-
+	matrix4 rotate_position;
+	matrix4::multiply(matrix_rotate, matrix_position, rotate_position);
+	if (parent == nullptr)
+		matrix4::copy(rotate_position, _matrix_without_scale);
+	else
+		matrix4::multiply(rotate_position, parent->matrix_without_scale(), _matrix_without_scale);
 }
 
 void dotth::transform3d::sync(const transform* parent)
@@ -57,7 +58,7 @@ void dotth::transform3d::sync(const transform* parent)
 	matrix4::multiply(scale_rotate, matrix_position, scale_rotate_position);
 	
 	if (parent == nullptr)
-		_matrix = scale_rotate_position;
+		matrix4::copy(scale_rotate_position, _matrix);
 	else
 		matrix4::multiply(scale_rotate_position, parent->matrix(), _matrix);
 }

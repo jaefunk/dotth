@@ -18,7 +18,7 @@ dotth::matrix4::matrix4(float _11, float _12, float _13, float _14, float _21, f
     m[3]  = _41; m[7]  = _42; m[11] = _43; m[15] = _44;
 }
 
-void dotth::matrix4::copy(matrix4 & dst, const matrix4 & src)
+void dotth::matrix4::copy(const matrix4 & src, matrix4 & dst)
 {
 	memcpy(dst.m, src.m, dotth::matrix4::matrix_size);
 }

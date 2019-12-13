@@ -15,9 +15,6 @@ void dotth::rectangle::init(void)
 
 void dotth::rectangle::on_update(const float& delta)
 {
-	static float a = 0.f;
-	_trans->rot_z(a);
-	a += delta * 5.f;
 }
 
 void dotth::rectangle::set_color(const render::rgba & _color)
@@ -41,7 +38,11 @@ void dotth::cube::init(void)
 
 void dotth::cube::on_update(const float& delta)
 {
-	static float a = 0.f;
-	_trans->rot_y(a);
-	a += delta * 10.f;
+}
+
+void dotth::cube::set_color(const render::rgba & _color)
+{
+	auto cmd = std::static_pointer_cast<dotth::render::command::primitive_perspective>(_command);
+	for (auto& c : cmd->c)
+		c = _color;
 }
