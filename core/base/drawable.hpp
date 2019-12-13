@@ -7,10 +7,6 @@
 namespace dotth {
 	class drawable : public object
 	{
-	protected:
-		std::shared_ptr<dotth::render::command::inherit> _command;
-	public:
-		virtual void on_push_render_queue(void) final;
 	};
 };
 

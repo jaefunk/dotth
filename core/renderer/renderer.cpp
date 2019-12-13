@@ -13,7 +13,6 @@ void dotth::gl_callback::display(void) {
 	
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	renderer::instance()->process(dotth::render::draw_type::perspective);
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	renderer::instance()->process(dotth::render::draw_type::orthographic);
 
 	renderer::instance()->flush();

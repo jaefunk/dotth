@@ -16,29 +16,27 @@ const float dotth::object::world_timescale(void) {
 
 void dotth::object::update(void)
 {
-	if (flags.alive == false)
+	if (_flags.alive == false)
 	{
 		independence();
 		return;
 	}
-	if (flags.active == false)
-	{
+	if (_flags.active == false)
 		return;
-	}
 
-	if (trans != nullptr)
-		trans->sync(is_root() == false ? parent<object>()->trans.get() : nullptr);
-
+	if (_trans != nullptr)
+		_trans->sync(is_root() == false ? parent<object>()->_trans.get() : nullptr);
+	if (_command != nullptr)
+		memcpy(_command->_model, _trans->result(), matrix4::matrix_size);
 	on_update(utility::timer::instance()->delta() * world_timescale());
 	foreach<object>([](std::shared_ptr<object> obj) { obj->update(); });
 }
 
 void dotth::object::push_render_queue(void)
 {
-	if (flags.visible == false)
-	{
+	if (_flags.visible == false)
 		return;
-	}
-	on_push_render_queue();
+	if (_command != nullptr)
+		dotth::renderer::instance()->push_back(_command.get());
 	foreach<object>([](std::shared_ptr<object> obj) { obj->push_render_queue(); });
 }

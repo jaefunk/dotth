@@ -5,7 +5,6 @@ void dotth::transform2d::sync(const transform* parent)
 {
 	float const& _1px = camera::instance()->ortho1px();
 	_size = { 100.f, 100.f };
-	_pos = { 100.f, 0.f };
 	
     _wscl = parent != nullptr ? _scl.multiply(parent->wscl()) : _scl;
     

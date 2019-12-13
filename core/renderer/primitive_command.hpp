@@ -6,7 +6,13 @@
 namespace dotth {
 	namespace render {
 		namespace command {
-			struct primitive : public render::command::inherit {
+			struct primitive_orthographic : public render::command::inherit {
+				std::vector<render::xyz> v;
+				std::vector<render::rgba> c;
+				std::vector<unsigned int> i;
+				virtual void draw(void);
+			};
+			struct primitive_perspective : public render::command::inherit {
 				std::vector<render::xyz> v;
 				std::vector<render::rgba> c;
 				std::vector<unsigned int> i;

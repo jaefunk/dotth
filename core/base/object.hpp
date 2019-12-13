@@ -3,6 +3,7 @@
 
 #include "node.hpp"
 #include "math/transform.hpp"
+#include "renderer/renderer.hpp"
 
 namespace dotth {
     class object : public node<object>
@@ -12,15 +13,14 @@ namespace dotth {
 			bool visible = true;
 			bool active = true;
 			bool alive = true;
-		} flags;
+		} _flags;
         std::string _name;
         float _timescale = 1.f;
         
     public:
-        object(void) = default;
-        object(std::string name) : _name(name) { };
-		std::shared_ptr<transform> trans;
-        
+		std::shared_ptr<transform> _trans;
+		std::shared_ptr<render::command::inherit> _command;
+
     public:
 		void set_timescale(const float & scale);
 		const float& local_timescale(void);
@@ -33,7 +33,6 @@ namespace dotth {
         
     protected:
 		virtual void on_update(const float& delta) {};
-		virtual void on_push_render_queue(void) {};
     };
 };
 
