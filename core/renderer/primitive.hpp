@@ -7,6 +7,8 @@ namespace dotth {
 	class rectangle : public dotth::drawable
 	{
 	public:
+		rectangle(void) : dotth::drawable(dotth::render::transform_type::orthographic) {}
+	public:
 		virtual void init(void) override;
 		virtual void on_update(const float& delta) override;
 	public:
@@ -15,6 +17,8 @@ namespace dotth {
 
 	class cube : public dotth::drawable
 	{
+	public:
+		cube(void) : dotth::drawable(dotth::render::transform_type::perspective) {}
 	public:
 		virtual void init(void) override;
 		virtual void on_update(const float& delta) override;

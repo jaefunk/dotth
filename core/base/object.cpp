@@ -25,7 +25,7 @@ void dotth::object::update(void)
 		return;
 
 	if (_trans != nullptr)
-		_trans->sync(is_root() == false ? parent<object>()->_trans.get() : nullptr);
+		_trans->sync(is_root() == false ? parent<object>()->_trans : nullptr);
 	if (_command != nullptr)
 		memcpy(_command->_model, _trans->result(), matrix4::matrix_size);
 	on_update(utility::timer::instance()->delta() * world_timescale());
@@ -37,6 +37,6 @@ void dotth::object::push_render_queue(void)
 	if (_flags.visible == false)
 		return;
 	if (_command != nullptr)
-		dotth::renderer::instance()->push_back(_command.get());
+		dotth::renderer::instance()->push_back(_command);
 	foreach<object>([](std::shared_ptr<object> obj) { obj->push_render_queue(); });
 }

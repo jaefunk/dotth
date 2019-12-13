@@ -18,8 +18,8 @@ namespace dotth {
         float _timescale = 1.f;
         
     public:
-		std::shared_ptr<transform> _trans;
-		std::shared_ptr<render::command::inherit> _command;
+		transform* _trans;
+		render::command::inherit* _command;
 
     public:
 		void set_timescale(const float & scale);

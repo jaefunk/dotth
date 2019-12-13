@@ -6,6 +6,10 @@
 
 namespace dotth {
 	namespace render {
+		enum class transform_type {
+			perspective,
+			orthographic,
+		};
 		enum class draw_type {
 			none,
 			perspective,
