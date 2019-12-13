@@ -12,6 +12,7 @@ namespace dotth {
                 float _21, float _22, float _23, float _24,
                 float _31, float _32, float _33, float _34,
                 float _41, float _42, float _43, float _44);
+		static void copy(matrix4& dst, const matrix4& src);
 		static void scale(matrix4& dst, const vector3& value);
 		static void rotate(matrix4& dst, const vector3& value);
 		static void position(matrix4& dst, const vector3& value);

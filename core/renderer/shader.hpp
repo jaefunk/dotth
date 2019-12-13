@@ -56,16 +56,16 @@ namespace dotth {
 				return false;
 			return true;
 		}
-		const unsigned int program() 
+		const unsigned int program() const
 		{ 
 			return _program; 
 		}
-		void bind(void) {
+		void bind(void) const {
 			glEnable(GL_BLEND);
 			glBlendFunc(_blend_src, _blend_dst);
 			glUseProgram(_program);
 		}
-		void unbind(void) {
+		void unbind(void) const {
 			glUseProgram(0);
 		}
     };
