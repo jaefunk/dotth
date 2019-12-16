@@ -8,6 +8,18 @@ void testscene::init(const json& data)
 		parent->init();
 		parent->_trans->scl(1.f);
 		attach(parent);
+
+		auto child = std::make_shared<dotth::cube>();
+		child->init();
+		child->trans()->pos_y(2.f);
+		child->_trans->scl(0.5f);
+		parent->attach(child);
+
+		auto child2 = std::make_shared<dotth::cube>();
+		child2->init();
+		child2->trans()->pos_y(2.f);
+		child2->_trans->scl(1.0f);
+		child->attach(child2);
 	}
 
 	auto parent = std::make_shared<dotth::rectangle>();
