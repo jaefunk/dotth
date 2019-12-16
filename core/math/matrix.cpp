@@ -25,6 +25,7 @@ void dotth::matrix4::copy(const matrix4 & src, matrix4 & dst)
 
 void dotth::matrix4::scale(matrix4 & dst, const vector3 & value)
 {
+	memcpy(dst.m, dotth::matrix4::identity.m, dotth::matrix4::matrix_size);
 	dst.m[0] = value.x;
 	dst.m[5] = value.y;
 	dst.m[10] = value.z;
@@ -32,26 +33,27 @@ void dotth::matrix4::scale(matrix4 & dst, const vector3 & value)
 
 void dotth::matrix4::rotate(matrix4 & dst, const vector3 & value)
 {
+	memcpy(dst.m, dotth::matrix4::identity.m, dotth::matrix4::matrix_size);
 	float sx = sin(deg_to_rad(value.x));
 	float cx = cos(deg_to_rad(value.x));
 	float sy = sin(deg_to_rad(value.y));
 	float cy = cos(deg_to_rad(value.y));
 	float sz = sin(deg_to_rad(value.z));
 	float cz = cos(deg_to_rad(value.z));
-
 	dst.m[0] = cz * cy;
-	dst.m[4] = cz * sy * sx - sz * cy;
-	dst.m[8] = cz * sy * cx + sz * sx;
-	dst.m[1] = sz * cy;
-	dst.m[5] = sz * sy * sx + cz * cx;
-	dst.m[9] = sz * sy * cx + cz * sx;
-	dst.m[2] = -sy;
-	dst.m[6] = cy * sx;
+	dst.m[1] = (sz * cx) + (cz * sy * sx);
+	dst.m[2] = (sz * sx) - (cz * sy * cx);
+	dst.m[4] = -sz * cy;
+	dst.m[5] = (cz * cx) - (sz * sy * sx);
+	dst.m[6] = (cz * sx) + (sz * sy * cx);
+	dst.m[8] = sy;
+	dst.m[9] = -cy * sx;
 	dst.m[10] = cy * cx;
 }
 
 void dotth::matrix4::position(matrix4 & dst, const vector3 & value)
 {
+	memcpy(dst.m, dotth::matrix4::identity.m, dotth::matrix4::matrix_size);
 	dst.m[12] = value.x;
 	dst.m[13] = value.y;
 	dst.m[14] = value.z;
