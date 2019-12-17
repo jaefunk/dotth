@@ -18,7 +18,7 @@ namespace dotth {
         float _timescale = 1.f;
         
     public:
-		transform* _trans;
+		transform _trans;
 		render::command::inherit* _command;
 
     public:

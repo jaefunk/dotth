@@ -13,6 +13,13 @@ void dotth::rectangle::init(void)
 
 void dotth::rectangle::on_update(const float& delta)
 {
+	static float f = 0.f;
+	//f += delta * 1.f;
+	//trans()->rot_x(f);
+	//f += delta * 2.f;
+	//trans()->rot_y(f);
+	f += delta * 5.f;
+	trans().rot_z(f);
 }
 
 void dotth::rectangle::set_color(const render::rgba & _color)
@@ -52,5 +59,5 @@ void dotth::cube::on_update(const float& delta)
 	//f += delta * 2.f;
 	//trans()->rot_y(f);
 	f += delta * 5.f;
-	trans()->rot_z(f);
+	trans().rot_z(f);
 }

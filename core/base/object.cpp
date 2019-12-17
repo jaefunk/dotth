@@ -24,10 +24,9 @@ void dotth::object::update(void)
 	if (_flags.active == false)
 		return;
 
-	if (_trans != nullptr)
-		_trans->sync(is_root() == false ? parent<object>()->_trans : nullptr);
+	_trans.sync(is_root() == false ? &parent<object>()->_trans : nullptr);
 	if (_command != nullptr)
-		memcpy(_command->_model, _trans->result(), matrix4::matrix_size);
+		memcpy(_command->_model, _trans.result(), matrix4::matrix_size);
 	on_update(utility::timer::instance()->delta() * world_timescale());
 	foreach<object>([](std::shared_ptr<object> obj) { obj->update(); });
 }

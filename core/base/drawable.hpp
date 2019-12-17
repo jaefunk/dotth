@@ -18,10 +18,9 @@ namespace dotth {
 			_command = new ty;
 		}
 
-		template <typename ty = transform>
-		ty* trans(void)
+		transform& trans(void)
 		{
-			return (ty*)_trans;
+			return _trans;
 		}
 
 		template <typename ty = dotth::render::command::inherit>
