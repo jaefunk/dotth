@@ -60,6 +60,7 @@ SOFTWARE.
 #endif
 
 #include "base/utility.hpp"
+#include "math/transform.hpp"
 
 namespace dotth {
     

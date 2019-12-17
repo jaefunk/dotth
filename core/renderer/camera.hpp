@@ -1,7 +1,7 @@
 #ifndef __DOTTH_CAMERA_HPP__
 #define __DOTTH_CAMERA_HPP__
 
-#include "math/matrix.hpp"
+#include "dotth.hpp"
 
 #define VIEW_MATRIX_X_INVERSE
 

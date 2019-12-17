@@ -1,4 +1,6 @@
 #include "matrix.hpp"
+#include <cstring>
+#include <cmath>
 
 dotth::matrix4::matrix4(void)
 {

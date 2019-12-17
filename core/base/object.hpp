@@ -2,7 +2,6 @@
 #define __DOTTH_OBJECT_HPP__
 
 #include "node.hpp"
-#include "math/transform.hpp"
 #include "renderer/renderer.hpp"
 
 namespace dotth {
