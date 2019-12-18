@@ -67,6 +67,9 @@
     <ClCompile Include="..\..\..\core\math\transform.cpp">
       <Filter>math</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\core\script\node_parser.cpp">
+      <Filter>script</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\core\dotth.hpp" />
@@ -172,6 +175,9 @@
     <ClInclude Include="..\..\..\core\renderer\primitive_command.hpp">
       <Filter>renderer</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\core\script\node_parser.hpp">
+      <Filter>script</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="base">
@@ -212,6 +218,9 @@
     </Filter>
     <Filter Include="external\opengl">
       <UniqueIdentifier>{55c51378-8838-4799-95d2-873c6dcff6b3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="script">
+      <UniqueIdentifier>{6a713a40-756a-4944-9fea-f93f26019767}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

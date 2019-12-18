@@ -3,6 +3,7 @@
 
 void testscene::init(const json& data) 
 {
+	loadview("resources/views/testscene.xml");
 	{
 		auto parent = std::make_shared<dotth::cube>();
 		parent->init();
