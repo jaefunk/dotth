@@ -23,7 +23,6 @@
     <ClCompile Include="..\..\..\core\base\component.cpp" />
     <ClCompile Include="..\..\..\core\base\drawable.cpp" />
     <ClCompile Include="..\..\..\core\base\object.cpp" />
-    <ClCompile Include="..\..\..\core\base\resource.cpp" />
     <ClCompile Include="..\..\..\core\base\scene.cpp" />
     <ClCompile Include="..\..\..\core\base\utility.cpp" />
     <ClCompile Include="..\..\..\core\external\stb\image\stb_image.cpp" />
@@ -39,8 +38,10 @@
     <ClCompile Include="..\..\..\core\renderer\renderer.cpp" />
     <ClCompile Include="..\..\..\core\renderer\primitive_command.cpp" />
     <ClCompile Include="..\..\..\core\renderer\render_queue.cpp" />
-    <ClCompile Include="..\..\..\core\renderer\shader.cpp" />
-    <ClCompile Include="..\..\..\core\renderer\texture.cpp" />
+    <ClCompile Include="..\..\..\core\resource\mesh.cpp" />
+    <ClCompile Include="..\..\..\core\resource\resource.cpp" />
+    <ClCompile Include="..\..\..\core\resource\shader.cpp" />
+    <ClCompile Include="..\..\..\core\resource\texture.cpp" />
     <ClCompile Include="..\..\..\core\script\node_parser.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -49,7 +50,6 @@
     <ClInclude Include="..\..\..\core\base\drawable.hpp" />
     <ClInclude Include="..\..\..\core\base\node.hpp" />
     <ClInclude Include="..\..\..\core\base\object.hpp" />
-    <ClInclude Include="..\..\..\core\base\resource.hpp" />
     <ClInclude Include="..\..\..\core\base\scene.hpp" />
     <ClInclude Include="..\..\..\core\base\utility.hpp" />
     <ClInclude Include="..\..\..\core\dotth.hpp" />
@@ -77,8 +77,10 @@
     <ClInclude Include="..\..\..\core\renderer\renderer.hpp" />
     <ClInclude Include="..\..\..\core\renderer\primitive_command.hpp" />
     <ClInclude Include="..\..\..\core\renderer\render_queue.hpp" />
-    <ClInclude Include="..\..\..\core\renderer\shader.hpp" />
-    <ClInclude Include="..\..\..\core\renderer\texture.hpp" />
+    <ClInclude Include="..\..\..\core\resource\mesh.hpp" />
+    <ClInclude Include="..\..\..\core\resource\resource.hpp" />
+    <ClInclude Include="..\..\..\core\resource\shader.hpp" />
+    <ClInclude Include="..\..\..\core\resource\texture.hpp" />
     <ClInclude Include="..\..\..\core\script\node_parser.hpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

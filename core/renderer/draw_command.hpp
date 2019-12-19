@@ -2,7 +2,7 @@
 #define __DOTTH_DRAW_COMMAND_HPP__
 
 #include "dotth.hpp"
-#include "shader.hpp"
+#include "resource/shader.hpp"
 
 namespace dotth {
 	namespace render {

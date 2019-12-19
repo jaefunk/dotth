@@ -40,19 +40,10 @@
     <ClCompile Include="..\..\..\core\external\stb\image\stb_image.cpp">
       <Filter>external\stb\image</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\core\renderer\shader.cpp">
-      <Filter>renderer</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\core\renderer\render_queue.cpp">
       <Filter>renderer</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\core\base\resource.cpp">
-      <Filter>base</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\core\renderer\primitive.cpp">
-      <Filter>renderer</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\core\renderer\texture.cpp">
       <Filter>renderer</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\core\math\vector.cpp">
@@ -69,6 +60,18 @@
     </ClCompile>
     <ClCompile Include="..\..\..\core\script\node_parser.cpp">
       <Filter>script</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\core\resource\resource.cpp">
+      <Filter>resource</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\core\resource\texture.cpp">
+      <Filter>resource</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\core\resource\shader.cpp">
+      <Filter>resource</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\core\resource\mesh.cpp">
+      <Filter>resource</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -136,9 +139,6 @@
     <ClInclude Include="..\..\..\core\external\stb\image\stb_image.h">
       <Filter>external\stb\image</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\core\renderer\shader.hpp">
-      <Filter>renderer</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\core\external\opengl\eglew.h">
       <Filter>external\opengl</Filter>
     </ClInclude>
@@ -157,13 +157,7 @@
     <ClInclude Include="..\..\..\core\renderer\render_queue.hpp">
       <Filter>renderer</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\core\base\resource.hpp">
-      <Filter>base</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\core\renderer\primitive.hpp">
-      <Filter>renderer</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\core\renderer\texture.hpp">
       <Filter>renderer</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\core\renderer\camera.hpp">
@@ -177,6 +171,18 @@
     </ClInclude>
     <ClInclude Include="..\..\..\core\script\node_parser.hpp">
       <Filter>script</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\core\resource\resource.hpp">
+      <Filter>resource</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\core\resource\shader.hpp">
+      <Filter>resource</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\core\resource\texture.hpp">
+      <Filter>resource</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\core\resource\mesh.hpp">
+      <Filter>resource</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -221,6 +227,9 @@
     </Filter>
     <Filter Include="script">
       <UniqueIdentifier>{6a713a40-756a-4944-9fea-f93f26019767}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="resource">
+      <UniqueIdentifier>{f06afb61-a061-47c1-80a1-6642e78c08a4}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

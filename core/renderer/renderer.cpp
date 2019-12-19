@@ -1,7 +1,7 @@
 #include "renderer.hpp"
 #include "base/scene.hpp"
-#include "shader.hpp"
-#include "base/resource.hpp"
+#include "resource/resource.hpp"
+#include "resource/shader.hpp"
 #include "camera.hpp"
 
 void dotth::gl_callback::display(void) {
@@ -52,9 +52,9 @@ void dotth::renderer::init_gl(int argc, char** argv) {
 	if (glewInit() == GLEW_OK)
 #endif
 	{
-        dotth::shader_manager::instance()->load("simple", "resources/glsl/Simple.glsl");
-		dotth::shader_manager::instance()->load("mvp", "resources/glsl/mvp.glsl");
-		dotth::shader_manager::instance()->load("ortho", "resources/glsl/ortho.glsl");
+        dotth::resource_manager::instance()->load(type::resource::shader, "resources/glsl/Simple.glsl", "simple");
+		dotth::resource_manager::instance()->load(type::resource::shader, "resources/glsl/mvp.glsl", "mvp");
+		dotth::resource_manager::instance()->load(type::resource::shader, "resources/glsl/ortho.glsl", "ortho");
         dotth::resource_manager::instance()->load(type::resource::image, "resources/cat2.png", "cat");
         dotth::resource_manager::instance()->load(type::resource::image, "resources/usagi.png", "usagi");
 	}
