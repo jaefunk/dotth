@@ -19,6 +19,7 @@ namespace dotth {
 		void process(const dotth::render::draw_type& type);
 	private:
         std::map<dotth::render::draw_type, dotth::render_queue> _queue;
+		unsigned int _drawing_object_cnt = 0;
     };
 };
 
