@@ -7,7 +7,7 @@
 void dotth::gl_callback::display(void) {
 	
 	utility::timer::instance()->update();
-	scene_manager::instance()->update();	
+	scene_manager::instance()->update();
 	camera::instance()->sync_all();
 	scene_manager::instance()->draw();
 	

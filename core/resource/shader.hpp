@@ -51,25 +51,10 @@ namespace dotth {
 		virtual void clear(void) override {};
 		virtual bool load(const char* path) override;
     public:
-		const bool set_parameter(const char* name, const float& value)
-		{
-			auto iter = _parameters.find(name);
-			if (iter == _parameters.end())
-				return false;
-			return true;
-		}
-		const unsigned int program() const
-		{ 
-			return _program; 
-		}
-		void bind(void) const {
-			glEnable(GL_BLEND);
-			glBlendFunc(_blend_src, _blend_dst);
-			glUseProgram(_program);
-		}
-		void unbind(void) const {
-			glUseProgram(0);
-		}
+		const bool set_parameter(const char* name, const float& value);
+		const unsigned int program() const;
+		void bind(void) const;
+		void unbind(void) const;
     };
 };
 

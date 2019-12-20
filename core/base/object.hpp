@@ -18,7 +18,7 @@ namespace dotth {
         
     public:
 		transform _trans;
-		render::command::inherit* _command;
+		render::command::inherit* _command = nullptr;
 
     public:
 		void set_timescale(const float & scale);

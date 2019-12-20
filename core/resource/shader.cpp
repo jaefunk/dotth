@@ -144,3 +144,26 @@ bool dotth::shader::load(const char* path)
 	}
 	return true;
 }
+
+const bool dotth::shader::set_parameter(const char * name, const float & value)
+{
+	auto iter = _parameters.find(name);
+	if (iter == _parameters.end())
+		return false;
+	return true;
+}
+
+const unsigned int dotth::shader::program() const
+{
+	return _program;
+}
+
+void dotth::shader::bind(void) const {
+	glEnable(GL_BLEND);
+	glBlendFunc(_blend_src, _blend_dst);
+	glUseProgram(_program);
+}
+
+void dotth::shader::unbind(void) const {
+	glUseProgram(0);
+}
