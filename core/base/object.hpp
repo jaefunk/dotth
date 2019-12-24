@@ -24,6 +24,9 @@ namespace dotth {
 		void set_timescale(const float & scale);
 		const float& local_timescale(void);
 		const float world_timescale(void);
+		void set_alive(const bool& b) { _flags.alive = b; }
+		void set_active(const bool& b) { _flags.active = b; }
+		void set_visible(const bool& b) { _flags.visible = b; }
         
     public:
 		virtual void init(void) {};

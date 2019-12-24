@@ -19,6 +19,7 @@ void dotth::rectangle::on_update(const float& delta)
 	//f += delta * 2.f;
 	//trans()->rot_y(f);
 	f += delta * 5.f;
+
 	trans().rot_z(f);
 }
 

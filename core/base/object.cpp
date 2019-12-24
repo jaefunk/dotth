@@ -28,7 +28,9 @@ void dotth::object::update(void)
 	if (_command != nullptr)
 		memcpy(_command->_model, _trans.result(), matrix4::matrix_size);
 	on_update(utility::timer::instance()->delta() * world_timescale());
-	foreach<object>([](std::shared_ptr<object> obj) { obj->update(); });
+	foreach<object>([](std::shared_ptr<object> obj) { 
+		obj->update(); 
+	});
 }
 
 void dotth::object::push_render_queue(void)
