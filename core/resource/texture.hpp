@@ -16,7 +16,7 @@ namespace dotth {
         virtual ~texture(void) {
             clear();
         }
-        virtual void clear(void) {
+        virtual void clear(void) override {
             if (_data != nullptr)
                 stbi_image_free(_data);
             _res_name = "";

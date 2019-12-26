@@ -16,7 +16,7 @@ std::string dotth::node_parser::read_file(const char * file_path)
 	}
 	else 
 	{
-		printf("파일 %s 를 읽을 수 없음. 정확한 디렉토리를 사용 중입니까 ? FAQ 를 우선 읽어보는 걸 잊지 마세요!\n", path.c_str());
+		printf("can not find file (%s)\n", path.c_str());
 		getchar();
 		return "";
 	}

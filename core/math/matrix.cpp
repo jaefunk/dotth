@@ -81,7 +81,7 @@ void dotth::matrix4::multiply(const matrix4 & l, const matrix4 & r, matrix4 & ds
 	dst.m[15] = r.m[3] * l.m[12] + r.m[7] * l.m[13] + r.m[11] * l.m[14] + r.m[15] * l.m[15];
 }
 
-const size_t dotth::matrix4::matrix_size = sizeof(float) * 16;
+const unsigned long dotth::matrix4::matrix_size = sizeof(float) * 16;
 const dotth::matrix4 dotth::matrix4::identity = matrix4(1.f, 0.f, 0.f, 0.f, 0.f, 1.f, 0.f, 0.f, 0.f, 0.f, 1.f, 0.f, 0.f, 0.f, 0.f, 1.f);
 const dotth::matrix4 dotth::matrix4::zero = matrix4(0.f, 0.f, 0.f, 0.f, 0.f, 0.f, 0.f, 0.f, 0.f, 0.f, 0.f, 0.f, 0.f, 0.f, 0.f, 0.f);
 

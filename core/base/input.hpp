@@ -18,7 +18,7 @@ namespace dotth {
 	public:
 		void flush(void)
 		{
-			printf("mouse: %d keyboard: %d\n", _mouse_input_list.size(), _keyboard_input_list.size());
+			//printf("mouse: %d keyboard: %d\n", _mouse_input_list.size(), _keyboard_input_list.size());
 			_mouse_input_list.clear();
 			_keyboard_input_list.clear();
 		}

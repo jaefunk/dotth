@@ -8,7 +8,8 @@ namespace dotth {
 		class framebuffer {
 			static framebuffer create(void)
 			{
-				//framebuffer fb;
+				framebuffer fb;
+                return fb;
 				//glGenFramebuffers(1, &fb._id);
 				//glBindFramebuffer(GL_FRAMEBUFFER, fb._id);
 				//

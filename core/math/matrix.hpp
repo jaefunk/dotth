@@ -17,7 +17,7 @@ namespace dotth {
 		static void rotate(matrix4& dst, const vector3& value);
 		static void position(matrix4& dst, const vector3& value);
 		static void multiply(const matrix4& l, const matrix4& r, matrix4& dst);
-		static const size_t matrix_size;
+		static const unsigned long matrix_size;
         static const matrix4 identity;
         static const matrix4 zero;
 	};

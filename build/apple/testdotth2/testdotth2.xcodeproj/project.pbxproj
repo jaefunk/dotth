@@ -119,7 +119,7 @@
 		27ADAA26239923FA009254B1 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 1120;
+				LastUpgradeCheck = 1130;
 				ORGANIZATIONNAME = dotth;
 				TargetAttributes = {
 					27ADAA2D239923FA009254B1 = {
@@ -299,6 +299,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = testdotth2.entitlements;
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				HEADER_SEARCH_PATHS = ../../../core/;
@@ -317,6 +318,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = testdotth2.entitlements;
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				HEADER_SEARCH_PATHS = ../../../core/;

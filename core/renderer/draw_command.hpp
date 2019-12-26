@@ -33,6 +33,7 @@ namespace dotth {
 		namespace command {
 			class inherit {
 			public:
+                virtual ~inherit(void) {}
 				draw_type _type = draw_type::none;
 				float _model[16];
 				dotth::shader _shader;
