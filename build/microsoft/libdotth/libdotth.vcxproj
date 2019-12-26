@@ -22,6 +22,7 @@
     <ClCompile Include="..\..\..\core\base\base.cpp" />
     <ClCompile Include="..\..\..\core\base\component.cpp" />
     <ClCompile Include="..\..\..\core\base\drawable.cpp" />
+    <ClCompile Include="..\..\..\core\base\input.cpp" />
     <ClCompile Include="..\..\..\core\base\object.cpp" />
     <ClCompile Include="..\..\..\core\base\scene.cpp" />
     <ClCompile Include="..\..\..\core\base\utility.cpp" />
@@ -34,6 +35,8 @@
     <ClCompile Include="..\..\..\core\platform\filesystem\path.cpp" />
     <ClCompile Include="..\..\..\core\platform\platform.cpp" />
     <ClCompile Include="..\..\..\core\renderer\camera.cpp" />
+    <ClCompile Include="..\..\..\core\renderer\framebuffer.cpp" />
+    <ClCompile Include="..\..\..\core\renderer\gl_global_callback.cpp" />
     <ClCompile Include="..\..\..\core\renderer\primitive.cpp" />
     <ClCompile Include="..\..\..\core\renderer\renderer.cpp" />
     <ClCompile Include="..\..\..\core\renderer\primitive_command.cpp" />
@@ -48,6 +51,7 @@
     <ClInclude Include="..\..\..\core\base\base.hpp" />
     <ClInclude Include="..\..\..\core\base\component.hpp" />
     <ClInclude Include="..\..\..\core\base\drawable.hpp" />
+    <ClInclude Include="..\..\..\core\base\input.hpp" />
     <ClInclude Include="..\..\..\core\base\node.hpp" />
     <ClInclude Include="..\..\..\core\base\object.hpp" />
     <ClInclude Include="..\..\..\core\base\scene.hpp" />
@@ -73,6 +77,8 @@
     <ClInclude Include="..\..\..\core\platform\platform.hpp" />
     <ClInclude Include="..\..\..\core\renderer\camera.hpp" />
     <ClInclude Include="..\..\..\core\renderer\draw_command.hpp" />
+    <ClInclude Include="..\..\..\core\renderer\framebuffer.hpp" />
+    <ClInclude Include="..\..\..\core\renderer\gl_global_callback.hpp" />
     <ClInclude Include="..\..\..\core\renderer\primitive.hpp" />
     <ClInclude Include="..\..\..\core\renderer\renderer.hpp" />
     <ClInclude Include="..\..\..\core\renderer\primitive_command.hpp" />

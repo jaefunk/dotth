@@ -4,12 +4,7 @@
 #include "dotth.hpp"
 #include "render_queue.hpp"
 
-namespace dotth {
-	namespace gl_callback {
-        void display(void);
-        void reshape(int width, int height);
-	};
-    
+namespace dotth {    
     class renderer : public utility::singleton<renderer> {
     public:
         void init_gl(int argc, char** argv);

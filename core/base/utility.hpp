@@ -3,7 +3,7 @@
 
 #include "dotth.hpp"
 
-constexpr long long time_scale_millisecond = 1000;
+constexpr long long time_scale_millisecond = 10000000;
 
 namespace dotth {
     namespace utility {
@@ -38,8 +38,8 @@ namespace dotth {
             const float delta(void) {
                 return _delta;
             }
-            std::time_t time_since_epoch(const long long time_scale = time_scale_millisecond) {
-                return std::chrono::system_clock::now().time_since_epoch().count() / time_scale;
+            std::time_t time_since_epoch(void) {
+                return std::chrono::system_clock::now().time_since_epoch().count();
             }
         private:
             std::time_t _prev = 0;

@@ -1,49 +1,8 @@
 #include "renderer.hpp"
+#include "gl_global_callback.hpp"
 #include "base/scene.hpp"
 #include "resource/resource.hpp"
 #include "camera.hpp"
-
-void dotth::gl_callback::display(void) {
-	
-	utility::timer::instance()->update();
-	scene_manager::instance()->update();
-	camera::instance()->sync_all();
-	scene_manager::instance()->draw();
-	
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	renderer::instance()->process(dotth::render::draw_type::perspective);
-	renderer::instance()->process(dotth::render::draw_type::orthographic);
-
-
-	//unsigned int fbo;
-	//glGenFramebuffers(1, &fbo);
-	//glBindFramebuffer(GL_FRAMEBUFFER, fbo);
-	//glClearColor(0.1f, 0.1f, 0.1f, 1.f);
-	//glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	//glEnable(GL_DEPTH_TEST);
-	//glDepthFunc(GL_LESS);
-	//renderer::instance()->process(dotth::render::draw_type::perspective);
-	//glBindFramebuffer(GL_FRAMEBUFFER, 0);
-
-
-	renderer::instance()->flush();
-
-	glutSwapBuffers();
-	glutPostRedisplay();
-}
-
-void dotth::gl_callback::reshape(int width, int height) {
-    
-	camera::instance()->set_pers(0.1f, 100.f, static_cast<float>(width), static_cast<float>(height), 60.f);
-	camera::instance()->set_view(vector3(0.f, 5.f, -5.f), vector3(0.f, 1.f, 0.f), vector3(0.f, 0.f, 0.f));
-	camera::instance()->set_ortho_near(-1.f);
-	camera::instance()->set_ortho_far(1.f);
-	float ratio = width / height / 2.f;
-	camera::instance()->set_ltrb(-ratio, 0.5f, ratio, -0.5f);
-	camera::instance()->set_ortho1px(1.f / static_cast<float>(height));
-	glViewport(0, 0, width, height);
-	glutPostRedisplay();
-}
 
 void dotth::renderer::init_gl(int argc, char** argv) {
     glutInit(&argc, argv);
@@ -56,8 +15,13 @@ void dotth::renderer::init_gl(int argc, char** argv) {
     glEnable(GL_DEPTH_TEST);
     glDepthFunc(GL_LESS);
 	
-    glutDisplayFunc(dotth::gl_callback::display);
-    glutReshapeFunc(dotth::gl_callback::reshape);
+    glutDisplayFunc(dotth::gl_global_callback::display);
+    glutReshapeFunc(dotth::gl_global_callback::reshape);
+
+	glutTimerFunc(1, dotth::gl_global_callback::timer, 0);
+	glutKeyboardFunc(dotth::gl_global_callback::keyboard);
+	glutMouseFunc(dotth::gl_global_callback::mouse);
+	glutMotionFunc(dotth::gl_global_callback::motion);
 
 #ifdef WIN32
 	if (glewInit() == GLEW_OK)
@@ -77,7 +41,7 @@ void dotth::renderer::flush(void)
 {
 	for (auto& q : _queue)
 		q.second.clear();
-	printf("drawing_object_count: %d\n", _drawing_object_cnt);
+	//printf("drawing_object_count: %d\n", _drawing_object_cnt);
 	_drawing_object_cnt = 0;
 }
 
