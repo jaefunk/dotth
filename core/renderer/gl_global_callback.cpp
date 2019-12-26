@@ -6,15 +6,20 @@
 
 void dotth::gl_global_callback::display(void) 
 {
+    printf("%f\n", dotth::utility::timer::instance()->delta());
     utility::timer::instance()->update();
     scene_manager::instance()->update();
     camera::instance()->sync_all();
     scene_manager::instance()->draw();
+    
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	renderer::instance()->process(dotth::render::draw_type::perspective);
 	renderer::instance()->process(dotth::render::draw_type::orthographic);
+    
 	renderer::instance()->flush();
 	input::instance()->flush();
+    glutSwapBuffers();
+    glutPostRedisplay();
 }
 
 void dotth::gl_global_callback::reshape(int width, int height) 
@@ -26,16 +31,15 @@ void dotth::gl_global_callback::reshape(int width, int height)
 	float ratio = width / height / 2.f;
 	camera::instance()->set_ltrb(-ratio, 0.5f, ratio, -0.5f);
 	camera::instance()->set_ortho1px(1.f / static_cast<float>(height));
-	//glViewport(0, 0, width, height);
+//	glViewport(0, 0, width, height);
 //	glutSwapBuffers();
 //	glutPostRedisplay();
 }
 
 void dotth::gl_global_callback::timer(int value)
 {
-	//printf("%f\n", dotth::utility::timer::instance()->delta());
-    glutSwapBuffers();
-    glutPostRedisplay();
+	
+    
 	glutTimerFunc(1, dotth::gl_global_callback::timer, 0);
 }
 
