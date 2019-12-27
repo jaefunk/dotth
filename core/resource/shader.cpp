@@ -159,7 +159,7 @@ const unsigned int dotth::shader::program() const
 }
 
 void dotth::shader::bind(void) const {
-	glEnable(GL_BLEND);
+	//glEnable(GL_BLEND);
 	glBlendFunc(_blend_src, _blend_dst);
 	glUseProgram(_program);
 }

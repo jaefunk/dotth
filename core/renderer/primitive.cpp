@@ -13,14 +13,14 @@ void dotth::rectangle::init(void)
 
 void dotth::rectangle::on_update(const float& delta)
 {
-	static float f = 0.f;
-	//f += delta * 1.f;
-	//trans()->rot_x(f);
-	//f += delta * 2.f;
-	//trans()->rot_y(f);
-	f += delta * 5.f;
+	//static float f = 0.f;
+	////f += delta * 1.f;
+	////trans()->rot_x(f);
+	////f += delta * 2.f;
+	////trans()->rot_y(f);
+	//f += delta * 5.f;
 
-	trans().rot_z(f);
+	//trans().rot_z(f);
 }
 
 void dotth::rectangle::set_color(const render::rgba & _color)
@@ -39,8 +39,8 @@ void dotth::cube::init(void)
 		{ -0.5f, +0.5f, +0.5f },{ +0.5f, +0.5f, +0.5f },{ -0.5f, -0.5f, +0.5f },{ +0.5f, -0.5f, +0.5f },	// back
 	};
 	command<primitive_perspective>()->c = {
-		{ 1.f, 0.f, 0.f, 1.f },{ 0.f, 1.f, 0.f, 1.f },{ 0.f, 0.f, 1.f, 1.f },{ 0.f, 1.f, 1.f, 1.f },
-		{ 0.f, 1.f, 1.f, 1.f },{ 0.f, 0.f, 1.f, 1.f },{ 0.f, 1.f, 0.f, 1.f },{ 1.f, 0.f, 0.f, 1.f }
+		{ 1.f, 0.f, 0.f, 0.5f },{ 0.f, 1.f, 0.f, 0.5f },{ 0.f, 0.f, 1.f, 0.5f },{ 0.f, 1.f, 1.f, 0.5f },
+		{ 0.f, 1.f, 1.f, 0.5f },{ 0.f, 0.f, 1.f, 0.5f },{ 0.f, 1.f, 0.f, 0.5f },{ 1.f, 0.f, 0.f, 0.5f }
 	};
 	command<primitive_perspective>()->i = {
 		0, 1, 2, 1, 3, 2,	// front
@@ -59,6 +59,9 @@ void dotth::cube::on_update(const float& delta)
 	//trans()->rot_x(f);
 	//f += delta * 2.f;
 	//trans()->rot_y(f);
-	f += delta * 5.f;
-	trans().rot_z(f);
+	
+	f += delta;
+	trans().rot_z(f/2);
+	trans().rot_x(f/3);
+	trans().rot_y(f/4);
 }
