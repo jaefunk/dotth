@@ -5,7 +5,7 @@
 #ifdef WIN32
 constexpr long long time_scale_millisecond = 10000000;
 #else
-constexpr long long time_scale_millisecond = 100000;
+constexpr long long time_scale_millisecond = 1000000;
 #endif
 namespace dotth {
     namespace utility {

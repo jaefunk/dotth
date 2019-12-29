@@ -6,7 +6,7 @@
 
 void dotth::gl_global_callback::display(void) 
 {
-    printf("%f\n", dotth::utility::timer::instance()->delta());
+    //printf("%f\n", dotth::utility::timer::instance()->delta());
     utility::timer::instance()->update();
     scene_manager::instance()->update();
     camera::instance()->sync_all();
@@ -45,6 +45,10 @@ void dotth::gl_global_callback::timer(int value)
 
 void dotth::gl_global_callback::keyboard(unsigned char key, int x, int y)
 {
+    if (key == 'w')
+        glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+    if (key == 'f')
+        glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 	input::instance()->push_keyboard_input(key);
 }
 
