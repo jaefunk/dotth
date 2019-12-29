@@ -7,7 +7,7 @@ namespace dotth {
 	struct mouse {
 		vector2 pos;
 		int button = 0;
-		int state = 0;
+		bool down = 0;
 	};
 	struct keyboard {
 		unsigned char key = 0;
@@ -16,6 +16,14 @@ namespace dotth {
 		std::list<mouse> _mouse_input_list;
 		std::list<keyboard> _keyboard_input_list;
 	public:
+        const std::list<keyboard>& get_keyboard_input(void)
+        {
+            return _keyboard_input_list;
+        }
+        const std::list<mouse>& get_mouse_input(void)
+        {
+            return _mouse_input_list;
+        }
 		void flush(void)
 		{
 			//printf("mouse: %d keyboard: %d\n", _mouse_input_list.size(), _keyboard_input_list.size());
@@ -27,7 +35,7 @@ namespace dotth {
 			mouse m;
 			m.pos = { static_cast<float>(x), static_cast<float>(y) };
 			m.button = button;
-			m.state = state;
+			m.down = !state;
 			_mouse_input_list.push_back(m);
 		}
 		void push_mouse_move(int x, int y)

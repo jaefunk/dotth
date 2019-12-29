@@ -3,12 +3,15 @@
 
 #include "dotth.hpp"
 #include "base/object.hpp"
+#include "base/input.hpp"
 
 namespace dotth {
     class scene : public object
     {
     public:
         virtual void init(const json& data = json()) {};
+        virtual void on_keyboard_input(const std::list<keyboard>& _inputs) {};
+        virtual void on_mouse_input(const std::list<mouse>& _inputs) {};
     protected:
 		bool loadview(const std::string& path);
     };
@@ -65,12 +68,7 @@ namespace dotth {
         }
         
     public:
-        void update(void) {
-            apply_new_scene();
-            if (_current == nullptr)
-                return;
-            _current->update();
-        }
+        void update(void);
         void draw(void) {
             if (_current == nullptr)
                 return;

@@ -11,7 +11,7 @@ void dotth::render_queue::clear(void) {
 
 void dotth::render_queue::process(void) const
 {
-	std::for_each(std::begin(commands), std::end(commands), [](dotth::render::command::inherit* p) {
+	std::for_each(std::rbegin(commands), std::rend(commands), [](dotth::render::command::inherit* p) {
 		p->draw();
 	});
 }

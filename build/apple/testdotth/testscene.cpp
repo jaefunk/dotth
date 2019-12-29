@@ -8,8 +8,8 @@ void testscene::init(const json& data)
         auto parent = std::make_shared<dotth::cube>();
         parent->init();
         parent->trans().pos_x(0.f);
-        parent->trans().scl(0.5f);
         attach(parent);
+        
 
         {
             auto child = std::make_shared<dotth::cube>();
@@ -368,3 +368,23 @@ void testscene::init(const json& data)
 void testscene::on_update(const float& delta)
 {
 }
+
+void testscene::on_keyboard_input(const std::list<dotth::keyboard>& _inputs)
+{
+    for(auto const& input : _inputs)
+    {
+        if (input.key == 'w')
+            glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+        if (input.key == 'f')
+            glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+        printf("%d\n", input.key);
+    }
+}
+void testscene::on_mouse_input(const std::list<dotth::mouse>& _inputs)
+{
+    for(auto const& input : _inputs)
+    {
+        printf("%d // %s // %d\n", input.button, input.pos.c_str(), input.down);
+    }
+}
+

@@ -40,13 +40,13 @@ void dotth::cube::init(void)
 	};
 	command<primitive_perspective>()->c = {
         { 1.f, 1.f, 0.f, 1.f },
-		{ 0.f, 0.9f, 0.15f, 1.f },
-        { 1.f, 0.75f, 0.30f, 1.f },
-        { 0.f, 0.6f, 0.45f, 1.f },
-        { 1.f, 0.45f, 0.60f, 1.f },
-        { 0.f, 0.3f, 0.75f, 1.f },
-        { 1.f, 0.15f, 0.90f, 1.f },
-        { 0.f, 0.f, 1.f, 1.f },
+        { 0.f, 1.f, 1.f, 1.f },
+		{ 1.f, 1.f, 0.f, 1.f },
+        { 0.f, 1.f, 1.f, 1.f },
+        { 1.f, 0.f, 1.f, 1.f },
+        { 1.f, 0.f, 0.f, 1.f },
+        { 1.f, 0.f, 1.f, 1.f },
+        { 1.f, 0.f, 0.f, 1.f },
 	};
 	command<primitive_perspective>()->i = {
 		0, 1, 2, 1, 3, 2,	// front
@@ -66,7 +66,7 @@ void dotth::cube::on_update(const float& delta)
 	//f += delta * 2.f;
 	//trans()->rot_y(f);
 	
-	f += delta;
+    f += delta;// * 30.f;
 	trans().rot_z(f/2);
 	trans().rot_x(f/3);
 	trans().rot_y(f/4);
