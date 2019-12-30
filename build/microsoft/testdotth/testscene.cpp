@@ -1,15 +1,15 @@
 ﻿
 #include "testscene.hpp"
 
-void testscene::init(const json& data) 
+void testscene::init(const json& data)
 {
 	//loadview("resources/views/testscene.xml");
 	{
 		auto parent = std::make_shared<dotth::cube>();
 		parent->init();
 		parent->trans().pos_x(0.f);
-		//parent->trans().scl(0.5f);
 		attach(parent);
+
 
 		{
 			auto child = std::make_shared<dotth::cube>();
@@ -336,9 +336,9 @@ void testscene::init(const json& data)
 			}
 		}
 
-		
 
-		
+
+
 	}
 
 	auto parent = std::make_shared<dotth::rectangle>();
@@ -346,9 +346,6 @@ void testscene::init(const json& data)
 	parent->set_color({ 1.f, 0.f, 0.f, 1.f });
 	parent->trans().size(100.f, 100.f);
 	parent->trans().pos_x(200.f);
-	//parent->trans().scl(0.8f, 1.5f, 1.f);
-	//parent->trans().rot_z(45.f);
-	
 	attach(parent);
 
 	auto child = std::make_shared<dotth::rectangle>();
@@ -368,7 +365,26 @@ void testscene::init(const json& data)
 	child->attach(child2);
 }
 
-void testscene::on_update(const float& delta) 
+void testscene::on_update(const float& delta)
 {
-	//printf("%f\n", dotth::utility::timer::instance()->delta());
 }
+
+void testscene::on_keyboard_input(const std::list<dotth::keyboard>& _inputs)
+{
+	for (auto const& input : _inputs)
+	{
+		if (input.key == 'w')
+			glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+		if (input.key == 'f')
+			glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+		printf("%d\n", input.key);
+	}
+}
+void testscene::on_mouse_input(const std::list<dotth::mouse>& _inputs)
+{
+	for (auto const& input : _inputs)
+	{
+		printf("%d // %s // %d\n", input.button, input.pos.c_str(), input.down);
+	}
+}
+

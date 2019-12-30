@@ -82,6 +82,9 @@
     <ClCompile Include="..\..\..\core\base\input.cpp">
       <Filter>base</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\core\resource\material.cpp">
+      <Filter>resource</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\core\dotth.hpp" />
@@ -201,6 +204,9 @@
     </ClInclude>
     <ClInclude Include="..\..\..\core\base\input.hpp">
       <Filter>base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\core\resource\material.hpp">
+      <Filter>resource</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -41,6 +41,7 @@
     <ClCompile Include="..\..\..\core\renderer\renderer.cpp" />
     <ClCompile Include="..\..\..\core\renderer\primitive_command.cpp" />
     <ClCompile Include="..\..\..\core\renderer\render_queue.cpp" />
+    <ClCompile Include="..\..\..\core\resource\material.cpp" />
     <ClCompile Include="..\..\..\core\resource\mesh.cpp" />
     <ClCompile Include="..\..\..\core\resource\resource.cpp" />
     <ClCompile Include="..\..\..\core\resource\shader.cpp" />
@@ -83,6 +84,7 @@
     <ClInclude Include="..\..\..\core\renderer\renderer.hpp" />
     <ClInclude Include="..\..\..\core\renderer\primitive_command.hpp" />
     <ClInclude Include="..\..\..\core\renderer\render_queue.hpp" />
+    <ClInclude Include="..\..\..\core\resource\material.hpp" />
     <ClInclude Include="..\..\..\core\resource\mesh.hpp" />
     <ClInclude Include="..\..\..\core\resource\resource.hpp" />
     <ClInclude Include="..\..\..\core\resource\shader.hpp" />

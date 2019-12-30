@@ -1,25 +1,125 @@
 #include "camera.hpp"
 #include "math/math.hpp"
 
-const float * dotth::camera::view(void) {
-	//glGetFloatv(GL_MODELVIEW_MATRIX, _view.m);
-	return _view.m;
-}
-
-const float * dotth::camera::pers(void) {
-	//glGetFloatv(GL_PROJECTION_MATRIX, _proj.m);
-	return _pers.m;
-}
-
-const float * dotth::camera::view_pers(void) {
-	return _view_pers.m;
-}
-
 void dotth::camera::sync_all(void)
 {
     sync_view(); sync_pers(); sync_ortho();
 	_dirty_view = _dirty_pers = _dirty_ortho = true;
 	matrix4::multiply(_view, _pers, _view_pers);
+}
+
+const float * dotth::camera::view(void)
+{
+	//glGetFloatv(GL_MODELVIEW_MATRIX, _view.m);
+	return _view.m;
+}
+
+const float * dotth::camera::pers(void)
+{
+	//glGetFloatv(GL_PROJECTION_MATRIX, _proj.m);
+	return _pers.m;
+}
+
+const float * dotth::camera::ortho(void)
+{
+	return _ortho.m;
+}
+
+const float & dotth::camera::ortho1px(void)
+{
+	return _ortho1px;
+}
+
+const float * dotth::camera::view_pers(void)
+{
+	return _view_pers.m;
+}
+
+void dotth::camera::set_view(const vector3 & eye, const vector3 & up, const vector3 & at) 
+{
+	set_eye(eye); set_up(up); set_at(at);
+}
+
+void dotth::camera::set_eye(const vector3 & v) 
+{ 
+	_dirty_view = true; 
+	_eye = v; 
+}
+
+void dotth::camera::set_up(const vector3 & v) 
+{ 
+	_dirty_view = true; 
+	_up = v; 
+}
+
+void dotth::camera::set_at(const vector3 & v) 
+{ 
+	_dirty_view = true; 
+	_at = v; 
+}
+
+void dotth::camera::set_pers(const float & z_near, const float & z_far, const float & width, const float & height, const float & fov) 
+{
+	set_pers_near(z_near); 
+	set_pers_far(z_far); 
+	set_aspect(width, height); 
+	set_fov(fov);
+}
+
+void dotth::camera::set_pers_near(const float & v) 
+{ 
+	_dirty_pers = true; 
+	_pers_near = v; 
+}
+
+void dotth::camera::set_pers_far(const float & v) 
+{ 
+	_dirty_pers = true; 
+	_pers_far = v; 
+}
+
+void dotth::camera::set_aspect(const float & w, const float & h) 
+{ 
+	_dirty_pers = true; 
+	_width = w; 
+	_height = h; 
+}
+
+void dotth::camera::set_fov(const float & v) 
+{ 
+	_dirty_pers = true; 
+	_fov = v; 
+}
+
+void dotth::camera::set_ortho(const float & z_near, const float & z_far, const float & left, const float & top, const float & right, const float & bottom) 
+{
+	set_ortho_near(z_near); set_ortho_far(z_far); set_ltrb(left, top, right, bottom);
+}
+
+void dotth::camera::set_ortho_near(const float & v) 
+{
+	_dirty_ortho = true; 
+	_ortho_near = v; 
+}
+
+void dotth::camera::set_ortho_far(const float & v) 
+{ 
+	_dirty_ortho = true; 
+	_ortho_far = v; 
+}
+
+void dotth::camera::set_ltrb(const float & l, const float & t, const float & r, const float & b) 
+{ 
+	_dirty_ortho = true; 
+	_left = l; 
+	_top = t; 
+	_right = r; 
+	_bottom = b; 
+}
+
+void dotth::camera::set_ortho1px(const float & _1px) 
+{
+	_ortho1px = _1px; 
 }
 
 void dotth::camera::sync_view(void) {
@@ -72,16 +172,6 @@ void dotth::camera::sync_pers(void) {
 		0.f, _22, 0.f, 0.f, 
 		0.f, 0.f, _33, _34, 
 		0.f, 0.f, _43, 0.f);
-}
-
-const float * dotth::camera::ortho(void)
-{
-	return _ortho.m;
-}
-
-const float & dotth::camera::ortho1px(void) 
-{
-	return _ortho1px; 
 }
 
 void dotth::camera::sync_ortho(void)

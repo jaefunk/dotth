@@ -54,6 +54,34 @@ namespace dotth {
 		const vector3 cross(const vector3& v) const;
 		const char* c_str(void) const;
 	};
+
+	struct vector4 : public vector3 {
+		float w;
+		vector4(void) 
+		{
+			w = 0.f;
+		}
+		vector4(const float& v) : vector3(v) 
+		{
+			w = v;
+		}
+		vector4(const float& x, const float& y, const float& z, const float& w) : vector3(x, y, z)
+		{
+			this->w = w;
+		}
+		vector4(const vector3& v) : vector3(v)
+		{
+			w = 0.f;
+		}
+		vector4(const vector3&& v) : vector3(v)
+		{
+			w = 0.f;
+		}
+	};
+
+	typedef vector2 float2;
+	typedef vector3 float3;
+	typedef vector4 float4;
 };
 
 #endif // __DOTTH_VECTOR_HPP__

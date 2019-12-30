@@ -39,14 +39,14 @@ void dotth::cube::init(void)
 		{ -0.5f, +0.5f, +0.5f },{ +0.5f, +0.5f, +0.5f },{ -0.5f, -0.5f, +0.5f },{ +0.5f, -0.5f, +0.5f },	// back
 	};
 	command<primitive_perspective>()->c = {
-        { 1.f, 1.f, 0.f, 1.f },
-        { 0.f, 1.f, 1.f, 1.f },
-		{ 1.f, 1.f, 0.f, 1.f },
-        { 0.f, 1.f, 1.f, 1.f },
-        { 1.f, 0.f, 1.f, 1.f },
-        { 1.f, 0.f, 0.f, 1.f },
-        { 1.f, 0.f, 1.f, 1.f },
-        { 1.f, 0.f, 0.f, 1.f },
+        { 1.f, 1.f, 0.f, 0.5f },
+        { 0.f, 1.f, 1.f, 0.5f },
+		{ 1.f, 1.f, 0.f, 0.5f },
+        { 0.f, 1.f, 1.f, 0.5f },
+        { 1.f, 0.f, 1.f, 0.5f },
+        { 1.f, 0.f, 0.f, 0.5f },
+        { 1.f, 0.f, 1.f, 0.5f },
+        { 1.f, 0.f, 0.f, 0.5f },
 	};
 	command<primitive_perspective>()->i = {
 		0, 1, 2, 1, 3, 2,	// front
