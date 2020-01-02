@@ -29,6 +29,11 @@ void dotth::rectangle::set_color(const render::rgba & _color)
 		c = _color;
 }
 
+void dotth::rectangle::on_render(void)
+{
+	command<primitive_orthographic>()->draw();
+}
+
 void dotth::cube::init(void)
 {
 	assign_command<primitive_perspective>();
@@ -70,4 +75,10 @@ void dotth::cube::on_update(const float& delta)
 	trans().rot_z(f/2);
 	trans().rot_x(f/3);
 	trans().rot_y(f/4);
+}
+
+
+void dotth::cube::on_render(void)
+{
+	command<primitive_perspective>()->draw();
 }

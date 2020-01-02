@@ -10,13 +10,13 @@ void dotth::gl_global_callback::display(void)
     utility::timer::instance()->update();
     scene_manager::instance()->update();
     camera::instance()->sync_all();
-    scene_manager::instance()->draw();
-    
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	renderer::instance()->process(dotth::render::draw_type::perspective);
-	renderer::instance()->process(dotth::render::draw_type::orthographic);
+    scene_manager::instance()->draw_all();
     
-	renderer::instance()->flush();
+	//glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	//renderer::instance()->process(dotth::render::draw_type::perspective);
+	//renderer::instance()->process(dotth::render::draw_type::orthographic);   
+	//renderer::instance()->flush();
 	input::instance()->flush();
     glutSwapBuffers();
     glutPostRedisplay();

@@ -33,11 +33,12 @@ void dotth::object::update(void)
 	});
 }
 
-void dotth::object::push_render_queue(void)
+void dotth::object::render(void)
 {
 	if (_flags.visible == false)
 		return;
-	if (_command != nullptr)
-		dotth::renderer::instance()->push_back(_command);
-	foreach<object>([](std::shared_ptr<object> obj) { obj->push_render_queue(); });
+	on_pre_render();
+	on_render();
+	foreach<object>([](std::shared_ptr<object> obj) { obj->render(); });
+	on_post_render();
 }

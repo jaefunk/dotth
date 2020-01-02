@@ -12,15 +12,15 @@ namespace dotth {
 		drawable(const dotth::render::transform_type& _type);
 		virtual ~drawable(void);
 		
+		transform& trans(void)
+		{
+			return _trans;
+		}
+		
 		template <typename ty>
 		void assign_command(void)
 		{
 			_command = new ty;
-		}
-
-		transform& trans(void)
-		{
-			return _trans;
 		}
 
 		template <typename ty = dotth::render::command::inherit>

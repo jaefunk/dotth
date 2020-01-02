@@ -69,10 +69,10 @@ namespace dotth {
         
     public:
         void update(void);
-        void draw(void) {
+        void draw_all(void) {
             if (_current == nullptr)
                 return;
-            _current->push_render_queue();
+			_current->render();
         }
     };
 };

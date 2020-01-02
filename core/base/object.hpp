@@ -31,10 +31,13 @@ namespace dotth {
     public:
 		virtual void init(void) {};
 		virtual void update(void) final;
-		virtual void push_render_queue(void) final;
+		virtual void render(void) final;
         
     protected:
 		virtual void on_update(const float& delta) {};
+		virtual void on_pre_render(void) {};
+		virtual void on_render(void) {};
+		virtual void on_post_render(void) {};
     };
 };
 
