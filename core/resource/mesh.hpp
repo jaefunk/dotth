@@ -5,6 +5,9 @@
 
 namespace dotth {
 	class mesh : public dotth::resource {
+		virtual void clear(void) override;
+		
+		virtual bool load(const char* path) override;
 	};
 };
 

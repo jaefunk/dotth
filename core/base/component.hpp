@@ -5,6 +5,7 @@
 
 namespace dotth {
 	class component : public base {
+	public:
 		component(void);
 	};
 };

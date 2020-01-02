@@ -1,3 +1,5 @@
 #include "component.hpp"
 
-dotth::component::component(void) {}
+dotth::component::component(void) 
+{
+}

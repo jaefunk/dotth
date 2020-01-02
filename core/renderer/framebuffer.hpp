@@ -36,10 +36,7 @@ namespace dotth {
 				return true;
 			}
 
-			void destroy(void)
-			{
-
-			}
+			void destroy(void);
 		};
 	};
 };

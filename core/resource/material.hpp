@@ -14,17 +14,8 @@ namespace dotth {
 		float _shininess = 0.f;
 
 	public:
-		virtual ~material(void)
-		{
-			clear();
-		}
-		virtual void clear(void) override
-		{
-		}
-		virtual bool load(const char* path) override
-		{
-
-		}
+		virtual void clear(void) override;
+		virtual bool load(const char* path) override;
 	};
 };
 
