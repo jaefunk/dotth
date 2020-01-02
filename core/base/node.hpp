@@ -6,6 +6,8 @@
 namespace dotth {
 	template <
 		typename ty,
+		typename pty = ty*,
+		typename pcontainer = std::list<pty>,
 		typename weaked_type = std::weak_ptr<ty>,
 		typename shared_type = std::shared_ptr<ty>,
 		typename shared_container = std::list<shared_type>
