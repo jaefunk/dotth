@@ -25,9 +25,9 @@ namespace dotth {
 	public:
 		virtual void init(void) override;
 		virtual void on_update(const float& delta) override;
-		virtual void on_pre_render(void) {};
+		virtual void on_pre_render(void) override;
 		virtual void on_render(void) override;
-		virtual void on_post_render(void) {};
+		virtual void on_post_render(void) override;
 	};
 };
 

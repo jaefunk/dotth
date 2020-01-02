@@ -44,14 +44,14 @@ void dotth::cube::init(void)
 		{ -0.5f, +0.5f, +0.5f },{ +0.5f, +0.5f, +0.5f },{ -0.5f, -0.5f, +0.5f },{ +0.5f, -0.5f, +0.5f },	// back
 	};
 	command<primitive_perspective>()->c = {
-        { 1.f, 1.f, 0.f, 0.5f },
-        { 0.f, 1.f, 1.f, 0.5f },
-		{ 1.f, 1.f, 0.f, 0.5f },
-        { 0.f, 1.f, 1.f, 0.5f },
-        { 1.f, 0.f, 1.f, 0.5f },
-        { 1.f, 0.f, 0.f, 0.5f },
-        { 1.f, 0.f, 1.f, 0.5f },
-        { 1.f, 0.f, 0.f, 0.5f },
+        { 1.f, 1.f, 0.f, 0.2f },
+        { 0.f, 1.f, 1.f, 0.2f },
+		{ 1.f, 1.f, 0.f, 0.2f },
+        { 0.f, 1.f, 1.f, 0.2f },
+        { 1.f, 0.f, 1.f, 0.2f },
+        { 1.f, 0.f, 0.f, 0.2f },
+        { 1.f, 0.f, 1.f, 0.2f },
+        { 1.f, 0.f, 0.f, 0.2f },
 	};
 	command<primitive_perspective>()->i = {
 		0, 1, 2, 1, 3, 2,	// front
@@ -77,8 +77,13 @@ void dotth::cube::on_update(const float& delta)
 	trans().rot_y(f/4);
 }
 
-
+void dotth::cube::on_pre_render(void)
+{
+}
 void dotth::cube::on_render(void)
 {
 	command<primitive_perspective>()->draw();
+}
+void dotth::cube::on_post_render(void)
+{\
 }
