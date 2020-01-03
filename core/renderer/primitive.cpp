@@ -85,5 +85,5 @@ void dotth::cube::on_render(void)
 	command<primitive_perspective>()->draw();
 }
 void dotth::cube::on_post_render(void)
-{\
+{
 }

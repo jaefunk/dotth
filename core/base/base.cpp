@@ -6,10 +6,10 @@ dotth::base::base(void) {
 	_birth = dotth::utility::timer::instance()->time_since_epoch();
 }
 
-const int & dotth::base::serial(void) {
+const int & dotth::base::serial(void) const {
 	return _serial;
 }
 
-const std::time_t & dotth::base::birth(void) {
+const std::time_t & dotth::base::birth(void) const {
 	return _birth;
 }
