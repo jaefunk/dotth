@@ -9,7 +9,7 @@ void dotth::renderer::init_gl(int argc, char** argv) {
     glutInitDisplayMode(GLUT_RGBA|GLUT_DOUBLE|GLUT_DEPTH);
     glutInitWindowSize(1024, 512);
     glutInitWindowPosition(0, 0);
-	glutCreateWindow("asdf");
+	glutCreateWindow("dotth");
 	glClearColor(0.5f, 0.5f, 0.5f, 1.f);
 	glEnable(GL_BLEND);
     glEnable(GL_DEPTH_TEST);
