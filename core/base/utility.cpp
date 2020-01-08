@@ -1,13 +1,5 @@
 #include "utility.hpp"
 
-void dotth::utility::sleep(int millisec) {
-#ifndef WIN32
-	usleep(millisec * 1000);
-#else
-	Sleep(millisec);
-#endif
-}
-
 #pragma warning(disable : 4996)
 std::string dotth::utility::string::format(const char * format, ...)
 {

@@ -30,7 +30,9 @@ namespace dotth {
 			for (auto child : _children)
 			{
 				if (auto target = std::dynamic_pointer_cast<dst>(child))
+				{
 					func(target);
+				}
 			}
 		}
 		const bool is_root(void)
@@ -40,13 +42,17 @@ namespace dotth {
 		const shared_type root(void)
 		{
 			if (is_root())
+			{
 				return this->shared_from_this();
+			}
 			return parent()->root();
 		}
 		const bool family(const shared_type& target)
 		{
 			if (is_root())
+			{
 				return false;
+			}
 			return std::find_if(std::begin(_children), std::end(_children), [target](const shared_type& child) {
 				return child->family(target);
 			}) != std::end(_children);
@@ -74,7 +80,9 @@ namespace dotth {
 		void independence(void)
 		{
 			if (is_root())
+			{
 				return;
+			}
 			parent()->detach(this->shared_from_this());
 		}
 
@@ -87,9 +95,15 @@ namespace dotth {
 			{
 				const shared_type& child = *iter;
 				if (pred(child) == true)
-					child->_parent.reset(), iter = _children.erase(iter);
+				{
+					child->_parent.reset();
+					iter = _children.erase(iter);
+				}
 				else
-					child->detach(pred), ++iter;
+				{
+					child->detach(pred);
+					++iter;
+				}
 			}
 		}
 		void detach(const shared_type& target)
@@ -108,9 +122,13 @@ namespace dotth {
 			{
 				const shared_type& child = *iter;
 				if (pred(child) == true)
+				{
 					return std::dynamic_pointer_cast<dst>(child);
+				}
 				else
+				{
 					child->find(pred), ++iter;
+				}
 			}
 			return nullptr;
 		}

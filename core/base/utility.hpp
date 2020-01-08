@@ -2,21 +2,24 @@
 #define __DOTTH_UTILITY_HPP__
 
 #include "dotth.hpp"
+
 #ifdef WIN32
 constexpr long long time_scale_millisecond = 10000000;
 #else
 constexpr long long time_scale_millisecond = 1000000;
 #endif
+
 namespace dotth {
     namespace utility {
 		namespace string {
 			std::string format(const char* format, ...);
 		}
-		void sleep(int millisec);
+		
         template<typename ty>
         class singleton {
         public:
-            static const std::shared_ptr<ty>& instance() {
+            static const std::shared_ptr<ty>& instance() 
+			{
                 std::call_once(_flag, []() {
                     _instance = std::make_shared<ty>();
                 });
@@ -31,16 +34,22 @@ namespace dotth {
         
         class timer : public singleton<timer> {
         public:
-            timer(void) { update(); }
-            void update(void) {
+            timer(void) 
+			{ 
+				update(); 
+			}
+            void update(void) 
+			{
                 _now = time_since_epoch();
                 _delta = static_cast<float>(_now - _prev) / static_cast<float>(time_scale_millisecond);
                 _prev = _now;
             }
-            const float delta(void) {
+            const float delta(void) 
+			{
                 return _delta;
             }
-            std::time_t time_since_epoch(void) {
+            std::time_t time_since_epoch(void) 
+			{
                 return std::chrono::system_clock::now().time_since_epoch().count();
             }
         private:

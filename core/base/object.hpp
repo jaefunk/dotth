@@ -29,11 +29,12 @@ namespace dotth {
 		void set_visible(const bool& b) { _flags.visible = b; }
         
     public:
-		virtual void init(void) {};
+		virtual void init(void) final;
 		virtual void update(void) final;
 		virtual void render(void) final;
         
     protected:
+		virtual void on_init(void) {};
 		virtual void on_update(const float& delta) {};
 		virtual void on_pre_render(void) {};
 		virtual void on_render(void) {};
