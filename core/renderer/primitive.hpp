@@ -9,7 +9,7 @@ namespace dotth {
 	public:
 		rectangle(void) : dotth::drawable(dotth::render::transform_type::orthographic) {}
 	public:
-		virtual void init(void) override;
+		virtual void on_init(void) override;
 		virtual void on_update(const float& delta) override;
 	public:
 		void set_color(const render::rgba& _color);
@@ -23,11 +23,14 @@ namespace dotth {
 	public:
 		cube(void) : dotth::drawable(dotth::render::transform_type::perspective) {}
 	public:
-		virtual void init(void) override;
+		virtual void on_init(void) override;
 		virtual void on_update(const float& delta) override;
 		virtual void on_pre_render(void) override;
 		virtual void on_render(void) override;
 		virtual void on_post_render(void) override;
+
+		unsigned int framebuffer = 0;
+		unsigned int texturebuffer = 0;
 	};
 };
 

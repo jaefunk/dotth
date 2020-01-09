@@ -21,6 +21,10 @@ const float dotth::object::world_timescale(void)
 
 void dotth::object::init(void)
 {
+	on_init();
+	foreach<object>([](std::shared_ptr<object> obj) {
+		obj->init();
+	});
 }
 
 void dotth::object::update(void)
@@ -53,9 +57,10 @@ void dotth::object::render(void)
 	if (_flags.visible == false)
 		return;
 	on_pre_render();
-	on_render();
-	foreach<object>([](std::shared_ptr<object> obj) { 
-		obj->render(); 
+	foreach<object>([](std::shared_ptr<object> obj) {
+		obj->render();
 	});
+	on_render();
+	
 	on_post_render();
 }

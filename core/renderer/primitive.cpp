@@ -1,7 +1,7 @@
 #include "primitive.hpp"
 #include "primitive_command.hpp"
 
-void dotth::rectangle::init(void)
+void dotth::rectangle::on_init(void)
 {
 	assign_command<primitive_orthographic>();
 	command<primitive_orthographic>()->_type = dotth::render::draw_type::orthographic;
@@ -34,7 +34,7 @@ void dotth::rectangle::on_render(void)
 	command<primitive_orthographic>()->draw();
 }
 
-void dotth::cube::init(void)
+void dotth::cube::on_init(void)
 {
 	assign_command<primitive_perspective>();
 	command<primitive_perspective>()->_type = dotth::render::draw_type::perspective;
