@@ -13,9 +13,9 @@ namespace dotth {
 		virtual void on_update(const float& delta) override;
 	public:
 		void set_color(const render::rgba& _color);
-		virtual void on_pre_render(void) {};
+		virtual void on_pre_render(void) override {};
 		virtual void on_render(void) override;
-		virtual void on_post_render(void) {};
+		virtual void on_post_render(void) override {};
 	};
 
 	class cube : public dotth::drawable
