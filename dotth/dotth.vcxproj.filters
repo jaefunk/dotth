@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClInclude Include="source\external\cpplinq\cpplinq.h" />
+    <ClInclude Include="source\external\json\json.hpp" />
+    <ClInclude Include="source\external\task\task.h" />
+    <ClInclude Include="source\external\xml\tinyxml2.h" />
+    <ClInclude Include="source\framework\base.h" />
+    <ClInclude Include="source\framework\object.h" />
+    <ClInclude Include="source\framework\scene.h" />
+    <ClInclude Include="source\math\math.h" />
+    <ClInclude Include="source\math\matrix.h" />
+    <ClInclude Include="source\math\transform.h" />
+    <ClInclude Include="source\math\vector.h" />
+    <ClInclude Include="source\utility\utility.h" />
+    <ClInclude Include="source\dotth.h" />
+    <ClInclude Include="source\framework\shared_node.h" />
+    <ClInclude Include="source\framework\node.h" />
+    <ClInclude Include="source\external\sql\query_builder.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="source\external\xml\tinyxml2.cpp" />
+    <ClCompile Include="source\framework\base.cpp" />
+    <ClCompile Include="source\framework\object.cpp" />
+    <ClCompile Include="source\framework\scene.cpp" />
+    <ClCompile Include="source\math\matrix.cpp" />
+    <ClCompile Include="source\math\transform.cpp" />
+    <ClCompile Include="source\math\vector.cpp" />
+    <ClCompile Include="source\utility\utility.cpp" />
+    <ClCompile Include="source\external\sql\query_builder.cpp" />
+  </ItemGroup>
+</Project>
