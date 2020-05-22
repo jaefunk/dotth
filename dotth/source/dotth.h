@@ -20,6 +20,7 @@
 #include <vector>
 #include <list>
 #include <queue>
+#include <set>
 #include <algorithm>
 #include <future>
 #include <thread>

@@ -99,35 +99,14 @@ struct float3
 
 #include <chrono>
 
-class obj : public dotth::node<obj>
-{
-public:
-	std::string _s;
-	void print(void)
-	{
-		printf("%s\n", _s.c_str());
-	}
-};
-
-class objA : public obj
+#include "framework/object.h"
+class objA : public dotth::object
 {};
-class objB : public obj
+class objB : public dotth::object
 {};
 
-#include <memory>
 int main()
 {
-	std::list<int> a;
-	a.push_back(0);
-	a.push_back(1);
-	a.push_back(2);
-	a.push_back(3);
-	a.push_back(4);
-	a.push_back(5);
-	a.push_back(6);
-	a.push_back(7);
-
-	a.remove(3);
 		
 	//std::list<std::shared_ptr<obj>> l;
 	auto aa = std::make_shared<objA>();
@@ -135,21 +114,19 @@ int main()
 	auto cc = std::make_shared<objB>();
 	auto dd = std::make_shared<objB>();
 	auto ee = std::make_shared<objB>();
-	aa->_s = "a";
-	bb->_s = "b";
-	cc->_s = "c";
-	dd->_s = "d";
-	ee->_s = "e";
+	aa->set_name("A");
+	bb->set_name("B");
+	cc->set_name("C");
+	dd->set_name("D");
+	ee->set_name("E");
 
 	aa->attach(bb);
 	aa->attach(cc);
 	aa->attach(dd);
 	aa->attach(ee);
 	bb->attach(ee);
-	auto kk = aa->find_depth<objB>([](std::shared_ptr<obj> a) {
-		a->print();
-		return true;
-	});
+	auto kk = aa->find_by_func([](std::shared_ptr<dotth::object> a) { return true; });
+	auto pp = aa->find_by_name("C");
 
 	//aa->foreach<obj>([](auto aa) {
 	//	aa->print();

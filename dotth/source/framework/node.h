@@ -27,28 +27,21 @@ namespace dotth {
 			return nullptr;
 		}
 
-		template <class find_type = ty, class predicate>
-		std::shared_ptr<find_type> find_depth(predicate func)
+		template <class predicate>
+		std::shared_ptr<ty> find_by_func(predicate func) const
 		{
-			for (std::shared_ptr<ty> child : _children)
-			{
-				if (func(child) == true)
-					return std::dynamic_pointer_cast<find_type>(child);
-				if (auto finded = child->find_depth<find_type>(func))
-					return std::dynamic_pointer_cast<find_type>(finded);
-			}
-			return nullptr;
+			return const_cast<node*>(this)->find_by_func(func);
 		}
 
-		template <class find_type = ty, class predicate>
-		std::shared_ptr<find_type> find_breadth(predicate func)
+		template <class predicate>
+		std::shared_ptr<ty> find_by_func(predicate func)
 		{
-			for (std::shared_ptr<ty> child : _children)
+			for (auto& child : _children)
 			{
 				if (func(child) == true)
-					return std::dynamic_pointer_cast<find_type>(child);
-				if (auto finded = child->find_depth<find_type>(func))
-					return std::dynamic_pointer_cast<find_type>(finded);
+					return child;
+				if (auto finded = child->find_by_func(func))
+					return finded;
 			}
 			return nullptr;
 		}

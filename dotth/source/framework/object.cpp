@@ -1,6 +1,5 @@
 
 #include "object.h"
-#include "utility/utility.h"
 
 void dotth::object::init(void)
 {
