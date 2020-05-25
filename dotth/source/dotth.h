@@ -1,13 +1,5 @@
 #pragma once
 
-#pragma comment(lib, "d3d11.lib")
-#pragma comment(lib, "dxgi.lib")
-#pragma comment(lib, "d3dcompiler.lib")
-
-#include <d3d11.h>
-#include <d3dcompiler.h>
-#include <DirectXMath.h>
-
 #include <cstring>
 #include <string>
 #include <ctime>
@@ -35,6 +27,8 @@
 #include "external/json/json.hpp"
 #include "external/xml/tinyxml2.h"
 #include "external/task/task.h"
+
+#include "graphics/dx11/dx11_device.h"
 
 template <size_t Alignment>
 class AlignedAllocationPolicy

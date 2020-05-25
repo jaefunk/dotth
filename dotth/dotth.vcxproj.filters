@@ -17,6 +17,8 @@
     <ClInclude Include="source\framework\shared_node.h" />
     <ClInclude Include="source\framework\node.h" />
     <ClInclude Include="source\external\sql\query_builder.h" />
+    <ClInclude Include="source\graphics\dx11\dx11.h" />
+    <ClInclude Include="source\graphics\dx11\dx11_device.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source\external\xml\tinyxml2.cpp" />
@@ -28,5 +30,7 @@
     <ClCompile Include="source\math\vector.cpp" />
     <ClCompile Include="source\utility\utility.cpp" />
     <ClCompile Include="source\external\sql\query_builder.cpp" />
+    <ClCompile Include="source\graphics\dx11\dx11.cpp" />
+    <ClCompile Include="source\graphics\dx11\dx11_device.cpp" />
   </ItemGroup>
 </Project>

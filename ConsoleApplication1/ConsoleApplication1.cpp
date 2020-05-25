@@ -105,9 +105,13 @@ class objA : public dotth::object
 class objB : public dotth::object
 {};
 
+#include "graphics/dx11/dx11_device.h"
+
 int main()
 {
-		
+	auto device = new dx11_device;
+	
+	//device->initialize()
 	//std::list<std::shared_ptr<obj>> l;
 	auto aa = std::make_shared<objA>();
 	auto bb = std::make_shared<objA>();
