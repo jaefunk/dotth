@@ -19,7 +19,7 @@ namespace dotth
         template<typename ty>
         class singleton {
         public:
-            static const std::shared_ptr<ty>& instance() 
+            static const std::shared_ptr<ty>& get() 
 			{
                 std::call_once(_flag, []() {
                     _instance = std::make_shared<ty>();

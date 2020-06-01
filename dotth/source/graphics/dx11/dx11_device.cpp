@@ -1,6 +1,6 @@
 #include "dx11_device.h"
 
-bool dotth::dx11::device::initialize(HWND hwnd, int width, int height, bool vsync)
+bool dotth::dx11::initialize(HWND hwnd, int width, int height, bool vsync)
 {
 	IDXGIFactory* factory = nullptr;
 	if (FAILED(CreateDXGIFactory(__uuidof(IDXGIFactory), (void**)&factory)))
@@ -231,7 +231,7 @@ bool dotth::dx11::device::initialize(HWND hwnd, int width, int height, bool vsyn
 	return true;
 }
 
-bool dotth::dx11::device::draw_begin(void)
+bool dotth::dx11::draw_begin(void)
 {
 	float color[4] = { 0.f, 0.f, 1.f, 1.f };
 
@@ -244,14 +244,14 @@ bool dotth::dx11::device::draw_begin(void)
 	return false;
 }
 
-bool dotth::dx11::device::draw_end(void)
+bool dotth::dx11::draw_end(void)
 {
 	_swap_chain->Present(_vsync_enabled? 1 : 0, 0);
 
 	return false;
 }
 
-bool dotth::dx11::device::release(void)
+bool dotth::dx11::release(void)
 {
 	_device->Release();
 	_device_context->Release();

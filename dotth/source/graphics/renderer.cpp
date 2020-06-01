@@ -3,18 +3,12 @@
 
 bool dotth::renderer::initialize(HWND hwnd, int width, int height)
 {
-	if (_device != nullptr)
-		_device->release();
-	_device = std::make_unique<dx11::device>();
-	return _device->initialize(hwnd, width, height);
+	return dotth::dx11::get()->initialize(hwnd, width, height);
 }
 
 void dotth::renderer::draw(void)
 {
-	if (_device == nullptr)
-		return;
-
-	_device->draw_begin();
+	dotth::dx11::get()->draw_begin();
 
 	while (_queue.empty() == false)
 	{
@@ -23,5 +17,5 @@ void dotth::renderer::draw(void)
 		_queue.pop();
 	}
 
-	_device->draw_end();
+	dotth::dx11::get()->draw_end();
 }

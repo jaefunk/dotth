@@ -10,7 +10,7 @@ namespace dotth
 	class renderer
 	{
 	private:
-		std::unique_ptr<dotth::dx11::device> _device;
+		std::unique_ptr<dotth::dx11> _device;
 		std::queue<dotth::drawable*> _queue;
 
 	public:

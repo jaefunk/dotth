@@ -69,6 +69,7 @@ namespace dotth
 			if (_current == nullptr)
 				return;
 			_current->update();
+			_current->render();
 		}
     };
 };

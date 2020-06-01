@@ -109,7 +109,7 @@ class objB : public dotth::object
 
 int main()
 {
-	auto device = new dotth::dx11::device;
+	//auto device = new dotth::dx11::device;
 	
 	//device->initialize()
 	//std::list<std::shared_ptr<obj>> l;

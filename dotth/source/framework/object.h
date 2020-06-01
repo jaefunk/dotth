@@ -1,6 +1,7 @@
 #pragma once
 
 #include "node.h"
+#include "graphics/drawable.h"
 
 namespace dotth 
 {
@@ -8,6 +9,7 @@ namespace dotth
 	{
 	private:
 		std::string _name;
+		drawable _drawable;
 	public:
 		void set_name(const char* name)
 		{
