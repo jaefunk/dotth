@@ -2,14 +2,14 @@
 
 #include "node.h"
 
-namespace dotth {
-	
+namespace dotth 
+{
 	class object : public node<object>
 	{
 	private:
 		std::string _name;
 	public:
-		void set_name(const char* name) 
+		void set_name(const char* name)
 		{
 			_name = name;
 		}
@@ -26,9 +26,11 @@ namespace dotth {
 	public:
 		virtual void init(void) final;
 		virtual void update(void) final;
+		virtual void render(void) final;
 
 	protected:
 		virtual void on_init(void) {};
-		virtual void on_update(const float& delta) {};
+		virtual void on_update(void) {};
+		virtual void on_render(void) {};
 	};
 };

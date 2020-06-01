@@ -1,6 +1,6 @@
 #include "dx11_device.h"
 
-bool dx11_device::initialize(HWND hwnd, int width, int height, bool vsync)
+bool dotth::dx11::device::initialize(HWND hwnd, int width, int height, bool vsync)
 {
 	IDXGIFactory* factory = nullptr;
 	if (FAILED(CreateDXGIFactory(__uuidof(IDXGIFactory), (void**)&factory)))
@@ -98,7 +98,7 @@ bool dx11_device::initialize(HWND hwnd, int width, int height, bool vsync)
 	swap_chain_desc.SwapEffect = DXGI_SWAP_EFFECT_DISCARD;
 	swap_chain_desc.Flags = 0;
 
-	D3D_FEATURE_LEVEL feature_level = D3D_FEATURE_LEVEL_11_0;
+	D3D_FEATURE_LEVEL feature_level = D3D_FEATURE_LEVEL_11_1;
 	if (FAILED(D3D11CreateDeviceAndSwapChain(NULL, D3D_DRIVER_TYPE_HARDWARE, NULL, 0, &feature_level, 1, D3D11_SDK_VERSION, &swap_chain_desc, &_swap_chain, &_device, NULL, &_device_context)))
 	{
 		return false;
@@ -231,7 +231,7 @@ bool dx11_device::initialize(HWND hwnd, int width, int height, bool vsync)
 	return true;
 }
 
-bool dx11_device::draw_begin(void)
+bool dotth::dx11::device::draw_begin(void)
 {
 	float color[4] = { 0.f, 0.f, 1.f, 1.f };
 
@@ -244,9 +244,24 @@ bool dx11_device::draw_begin(void)
 	return false;
 }
 
-bool dx11_device::draw_end(void)
+bool dotth::dx11::device::draw_end(void)
 {
 	_swap_chain->Present(_vsync_enabled? 1 : 0, 0);
 
+	return false;
+}
+
+bool dotth::dx11::device::release(void)
+{
+	_device->Release();
+	_device_context->Release();
+	_swap_chain->Release();
+	_render_target_view->Release();
+	_depth_stencil_buffer->Release();
+	_depth_stencil_state->Release();
+	_depth_stencil_view->Release();
+	_raster_state->Release();
+	_alpha_enable_blending_state->Release();
+	_alpha_disabl_blending_state->Release();
 	return false;
 }

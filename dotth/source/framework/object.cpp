@@ -3,26 +3,24 @@
 
 void dotth::object::init(void)
 {
-	//on_init();
-	//loop_for_children([](auto& child) {
-	//	child->init();
-	//});
+	on_init();
+	foreach([](std::shared_ptr<dotth::object> child) {
+		child->init();
+	});
 }
 
 void dotth::object::update(void)
 {
-	//if (alive == false)
-	//{
-	//	leave();
-	//	return;
-	//}
-	//if (active == false)
-	//{
-	//	return;
-	//}
+	on_update();
+	foreach([](std::shared_ptr<dotth::object> child) {
+		child->update();
+	});
+}
 
-	//on_update(utility::timer::instance()->delta() * world_timescale());
-	//loop_for_children([](auto& child) {
-	//	child->update();
-	//});
+void dotth::object::render(void)
+{
+	on_render();
+	foreach([](std::shared_ptr<dotth::object> child) {
+		child->render();
+	});
 }

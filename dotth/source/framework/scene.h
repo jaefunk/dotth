@@ -4,16 +4,15 @@
 #include "framework/object.h"
 #include "utility/utility.h"
 
-namespace dotth {
+namespace dotth 
+{
     class scene : public object
     {
-    public:
-        virtual void init(const json& data = json()) {};
     protected:
 		bool loadview(const std::string& path);
     };
     
-    class scene_manager : public utility::singleton<scene_manager>
+    class scenario
     {
     private:
         bool _scene_changed = false;
@@ -29,7 +28,6 @@ namespace dotth {
         >
         void assign_scene(const std::string& key)
         {
-            static_assert(std::is_base_of<ty, scene>::value, "ty must be inherited by <scene>");
             _signed_scene.insert({ key, []() { return std::make_shared<ty>(); } });
         }
         
@@ -60,16 +58,19 @@ namespace dotth {
             if (iterator == std::end(_signed_scene))
                 return;
             _current = iterator->second();
-            _current->init(_scene_data);
+            _current->init();
             _scene_data = json();
         }
         
     public:
-        void update(void);
+		void update(void)
+		{
+			apply_new_scene();
+			if (_current == nullptr)
+				return;
+			_current->update();
+		}
     };
 };
-
-
-
 
 #endif // __DOTTH_SCENE__

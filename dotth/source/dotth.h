@@ -28,22 +28,6 @@
 #include "external/xml/tinyxml2.h"
 #include "external/task/task.h"
 
-#include "graphics/dx11/dx11_device.h"
-
-template <size_t Alignment>
-class AlignedAllocationPolicy
+namespace dotth 
 {
-public:
-	static void* operator new(size_t size)
-	{
-		return _aligned_malloc(size, Alignment);
-	}
-	static void operator delete(void* memory)
-	{
-		_aligned_free(memory);
-	}
-};
-
-
-namespace dotth {
 };

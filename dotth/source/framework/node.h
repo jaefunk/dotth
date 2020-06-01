@@ -3,7 +3,8 @@
 
 #include "base.h"
 
-namespace dotth {
+namespace dotth 
+{
 
 	template <class ty>
 	class node : public base, public std::enable_shared_from_this<ty>
@@ -46,8 +47,13 @@ namespace dotth {
 			return nullptr;
 		}
 
-		template <class target_type = ty>
-		void foreach(std::function<void(std::shared_ptr<target_type>)> func)
+		template <class target_type = ty, class predicate>
+		void foreach(predicate func) const
+		{
+			return const_cast<node*>(this)->foreach<target_type>(func);
+		}
+		template <class target_type = ty, class predicate>
+		void foreach(predicate func)
 		{
 			for (std::shared_ptr<ty> child : _children)
 			{

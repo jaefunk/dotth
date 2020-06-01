@@ -1,4 +1,6 @@
 #include "matrix.h"
+
+#include "math.h"
 #include <cstring>
 #include <cmath>
 
@@ -25,7 +27,7 @@ void dotth::matrix4::copy(const matrix4 & src, matrix4 & dst)
 	memcpy(dst.m, src.m, dotth::matrix4::matrix_size);
 }
 
-void dotth::matrix4::scale(matrix4 & dst, const vector3 & value)
+void dotth::matrix4::scale(matrix4 & dst, const float3 & value)
 {
 	memcpy(dst.m, dotth::matrix4::identity.m, dotth::matrix4::matrix_size);
 	dst.m[0] = value.x;
@@ -33,7 +35,7 @@ void dotth::matrix4::scale(matrix4 & dst, const vector3 & value)
 	dst.m[10] = value.z;
 }
 
-void dotth::matrix4::rotate(matrix4 & dst, const vector3 & value)
+void dotth::matrix4::rotate(matrix4 & dst, const float3 & value)
 {
 	memcpy(dst.m, dotth::matrix4::identity.m, dotth::matrix4::matrix_size);
 	float sx = sin(deg_to_rad(value.x));
@@ -53,7 +55,7 @@ void dotth::matrix4::rotate(matrix4 & dst, const vector3 & value)
 	dst.m[10] = cy * cx;
 }
 
-void dotth::matrix4::position(matrix4 & dst, const vector3 & value)
+void dotth::matrix4::position(matrix4 & dst, const float3 & value)
 {
 	memcpy(dst.m, dotth::matrix4::identity.m, dotth::matrix4::matrix_size);
 	dst.m[12] = value.x;

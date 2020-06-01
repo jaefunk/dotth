@@ -1,9 +1,10 @@
 #ifndef __DOTTH_MATRIX__
 #define __DOTTH_MATRIX__
 
-#include "vector.h"
+#include "type_float.h"
 
-namespace dotth {
+namespace dotth 
+{
 	struct matrix4 {
 		float m[16];
         matrix4(void);
@@ -13,9 +14,9 @@ namespace dotth {
                 float _31, float _32, float _33, float _34,
                 float _41, float _42, float _43, float _44);
 		static void copy(const matrix4 & src, matrix4 & dst);
-		static void scale(matrix4& dst, const vector3& value);
-		static void rotate(matrix4& dst, const vector3& value);
-		static void position(matrix4& dst, const vector3& value);
+		static void scale(matrix4& dst, const float3& value);
+		static void rotate(matrix4& dst, const float3& value);
+		static void position(matrix4& dst, const float3& value);
 		static void multiply(const matrix4& l, const matrix4& r, matrix4& dst);
 		static const unsigned long matrix_size;
         static const matrix4 identity;

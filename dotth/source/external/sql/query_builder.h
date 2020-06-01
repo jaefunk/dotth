@@ -42,8 +42,8 @@ namespace SQL
 	class QUERY
 	{
 	public:
-		explicit QUERY(void) {}
-		virtual ~QUERY(void) {}
+		explicit QUERY(void);
+		virtual ~QUERY(void);
 		virtual const std::string& build(void) = 0;
 	protected:
 		std::string _result;

@@ -9,7 +9,8 @@ constexpr long long time_scale_millisecond = 10000000;
 constexpr long long time_scale_millisecond = 1000000;
 #endif
 
-namespace dotth {
+namespace dotth 
+{
     namespace utility {
 		namespace string {
 			std::string format(const char* format, ...);
@@ -32,7 +33,8 @@ namespace dotth {
         template<typename ty> std::once_flag utility::singleton<ty>::_flag;
         template<typename ty> std::shared_ptr<ty> utility::singleton<ty>::_instance;
         
-        class timer : public singleton<timer> {
+        class timer
+		{
         public:
             timer(void) 
 			{ 

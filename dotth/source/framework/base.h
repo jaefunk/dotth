@@ -2,8 +2,8 @@
 
 #include "dotth.h"
 
-namespace dotth {
-	
+namespace dotth 
+{	
 	class noncopyable
 	{
 	protected:

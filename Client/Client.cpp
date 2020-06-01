@@ -3,11 +3,15 @@
 
 #include "framework.h"
 #include "Client.h"
-#include "dotth.h"
+
+#include "platform/application.h"
+#include "Game/Scene/TestScene.h"
 
 #define MAX_LOADSTRING 100
 
 // Global Variables:
+dotth::application g_App;
+extern dotth::application g_App;
 HINSTANCE hInst;                                // current instance
 HWND hWnd;
 WCHAR szTitle[MAX_LOADSTRING];                  // The title bar text
@@ -36,7 +40,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance
 	wcex.hIcon = LoadIcon(hInstance, MAKEINTRESOURCE(IDI_CLIENT));
 	wcex.hCursor = LoadCursor(nullptr, IDC_ARROW);
 	wcex.hbrBackground = (HBRUSH)(COLOR_WINDOW + 1);
-	wcex.lpszMenuName = MAKEINTRESOURCEW(IDC_CLIENT);
+	wcex.lpszMenuName = NULL;// MAKEINTRESOURCEW(IDC_CLIENT);
 	wcex.lpszClassName = szWindowClass;
 	wcex.hIconSm = LoadIcon(wcex.hInstance, MAKEINTRESOURCE(IDI_SMALL));
 	RegisterClassExW(&wcex);
@@ -47,7 +51,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance
 	hInst = hInstance; // Store instance handle in our global variable
 	//hWnd = CreateWindowEx(WS_EX_APPWINDOW, szWindowClass, szTitle, WS_CLIPSIBLINGS | WS_CLIPCHILDREN | WS_POPUP, 100, 100, screen_width, screen_height, NULL, NULL, hInst, NULL);
 	//hWnd = CreateWindowW(szWindowClass, szTitle, WS_OVERLAPPED, CW_USEDEFAULT, 0, CW_USEDEFAULT, 0, nullptr, nullptr, hInstance, nullptr);
-	hWnd = CreateWindow(szWindowClass, szTitle, WS_OVERLAPPEDWINDOW, 100, 100, screen_width, screen_height, NULL, NULL, hInst, NULL);
+	hWnd = CreateWindow(szWindowClass, szTitle, WS_OVERLAPPEDWINDOW ^ WS_THICKFRAME, 100, 100, screen_width, screen_height, NULL, NULL, hInst, NULL);
 
 	if (!hWnd)
 	{
@@ -60,21 +64,23 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance
     HACCEL hAccelTable = LoadAccelerators(hInstance, MAKEINTRESOURCE(IDC_CLIENT));
 
     MSG msg;
-	auto p = new dx11_device();
-	p->initialize(hWnd, screen_width, screen_height);
+	
+	g_App.init_application();
+	g_App.get_scenario()->assign_scene<TestScene>("testscene");
+	g_App.get_scenario()->push("testscene");
+	g_App.get_renderer()->initialize(hWnd, screen_width, screen_height);
+	
+	
     // Main message loop:
     while (GetMessage(&msg, nullptr, 0, 0))
     {
         if (!TranslateAccelerator(msg.hwnd, hAccelTable, &msg))
         {
-            TranslateMessage(&msg);
-            DispatchMessage(&msg);
+			TranslateMessage(&msg);
+			DispatchMessage(&msg);
         }
-		p->draw_begin();
-		p->draw_end();
+		g_App.loop();
     }
-	delete p;
-
     return (int) msg.wParam;
 }
 
