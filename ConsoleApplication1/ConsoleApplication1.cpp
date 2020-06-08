@@ -100,12 +100,11 @@ struct float3
 #include <chrono>
 
 #include "framework/object.h"
-class objA : public dotth::object
+class objA : public object
 {};
-class objB : public dotth::object
+class objB : public object
 {};
 
-#include "graphics/dx11/dx11_device.h"
 
 int main()
 {
@@ -129,7 +128,7 @@ int main()
 	aa->attach(dd);
 	aa->attach(ee);
 	bb->attach(ee);
-	auto kk = aa->find_by_func([](std::shared_ptr<dotth::object> a) { return true; });
+	auto kk = aa->find_by_func([](std::shared_ptr<object> a) { return true; });
 	auto pp = aa->find_by_name("C");
 
 	//aa->foreach<obj>([](auto aa) {

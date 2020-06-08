@@ -1,8 +1,8 @@
 
 #pragma once
 
-#include <vector>
-#include "dx11/dx11_device.h"
+#include "dotth.h"
+#include "graphics/renderer.h"
 #include "type_vertex.h"
 
 namespace dotth
@@ -10,7 +10,7 @@ namespace dotth
 	class drawable
 	{
 	private:
-		std::vector<dotth::vertex::position_color> _vertex_list;
+		std::vector<vertex::position_color> _vertex_list;
 		std::vector<unsigned int> _index_list;
 		ID3D11Buffer* _vertex_buffer = nullptr;
 		ID3D11Buffer* _index_buffer = nullptr;
@@ -42,7 +42,7 @@ namespace dotth
 			// 정적 정점 버퍼의 구조체를 설정합니다.
 			D3D11_BUFFER_DESC vertex_buffer_desc;
 			vertex_buffer_desc.Usage = D3D11_USAGE_DEFAULT;
-			vertex_buffer_desc.ByteWidth = sizeof(dotth::vertex::position_color) * static_cast<unsigned int>(_vertex_list.size());
+			vertex_buffer_desc.ByteWidth = sizeof(vertex::position_color) * static_cast<unsigned int>(_vertex_list.size());
 			vertex_buffer_desc.BindFlags = D3D11_BIND_VERTEX_BUFFER;
 			vertex_buffer_desc.CPUAccessFlags = 0;
 			vertex_buffer_desc.MiscFlags = 0;
@@ -55,7 +55,7 @@ namespace dotth
 			vertex_data.SysMemSlicePitch = 0;
 
 			// 이제 정점 버퍼를 만듭니다.
-			if (FAILED(dotth::dx11::get()->device()->CreateBuffer(&vertex_buffer_desc, &vertex_data, &_vertex_buffer)))
+			if (FAILED(renderer::get()->dx11()->device()->CreateBuffer(&vertex_buffer_desc, &vertex_data, &_vertex_buffer)))
 			{
 				return false;
 			}
@@ -76,16 +76,13 @@ namespace dotth
 			indexData.SysMemSlicePitch = 0;
 
 			// 인덱스 버퍼를 생성합니다.
-			if (FAILED(dotth::dx11::get()->device()->CreateBuffer(&indexBufferDesc, &indexData, &_index_buffer)))
+			if (FAILED(renderer::get()->dx11()->device()->CreateBuffer(&indexBufferDesc, &indexData, &_index_buffer)))
 			{
 				return false;
 			}
 			return true;
 		}
-		void load(void)
-		{
-
-		}
+		
 		void reset(void)
 		{
 			_vertex_list.clear();
@@ -95,17 +92,17 @@ namespace dotth
 		void draw(void)
 		{
 			// 정점 버퍼의 단위와 오프셋을 설정합니다.
-			unsigned int stride = sizeof(dotth::vertex::position_color);
+			unsigned int stride = sizeof(vertex::position_color);
 			unsigned int offset = 0;
 
 			// 렌더링 할 수 있도록 입력 어셈블러에서 정점 버퍼를 활성으로 설정합니다.
-			dx11::get()->context()->IASetVertexBuffers(0, 1, &_vertex_buffer, &stride, &offset);
+			renderer::get()->dx11()->context()->IASetVertexBuffers(0, 1, &_vertex_buffer, &stride, &offset);
 
 			// 렌더링 할 수 있도록 입력 어셈블러에서 인덱스 버퍼를 활성으로 설정합니다.
-			dx11::get()->context()->IASetIndexBuffer(_index_buffer, DXGI_FORMAT_R32_UINT, 0);
+			renderer::get()->dx11()->context()->IASetIndexBuffer(_index_buffer, DXGI_FORMAT_R32_UINT, 0);
 
 			// 정점 버퍼로 그릴 기본형을 설정합니다. 여기서는 삼각형으로 설정합니다.
-			dx11::get()->context()->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+			renderer::get()->dx11()->context()->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 			return;
 		}
 	};

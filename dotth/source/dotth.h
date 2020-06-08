@@ -26,8 +26,8 @@
 
 #include "external/json/json.hpp"
 #include "external/xml/tinyxml2.h"
-#include "external/task/task.h"
 
 namespace dotth 
 {
+	//constexpr char* 
 };

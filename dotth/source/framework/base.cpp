@@ -1,7 +1,7 @@
-#include "base.h"
+#include "framework/base.h"
 #include "utility/utility.h"
 
-dotth::base::base(void)
+base::base(void)
 {
 	static std::atomic<int> s;
 	static utility::timer t;
@@ -9,12 +9,12 @@ dotth::base::base(void)
 	_birth = t.time_since_epoch();
 }
 
-const int & dotth::base::serial(void) const
+const int & base::serial(void) const
 {
 	return _serial;
 }
 
-const std::time_t & dotth::base::birth(void) const
+const std::time_t & base::birth(void) const
 {
 	return _birth;
 }

@@ -1,21 +1,29 @@
-#include "renderer.h"
-#include "drawable.h"
+#include "graphics/renderer.h"
+#include "graphics/dx11.h"
+#include "graphics/drawable.h"
 
-bool dotth::renderer::initialize(HWND hwnd, int width, int height)
+
+void renderer::enqueue(drawable * pd)
 {
-	return dotth::dx11::get()->initialize(hwnd, width, height);
+	_queue.push(pd);
 }
 
-void dotth::renderer::draw(void)
+bool renderer::initialize(HWND hwnd, int width, int height)
 {
-	dotth::dx11::get()->draw_begin();
+	_dx11.initialize(hwnd, width, height);
+	return true;
+}
 
-	while (_queue.empty() == false)
-	{
-		if (auto p = _queue.front())
-			p->draw();
-		_queue.pop();
-	}
+void renderer::draw(void)
+{
+	_dx11.draw_begin();
 
-	dotth::dx11::get()->draw_end();
+	//while (_queue.empty() == false)
+	//{
+	//	//if (auto p = _queue.front())
+	//	//	p->draw();
+	//	_queue.pop();
+	//}
+
+	_dx11.draw_end();
 }

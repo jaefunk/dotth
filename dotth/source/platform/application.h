@@ -1,9 +1,9 @@
 
 #pragma once
 
-#include "../utility/utility.h"
-#include "../framework/scene.h"
-#include "../graphics/renderer.h"
+#include "utility/utility.h"
+#include "framework/scene.h"
+#include "graphics/renderer.h"
 
 namespace dotth 
 {
@@ -11,22 +11,20 @@ namespace dotth
 	{
 	private:
 		utility::timer _timer;
-		scenario _scenario;
-		renderer _renderer;
 	public:
 		bool init_application(void);
-		scenario* get_scenario(void) 
+		scenario* get_scenario(void)
 		{
-			return &_scenario;
+			return scenario::get();
 		}
-		renderer* get_renderer(void) 
+		renderer* get_renderer(void)
 		{
-			return &_renderer;
+			return renderer::get();
 		}
 		bool init_scenario(std::shared_ptr<scene> root_scene, std::string key)
 		{
-			_scenario.assign_scene<dotth::scene>(key);
-			_scenario.push(key);
+			scenario::get()->assign_scene<scene>(key);
+			scenario::get()->push(key);
 			return false;
 		}
 		bool init_renderer(HWND hwnd, int width, int height);

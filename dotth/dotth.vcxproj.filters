@@ -1,6 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
+    <ClInclude Include="source\framework\shared_node.h" />
     <ClInclude Include="source\external\cpplinq\cpplinq.h" />
     <ClInclude Include="source\external\json\json.hpp" />
     <ClInclude Include="source\external\sql\query_builder.h" />
@@ -10,19 +11,19 @@
     <ClInclude Include="source\framework\node.h" />
     <ClInclude Include="source\framework\object.h" />
     <ClInclude Include="source\framework\scene.h" />
-    <ClInclude Include="source\framework\shared_node.h" />
-    <ClInclude Include="source\math\math.h" />
-    <ClInclude Include="source\math\matrix.h" />
-    <ClInclude Include="source\math\transform.h" />
-    <ClInclude Include="source\platform\win\win.h" />
-    <ClInclude Include="source\platform\application.h" />
-    <ClInclude Include="source\utility\utility.h" />
-    <ClInclude Include="source\dotth.h" />
-    <ClInclude Include="source\graphics\dx11\dx11_device.h" />
     <ClInclude Include="source\graphics\drawable.h" />
     <ClInclude Include="source\graphics\renderer.h" />
     <ClInclude Include="source\graphics\type_vertex.h" />
+    <ClInclude Include="source\math\math.h" />
+    <ClInclude Include="source\math\matrix.h" />
+    <ClInclude Include="source\math\transform.h" />
     <ClInclude Include="source\math\type_float.h" />
+    <ClInclude Include="source\platform\win\win.h" />
+    <ClInclude Include="source\platform\application.h" />
+    <ClInclude Include="source\utility\single_instance.h" />
+    <ClInclude Include="source\utility\utility.h" />
+    <ClInclude Include="source\dotth.h" />
+    <ClInclude Include="source\graphics\dx11.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source\external\sql\query_builder.cpp" />
@@ -30,13 +31,13 @@
     <ClCompile Include="source\framework\base.cpp" />
     <ClCompile Include="source\framework\object.cpp" />
     <ClCompile Include="source\framework\scene.cpp" />
+    <ClCompile Include="source\graphics\drawable.cpp" />
+    <ClCompile Include="source\graphics\renderer.cpp" />
     <ClCompile Include="source\math\matrix.cpp" />
     <ClCompile Include="source\math\transform.cpp" />
     <ClCompile Include="source\platform\win\win.cpp" />
     <ClCompile Include="source\platform\application.cpp" />
     <ClCompile Include="source\utility\utility.cpp" />
-    <ClCompile Include="source\graphics\dx11\dx11_device.cpp" />
-    <ClCompile Include="source\graphics\drawable.cpp" />
-    <ClCompile Include="source\graphics\renderer.cpp" />
+    <ClCompile Include="source\graphics\dx11.cpp" />
   </ItemGroup>
 </Project>

@@ -1,28 +1,26 @@
 
 #include "object.h"
 
-void dotth::object::init(void)
+void object::init(void)
 {
-	_drawable.init_triangle();
 	on_init();
-	foreach([](std::shared_ptr<dotth::object> child) {
+	foreach([](std::shared_ptr<object> child) {
 		child->init();
 	});
 }
 
-void dotth::object::update(void)
+void object::update(void)
 {
 	on_update();
-	foreach([](std::shared_ptr<dotth::object> child) {
+	foreach([](std::shared_ptr<object> child) {
 		child->update();
 	});
 }
 
-void dotth::object::render(void)
+void object::render(void)
 {
-	_drawable.draw();
 	on_render();
-	foreach([](std::shared_ptr<dotth::object> child) {
+	foreach([](std::shared_ptr<object> child) {
 		child->render();
 	});
 }

@@ -1,7 +1,7 @@
 #include "utility.h"
 
 #pragma warning(disable : 4996)
-std::string dotth::utility::string::format(const char * format, ...)
+std::string utility::string::format(const char * format, ...)
 {
 	va_list args;
 	va_start(args, format);
