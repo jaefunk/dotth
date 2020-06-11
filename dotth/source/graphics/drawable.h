@@ -5,10 +5,15 @@
 #include "graphics/renderer.h"
 #include "type_vertex.h"
 
+class model;
+class shader;
 class drawable
 {
 private:
-	std::vector<vertex::position_color> _vertex_list;
+	std::shared_ptr<model> _model;
+	std::shared_ptr<shader> _shader;
+private:
+	std::vector<position_color> _vertex_list;
 	std::vector<unsigned int> _index_list;
 	ID3D11Buffer* _vertex_buffer = nullptr;
 	ID3D11Buffer* _index_buffer = nullptr;
@@ -40,7 +45,7 @@ public:
 		// 정적 정점 버퍼의 구조체를 설정합니다.
 		D3D11_BUFFER_DESC vertex_buffer_desc;
 		vertex_buffer_desc.Usage = D3D11_USAGE_DEFAULT;
-		vertex_buffer_desc.ByteWidth = sizeof(vertex::position_color) * static_cast<unsigned int>(_vertex_list.size());
+		vertex_buffer_desc.ByteWidth = sizeof(position_color) * static_cast<unsigned int>(_vertex_list.size());
 		vertex_buffer_desc.BindFlags = D3D11_BIND_VERTEX_BUFFER;
 		vertex_buffer_desc.CPUAccessFlags = 0;
 		vertex_buffer_desc.MiscFlags = 0;
@@ -90,7 +95,7 @@ public:
 	void draw(ID3D11DeviceContext* ctx)
 	{
 		// 정점 버퍼의 단위와 오프셋을 설정합니다.
-		unsigned int stride = sizeof(vertex::position_color);
+		unsigned int stride = sizeof(position_color);
 		unsigned int offset = 0;
 
 		// 렌더링 할 수 있도록 입력 어셈블러에서 정점 버퍼를 활성으로 설정합니다.

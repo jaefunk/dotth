@@ -1,9 +1,11 @@
 
 #pragma once
 
-#include "framework/resource.h"
+#include "framework/base.h"
 
-class shader : public resource
+class ID3D11DeviceContext;
+class shader : public base
 {
-
+public:
+	void draw(ID3D11DeviceContext* pContext);
 };
