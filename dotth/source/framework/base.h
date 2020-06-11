@@ -16,9 +16,7 @@ class base : private noncopyable
 {
 private:
 	int _serial;
-	std::time_t _birth;
 public:
 	base(void);
 	const int& serial(void) const;
-	const std::time_t& birth(void) const;
 };

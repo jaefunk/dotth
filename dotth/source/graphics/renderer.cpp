@@ -18,12 +18,12 @@ void renderer::draw(void)
 {
 	_dx11.draw_begin();
 
-	//while (_queue.empty() == false)
-	//{
-	//	//if (auto p = _queue.front())
-	//	//	p->draw();
-	//	_queue.pop();
-	//}
+	while (_queue.empty() == false)
+	{
+		if (auto p = _queue.front())
+			p->draw(_dx11.context());
+		_queue.pop();
+	}
 
 	_dx11.draw_end();
 }
