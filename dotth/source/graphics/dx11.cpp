@@ -233,7 +233,9 @@ bool dx11::initialize(HWND hwnd, int width, int height, bool vsync)
 
 bool dx11::draw_begin(void)
 {
-	float color[4] = { 0.f, 0.f, 1.f, 1.f };
+	static float a = 0.f;
+	a += 0.001f;
+	float color[4] = { a, 0.f, 1.f, 1.f };
 
 	// 백버퍼를 지웁니다
 	_device_context->ClearRenderTargetView(_render_target_view, color);

@@ -31,6 +31,7 @@
     <ClInclude Include="source\framework\resource.h" />
     <ClInclude Include="source\framework\scene.h" />
     <ClInclude Include="source\framework\shared_node.h" />
+    <ClInclude Include="source\graphics\camera.h" />
     <ClInclude Include="source\graphics\drawable.h" />
     <ClInclude Include="source\graphics\dx11.h" />
     <ClInclude Include="source\graphics\model.h" />
@@ -53,6 +54,7 @@
     <ClCompile Include="source\framework\object.cpp" />
     <ClCompile Include="source\framework\resource.cpp" />
     <ClCompile Include="source\framework\scene.cpp" />
+    <ClCompile Include="source\graphics\camera.cpp" />
     <ClCompile Include="source\graphics\drawable.cpp" />
     <ClCompile Include="source\graphics\dx11.cpp" />
     <ClCompile Include="source\graphics\model.cpp" />

@@ -29,5 +29,4 @@
 
 namespace dotth 
 {
-	//constexpr char* 
 };

@@ -9,8 +9,6 @@ namespace dotth
 {
 	class application 
 	{
-	private:
-		utility::timer _timer;
 	public:
 		bool init_application(void);
 		scenario* get_scenario(void)

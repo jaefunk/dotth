@@ -27,6 +27,7 @@
     <ClInclude Include="source\graphics\model.h" />
     <ClInclude Include="source\graphics\shader.h" />
     <ClInclude Include="source\framework\resource.h" />
+    <ClInclude Include="source\graphics\camera.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source\external\sql\query_builder.cpp" />
@@ -45,5 +46,6 @@
     <ClCompile Include="source\graphics\shader.cpp" />
     <ClCompile Include="source\graphics\model.cpp" />
     <ClCompile Include="source\framework\resource.cpp" />
+    <ClCompile Include="source\graphics\camera.cpp" />
   </ItemGroup>
 </Project>

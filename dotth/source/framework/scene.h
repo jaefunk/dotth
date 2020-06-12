@@ -66,6 +66,10 @@ public:
 		if (_current == nullptr)
 			return;
 		_current->update();
+	}
+
+	void render(void)
+	{
 		_current->render();
 	}
 };

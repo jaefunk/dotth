@@ -3,10 +3,11 @@
 
 #pragma comment(lib, "d3d11.lib")
 #pragma comment(lib, "dxgi.lib")
-//#pragma comment(lib, "d3dcompiler.lib")
+#pragma comment(lib, "d3dcompiler.lib")
 
+#include "dotth.h"
 #include <d3d11.h>
-//#include <d3dcompiler.h>
+#include <d3dcompiler.h>
 #include <DirectXMath.h>
 
 using namespace DirectX;
@@ -25,6 +26,10 @@ public:
 	}
 	ID3D11DeviceContext* context(void) {
 		return _device_context;
+	}
+	void GetProjectionMatrix(XMMATRIX& projectionMatrix)
+	{
+		projectionMatrix = _perspective_matrix;
 	}
 
 private:
