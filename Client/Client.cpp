@@ -3,7 +3,6 @@
 
 #include "framework.h"
 #include "Client.h"
-
 #include "platform/application.h"
 #include "Game/Scene/TestScene.h"
 
@@ -61,7 +60,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance
 	ShowWindow(hWnd, nCmdShow);
 	UpdateWindow(hWnd);
 
-    HACCEL hAccelTable = LoadAccelerators(hInstance, MAKEINTRESOURCE(IDC_CLIENT));
+    //HACCEL hAccelTable = LoadAccelerators(hInstance, MAKEINTRESOURCE(IDC_CLIENT));
 
     MSG msg;
 	
@@ -72,13 +71,15 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance
 	
 	
     // Main message loop:
-    while (GetMessage(&msg, nullptr, 0, 0))
+    while (true)
     {
-        if (!TranslateAccelerator(msg.hwnd, hAccelTable, &msg))
-        {
+		if (PeekMessage(&msg, nullptr, 0, 0, PM_REMOVE))
+		{
+			if (msg.message == WM_QUIT)
+				break;
 			TranslateMessage(&msg);
 			DispatchMessage(&msg);
-        }
+		}
 		g_App.loop();
     }
     return (int) msg.wParam;

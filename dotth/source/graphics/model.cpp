@@ -1,36 +1,7 @@
 
 #include "model.h"
 
-
-
 bool model::Initialize(ID3D11Device* device)
-{
-	// 정점 및 인덱스 버퍼를 초기화합니다.
-	return InitializeBuffers(device);
-}
-
-
-void model::Shutdown()
-{
-	// 버텍스 및 인덱스 버퍼를 종료합니다.
-	ShutdownBuffers();
-}
-
-
-void model::Render(ID3D11DeviceContext* deviceContext)
-{
-	// 그리기를 준비하기 위해 그래픽 파이프 라인에 꼭지점과 인덱스 버퍼를 놓습니다.
-	RenderBuffers(deviceContext);
-}
-
-
-int model::GetIndexCount()
-{
-	return m_indexCount;
-}
-
-
-bool model::InitializeBuffers(ID3D11Device* device)
 {
 	// 정점 배열의 정점 수를 설정합니다.
 	m_vertexCount = 3;
@@ -53,14 +24,16 @@ bool model::InitializeBuffers(ID3D11Device* device)
 	}
 
 	// 정점 배열에 데이터를 설정합니다.
-	vertices[0].position = XMFLOAT3(-1.0f, -1.0f, 0.0f);  // Bottom left.
-	vertices[0].color = XMFLOAT4(0.0f, 1.0f, 0.0f, 1.0f);
+	vertices[0].position = XMFLOAT3(1.0f, 1.0f, 0.0f);  // Top middle.
+	vertices[0].color = XMFLOAT4(1.0f, 0.0f, 0.0f, 1.0f);
 
-	vertices[1].position = XMFLOAT3(0.0f, 1.0f, 0.0f);  // Top middle.
+	vertices[1].position = XMFLOAT3(1.0f, -1.0f, 0.0f);  // Bottom right.
 	vertices[1].color = XMFLOAT4(0.0f, 1.0f, 0.0f, 1.0f);
 
-	vertices[2].position = XMFLOAT3(1.0f, -1.0f, 0.0f);  // Bottom right.
-	vertices[2].color = XMFLOAT4(0.0f, 1.0f, 0.0f, 1.0f);
+	vertices[2].position = XMFLOAT3(-1.0f, -1.0f, 0.0f);  // Bottom left.
+	vertices[2].color = XMFLOAT4(0.0f, 0.0f, 1.0f, 1.0f);
+
+
 
 	// 인덱스 배열의 값을 설정합니다.
 	indices[0] = 0;  // Bottom left.
@@ -120,7 +93,7 @@ bool model::InitializeBuffers(ID3D11Device* device)
 }
 
 
-void model::ShutdownBuffers()
+void model::Shutdown()
 {
 	// 인덱스 버퍼를 해제합니다.
 	if (m_indexBuffer)
@@ -138,7 +111,7 @@ void model::ShutdownBuffers()
 }
 
 
-void model::RenderBuffers(ID3D11DeviceContext* deviceContext)
+void model::Render(ID3D11DeviceContext* deviceContext)
 {
 	// 정점 버퍼의 단위와 오프셋을 설정합니다.
 	unsigned int stride = sizeof(VertexType);
@@ -152,4 +125,10 @@ void model::RenderBuffers(ID3D11DeviceContext* deviceContext)
 
 	// 정점 버퍼로 그릴 기본형을 설정합니다. 여기서는 삼각형으로 설정합니다.
 	deviceContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+}
+
+
+int model::GetIndexCount()
+{
+	return m_indexCount;
 }

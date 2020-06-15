@@ -1,23 +1,32 @@
 
 #pragma once
 
+#include "utility/single_instance.h"
 #include <DirectXMath.h>
-using namespace DirectX;
 
-class camera
+class camera : public single_instance<camera>
 {
-public:
-	void SetPosition(float, float, float);
-	void SetRotation(float, float, float);
-
-	XMFLOAT3 GetPosition();
-	XMFLOAT3 GetRotation();
-
-	void Render();
-	void GetViewMatrix(XMMATRIX&);
-
 private:
-	XMFLOAT3 m_position = XMFLOAT3(0.f, 0.f, 0.f);
-	XMFLOAT3 m_rotation = XMFLOAT3(0.f, 0.f, 0.f);;
-	XMMATRIX m_viewMatrix;
+	enum FLAG {
+		VIEW, PERSPECTIVE, ORTHO, MAX
+	};
+	bool _dirty[FLAG::MAX] = { false, };
+	DirectX::XMFLOAT3 _eye, _up, _at;
+	float _near, _far, _fov;
+	int _width, _height;
+	float _left, _top, _right, _bottom;
+	DirectX::XMMATRIX _view, _pers, _ortho;
+
+public:
+	DirectX::XMMATRIX* get_view(void);
+	DirectX::XMMATRIX* get_pers(void);
+	DirectX::XMMATRIX* get_ortho(void);
+	void set_eye(const DirectX::XMFLOAT3& f3);
+	void set_up(const DirectX::XMFLOAT3& f3);
+	void set_at(const DirectX::XMFLOAT3& f3);
+	void set_fov(const float& f);
+	void set_aspect(const int& width, const int& height);
+	void set_near(const float& f);
+	void set_far(const float& f);
+	void sync(void);
 };

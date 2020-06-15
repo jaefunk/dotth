@@ -27,10 +27,6 @@ public:
 	ID3D11DeviceContext* context(void) {
 		return _device_context;
 	}
-	void GetProjectionMatrix(XMMATRIX& projectionMatrix)
-	{
-		projectionMatrix = _perspective_matrix;
-	}
 
 private:
 	ID3D11Device* _device = nullptr;
@@ -43,8 +39,6 @@ private:
 	ID3D11RasterizerState* _raster_state = nullptr;
 	ID3D11BlendState* _alpha_enable_blending_state = nullptr;
 	ID3D11BlendState* _alpha_disabl_blending_state = nullptr;
-	XMMATRIX _perspective_matrix;
-	XMMATRIX _ortho_matrix;
 
 	int _width = 0;
 	int _height = 0;

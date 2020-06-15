@@ -3,7 +3,6 @@
 #include "graphics/dx11.h"
 #include "utility/single_instance.h"
 
-class drawable;
 class renderer : public single_instance<renderer>
 {
 private:

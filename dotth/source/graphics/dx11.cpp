@@ -1,4 +1,5 @@
 #include "graphics/dx11.h"
+#include "graphics/camera.h"
 
 bool dx11::initialize(HWND hwnd, int width, int height, bool vsync)
 {
@@ -200,12 +201,7 @@ bool dx11::initialize(HWND hwnd, int width, int height, bool vsync)
 
 	_device_context->RSSetViewports(1, &viewport);
 
-	float fieldOfView = XM_PI / 4.0f;
-	float screenAspect = (float)width / (float)height;
-	float camera_near = 1.f;
-	float camera_far = 100000.f;
-	_perspective_matrix = XMMatrixPerspectiveFovLH(fieldOfView, screenAspect, camera_near, camera_far);
-	_ortho_matrix = XMMatrixOrthographicLH((float)width, (float)height, camera_near, camera_far);
+	camera::get()->set_aspect(width, height);
 
 	D3D11_BLEND_DESC blend_state_desc;
 	ZeroMemory(&blend_state_desc, sizeof(D3D11_BLEND_DESC));
@@ -227,15 +223,13 @@ bool dx11::initialize(HWND hwnd, int width, int height, bool vsync)
 		return false;
 	}
 
-	
+
 	return true;
 }
 
 bool dx11::draw_begin(void)
 {
-	static float a = 0.f;
-	a += 0.001f;
-	float color[4] = { a, 0.f, 1.f, 1.f };
+	float color[4] = { 41.f / 255.f, 50.f / 255.f, 68.f / 255.f, 1.f };
 
 	// 백버퍼를 지웁니다
 	_device_context->ClearRenderTargetView(_render_target_view, color);
@@ -248,7 +242,7 @@ bool dx11::draw_begin(void)
 
 bool dx11::draw_end(void)
 {
-	_swap_chain->Present(_vsync_enabled? 1 : 0, 0);
+	_swap_chain->Present(_vsync_enabled ? 1 : 0, 0);
 
 	return false;
 }
