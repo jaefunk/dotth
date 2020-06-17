@@ -7,10 +7,13 @@ class renderer : public single_instance<renderer>
 {
 private:
 	dx11 _dx11;
-
 public:
-	dx11* dx11(void) {
-		return &_dx11;
+	
+	static ID3D11Device* device(void) {
+		return renderer::get()->_dx11.device();
+	}
+	static ID3D11DeviceContext* context(void) {
+		return renderer::get()->_dx11.context();
 	}
 
 public:

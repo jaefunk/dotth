@@ -1,11 +1,14 @@
 #pragma once
 
-#include "node.h"
+#include "framework/node.h"
+#include "framework/component.h"
 
 class object : public node<object>
 {
 private:
 	std::string _name;
+	std::list<std::shared_ptr<component>> _components;
+
 public:
 	void set_name(const char* name)
 	{
@@ -22,12 +25,14 @@ public:
 	}
 
 public:
-	virtual void init(void) final;
-	virtual void update(void) final;
-	virtual void render(void) final;
+	void init(void);
+	void update(void);
+	void render(void);
+	void destroy(void);
 
 protected:
 	virtual void on_init(void) {};
 	virtual void on_update(void) {};
 	virtual void on_render(void) {};
+	virtual void on_destroy(void) {};
 };

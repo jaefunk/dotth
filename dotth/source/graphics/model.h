@@ -1,13 +1,22 @@
 
 #pragma once
 
+#include "framework/object.h"
 #include "graphics/renderer.h"
 
-class model
+class model : public object
 {
 public:
-	virtual ~model() {
-
+	virtual void on_init(void) override
+	{
+		Initialize();
+	}
+	virtual void on_update(void) override
+	{
+	}
+	virtual void on_render(void) override
+	{
+		Render();
 	}
 private:
 	struct VertexType
@@ -17,9 +26,9 @@ private:
 	};
 
 public:
-	bool Initialize(ID3D11Device*);
+	bool Initialize(void);
 	void Shutdown();
-	void Render(ID3D11DeviceContext*);
+	void Render(void);
 	int GetIndexCount();
 
 private:

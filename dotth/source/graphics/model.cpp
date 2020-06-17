@@ -1,7 +1,7 @@
 
 #include "model.h"
 
-bool model::Initialize(ID3D11Device* device)
+bool model::Initialize(void)
 {
 	// 정점 배열의 정점 수를 설정합니다.
 	m_vertexCount = 3;
@@ -56,7 +56,7 @@ bool model::Initialize(ID3D11Device* device)
 	vertexData.SysMemSlicePitch = 0;
 
 	// 이제 정점 버퍼를 만듭니다.
-	if (FAILED(device->CreateBuffer(&vertexBufferDesc, &vertexData, &m_vertexBuffer)))
+	if (FAILED(renderer::device()->CreateBuffer(&vertexBufferDesc, &vertexData, &m_vertexBuffer)))
 	{
 		return false;
 	}
@@ -77,7 +77,7 @@ bool model::Initialize(ID3D11Device* device)
 	indexData.SysMemSlicePitch = 0;
 
 	// 인덱스 버퍼를 생성합니다.
-	if (FAILED(device->CreateBuffer(&indexBufferDesc, &indexData, &m_indexBuffer)))
+	if (FAILED(renderer::device()->CreateBuffer(&indexBufferDesc, &indexData, &m_indexBuffer)))
 	{
 		return false;
 	}
@@ -111,20 +111,20 @@ void model::Shutdown()
 }
 
 
-void model::Render(ID3D11DeviceContext* deviceContext)
+void model::Render(void)
 {
 	// 정점 버퍼의 단위와 오프셋을 설정합니다.
 	unsigned int stride = sizeof(VertexType);
 	unsigned int offset = 0;
 
 	// 렌더링 할 수 있도록 입력 어셈블러에서 정점 버퍼를 활성으로 설정합니다.
-	deviceContext->IASetVertexBuffers(0, 1, &m_vertexBuffer, &stride, &offset);
+	renderer::context()->IASetVertexBuffers(0, 1, &m_vertexBuffer, &stride, &offset);
 
 	// 렌더링 할 수 있도록 입력 어셈블러에서 인덱스 버퍼를 활성으로 설정합니다.
-	deviceContext->IASetIndexBuffer(m_indexBuffer, DXGI_FORMAT_R32_UINT, 0);
+	renderer::context()->IASetIndexBuffer(m_indexBuffer, DXGI_FORMAT_R32_UINT, 0);
 
 	// 정점 버퍼로 그릴 기본형을 설정합니다. 여기서는 삼각형으로 설정합니다.
-	deviceContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+	renderer::context()->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 }
 
 

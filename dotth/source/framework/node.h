@@ -51,12 +51,11 @@ public:
 	template <class target_type = ty, class predicate>
 	void foreach(predicate func)
 	{
-		for (std::shared_ptr<ty> child : _children)
-		{
+		std::for_each(std::begin(_children), std::end(_children), [func](typename decltype(_children)::value_type child) {
 			if (std::shared_ptr<target_type> casted = std::dynamic_pointer_cast<target_type>(child))
 				func(casted);
 			child->foreach<target_type>(func);
-		}
+		});
 	}
 
 	bool detach(std::shared_ptr<ty> target)

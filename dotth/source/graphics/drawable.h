@@ -17,8 +17,8 @@ public:
 	{
 		_model = std::make_shared<model>();
 		_shader = std::make_shared<shader>();
-		_model->Initialize(renderer::get()->dx11()->device());
-		_shader->Initialize(renderer::get()->dx11()->device());
+		_model->Initialize();
+		_shader->Initialize(renderer::device());
 	};
 
 	virtual void on_update(void)
@@ -28,7 +28,7 @@ public:
 	virtual void on_render(void)
 	{
 		XMMATRIX worldMatrix = XMMatrixIdentity();
-		_model->Render(renderer::get()->dx11()->context());
-		_shader->Render(renderer::get()->dx11()->context(), _model->GetIndexCount(), &worldMatrix, camera::get()->get_view(), camera::get()->get_pers());
+		_model->Render();
+		_shader->Render(renderer::context(), _model->GetIndexCount(), &worldMatrix, camera::get()->get_view(), camera::get()->get_pers());
 	};
 };

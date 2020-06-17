@@ -28,8 +28,9 @@
     <ClInclude Include="source\external\sql\query_builder.h" />
     <ClInclude Include="source\external\task\task.h" />
     <ClInclude Include="source\external\xml\tinyxml2.h" />
-    </ItemGroup>
-    <ItemGroup>
+    <ClInclude Include="source\framework\component.h" />
+  </ItemGroup>
+  <ItemGroup>
     <ClCompile Include="source\framework\base.cpp" />
     <ClCompile Include="source\framework\object.cpp" />
     <ClCompile Include="source\framework\resource.cpp" />
@@ -47,5 +48,6 @@
     <ClCompile Include="source\utility\utility.cpp" />
     <ClCompile Include="source\external\sql\query_builder.cpp" />
     <ClCompile Include="source\external\xml\tinyxml2.cpp" />
+    <ClCompile Include="source\framework\component.cpp" />
   </ItemGroup>
 </Project>
