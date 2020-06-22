@@ -7,9 +7,6 @@
 class TestScene : public scene
 {
 public:
-	TestScene(void)
-	{
-	}
 	virtual void on_init(void) override 
 	{
 		camera::get()->set_at(DirectX::XMFLOAT3(0.f, 0.f, 0.f));
@@ -20,7 +17,7 @@ public:
 		camera::get()->set_far(1000.f);
 
 		auto p = std::make_shared<drawable>();
-		p->set_name("triangle");
+		p->name("triangle");
 		attach(p);
 	}
 	virtual void on_update(void) override 

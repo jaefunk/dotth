@@ -1,10 +1,10 @@
 
 #pragma once
 
-#include "framework/base.h"
+#include "framework/component.h"
 #include "graphics/renderer.h"
 
-class shader
+class shader : public component
 {
 private:
 	struct MatrixBufferType
@@ -32,4 +32,11 @@ private:
 	ID3D11PixelShader* m_pixelShader = nullptr;
 	ID3D11InputLayout* m_layout = nullptr;
 	ID3D11Buffer* m_matrixBuffer = nullptr;
+};
+
+
+
+class sshaderr2
+{
+
 };

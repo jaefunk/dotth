@@ -117,11 +117,11 @@ int main()
 	auto cc = std::make_shared<objB>();
 	auto dd = std::make_shared<objB>();
 	auto ee = std::make_shared<objB>();
-	aa->set_name("A");
-	bb->set_name("B");
-	cc->set_name("C");
-	dd->set_name("D");
-	ee->set_name("E");
+	aa->name("A");
+	bb->name("B");
+	cc->name("C");
+	dd->name("D");
+	ee->name("E");
 
 	aa->attach(bb);
 	aa->attach(cc);

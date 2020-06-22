@@ -16,7 +16,9 @@ public:
 	virtual void on_init(void)
 	{
 		_model = std::make_shared<model>();
+		attach_component(_model);
 		_shader = std::make_shared<shader>();
+		attach_component(_shader);
 		_model->Initialize();
 		_shader->Initialize(renderer::device());
 	};

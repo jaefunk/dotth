@@ -15,8 +15,12 @@ private:
 class base : private noncopyable
 {
 private:
-	int _serial;
+	unsigned int _serial;
+	std::string _name;
+	
 public:
 	base(void);
-	const int& serial(void) const;
+	const unsigned int& serial(void) const;
+	void name(const std::string& name);
+	const std::string& name(void);
 };

@@ -36,6 +36,7 @@
     <ClInclude Include="source\graphics\drawable.h" />
     <ClInclude Include="source\graphics\dx11.h" />
     <ClInclude Include="source\graphics\model.h" />
+    <ClInclude Include="source\graphics\polygon.h" />
     <ClInclude Include="source\graphics\renderer.h" />
     <ClInclude Include="source\graphics\shader.h" />
     <ClInclude Include="source\graphics\type_vertex.h" />
@@ -60,6 +61,7 @@
     <ClCompile Include="source\graphics\drawable.cpp" />
     <ClCompile Include="source\graphics\dx11.cpp" />
     <ClCompile Include="source\graphics\model.cpp" />
+    <ClCompile Include="source\graphics\polygon.cpp" />
     <ClCompile Include="source\graphics\renderer.cpp" />
     <ClCompile Include="source\graphics\shader.cpp" />
     <ClCompile Include="source\math\matrix.cpp" />
