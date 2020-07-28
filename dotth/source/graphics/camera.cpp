@@ -1,84 +1,82 @@
 ﻿
-#include "camera.h"
+#include "Camera.h"
 
-DirectX::XMMATRIX * camera::get_view(void)
+DirectX::XMMATRIX * Camera::View(void)
 {
-	return &_view;
+	return &_View;
 }
 
-DirectX::XMMATRIX * camera::get_pers(void)
+DirectX::XMMATRIX * Camera::Perspective(void)
 {
-	return &_pers;
+	return &_Perspective;
 }
 
-DirectX::XMMATRIX * camera::get_ortho(void)
+DirectX::XMMATRIX * Camera::Ortho(void)
 {
-	return &_ortho;
+	return &_Ortho;
 }
 
-void camera::set_eye(const DirectX::XMFLOAT3 & f3)
+void Camera::SetEye(const DirectX::XMFLOAT3 & value)
 {
-	_dirty[FLAG::VIEW] = true;
-	_eye = f3;
+	_DirtyFlags |= FLAG::VIEW;
+	_Eye = value;
 }
 
-void camera::set_up(const DirectX::XMFLOAT3 & f3)
+void Camera::SetUp(const DirectX::XMFLOAT3 & value)
 {
-	_dirty[FLAG::VIEW] = true;
-	_up = f3;
+	_DirtyFlags |= FLAG::VIEW;
+	_Up = value;
 }
 
-void camera::set_at(const DirectX::XMFLOAT3 & f3)
+void Camera::SetAt(const DirectX::XMFLOAT3 & value)
 {
-	_dirty[FLAG::VIEW] = true;
-	_at = f3;
+	_DirtyFlags |= FLAG::VIEW;
+	_At = value;
 }
 
-void camera::set_fov(const float & f)
+void Camera::SetFieldOfView(const float & value)
 {
-	_dirty[FLAG::PERSPECTIVE] = true;
-	_fov = f;
+	_DirtyFlags |= FLAG::PERSPECTIVE;
+	_Fov = value;
 }
 
-void camera::set_aspect(const int & width, const int & height)
+void Camera::SetViewportSize(const int & width, const int & height)
 {
-	_dirty[FLAG::PERSPECTIVE] = true;
-	_dirty[FLAG::ORTHO] = true;
-	_width = width;
-	_height = height;
+	_DirtyFlags |= FLAG::PERSPECTIVE;
+	_DirtyFlags |= FLAG::ORTHO;
+	_Width = width;
+	_Height = height;
 }
 
-void camera::set_near(const float & f)
+void Camera::SetNear(const float & value)
 {
-	_dirty[FLAG::PERSPECTIVE] = true;
-	_dirty[FLAG::ORTHO] = true;
-	_near = f;
+	_DirtyFlags |= FLAG::PERSPECTIVE;
+	_DirtyFlags |= FLAG::ORTHO;
+	_Near = value;
 }
 
-void camera::set_far(const float & f)
+void Camera::SetFar(const float & value)
 {
-	_dirty[FLAG::PERSPECTIVE] = true;
-	_dirty[FLAG::ORTHO] = true;
-	_far = f;
+	_DirtyFlags |= FLAG::PERSPECTIVE;
+	_DirtyFlags |= FLAG::ORTHO;
+	_Far = value;
 }
 
-void camera::sync(void)
+void Camera::Sync(void)
 {
-	if (_dirty[FLAG::VIEW] == true)
+	if (_DirtyFlags & FLAG::VIEW)
 	{
-		_dirty[FLAG::VIEW] = false;
-		_view = DirectX::XMMatrixLookAtLH(DirectX::XMLoadFloat3(&_eye), DirectX::XMLoadFloat3(&_at), DirectX::XMLoadFloat3(&_up));
+		_View = DirectX::XMMatrixLookAtLH(DirectX::XMLoadFloat3(&_Eye), DirectX::XMLoadFloat3(&_At), DirectX::XMLoadFloat3(&_Up));
 	}
 
-	if (_dirty[FLAG::PERSPECTIVE] == true)
+	if (_DirtyFlags & FLAG::PERSPECTIVE)
 	{
-		_dirty[FLAG::PERSPECTIVE] = false;
-		_pers = DirectX::XMMatrixPerspectiveFovLH(_fov, static_cast<float>(_width) / static_cast<float>(_height), _near, _far);
+		_Perspective = DirectX::XMMatrixPerspectiveFovLH(_Fov, static_cast<float>(_Width) / static_cast<float>(_Height), _Near, _Far);
 	}
 
-	if (_dirty[FLAG::ORTHO] == true)
+	if (_DirtyFlags & FLAG::ORTHO)
 	{
-		_dirty[FLAG::ORTHO] = false;
-		_ortho = DirectX::XMMatrixOrthographicLH(static_cast<float>(_width), static_cast<float>(_height), _near, _far);
+		_Ortho = DirectX::XMMatrixOrthographicLH(static_cast<float>(_Width), static_cast<float>(_Height), _Near, _Far);
 	}
+	_DirtyFlags = FLAG::NONE;
 }

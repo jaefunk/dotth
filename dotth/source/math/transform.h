@@ -65,7 +65,7 @@ namespace dotth
 		const matrix4& matrix(void) const { return _matrix; }
 		const matrix4& matrix_without_scale(void) const { return _matrix_without_scale; }
 		const float* result(void) const { return _matrix.m; }
-		const bool sync(const transform* parent);
+		const bool Sync(const transform* parent);
 	};
 };
 

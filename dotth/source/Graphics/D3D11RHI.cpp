@@ -1,7 +1,7 @@
-#include "graphics/dx11.h"
-#include "graphics/camera.h"
+#include "Graphics/D3D11RHI.h"
+#include "Graphics/Camera.h"
 
-bool dx11::initialize(HWND hwnd, int width, int height, bool vsync)
+bool D3D11RHI::initialize(HWND hwnd, int width, int height)
 {
 	IDXGIFactory* factory = nullptr;
 	if (FAILED(CreateDXGIFactory(__uuidof(IDXGIFactory), (void**)&factory)))
@@ -87,8 +87,8 @@ bool dx11::initialize(HWND hwnd, int width, int height, bool vsync)
 	swap_chain_desc.BufferDesc.Width = width;
 	swap_chain_desc.BufferDesc.Height = height;
 	swap_chain_desc.BufferDesc.Format = DXGI_FORMAT_R8G8B8A8_UNORM;
-	swap_chain_desc.BufferDesc.RefreshRate.Numerator = _vsync_enabled ? numerator : 0;
-	swap_chain_desc.BufferDesc.RefreshRate.Denominator = _vsync_enabled ? denominator : 1;
+	swap_chain_desc.BufferDesc.RefreshRate.Numerator = 0;
+	swap_chain_desc.BufferDesc.RefreshRate.Denominator = 1;
 	swap_chain_desc.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT;
 	swap_chain_desc.OutputWindow = hwnd;
 	swap_chain_desc.SampleDesc.Count = 1;
@@ -201,7 +201,7 @@ bool dx11::initialize(HWND hwnd, int width, int height, bool vsync)
 
 	_device_context->RSSetViewports(1, &viewport);
 
-	camera::get()->set_aspect(width, height);
+	Camera::Instance()->SetViewportSize(width, height);
 
 	D3D11_BLEND_DESC blend_state_desc;
 	ZeroMemory(&blend_state_desc, sizeof(D3D11_BLEND_DESC));
@@ -227,7 +227,7 @@ bool dx11::initialize(HWND hwnd, int width, int height, bool vsync)
 	return true;
 }
 
-bool dx11::draw_begin(void)
+bool D3D11RHI::draw_begin(void)
 {
 	float color[4] = { 41.f / 255.f, 50.f / 255.f, 68.f / 255.f, 1.f };
 
@@ -240,14 +240,14 @@ bool dx11::draw_begin(void)
 	return false;
 }
 
-bool dx11::draw_end(void)
+bool D3D11RHI::draw_end(void)
 {
-	_swap_chain->Present(_vsync_enabled ? 1 : 0, 0);
+	_swap_chain->Present(0, 0);
 
 	return false;
 }
 
-bool dx11::release(void)
+bool D3D11RHI::release(void)
 {
 	_device->Release();
 	_device_context->Release();

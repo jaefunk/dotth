@@ -31,6 +31,6 @@ public:
 	{
 		XMMATRIX worldMatrix = XMMatrixIdentity();
 		_model->Render();
-		_shader->Render(renderer::context(), _model->GetIndexCount(), &worldMatrix, camera::get()->get_view(), camera::get()->get_pers());
+		_shader->Render(renderer::context(), _model->GetIndexCount(), &worldMatrix, Camera::Instance()->View(), Camera::Instance()->Perspective());
 	};
 };

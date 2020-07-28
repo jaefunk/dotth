@@ -13,16 +13,16 @@ namespace dotth
 		bool init_application(void);
 		Scenario* get_scenario(void)
 		{
-			return Scenario::get();
+			return Scenario::Instance();
 		}
 		renderer* get_renderer(void)
 		{
-			return renderer::get();
+			return renderer::Instance();
 		}
 		bool init_scenario(std::shared_ptr<Scene> root_scene, std::string key)
 		{
-			Scenario::get()->Assign<Scene>(key);
-			Scenario::get()->Push(key);
+			Scenario::Instance()->Assign<Scene>(key);
+			Scenario::Instance()->Push(key);
 			return false;
 		}
 		bool init_renderer(HWND hwnd, int width, int height);

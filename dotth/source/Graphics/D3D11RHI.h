@@ -1,21 +1,21 @@
 
 #pragma once
 
+#include "DynamicRHI.h"
+
 #pragma comment(lib, "d3d11.lib")
 #pragma comment(lib, "dxgi.lib")
 #pragma comment(lib, "d3dcompiler.lib")
-
-#include "dotth.h"
 #include <d3d11.h>
 #include <d3dcompiler.h>
 #include <DirectXMath.h>
 
 using namespace DirectX;
 
-class dx11
+class D3D11RHI : public DynamicRHI
 {
 public:
-	bool initialize(HWND hwnd, int width, int height, bool vsync = false);
+	bool initialize(HWND hwnd, int width, int height);
 	bool draw_begin(void);
 	bool draw_end(void);
 	bool release(void);
@@ -40,9 +40,8 @@ private:
 	ID3D11BlendState* _alpha_enable_blending_state = nullptr;
 	ID3D11BlendState* _alpha_disabl_blending_state = nullptr;
 
-	int _width = 0;
-	int _height = 0;
-	bool _vsync_enabled = false;
 	int _vga_memory_size = 0;
 	char _vga_desc[128] = { 0, };
 };
+
+// D3D11RHI

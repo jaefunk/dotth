@@ -1,19 +1,19 @@
 
 #pragma once
-#include "graphics/dx11.h"
-#include "utility/single_instance.h"
+#include "Graphics/D3D11RHI.h"
+#include "utility/SingleInstance.h"
 
-class renderer : public single_instance<renderer>
+class renderer : public SingleInstance<renderer>
 {
 private:
-	dx11 _dx11;
+	D3D11RHI _dx11;
 public:
 	
 	static ID3D11Device* device(void) {
-		return renderer::get()->_dx11.device();
+		return renderer::Instance()->_dx11.device();
 	}
 	static ID3D11DeviceContext* context(void) {
-		return renderer::get()->_dx11.context();
+		return renderer::Instance()->_dx11.context();
 	}
 
 public:

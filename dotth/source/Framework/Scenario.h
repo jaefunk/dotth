@@ -1,9 +1,9 @@
 #pragma once
 
 #include "Framework/Scene.h"
-#include "utility/single_instance.h"
+#include "utility/SingleInstance.h"
 
-class Scenario : public single_instance<Scenario>
+class Scenario : public SingleInstance<Scenario>
 {
 private:
 	bool _SceneChanged = false;

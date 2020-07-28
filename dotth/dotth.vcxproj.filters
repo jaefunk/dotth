@@ -2,8 +2,6 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClInclude Include="source\framework\shared_node.h" />
-    <ClInclude Include="source\graphics\camera.h" />
-    <ClInclude Include="source\graphics\dx11.h" />
     <ClInclude Include="source\graphics\model.h" />
     <ClInclude Include="source\graphics\renderer.h" />
     <ClInclude Include="source\graphics\shader.h" />
@@ -14,7 +12,6 @@
     <ClInclude Include="source\math\type_float.h" />
     <ClInclude Include="source\platform\win\win.h" />
     <ClInclude Include="source\platform\application.h" />
-    <ClInclude Include="source\utility\single_instance.h" />
     <ClInclude Include="source\utility\utility.h" />
     <ClInclude Include="source\dotth.h" />
     <ClInclude Include="source\graphics\polygon.h" />
@@ -33,10 +30,12 @@
     <ClInclude Include="source\framework\Resource.h" />
     <ClInclude Include="source\framework\Scene.h" />
     <ClInclude Include="source\Framework\Scenario.h" />
+    <ClInclude Include="source\graphics\Camera.h" />
+    <ClInclude Include="source\utility\SingleInstance.h" />
+    <ClInclude Include="source\Graphics\DynamicRHI.h" />
+    <ClInclude Include="source\Graphics\D3D11RHI.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="source\graphics\camera.cpp" />
-    <ClCompile Include="source\graphics\dx11.cpp" />
     <ClCompile Include="source\graphics\model.cpp" />
     <ClCompile Include="source\graphics\renderer.cpp" />
     <ClCompile Include="source\graphics\shader.cpp" />
@@ -57,5 +56,8 @@
     <ClCompile Include="source\framework\Resource.cpp" />
     <ClCompile Include="source\framework\Scene.cpp" />
     <ClCompile Include="source\Framework\Scenario.cpp" />
+    <ClCompile Include="source\graphics\Camera.cpp" />
+    <ClCompile Include="source\Graphics\DynamicRHI.cpp" />
+    <ClCompile Include="source\Graphics\D3D11RHI.cpp" />
   </ItemGroup>
 </Project>

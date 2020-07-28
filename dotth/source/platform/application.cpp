@@ -8,14 +8,14 @@ bool dotth::application::init_application(void)
 
 bool dotth::application::init_renderer(HWND hwnd, int width, int height)
 {
-	renderer::get()->initialize(hwnd, width, height);
+	renderer::Instance()->initialize(hwnd, width, height);
 	return false;
 }
 
 bool dotth::application::loop(void)
 {
-	renderer::get()->clear_buffer();
-	Scenario::get()->Loop();
-	renderer::get()->swap_buffer();
+	renderer::Instance()->clear_buffer();
+	Scenario::Instance()->Loop();
+	renderer::Instance()->swap_buffer();
 	return true;
 }

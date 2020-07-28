@@ -1,6 +1,6 @@
 #include "transform.h"
 
-const bool dotth::transform::sync(const transform* parent)
+const bool dotth::transform::Sync(const transform* parent)
 {
 	//static matrix4 matrix_scale, matrix_position, matrix_rotate, scale_rotate, scale_rotate_position, rotate_position;
 	//static float3  _tmp_scale, _tmp_pos;	
