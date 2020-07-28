@@ -952,7 +952,7 @@ namespace tinyxml2
 	@endverbatim
 	A text node can have 2 ways to output the next. "normal" output
 	and CDATA. It will default to the mode it was parsed from the XML file and
-	you generally want to leave it alone, but you can change the output mode with
+	you generally want to Leave it alone, but you can change the output mode with
 	SetCData() and query it with CData().
 	*/
 	class TINYXML2_LIB XMLText : public XMLNode

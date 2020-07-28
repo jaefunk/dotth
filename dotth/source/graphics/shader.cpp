@@ -1,21 +1,20 @@
 #include "shader.h"
 
-
-bool shader::Initialize(ID3D11Device* device, HWND hwnd)
+bool sdr2222::Initialize(ID3D11Device* device, HWND hwnd)
 {
 	// 정점 및 픽셀 쉐이더를 초기화합니다.
 	return InitializeShader(device, hwnd, nullptr, nullptr);
 }
 
 
-void shader::Shutdown()
+void sdr2222::Shutdown()
 {
 	// 버텍스 및 픽셀 쉐이더와 관련된 객체를 종료합니다.
 	ShutdownShader();
 }
 
 
-bool shader::Render(ID3D11DeviceContext* deviceContext, int indexCount,
+bool sdr2222::Render(ID3D11DeviceContext* deviceContext, int indexCount,
 	XMMATRIX* worldMatrix, XMMATRIX* viewMatrix, XMMATRIX* projectionMatrix)
 {
 	// 렌더링에 사용할 셰이더 매개 변수를 설정합니다.
@@ -26,12 +25,12 @@ bool shader::Render(ID3D11DeviceContext* deviceContext, int indexCount,
 
 	// 설정된 버퍼를 셰이더로 렌더링한다.
 	RenderShader(deviceContext, indexCount);
-
+	
 	return true;
 }
 
 
-bool shader::InitializeShader(ID3D11Device* device, HWND hwnd, WCHAR* vsFilename, WCHAR* psFilename)
+bool sdr2222::InitializeShader(ID3D11Device* device, HWND hwnd, WCHAR* vsFilename, WCHAR* psFilename)
 {
 	ID3D10Blob* errorMessage = nullptr;
 
@@ -47,7 +46,7 @@ bool shader::InitializeShader(ID3D11Device* device, HWND hwnd, WCHAR* vsFilename
 		// 컴파일 오류가 아니라면 셰이더 파일을 찾을 수 없는 경우입니다.
 		else
 		{
-			MessageBox(hwnd, vsFilename, L"Missing Shader File", MB_OK);
+			//MessageBox(hwnd, vsFilename, L"Missing Shader File", MB_OK);
 		}
 
 		return false;
@@ -65,7 +64,7 @@ bool shader::InitializeShader(ID3D11Device* device, HWND hwnd, WCHAR* vsFilename
 		// 컴파일 오류가 아니라면 셰이더 파일을 찾을 수 없는 경우입니다.
 		else
 		{
-			MessageBox(hwnd, psFilename, L"Missing Shader File", MB_OK);
+			//MessageBox(hwnd, psFilename, L"Missing Shader File", MB_OK);
 		}
 
 		return false;
@@ -138,7 +137,7 @@ bool shader::InitializeShader(ID3D11Device* device, HWND hwnd, WCHAR* vsFilename
 }
 
 
-void shader::ShutdownShader()
+void sdr2222::ShutdownShader()
 {
 	// 행렬 상수 버퍼를 해제합니다.
 	if (m_matrixBuffer)
@@ -170,7 +169,7 @@ void shader::ShutdownShader()
 }
 
 
-void shader::OutputShaderErrorMessage(ID3D10Blob* errorMessage, HWND hwnd, WCHAR* shaderFilename)
+void sdr2222::OutputShaderErrorMessage(ID3D10Blob* errorMessage, HWND hwnd, WCHAR* shaderFilename)
 {
 	// 에러 메시지를 출력창에 표시합니다.
 	OutputDebugStringA(reinterpret_cast<const char*>(errorMessage->GetBufferPointer()));
@@ -180,11 +179,11 @@ void shader::OutputShaderErrorMessage(ID3D10Blob* errorMessage, HWND hwnd, WCHAR
 	errorMessage = 0;
 
 	// 컴파일 에러가 있음을 팝업 메세지로 알려줍니다.
-	MessageBox(hwnd, L"Error compiling shader.", shaderFilename, MB_OK);
+	//MessageBox(hwnd, L"Error compiling sdr2222.", shaderFilename, MB_OK);
 }
 
 
-bool shader::SetShaderParameters(ID3D11DeviceContext* deviceContext, DirectX::XMMATRIX* worldMatrix, DirectX::XMMATRIX* viewMatrix, DirectX::XMMATRIX* projectionMatrix)
+bool sdr2222::SetShaderParameters(ID3D11DeviceContext* deviceContext, DirectX::XMMATRIX* worldMatrix, DirectX::XMMATRIX* viewMatrix, DirectX::XMMATRIX* projectionMatrix)
 {
 	// 행렬을 transpose하여 셰이더에서 사용할 수 있게 합니다
 	//worldMatrix = DirectX::XMMatrixTranspose(*worldMatrix);
@@ -219,7 +218,7 @@ bool shader::SetShaderParameters(ID3D11DeviceContext* deviceContext, DirectX::XM
 }
 
 
-void shader::RenderShader(ID3D11DeviceContext* deviceContext, int indexCount)
+void sdr2222::RenderShader(ID3D11DeviceContext* deviceContext, int indexCount)
 {
 	// 정점 입력 레이아웃을 설정합니다.
 	deviceContext->IASetInputLayout(m_layout);

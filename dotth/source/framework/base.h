@@ -2,25 +2,25 @@
 
 #include "dotth.h"
 
-class noncopyable
+class NonCopyable
 {
 protected:
-	noncopyable(void) = default;
-	virtual ~noncopyable(void) = default;
+	NonCopyable(void) = default;
+	virtual ~NonCopyable(void) = default;
 private:
-	noncopyable(const noncopyable&) = delete;
-	const noncopyable& operator=(const noncopyable&) = delete;
+	NonCopyable(const NonCopyable&) = delete;
+	const NonCopyable& operator=(const NonCopyable&) = delete;
 };
 
-class base : private noncopyable
+class Base : private NonCopyable
 {
 private:
-	unsigned int _serial;
-	std::string _name;
+	unsigned int _Serial;
+	std::string _Name;
 	
 public:
-	base(void);
-	const unsigned int& serial(void) const;
-	void name(const std::string& name);
-	const std::string& name(void);
+	Base(void);
+	const unsigned int& Serial(void) const;
+	void Name(const std::string& name);
+	const std::string& Name(void);
 };

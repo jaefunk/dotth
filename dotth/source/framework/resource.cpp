@@ -1,1 +1,1 @@
-#include "framework/resource.h"
+#include "Framework/Resource.h"

@@ -1,13 +1,13 @@
 
 #pragma once
 
-#include "framework/scene.h"
-#include "graphics/drawable.h"
+#include "Framework/Scene.h"
+#include "framework/sample_object.h"
 
-class TestScene : public scene
+class TestScene : public Scene
 {
 public:
-	virtual void on_init(void) override 
+	virtual void OnInit(void) override 
 	{
 		camera::get()->set_at(DirectX::XMFLOAT3(0.f, 0.f, 0.f));
 		camera::get()->set_up(DirectX::XMFLOAT3(0.f, 1.f, 0.f));
@@ -16,14 +16,14 @@ public:
 		camera::get()->set_near(0.1f);
 		camera::get()->set_far(1000.f);
 
-		auto p = std::make_shared<drawable>();
-		p->name("triangle");
-		attach(p);
+		auto p = std::make_shared<sample_object>();
+		p->Name("triangle");
+		Root()->Attach(p);
 	}
-	virtual void on_update(void) override 
+	virtual void OnUpdate(void) override 
 	{
 	};
-	virtual void on_render(void) override
+	virtual void OnDraw(void) override
 	{
 	};
 };

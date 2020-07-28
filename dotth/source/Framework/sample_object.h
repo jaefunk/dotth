@@ -1,33 +1,33 @@
 
 #pragma once
 
-#include "framework/object.h"
+#include "Framework/Object.h"
 #include "graphics/camera.h"
 #include "graphics/model.h"
 #include "graphics/shader.h"
 
-class drawable : public object
+class sample_object : public Object
 {
 private:
 	std::shared_ptr<model> _model;
-	std::shared_ptr<shader> _shader;
+	std::shared_ptr<sdr2222> _shader;
 
 public:
-	virtual void on_init(void)
+	virtual void OnInit(void)
 	{
 		_model = std::make_shared<model>();
-		attach_component(_model);
-		_shader = std::make_shared<shader>();
-		attach_component(_shader);
+		AttachComponent(_model);
+		_shader = std::make_shared<sdr2222>();
+		//AttachComponent(_shader);
 		_model->Initialize();
 		_shader->Initialize(renderer::device());
 	};
 
-	virtual void on_update(void)
+	virtual void OnUpdate(void)
 	{
 	};
 
-	virtual void on_render(void)
+	virtual void OnDraw(void)
 	{
 		XMMATRIX worldMatrix = XMMatrixIdentity();
 		_model->Render();

@@ -100,9 +100,9 @@ struct float3
 #include <chrono>
 
 #include "framework/object.h"
-class objA : public object
+class objA : public Object
 {};
-class objB : public object
+class objB : public Object
 {};
 
 
@@ -117,27 +117,27 @@ int main()
 	auto cc = std::make_shared<objB>();
 	auto dd = std::make_shared<objB>();
 	auto ee = std::make_shared<objB>();
-	aa->name("A");
-	bb->name("B");
-	cc->name("C");
-	dd->name("D");
-	ee->name("E");
+	aa->Name("A");
+	bb->Name("B");
+	cc->Name("C");
+	dd->Name("D");
+	ee->Name("E");
 
-	aa->attach(bb);
-	aa->attach(cc);
-	aa->attach(dd);
-	aa->attach(ee);
-	bb->attach(ee);
-	auto kk = aa->find_by_func([](std::shared_ptr<object> a) { return true; });
-	auto pp = aa->find_by_name("C");
+	aa->Attach(bb);
+	aa->Attach(cc);
+	aa->Attach(dd);
+	aa->Attach(ee);
+	bb->Attach(ee);
+	auto kk = aa->FindByFunction([](std::shared_ptr<Object> a) { return true; });
+	auto pp = aa->FindByName("C");
 
-	//aa->foreach<obj>([](auto aa) {
+	//aa->Foreach<obj>([](auto aa) {
 	//	aa->print();
 	//});
 
-	//ee->leave();
+	//ee->Leave();
 
-	//aa->foreach<obj>([](auto aa) {
+	//aa->Foreach<obj>([](auto aa) {
 	//	aa->print();
 	//});
 }

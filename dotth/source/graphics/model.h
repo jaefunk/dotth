@@ -1,20 +1,20 @@
 
 #pragma once
 
-#include "framework/component.h"
+#include "Framework/component.h"
 #include "graphics/renderer.h"
 
-class model : public component
+class model : public Component
 {
 public:
-	virtual void post_init(void) override
+	virtual void OnInit(void) override
 	{
 		Initialize();
 	}
-	virtual void post_update(void) override
+	virtual void OnUpdate(void) override
 	{
 	}
-	virtual void post_render(void) override
+	virtual void OnDraw(void) override
 	{
 		Render();
 	}

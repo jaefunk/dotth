@@ -1,10 +1,10 @@
 
 #pragma once
 
-#include "framework/base.h"
+#include "Framework/Base.h"
 
 template <typename ty>
-class single_instance : public base
+class single_instance : public Base
 {
 public:
 	static ty* get(void)

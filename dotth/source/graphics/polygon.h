@@ -1,50 +1,39 @@
 
 #pragma once
 
-#include "framework/component.h"
-#include "graphics/renderer.h"
+#include "components/drawable_component.h"
 
-class polygon : public component
+struct vertex_type {
+	XMFLOAT3 position = XMFLOAT3(0.f, 0.f, 0.f);
+	XMFLOAT4 color = XMFLOAT4(1.f, 1.f, 1.f, 1.f);
+};
+
+class polygon : public drawable_component<vertex_type>
 {
 public:
-	virtual void pre_init(void) override
-	{
-	}
-	virtual void pre_update(void) override
-	{
-	}
-	virtual void pre_render(void) override
-	{
-	}
-	virtual void pre_destroy(void) override
-	{
-	}
 
-	virtual void post_init(void) override
+	virtual void OnInit(void) override
 	{
 	}
-	virtual void post_update(void) override
+	virtual void OnUpdate(void) override
 	{
 	}
-	virtual void post_render(void) override
+	virtual void OnDraw(void) override
 	{
 		unsigned int stride = sizeof(vertex_type);
 		unsigned int offset = 0;
 		renderer::context()->IASetVertexBuffers(0, 1, &_vertex_buff, &stride, &offset);
 		renderer::context()->IASetIndexBuffer(_index_buff, DXGI_FORMAT_R32_UINT, 0);
 		renderer::context()->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+
+		//renderer::context()->IASetInputLayout(m_layout);
+		//renderer::context()->VSSetShader(m_vertexShader, NULL, 0);
+		//renderer::context()->PSSetShader(m_pixelShader, NULL, 0);
+		//renderer::context()->DrawIndexed(indexCount, 0, 0);
 	}
-	virtual void post_destroy(void) override
+	virtual void OnDestroy(void) override
 	{
 	}
-
-
-
-public:
-	struct vertex_type {
-		XMFLOAT3 position = XMFLOAT3(0.f, 0.f, 0.f);
-		XMFLOAT4 color = XMFLOAT4(1.f, 1.f, 1.f, 1.f);
-	};
 
 public:
 	void push_vertex(vertex_type vertex)
@@ -113,11 +102,4 @@ public:
 	void Render(void);
 	int GetIndexCount();
 
-private:
-	std::vector<vertex_type> _vertex_list;
-	std::vector<unsigned long> _index_list;
-	ID3D11Buffer* _vertex_buff = nullptr;
-	ID3D11Buffer* _index_buff = nullptr;
-	int _vertex_cnt = 0;
-	int _index_cnt = 0;
 };

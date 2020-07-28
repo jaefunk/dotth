@@ -1,62 +1,80 @@
 #pragma once
 
-#include "framework/node.h"
-#include "framework/component.h"
+#include "Framework/Node.h"
+#include "Framework/Component.h"
 
-class object : public node<object>
+class Object : public Node<Object>
 {
-	friend component;
+	friend Component;
 public:
-	void init(void);
-	void update(void);
-	void render(void);
-	void destroy(void);
+	void Init(void)
+	{
+		OnInit();
+		std::for_each(_Components.begin(), _Components.end(), [](std::shared_ptr<Component> Component) {
+			Component->OnInit();
+		});
+		Foreach([](std::shared_ptr<Object> child) {
+			child->Init();
+		});
+	}
+	void Update(void)
+	{
+		OnUpdate();
+		std::for_each(_Components.begin(), _Components.end(), [](std::shared_ptr<Component> Component) {
+			Component->OnUpdate();
+		});
+		Foreach([](std::shared_ptr<Object> child) {
+			child->Update();
+		});
+	}
+	void Draw(void)
+	{
+		OnDraw();
+		std::for_each(_Components.begin(), _Components.end(), [](std::shared_ptr<Component> Component) {
+			Component->OnDraw();
+		});
+		Foreach([](std::shared_ptr<Object> child) {
+			child->Draw();
+		});
+	}
+	void Destroy(void)
+	{
+		OnDestroy();
+		std::for_each(_Components.begin(), _Components.end(), [](std::shared_ptr<Component> Component) {
+			Component->OnDestroy();
+		});
+		Foreach([](std::shared_ptr<Object> child) {
+			child->Destroy();
+		});
+	}
 
 protected:
-	virtual void on_init(void) {};
-	virtual void on_update(void) {};
-	virtual void on_render(void) {};
-	virtual void on_destroy(void) {};
-
-public:
-	template <class ty = object>
-	std::shared_ptr<ty> find_by_serial(unsigned int serial)
-	{
-		auto finded = find_by_func([serial](std::shared_ptr<object> child) {
-			return child->serial() == serial;
-		});
-		return std::dynamic_pointer_cast<ty>(finded);
-	}
-	template <class ty = object>
-	std::shared_ptr<ty> find_by_name(const std::string& name)
-	{
-		auto finded = find_by_func([name](std::shared_ptr<object> child) {
-			return child->name() == name;
-		});
-		return std::dynamic_pointer_cast<ty>(finded);
-	}
+	virtual void OnInit(void) {};
+	virtual void OnUpdate(void) {};
+	virtual void OnDraw(void) {};
+	virtual void OnDestroy(void) {};
 
 private:
-	std::list<std::shared_ptr<component>> _components;
+	std::list<std::shared_ptr<Component>> _Components;
 public:
-	void attach_component(std::shared_ptr<component> target, std::string name = std::string())
+	void AttachComponent(std::shared_ptr<Component> target, std::string name = std::string())
 	{
-		if (_components.end() != std::find(_components.begin(), _components.end(), target))
+		if (_Components.end() != std::find(_Components.begin(), _Components.end(), target))
 			return;
-		target->_owner = this->shared_from_this();
-		_components.push_back(target);
+		target->_Owner = this->shared_from_this();
+		_Components.push_back(target);
 	}
 
-	void detach_component(std::shared_ptr<component> target)
+	void DetachComponent(std::shared_ptr<Component> target)
 	{
-		target->_owner = nullptr;
-		_components.remove(target);
+		target->_Owner = nullptr;
+		_Components.remove(target);
 	}
 
 	template <typename ty>
-	std::shared_ptr<ty> find_component(void)
+	std::shared_ptr<ty> FindComponent(void)
 	{
-		for (const auto& comp : _components)
+		for (const auto& comp : _Components)
 		{
 			if (auto casted = std::dynamic_pointer_cast<ty>(comp))
 				return casted;

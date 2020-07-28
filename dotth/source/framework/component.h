@@ -1,28 +1,20 @@
 #pragma once
 
-#include "framework/base.h"
+#include "Framework/Base.h"
 
-class object;
-class component : public base
+class Object;
+class Component : public Base
 {
-	friend object;
+	friend Object;
 private:
-	std::shared_ptr<object> _owner;
+	std::shared_ptr<Object> _Owner;
 
 public:
-	std::shared_ptr<object> owner(void)
-	{
-		return _owner;
-	}
+	std::shared_ptr<Object> GetOwner(void);
 
 public:
-	virtual void pre_init(void) {};
-	virtual void pre_update(void) {};
-	virtual void pre_render(void) {};
-	virtual void pre_destroy(void) {};
-
-	virtual void post_init(void) {};
-	virtual void post_update(void) {};
-	virtual void post_render(void) {};
-	virtual void post_destroy(void) {};
+	virtual void OnInit(void) {};
+	virtual void OnUpdate(void) {};
+	virtual void OnDraw(void) {};
+	virtual void OnDestroy(void) {};
 };

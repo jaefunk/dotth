@@ -940,7 +940,7 @@ namespace tinyxml2
 			// Current state: BeforeThis -> AddThis -> OneAfterAddThis
 			// Now AddThis must disappear from it's location and then
 			// reappear between BeforeThis and OneAfterAddThis.
-			// So just leave it where it is.
+			// So just Leave it where it is.
 			return addThis;
 		}
 

@@ -1,35 +1,42 @@
 #pragma once
 
-#include "framework/object.h"
-#include "utility/single_instance.h"
+#include "Framework/Object.h"
 #include "graphics/camera.h"
 
-class scene;
-class scenario : public single_instance<scenario>
+class Scene : public Base
 {
+	friend class Scenario;
 private:
-	bool _scene_changed = false;
-	json _scene_data;
-	std::stack<std::string> _stack;
-	std::unordered_map<std::string, std::function<std::shared_ptr<scene>(void)>> _signed_scene;
-	std::shared_ptr<scene> _current;
-	void apply_new_scene(void);
-
-public:
-	void push(std::string key, json data = json());
-	void pop(json data = json());
-	void loop(void);
-
-public:
-	template <typename ty, typename = typename std::enable_if<std::is_base_of<scene, ty>::value, ty>::type>
-	void assign_scene(const std::string& key)
+	std::shared_ptr<Object> _Root{ new Object };
+	virtual void Init(void) 
 	{
-		_signed_scene.insert({ key, []() { return std::make_shared<ty>(); } });
-	}
-};
+		OnInit();
+		_Root->Init();
+	};
+	virtual void Update(void) 
+	{
+		OnUpdate();
+		_Root->Update();
+	};
+	virtual void Draw(void) 
+	{
+		OnDraw();
+		_Root->Draw();
+	};
+	virtual void Destroy(void) 
+	{
+		OnDestroy();
+		_Root->Destroy();
+	};
 
-class scene : public object
-{
-protected:
-	bool loadview(const std::string& path);
+public:
+	const std::shared_ptr<Object>& Root(void) {
+		return _Root;
+	}
+
+public:
+	virtual void OnInit(void) {};
+	virtual void OnUpdate(void) {};
+	virtual void OnDraw(void) {};
+	virtual void OnDestroy(void) {};
 };

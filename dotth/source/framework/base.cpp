@@ -1,23 +1,23 @@
-#include "framework/base.h"
+#include "Framework/Base.h"
 
-base::base(void)
+Base::Base(void)
 {
 	static std::atomic<unsigned int> s;
-	_serial = s.fetch_add(1);
-	_name = std::to_string(_serial);
+	_Serial = s.fetch_add(1);
+	_Name = std::to_string(_Serial);
 }
 
-const unsigned int & base::serial(void) const
+const unsigned int & Base::Serial(void) const
 {
-	return _serial;
+	return _Serial;
 }
 
-void base::name(const std::string & name)
+void Base::Name(const std::string & Name)
 {
-	_name = name;
+	_Name = Name;
 }
 
-const std::string & base::name(void)
+const std::string & Base::Name(void)
 {
-	return _name;
+	return _Name;
 }

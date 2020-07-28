@@ -1,8 +1,8 @@
 #pragma once
 
-#include "framework/base.h"
+#include "Framework/Base.h"
 
-class resource : public base
+class Resource : public Base
 {
 
 };

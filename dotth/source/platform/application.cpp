@@ -15,7 +15,7 @@ bool dotth::application::init_renderer(HWND hwnd, int width, int height)
 bool dotth::application::loop(void)
 {
 	renderer::get()->clear_buffer();
-	scenario::get()->loop();
+	Scenario::get()->Loop();
 	renderer::get()->swap_buffer();
 	return true;
 }
