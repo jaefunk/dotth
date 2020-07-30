@@ -6,60 +6,31 @@ bool model::Initialize(void)
 	// 정점 배열의 정점 수를 설정합니다.
 	m_vertexCount = 3;
 
+	VertexType* vertices = new VertexType[m_vertexCount];
+	vertices[0].position = XMFLOAT3(1.0f, 1.0f, 0.0f);  // Top middle.
+	vertices[0].color = XMFLOAT4(1.0f, 0.0f, 0.0f, 1.0f);
+	vertices[1].position = XMFLOAT3(1.0f, -1.0f, 0.0f);  // Bottom right.
+	vertices[1].color = XMFLOAT4(0.0f, 1.0f, 0.0f, 1.0f);
+	vertices[2].position = XMFLOAT3(-1.0f, -1.0f, 0.0f);  // Bottom left.
+	vertices[2].color = XMFLOAT4(0.0f, 0.0f, 1.0f, 1.0f);
+	
+	auto res = VertexResourceArray(vertices, 3);
+	auto buff = renderer::RHI()->CreateVertexBuffer(sizeof(VertexType) * m_vertexCount, D3D11_USAGE_DEFAULT, &res);
+	m_vertexBuffer = buff->_Resource;
+
+	delete[] vertices;
+	vertices = 0;
+
+
+
 	// 인덱스 배열의 인덱스 수를 설정합니다.
 	m_indexCount = 3;
 
-	// 정점 배열을 만듭니다.
-	VertexType* vertices = new VertexType[m_vertexCount];
-	if (!vertices)
-	{
-		return false;
-	}
-
-	// 인덱스 배열을 만듭니다.
 	unsigned long* indices = new unsigned long[m_indexCount];
-	if (!indices)
-	{
-		return false;
-	}
-
-	// 정점 배열에 데이터를 설정합니다.
-	vertices[0].position = XMFLOAT3(1.0f, 1.0f, 0.0f);  // Top middle.
-	vertices[0].color = XMFLOAT4(1.0f, 0.0f, 0.0f, 1.0f);
-
-	vertices[1].position = XMFLOAT3(1.0f, -1.0f, 0.0f);  // Bottom right.
-	vertices[1].color = XMFLOAT4(0.0f, 1.0f, 0.0f, 1.0f);
-
-	vertices[2].position = XMFLOAT3(-1.0f, -1.0f, 0.0f);  // Bottom left.
-	vertices[2].color = XMFLOAT4(0.0f, 0.0f, 1.0f, 1.0f);
-
-
-
-	// 인덱스 배열의 값을 설정합니다.
 	indices[0] = 0;  // Bottom left.
 	indices[1] = 1;  // Top middle.
 	indices[2] = 2;  // Bottom right.
 
-	// 정적 정점 버퍼의 구조체를 설정합니다.
-	D3D11_BUFFER_DESC vertexBufferDesc;
-	vertexBufferDesc.Usage = D3D11_USAGE_DEFAULT;
-	vertexBufferDesc.ByteWidth = sizeof(VertexType) * m_vertexCount;
-	vertexBufferDesc.BindFlags = D3D11_BIND_VERTEX_BUFFER;
-	vertexBufferDesc.CPUAccessFlags = 0;
-	vertexBufferDesc.MiscFlags = 0;
-	vertexBufferDesc.StructureByteStride = 0;
-
-	// subresource 구조에 정점 데이터에 대한 포인터를 제공합니다.
-	D3D11_SUBRESOURCE_DATA vertexData;
-	vertexData.pSysMem = vertices;
-	vertexData.SysMemPitch = 0;
-	vertexData.SysMemSlicePitch = 0;
-
-	// 이제 정점 버퍼를 만듭니다.
-	if (FAILED(renderer::device()->CreateBuffer(&vertexBufferDesc, &vertexData, &m_vertexBuffer)))
-	{
-		return false;
-	}
 
 	// 정적 인덱스 버퍼의 구조체를 설정합니다.
 	D3D11_BUFFER_DESC indexBufferDesc;
@@ -83,8 +54,7 @@ bool model::Initialize(void)
 	}
 
 	// 생성되고 값이 할당된 정점 버퍼와 인덱스 버퍼를 해제합니다.
-	delete[] vertices;
-	vertices = 0;
+	
 
 	delete[] indices;
 	indices = 0;

@@ -6,9 +6,9 @@ bool dotth::application::init_application(void)
 	return false;
 }
 
-bool dotth::application::init_renderer(HWND hwnd, int width, int height)
+bool dotth::application::init_renderer(void* handle, int width, int height)
 {
-	renderer::Instance()->initialize(hwnd, width, height);
+	renderer::Instance()->Init(handle, width, height);
 	return false;
 }
 

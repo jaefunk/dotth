@@ -25,6 +25,8 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance
     UNREFERENCED_PARAMETER(hPrevInstance);
     UNREFERENCED_PARAMETER(lpCmdLine);
 
+	//if (FAILED(InitWino))
+
     // Initialize global strings
     LoadStringW(hInstance, IDS_APP_TITLE, szTitle, MAX_LOADSTRING);
     LoadStringW(hInstance, IDC_CLIENT, szWindowClass, MAX_LOADSTRING);
@@ -44,8 +46,8 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance
 	wcex.hIconSm = LoadIcon(wcex.hInstance, MAKEINTRESOURCE(IDI_SMALL));
 	RegisterClassExW(&wcex);
 
-	int screen_width = 512;
-	int screen_height = 512;
+	int screen_width = 640;
+	int screen_height = 480;
     // Perform application initialization:
 	hInst = hInstance; // Store instance handle in our global variable
 	//hWnd = CreateWindowEx(WS_EX_APPWINDOW, szWindowClass, szTitle, WS_CLIPSIBLINGS | WS_CLIPCHILDREN | WS_POPUP, 100, 100, screen_width, screen_height, NULL, NULL, hInst, NULL);
@@ -62,26 +64,25 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance
 
     //HACCEL hAccelTable = LoadAccelerators(hInstance, MAKEINTRESOURCE(IDC_CLIENT));
 
-    MSG msg;
+    
 	
 	g_App.init_application();
 	g_App.get_scenario()->Assign<TestScene>("testscene");
 	g_App.get_scenario()->Push("testscene");
-	g_App.get_renderer()->initialize(hWnd, screen_width, screen_height);
-	
+	g_App.get_renderer()->Init(hWnd, screen_width, screen_height);
 	
     // Main message loop:
-    while (true)
+	MSG msg = { 0 };
+    while (WM_QUIT != msg.message)
     {
 		if (PeekMessage(&msg, nullptr, 0, 0, PM_REMOVE))
 		{
-			if (msg.message == WM_QUIT)
-				break;
 			TranslateMessage(&msg);
 			DispatchMessage(&msg);
 		}
 		g_App.loop();
     }
+	g_App.Quit();
     return (int) msg.wParam;
 }
 

@@ -1,9 +1,8 @@
 #include "graphics/renderer.h"
-#include "Graphics/D3D11RHI.h"
+#include "Graphics/RHI/D11/D11RHI.h"
 
 
-bool renderer::initialize(HWND hwnd, int width, int height)
+bool renderer::Init(void* handle, int width, int height)
 {
-	_dx11.initialize(hwnd, width, height);
-	return true;
+	return _dx11.Init(handle, width, height);
 }

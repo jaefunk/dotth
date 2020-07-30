@@ -108,9 +108,9 @@ class objB : public Object
 
 int main()
 {
-	//auto device = new dotth::D3D11RHI::device;
+	//auto device = new dotth::D11RHI::device;
 	
-	//device->initialize()
+	//device->Init()
 	//std::list<std::shared_ptr<obj>> l;
 	auto aa = std::make_shared<objA>();
 	auto bb = std::make_shared<objA>();

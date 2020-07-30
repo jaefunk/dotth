@@ -32,8 +32,22 @@
     <ClInclude Include="source\Framework\Scenario.h" />
     <ClInclude Include="source\graphics\Camera.h" />
     <ClInclude Include="source\utility\SingleInstance.h" />
-    <ClInclude Include="source\Graphics\DynamicRHI.h" />
-    <ClInclude Include="source\Graphics\D3D11RHI.h" />
+    <ClInclude Include="source\Graphics\RHI\DynamicRHI.h" />
+    <ClInclude Include="source\Graphics\RHI\D11\D11RHI.h" />
+    <ClInclude Include="source\Graphics\RHI\D11\D11Device.h" />
+    <ClInclude Include="source\Graphics\RHI\D11\D11IndexBuffer.h" />
+    <ClInclude Include="source\Graphics\RHI\D11\D11RenderTarget.h" />
+    <ClInclude Include="source\Graphics\RHI\D11\D11Shader.h" />
+    <ClInclude Include="source\Graphics\RHI\D11\D11Viewport.h" />
+    <ClInclude Include="source\Graphics\RHI\DeviceRHI.h" />
+    <ClInclude Include="source\Graphics\RHI\IndexBufferRHI.h" />
+    <ClInclude Include="source\Graphics\RHI\RenderTargetRHI.h" />
+    <ClInclude Include="source\Graphics\RHI\ShaderRHI.h" />
+    <ClInclude Include="source\Graphics\RHI\ViewportRHI.h" />
+    <ClInclude Include="source\Graphics\RHI\D11\D11VertexBuffer.h" />
+    <ClInclude Include="source\Graphics\RHI\VertexBufferRHI.h" />
+    <ClInclude Include="source\Graphics\RHI\ResourceRHI.h" />
+    <ClInclude Include="source\Graphics\RHI\D11\D11Resource.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source\graphics\model.cpp" />
@@ -57,7 +71,21 @@
     <ClCompile Include="source\framework\Scene.cpp" />
     <ClCompile Include="source\Framework\Scenario.cpp" />
     <ClCompile Include="source\graphics\Camera.cpp" />
-    <ClCompile Include="source\Graphics\DynamicRHI.cpp" />
-    <ClCompile Include="source\Graphics\D3D11RHI.cpp" />
+    <ClCompile Include="source\Graphics\RHI\DynamicRHI.cpp" />
+    <ClCompile Include="source\Graphics\RHI\D11\D11RHI.cpp" />
+    <ClCompile Include="source\Graphics\RHI\D11\D11Device.cpp" />
+    <ClCompile Include="source\Graphics\RHI\D11\D11IndexBuffer.cpp" />
+    <ClCompile Include="source\Graphics\RHI\D11\D11RenderTarget.cpp" />
+    <ClCompile Include="source\Graphics\RHI\D11\D11Shader.cpp" />
+    <ClCompile Include="source\Graphics\RHI\D11\D11Viewport.cpp" />
+    <ClCompile Include="source\Graphics\RHI\DeviceRHI.cpp" />
+    <ClCompile Include="source\Graphics\RHI\IndexBufferRHI.cpp" />
+    <ClCompile Include="source\Graphics\RHI\RenderTargetRHI.cpp" />
+    <ClCompile Include="source\Graphics\RHI\ShaderRHI.cpp" />
+    <ClCompile Include="source\Graphics\RHI\ViewportRHI.cpp" />
+    <ClCompile Include="source\Graphics\RHI\D11\D11VertexBuffer.cpp" />
+    <ClCompile Include="source\Graphics\RHI\VertexBufferRHI.cpp" />
+    <ClCompile Include="source\Graphics\RHI\ResourceRHI.cpp" />
+    <ClCompile Include="source\Graphics\RHI\D11\D11Resource.cpp" />
   </ItemGroup>
 </Project>
