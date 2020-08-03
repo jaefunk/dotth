@@ -104,7 +104,7 @@ bool D11RHI::Release(void)
 	return false;
 }
 
-D11VertexBuffer * D11RHI::CreateVertexBuffer(uint32_t size, uint32_t usage, IResourceArrayInfo* resource_info)
+D11VertexBuffer * D11RHI::CreateVertexBuffer(uint32_t size, uint32_t usage, IResourceArray* resource_info)
 {
 	D3D11_BUFFER_DESC desc;
 	ZeroMemory(&desc, sizeof(D3D11_BUFFER_DESC));
@@ -126,7 +126,25 @@ D11VertexBuffer * D11RHI::CreateVertexBuffer(uint32_t size, uint32_t usage, IRes
 	return new D11VertexBuffer(buffer, size, usage);
 }
 
-IndexBufferRHI * D11RHI::CreateIndexBuffer(void)
+D11IndexBuffer * D11RHI::CreateIndexBuffer(uint32_t size, uint32_t usage, IResourceArray* resource_info)
 {
-	return new D11IndexBuffer;
+	// 정적 인덱스 버퍼의 구조체를 설정합니다.
+	D3D11_BUFFER_DESC desc;
+	ZeroMemory(&desc, sizeof(D3D11_BUFFER_DESC));
+	desc.Usage = D3D11_USAGE_DEFAULT;
+	desc.ByteWidth = size;
+	desc.BindFlags = D3D11_BIND_INDEX_BUFFER;
+	desc.CPUAccessFlags = 0;
+	desc.MiscFlags = 0;
+	desc.StructureByteStride = 0;
+
+	D3D11_SUBRESOURCE_DATA data;
+	data.pSysMem = resource_info->GetData();
+	data.SysMemPitch = 0;
+	data.SysMemSlicePitch = 0;
+
+	ID3D11Buffer* buffer = nullptr;
+	if (FAILED(_Device->CreateBuffer(&desc, &data, &buffer)))
+		return nullptr;
+	return new D11IndexBuffer(buffer, size, usage);
 }

@@ -4,60 +4,34 @@
 bool model::Initialize(void)
 {
 	// 정점 배열의 정점 수를 설정합니다.
-	m_vertexCount = 3;
-
-	VertexType* vertices = new VertexType[m_vertexCount];
+	int vertex_count = 3;
+	//VertexType* vertices = new VertexType[3];
+	VertexType vertices[3];
 	vertices[0].position = XMFLOAT3(1.0f, 1.0f, 0.0f);  // Top middle.
 	vertices[0].color = XMFLOAT4(1.0f, 0.0f, 0.0f, 1.0f);
 	vertices[1].position = XMFLOAT3(1.0f, -1.0f, 0.0f);  // Bottom right.
 	vertices[1].color = XMFLOAT4(0.0f, 1.0f, 0.0f, 1.0f);
 	vertices[2].position = XMFLOAT3(-1.0f, -1.0f, 0.0f);  // Bottom left.
 	vertices[2].color = XMFLOAT4(0.0f, 0.0f, 1.0f, 1.0f);
-	
-	auto res = VertexResourceArray(vertices, 3);
-	auto buff = renderer::RHI()->CreateVertexBuffer(sizeof(VertexType) * m_vertexCount, D3D11_USAGE_DEFAULT, &res);
-	m_vertexBuffer = buff->_Resource;
-
-	delete[] vertices;
-	vertices = 0;
-
-
+	auto res = ResourceArray(vertices, vertex_count);
+	auto vertex_buffer = renderer::RHI()->CreateVertexBuffer(sizeof(VertexType) * vertex_count, D3D11_USAGE_DEFAULT, &res);
+	m_vertexBuffer = static_cast<ID3D11Buffer*>(vertex_buffer->GetResource());
 
 	// 인덱스 배열의 인덱스 수를 설정합니다.
-	m_indexCount = 3;
 
-	unsigned long* indices = new unsigned long[m_indexCount];
+	
+
+	int index_count = 3;	
+
+	unsigned long indices[3];
 	indices[0] = 0;  // Bottom left.
 	indices[1] = 1;  // Top middle.
 	indices[2] = 2;  // Bottom right.
 
+	auto index_res = ResourceArray(indices, index_count);
 
-	// 정적 인덱스 버퍼의 구조체를 설정합니다.
-	D3D11_BUFFER_DESC indexBufferDesc;
-	indexBufferDesc.Usage = D3D11_USAGE_DEFAULT;
-	indexBufferDesc.ByteWidth = sizeof(unsigned long) * m_indexCount;
-	indexBufferDesc.BindFlags = D3D11_BIND_INDEX_BUFFER;
-	indexBufferDesc.CPUAccessFlags = 0;
-	indexBufferDesc.MiscFlags = 0;
-	indexBufferDesc.StructureByteStride = 0;
-
-	// 인덱스 데이터를 가리키는 보조 리소스 구조체를 작성합니다.
-	D3D11_SUBRESOURCE_DATA indexData;
-	indexData.pSysMem = indices;
-	indexData.SysMemPitch = 0;
-	indexData.SysMemSlicePitch = 0;
-
-	// 인덱스 버퍼를 생성합니다.
-	if (FAILED(renderer::device()->CreateBuffer(&indexBufferDesc, &indexData, &m_indexBuffer)))
-	{
-		return false;
-	}
-
-	// 생성되고 값이 할당된 정점 버퍼와 인덱스 버퍼를 해제합니다.
-	
-
-	delete[] indices;
-	indices = 0;
+	auto index_buffer = renderer::RHI()->CreateIndexBuffer(sizeof(unsigned long) * index_count, D3D11_USAGE_DEFAULT, &index_res);
+	m_indexBuffer = static_cast<ID3D11Buffer*>(index_buffer->GetResource());
 
 	return true;
 }

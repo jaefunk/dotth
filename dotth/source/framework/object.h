@@ -61,7 +61,7 @@ public:
 	{
 		if (_Components.end() != std::find(_Components.begin(), _Components.end(), target))
 			return;
-		target->_Owner = this->shared_from_this();
+		target->_Owner = this;
 		_Components.push_back(target);
 	}
 

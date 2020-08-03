@@ -13,24 +13,9 @@ private:
 	std::shared_ptr<sdr2222> _shader;
 
 public:
-	virtual void OnInit(void)
+	sample_object(void)
 	{
-		_model = std::make_shared<model>();
-		AttachComponent(_model);
-		_shader = std::make_shared<sdr2222>();
-		//AttachComponent(_shader);
-		_model->Initialize();
-		_shader->Initialize(renderer::device());
-	};
-
-	virtual void OnUpdate(void)
-	{
-	};
-
-	virtual void OnDraw(void)
-	{
-		XMMATRIX worldMatrix = XMMatrixIdentity();
-		_model->Render();
-		_shader->Render(renderer::context(), _model->GetIndexCount(), &worldMatrix, Camera::Instance()->View(), Camera::Instance()->Perspective());
-	};
+		AttachComponent(std::make_shared<model>());
+		AttachComponent(std::make_shared<sdr2222>());
+	}
 };

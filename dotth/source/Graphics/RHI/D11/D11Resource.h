@@ -23,15 +23,23 @@ class D11PixelShader : public PixelShaderRHI
 
 };
 
-class D11IndexBuffer : public IndexBufferRHI
+class D11Buffer
 {
-
-};
-
-class D11VertexBuffer : public VertexBufferRHI
-{
-public:
+private:
 	ID3D11Buffer* _Resource;
 public:
-	D11VertexBuffer(ID3D11Buffer* buffer, unsigned int size, unsigned int usage) : VertexBufferRHI(size, usage), _Resource(buffer) {}
+	D11Buffer(ID3D11Buffer* buffer) : _Resource(buffer) {}
+	void* GetResource(void) { return _Resource; }
+}; 
+
+class D11IndexBuffer : public IndexBufferRHI, public D11Buffer
+{
+public:
+	D11IndexBuffer(ID3D11Buffer* buffer, unsigned int size, unsigned int usage) : IndexBufferRHI(size, usage), D11Buffer(buffer) {}
+};
+
+class D11VertexBuffer : public VertexBufferRHI, public D11Buffer
+{
+public:
+	D11VertexBuffer(ID3D11Buffer* buffer, unsigned int size, unsigned int usage) : VertexBufferRHI(size, usage), D11Buffer(buffer) {}
 };

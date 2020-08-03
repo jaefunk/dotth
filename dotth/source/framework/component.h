@@ -7,10 +7,10 @@ class Component : public Base
 {
 	friend Object;
 private:
-	std::shared_ptr<Object> _Owner;
+	Object* _Owner;
 
 public:
-	std::shared_ptr<Object> GetOwner(void);
+	const Object* GetOwner(void);
 
 public:
 	virtual void OnInit(void) {};

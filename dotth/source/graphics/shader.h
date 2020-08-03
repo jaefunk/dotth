@@ -1,10 +1,10 @@
 
 #pragma once
 
-#include "Framework/Base.h"
+#include "Framework/Component.h"
 #include "graphics/renderer.h"
-
-class sdr2222 : public Base
+#include "Graphics/Camera.h"
+class sdr2222 : public Component
 {
 private:
 	struct MatrixBufferType
@@ -15,6 +15,15 @@ private:
 	};
 
 public:
+	virtual void OnInit(void) override
+	{
+		Initialize(renderer::device());
+	};
+	virtual void OnDraw(void) override
+	{
+		XMMATRIX worldMatrix = XMMatrixIdentity();
+		Render(renderer::context(), 3, &worldMatrix, Camera::Instance()->View(), Camera::Instance()->Perspective());
+	}
 	bool Initialize(ID3D11Device*, HWND a = 0);
 	void Shutdown();
 	bool Render(ID3D11DeviceContext*, int, XMMATRIX*, XMMATRIX*, XMMATRIX*);

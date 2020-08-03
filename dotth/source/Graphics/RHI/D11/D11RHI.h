@@ -28,8 +28,8 @@ public:
 		return _Context;
 	}
 
-	D11VertexBuffer* CreateVertexBuffer(uint32_t size, uint32_t usage, IResourceArrayInfo* resource_info);
-	IndexBufferRHI* CreateIndexBuffer(void);
+	D11VertexBuffer* CreateVertexBuffer(uint32_t size, uint32_t usage, IResourceArray* resource_info);
+	D11IndexBuffer* CreateIndexBuffer(uint32_t size, uint32_t usage, IResourceArray* resource_info);
 
 private:
 	ID3D11Device* _Device = nullptr;
