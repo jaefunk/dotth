@@ -2,7 +2,7 @@
 #pragma once
 
 #include "Framework/Component.h"
-#include "graphics/renderer.h"
+#include "Graphics/Renderer.h"
 #include "Graphics/Camera.h"
 class sdr2222 : public Component
 {
@@ -17,12 +17,12 @@ private:
 public:
 	virtual void OnInit(void) override
 	{
-		Initialize(renderer::device());
+		Initialize(Renderer::device());
 	};
 	virtual void OnDraw(void) override
 	{
 		XMMATRIX worldMatrix = XMMatrixIdentity();
-		Render(renderer::context(), 3, &worldMatrix, Camera::Instance()->View(), Camera::Instance()->Perspective());
+		Render(Renderer::context(), 3, &worldMatrix, Camera::Instance()->View(), Camera::Instance()->Perspective());
 	}
 	bool Initialize(ID3D11Device*, HWND a = 0);
 	void Shutdown();
@@ -73,18 +73,18 @@ public:
 		if (FAILED(D3DCompileFromFile(ps.c_str(), nullptr, nullptr, EntryPoint, _pixel_shader_target, D3D10_SHADER_ENABLE_STRICTNESS, 0, &pixel_shader_buffer, &error_message)))
 			return false;
 
-		if (FAILED(renderer::device()->CreateVertexShader(vertex_shader_buffer->GetBufferPointer(), vertex_shader_buffer->GetBufferSize(), NULL, &_vertex_shader)))
+		if (FAILED(Renderer::device()->CreateVertexShader(vertex_shader_buffer->GetBufferPointer(), vertex_shader_buffer->GetBufferSize(), NULL, &_vertex_shader)))
 			return false;
 
-		if (FAILED(renderer::device()->CreatePixelShader(pixel_shader_buffer->GetBufferPointer(), pixel_shader_buffer->GetBufferSize(), NULL, &_pixel_shader)))
+		if (FAILED(Renderer::device()->CreatePixelShader(pixel_shader_buffer->GetBufferPointer(), pixel_shader_buffer->GetBufferSize(), NULL, &_pixel_shader)))
 			return false;
 
 		std::vector<D3D11_INPUT_ELEMENT_DESC> vertex_info_list = get_input_layout();
-		if (FAILED(renderer::device()->CreateInputLayout(vertex_info_list.data(), static_cast<unsigned int>(vertex_info_list.size()), vertex_shader_buffer->GetBufferPointer(), vertex_shader_buffer->GetBufferSize(), &_layout)))
+		if (FAILED(Renderer::device()->CreateInputLayout(vertex_info_list.data(), static_cast<unsigned int>(vertex_info_list.size()), vertex_shader_buffer->GetBufferPointer(), vertex_shader_buffer->GetBufferSize(), &_layout)))
 			return false;
 
 		D3D11_BUFFER_DESC matrix_buffer_desc = get_matrix_buffer_desc();
-		if (FAILED(renderer::device()->CreateBuffer(&matrix_buffer_desc, NULL, &_matrix_buffer)))
+		if (FAILED(Renderer::device()->CreateBuffer(&matrix_buffer_desc, NULL, &_matrix_buffer)))
 			return false;
 
 		vertex_shader_buffer->Release();

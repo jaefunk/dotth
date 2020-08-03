@@ -19,7 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="source\components\drawable_component.h" />
+    <ClInclude Include="source\components\DrawableComponent.h" />
     <ClInclude Include="source\dotth.h" />
     <ClInclude Include="source\external\cpplinq\cpplinq.h" />
     <ClInclude Include="source\external\json\json.hpp" />
@@ -38,7 +38,7 @@
     <ClInclude Include="source\framework\sample_object.h" />
     <ClInclude Include="source\graphics\model.h" />
     <ClInclude Include="source\graphics\polygon.h" />
-    <ClInclude Include="source\graphics\renderer.h" />
+    <ClInclude Include="source\Graphics\Renderer.h" />
     <ClInclude Include="source\Graphics\RHI\D11\D11Device.h" />
     <ClInclude Include="source\Graphics\RHI\D11\D11IndexBuffer.h" />
     <ClInclude Include="source\Graphics\RHI\D11\D11RenderTarget.h" />
@@ -68,7 +68,7 @@
     <ClInclude Include="source\utility\utility.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="source\components\drawable_component.cpp" />
+    <ClCompile Include="source\components\DrawableComponent.cpp" />
     <ClCompile Include="source\external\sql\query_builder.cpp" />
     <ClCompile Include="source\external\xml\tinyxml2.cpp" />
     <ClCompile Include="source\framework\Base.cpp" />
@@ -81,7 +81,7 @@
     <ClCompile Include="source\framework\sample_object.cpp" />
     <ClCompile Include="source\graphics\model.cpp" />
     <ClCompile Include="source\graphics\polygon.cpp" />
-    <ClCompile Include="source\graphics\renderer.cpp" />
+    <ClCompile Include="source\Graphics\Renderer.cpp" />
     <ClCompile Include="source\Graphics\RHI\D11\D11Device.cpp" />
     <ClCompile Include="source\Graphics\RHI\D11\D11IndexBuffer.cpp" />
     <ClCompile Include="source\Graphics\RHI\D11\D11RenderTarget.cpp" />

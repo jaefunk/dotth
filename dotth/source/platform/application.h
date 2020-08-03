@@ -3,7 +3,7 @@
 
 #include "utility/utility.h"
 #include "Framework/Scenario.h"
-#include "graphics/renderer.h"
+#include "Graphics/Renderer.h"
 #include "Graphics/RHI/DynamicRHI.h"
 namespace dotth 
 {
@@ -17,9 +17,9 @@ namespace dotth
 		{
 			return Scenario::Instance();
 		}
-		renderer* get_renderer(void)
+		Renderer* get_renderer(void)
 		{
-			return renderer::Instance();
+			return Renderer::Instance();
 		}
 		bool init_scenario(std::shared_ptr<Scene> root_scene, std::string key)
 		{

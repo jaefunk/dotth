@@ -9,27 +9,28 @@
 #include <DirectXMath.h>
 #include <directxcolors.h>
 
+#include "Graphics/RHI/DynamicRHI.h"
 #include "Graphics/RHI/D11/D11Resource.h"
 
 using namespace DirectX;
-class D11RHI// : public DynamicRHI
+class D11RHI : public DynamicRHI
 {
 public:
-	bool Init(void* handle, int width, int height);
-	void PreDraw(void);
-	void PostDraw(void);
+	virtual bool Init(void* handle, int width, int height) override;
+	virtual void PreDraw(void) override;
+	virtual void PostDraw(void) override;
 	bool Release(void);
 
 public:
-	ID3D11Device* device(void) {
-		return _Device;
-	}
-	ID3D11DeviceContext* context(void) {
-		return _Context;
-	}
+	//ID3D11Device* device(void) {
+	//	return _Device;
+	//}
+	//ID3D11DeviceContext* context(void) {
+	//	return _Context;
+	//}
 
-	D11VertexBuffer* CreateVertexBuffer(uint32_t size, uint32_t usage, IResourceArray* resource_info);
-	D11IndexBuffer* CreateIndexBuffer(uint32_t size, uint32_t usage, IResourceArray* resource_info);
+	virtual VertexBufferRHI* CreateVertexBuffer(unsigned int size, unsigned int usage, IResourceArray* resource_info) override;
+	virtual IndexBufferRHI* CreateIndexBuffer(unsigned int size, unsigned int usage, IResourceArray* resource_info) override;
 
 private:
 	ID3D11Device* _Device = nullptr;

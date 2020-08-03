@@ -7,18 +7,16 @@ bool model::Initialize(void)
 	int vertex_count = 3;
 	//VertexType* vertices = new VertexType[3];
 	VertexType vertices[3];
-	vertices[0].position = XMFLOAT3(1.0f, 1.0f, 0.0f);  // Top middle.
+	vertices[0].position = XMFLOAT3(0.0f, 1.0f, 0.0f);  // Top middle.
 	vertices[0].color = XMFLOAT4(1.0f, 0.0f, 0.0f, 1.0f);
 	vertices[1].position = XMFLOAT3(1.0f, -1.0f, 0.0f);  // Bottom right.
 	vertices[1].color = XMFLOAT4(0.0f, 1.0f, 0.0f, 1.0f);
 	vertices[2].position = XMFLOAT3(-1.0f, -1.0f, 0.0f);  // Bottom left.
 	vertices[2].color = XMFLOAT4(0.0f, 0.0f, 1.0f, 1.0f);
+
 	auto res = ResourceArray(vertices, vertex_count);
-	auto vertex_buffer = renderer::RHI()->CreateVertexBuffer(sizeof(VertexType) * vertex_count, D3D11_USAGE_DEFAULT, &res);
-	m_vertexBuffer = static_cast<ID3D11Buffer*>(vertex_buffer->GetResource());
-
-	// 인덱스 배열의 인덱스 수를 설정합니다.
-
+	auto vertex_buffer = Renderer::RHI()->CreateVertexBuffer(sizeof(VertexType) * vertex_count, D3D11_USAGE_DEFAULT, &res);
+	m_vertexBuffer = vertex_buffer->GetResource<ID3D11Buffer>();
 	
 
 	int index_count = 3;	
@@ -30,8 +28,8 @@ bool model::Initialize(void)
 
 	auto index_res = ResourceArray(indices, index_count);
 
-	auto index_buffer = renderer::RHI()->CreateIndexBuffer(sizeof(unsigned long) * index_count, D3D11_USAGE_DEFAULT, &index_res);
-	m_indexBuffer = static_cast<ID3D11Buffer*>(index_buffer->GetResource());
+	auto index_buffer = Renderer::RHI()->CreateIndexBuffer(sizeof(unsigned long) * index_count, D3D11_USAGE_DEFAULT, &index_res);
+	m_indexBuffer = index_buffer->GetResource<ID3D11Buffer>();
 
 	return true;
 }
@@ -62,13 +60,13 @@ void model::Render(void)
 	unsigned int offset = 0;
 
 	// 렌더링 할 수 있도록 입력 어셈블러에서 정점 버퍼를 활성으로 설정합니다.
-	renderer::context()->IASetVertexBuffers(0, 1, &m_vertexBuffer, &stride, &offset);
+	Renderer::context()->IASetVertexBuffers(0, 1, &m_vertexBuffer, &stride, &offset);
 
 	// 렌더링 할 수 있도록 입력 어셈블러에서 인덱스 버퍼를 활성으로 설정합니다.
-	renderer::context()->IASetIndexBuffer(m_indexBuffer, DXGI_FORMAT_R32_UINT, 0);
+	Renderer::context()->IASetIndexBuffer(m_indexBuffer, DXGI_FORMAT_R32_UINT, 0);
 
 	// 정점 버퍼로 그릴 기본형을 설정합니다. 여기서는 삼각형으로 설정합니다.
-	renderer::context()->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+	Renderer::context()->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 }
 
 

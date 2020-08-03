@@ -23,8 +23,44 @@ public:
 
 class ResourceRHI
 {
+private:
+	void* _Resource;
 
+public:
+	ResourceRHI(void) = default;
+	ResourceRHI(void* resource) : _Resource(resource) {}
+
+public:
+	template <class Ty>
+	Ty* GetResource(void)
+	{
+		return static_cast<Ty*>(_Resource);
+	}
 };
+
+class IndexBufferRHI : public ResourceRHI
+{
+private:
+	unsigned int _Size;
+	unsigned int _Usage;
+public:
+	IndexBufferRHI(void* resource, unsigned int size, unsigned int usage) : ResourceRHI(resource), _Size(size), _Usage(usage) {}
+	unsigned int GetSize() const { return _Size; }
+	unsigned int GetUsage() const { return _Usage; }
+};
+
+class VertexBufferRHI : public ResourceRHI
+{
+private:
+	unsigned int _Size;
+	unsigned int _Usage;
+public:
+	VertexBufferRHI(void* resource, unsigned int size, unsigned int usage) : ResourceRHI(resource), _Size(size), _Usage(usage) {}
+	unsigned int GetSize() const { return _Size; }
+	unsigned int GetUsage() const { return _Usage; }
+};
+
+
 
 class ShaderRHI : public ResourceRHI
 {
@@ -39,26 +75,4 @@ class VertexShaderRHI : public ShaderRHI
 class PixelShaderRHI : public ShaderRHI
 {
 
-};
-
-class IndexBufferRHI : public ResourceRHI
-{
-private:
-	unsigned int _Size;
-	unsigned int _Usage;
-public:
-	IndexBufferRHI(unsigned int size, unsigned int usage) : _Size(size), _Usage(usage) {}
-	unsigned int GetSize() const { return _Size; }
-	unsigned int GetUsage() const { return _Usage; }
-};
-
-class VertexBufferRHI : public ResourceRHI
-{
-private:
-	unsigned int _Size;
-	unsigned int _Usage;
-public:
-	VertexBufferRHI(unsigned int size, unsigned int usage) : _Size(size), _Usage(usage) {}
-	unsigned int GetSize() const { return _Size; }
-	unsigned int GetUsage() const { return _Usage; }
 };

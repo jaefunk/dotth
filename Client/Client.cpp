@@ -67,9 +67,10 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance
     
 	
 	g_App.init_application();
+	g_App.get_renderer()->Init(hWnd, screen_width, screen_height);
 	g_App.get_scenario()->Assign<TestScene>("testscene");
 	g_App.get_scenario()->Push("testscene");
-	g_App.get_renderer()->Init(hWnd, screen_width, screen_height);
+	
 	
     // Main message loop:
 	MSG msg = { 0 };

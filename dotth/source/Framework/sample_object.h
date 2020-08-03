@@ -2,16 +2,11 @@
 #pragma once
 
 #include "Framework/Object.h"
-#include "graphics/camera.h"
-#include "graphics/model.h"
-#include "graphics/shader.h"
+#include "Graphics/model.h"
+#include "Graphics/shader.h"
 
 class sample_object : public Object
 {
-private:
-	std::shared_ptr<model> _model;
-	std::shared_ptr<sdr2222> _shader;
-
 public:
 	sample_object(void)
 	{

@@ -1,8 +1,8 @@
 
 #pragma once
 
-#include "Framework/component.h"
-#include "graphics/renderer.h"
+#include "Framework/Component.h"
+#include "Graphics/Renderer.h"
 
 class model : public Component
 {

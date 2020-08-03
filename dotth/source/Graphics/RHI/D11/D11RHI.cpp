@@ -3,7 +3,7 @@
 #include "Graphics/Camera.h"
 
 bool D11RHI::Init(void* handle, int width, int height)
-{
+{ 
 	D3D_FEATURE_LEVEL feature_levels[] =
 	{
 		D3D_FEATURE_LEVEL_11_1,
@@ -12,6 +12,8 @@ bool D11RHI::Init(void* handle, int width, int height)
 	
 	if (FAILED(D3D11CreateDevice(nullptr, D3D_DRIVER_TYPE::D3D_DRIVER_TYPE_HARDWARE, nullptr, 0, feature_levels, sizeof(feature_levels) / sizeof(D3D_FEATURE_LEVEL), D3D11_SDK_VERSION, &_Device, nullptr, &_Context)))
 		return false;
+	_NativeDevice = _Device;
+	_NativeContext = _Context;
 
 	IDXGIFactory* factory = nullptr;
 	if (FAILED(CreateDXGIFactory(__uuidof(IDXGIFactory), (void**)&factory)))
@@ -104,7 +106,7 @@ bool D11RHI::Release(void)
 	return false;
 }
 
-D11VertexBuffer * D11RHI::CreateVertexBuffer(uint32_t size, uint32_t usage, IResourceArray* resource_info)
+VertexBufferRHI* D11RHI::CreateVertexBuffer(unsigned int size, unsigned int usage, IResourceArray* resource_info)
 {
 	D3D11_BUFFER_DESC desc;
 	ZeroMemory(&desc, sizeof(D3D11_BUFFER_DESC));
@@ -126,7 +128,7 @@ D11VertexBuffer * D11RHI::CreateVertexBuffer(uint32_t size, uint32_t usage, IRes
 	return new D11VertexBuffer(buffer, size, usage);
 }
 
-D11IndexBuffer * D11RHI::CreateIndexBuffer(uint32_t size, uint32_t usage, IResourceArray* resource_info)
+IndexBufferRHI * D11RHI::CreateIndexBuffer(unsigned int size, unsigned int usage, IResourceArray* resource_info)
 {
 	// 정적 인덱스 버퍼의 구조체를 설정합니다.
 	D3D11_BUFFER_DESC desc;

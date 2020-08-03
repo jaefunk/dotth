@@ -4,31 +4,31 @@
 #include "Graphics/RHI/D11/D11RHI.h"
 #include "utility/SingleInstance.h"
 
-class renderer : public SingleInstance<renderer>
+class Renderer : public SingleInstance<Renderer>
 {
 private:
-	D11RHI _dx11;
+	DynamicRHI* _RHI;
 	
 public:	
 	static ID3D11Device* device(void) {
-		return renderer::Instance()->_dx11.device();
+		return Renderer::Instance()->_RHI->GetNativeDevice<ID3D11Device>();
 	}
 	static ID3D11DeviceContext* context(void) {
-		return renderer::Instance()->_dx11.context();
+		return Renderer::Instance()->_RHI->GetNativeContext<ID3D11DeviceContext>();
 	}
-	static D11RHI* RHI(void) {
-		return &renderer::Instance()->_dx11;
+	static DynamicRHI* RHI(void) {
+		return Renderer::Instance()->_RHI;
 	}
 
 public:
 	bool Init(void* handle, int width, int height);
 	void clear_buffer(void)
 	{
-		_dx11.PreDraw();
+		_RHI->PreDraw();
 	}
 	void swap_buffer(void)
 	{
-		_dx11.PostDraw();
+		_RHI->PostDraw();
 	}
 };
 
@@ -38,7 +38,7 @@ public:
 #include "Graphics/RHI/DynamicRHI.h"
 #include "utility/SingleInstance.h"
 
-class renderer : public SingleInstance<renderer>
+class Renderer : public SingleInstance<Renderer>
 {
 private:
 	std::unique_ptr<DynamicRHI> _RHI;
