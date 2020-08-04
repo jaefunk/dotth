@@ -2,7 +2,6 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClInclude Include="source\framework\shared_node.h" />
-    <ClInclude Include="source\graphics\model.h" />
     <ClInclude Include="source\graphics\shader.h" />
     <ClInclude Include="source\graphics\type_vertex.h" />
     <ClInclude Include="source\math\math.h" />
@@ -48,9 +47,9 @@
     <ClInclude Include="source\Graphics\RHI\D11\D11Resource.h" />
     <ClInclude Include="source\components\DrawableComponent.h" />
     <ClInclude Include="source\Graphics\Renderer.h" />
+    <ClInclude Include="source\Components\PrimitiveComponent.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="source\graphics\model.cpp" />
     <ClCompile Include="source\graphics\shader.cpp" />
     <ClCompile Include="source\math\matrix.cpp" />
     <ClCompile Include="source\math\transform.cpp" />
@@ -83,9 +82,9 @@
     <ClCompile Include="source\Graphics\RHI\ViewportRHI.cpp" />
     <ClCompile Include="source\Graphics\RHI\D11\D11VertexBuffer.cpp" />
     <ClCompile Include="source\Graphics\RHI\VertexBufferRHI.cpp" />
-    <ClCompile Include="source\Graphics\RHI\ResourceRHI.cpp" />
     <ClCompile Include="source\Graphics\RHI\D11\D11Resource.cpp" />
     <ClCompile Include="source\components\DrawableComponent.cpp" />
     <ClCompile Include="source\Graphics\Renderer.cpp" />
+    <ClCompile Include="source\Components\PrimitiveComponent.cpp" />
   </ItemGroup>
 </Project>

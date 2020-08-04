@@ -6,14 +6,6 @@ bool sdr2222::Initialize(ID3D11Device* device, HWND hwnd)
 	return InitializeShader(device, hwnd, nullptr, nullptr);
 }
 
-
-void sdr2222::Shutdown()
-{
-	// 버텍스 및 픽셀 쉐이더와 관련된 객체를 종료합니다.
-	ShutdownShader();
-}
-
-
 bool sdr2222::Render(ID3D11DeviceContext* deviceContext, int indexCount,
 	XMMATRIX* worldMatrix, XMMATRIX* viewMatrix, XMMATRIX* projectionMatrix)
 {
@@ -135,39 +127,6 @@ bool sdr2222::InitializeShader(ID3D11Device* device, HWND hwnd, WCHAR* vsFilenam
 
 	return true;
 }
-
-
-void sdr2222::ShutdownShader()
-{
-	// 행렬 상수 버퍼를 해제합니다.
-	if (m_matrixBuffer)
-	{
-		m_matrixBuffer->Release();
-		m_matrixBuffer = 0;
-	}
-
-	// 레이아웃을 해제합니다.
-	if (m_layout)
-	{
-		m_layout->Release();
-		m_layout = 0;
-	}
-
-	// 픽셀 쉐이더를 해제합니다.
-	if (m_pixelShader)
-	{
-		m_pixelShader->Release();
-		m_pixelShader = 0;
-	}
-
-	// 버텍스 쉐이더를 해제합니다.
-	if (m_vertexShader)
-	{
-		m_vertexShader->Release();
-		m_vertexShader = 0;
-	}
-}
-
 
 void sdr2222::OutputShaderErrorMessage(ID3D10Blob* errorMessage, HWND hwnd, WCHAR* shaderFilename)
 {

@@ -1,15 +1,15 @@
 
 #pragma once
 
-class IResourceArray
+class IDataSize
 {
 public:
-	virtual ~IResourceArray(void) {}
+	virtual ~IDataSize(void) {}
 	virtual const void* GetData(void) const = 0;
 	virtual unsigned int GetSize(void) const = 0;
 };
 
-class ResourceArray : public IResourceArray
+class ResourceArray : public IDataSize
 {
 private:
 	const void* _Data;
@@ -29,50 +29,54 @@ private:
 public:
 	ResourceRHI(void) = default;
 	ResourceRHI(void* resource) : _Resource(resource) {}
-
+	virtual ~ResourceRHI(void) {}
 public:
 	template <class Ty>
 	Ty* GetResource(void)
 	{
 		return static_cast<Ty*>(_Resource);
 	}
+	virtual void Release(void) {}
 };
 
-class IndexBufferRHI : public ResourceRHI
+class BufferRHI : public ResourceRHI
 {
 private:
 	unsigned int _Size;
 	unsigned int _Usage;
 public:
-	IndexBufferRHI(void* resource, unsigned int size, unsigned int usage) : ResourceRHI(resource), _Size(size), _Usage(usage) {}
+	BufferRHI(void* resource, unsigned int size, unsigned int usage) : ResourceRHI(resource), _Size(size), _Usage(usage) {}
+	virtual ~BufferRHI(void) {}
 	unsigned int GetSize() const { return _Size; }
 	unsigned int GetUsage() const { return _Usage; }
 };
 
-class VertexBufferRHI : public ResourceRHI
+class VertexBufferRHI : public BufferRHI
 {
-private:
-	unsigned int _Size;
-	unsigned int _Usage;
 public:
-	VertexBufferRHI(void* resource, unsigned int size, unsigned int usage) : ResourceRHI(resource), _Size(size), _Usage(usage) {}
-	unsigned int GetSize() const { return _Size; }
-	unsigned int GetUsage() const { return _Usage; }
+	VertexBufferRHI(void* resource, unsigned int size, unsigned int usage) : BufferRHI(resource, size, usage) {}
 };
 
-
+class IndexBufferRHI : public BufferRHI
+{
+public:
+	IndexBufferRHI(void* resource, unsigned int size, unsigned int usage) : BufferRHI(resource, size, usage) {}
+};
 
 class ShaderRHI : public ResourceRHI
 {
-
+public:
+	ShaderRHI(void* resource) : ResourceRHI(resource) {}
 };
 
 class VertexShaderRHI : public ShaderRHI
 {
-
+public:
+	VertexShaderRHI(void* resource) : ShaderRHI(resource) {}
 };
 
 class PixelShaderRHI : public ShaderRHI
 {
-
+public:
+	PixelShaderRHI(void* resource) : ShaderRHI(resource) {}
 };

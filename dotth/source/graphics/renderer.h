@@ -1,8 +1,8 @@
 
 #pragma once
 
-#include "Graphics/RHI/D11/D11RHI.h"
 #include "utility/SingleInstance.h"
+#include "Graphics/RHI/D11/D11RHI.h"
 
 class Renderer : public SingleInstance<Renderer>
 {
@@ -11,10 +11,10 @@ private:
 	
 public:	
 	static ID3D11Device* device(void) {
-		return Renderer::Instance()->_RHI->GetNativeDevice<ID3D11Device>();
+		return static_cast<ID3D11Device*>(Renderer::Instance()->_RHI->GetNativeDevice());
 	}
 	static ID3D11DeviceContext* context(void) {
-		return Renderer::Instance()->_RHI->GetNativeContext<ID3D11DeviceContext>();
+		return static_cast<ID3D11DeviceContext*>(Renderer::Instance()->_RHI->GetNativeContext());
 	}
 	static DynamicRHI* RHI(void) {
 		return Renderer::Instance()->_RHI;
@@ -31,34 +31,3 @@ public:
 		_RHI->PostDraw();
 	}
 };
-
-/*
-
-#pragma once
-#include "Graphics/RHI/DynamicRHI.h"
-#include "utility/SingleInstance.h"
-
-class Renderer : public SingleInstance<Renderer>
-{
-private:
-	std::unique_ptr<DynamicRHI> _RHI;
-public:
-	void* Device(void) {
-		return _RHI->GetNativeDevice();
-	}
-	void* context(void) {
-		return _RHI->GetNativeDevice();
-	}
-
-public:
-	bool Init(void* handle, int width, int height);
-	void clear_buffer(void)
-	{
-		_RHI->PreDraw();
-	}
-	void swap_buffer(void)
-	{
-		_RHI->PostDraw();
-	}
-};
-*/

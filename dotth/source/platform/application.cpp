@@ -14,8 +14,8 @@ bool dotth::application::init_renderer(void* handle, int width, int height)
 
 bool dotth::application::loop(void)
 {
-	Renderer::Instance()->clear_buffer();
+	Renderer::Instance()->RHI()->PreDraw();
 	Scenario::Instance()->Loop();
-	Renderer::Instance()->swap_buffer();
+	Renderer::Instance()->RHI()->PostDraw();
 	return true;
 }

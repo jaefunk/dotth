@@ -4,31 +4,28 @@
 #include "dotth.h"
 #include "ResourceRHI.h"
 
-class IResourceArray;
+class IDataSize;
 class VertexBufferRHI;
 class IndexBufferRHI;
+class BufferRHI;
 class DynamicRHI
 {
 public:
-	void* _NativeDevice;
-	void* _NativeContext;
 	virtual bool Init(void* handle, int width, int height) = 0;
 	virtual void PreDraw(void) {}
 	virtual void PostDraw(void) {}
+
+	virtual void* GetNativeDevice(void) = 0;
+	virtual void* GetNativeContext(void) = 0;
+	virtual VertexBufferRHI* CreateVertexBuffer(unsigned int size, unsigned int usage, IDataSize* resource_info) = 0;
+	virtual IndexBufferRHI* CreateIndexBuffer(unsigned int size, unsigned int usage, IDataSize* resource_info) = 0;
+
+	virtual VertexShaderRHI* CreateVertexShader(void) = 0;
+	virtual PixelShaderRHI* CreatePixelShader(void) = 0;
 	
-	template <typename Ty>
-	Ty* GetNativeDevice(void)
-	{
-		return static_cast<Ty*>(_NativeDevice);
-	}
-
-	template <typename Ty>
-	Ty* GetNativeContext(void)
-	{
-		return static_cast<Ty*>(_NativeContext);
-	}
-
-	virtual VertexBufferRHI* CreateVertexBuffer(unsigned int size, unsigned int usage, IResourceArray* resource_info) = 0;
-	virtual IndexBufferRHI* CreateIndexBuffer(unsigned int size, unsigned int usage, IResourceArray* resource_info) = 0;
-
+	virtual void BindVertexBuffer(VertexBufferRHI* buffer, unsigned int stride, unsigned int offset) {}
+	virtual void BindIndexBuffer(IndexBufferRHI* buffer, unsigned int format, unsigned int offset) {}
+	virtual void BindVertexShader(void) {}
+	virtual void BindPixelShader(void) {}
+	virtual void BindTexture(void) {}
 };

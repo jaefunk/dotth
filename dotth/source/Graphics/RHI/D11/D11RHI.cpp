@@ -12,8 +12,6 @@ bool D11RHI::Init(void* handle, int width, int height)
 	
 	if (FAILED(D3D11CreateDevice(nullptr, D3D_DRIVER_TYPE::D3D_DRIVER_TYPE_HARDWARE, nullptr, 0, feature_levels, sizeof(feature_levels) / sizeof(D3D_FEATURE_LEVEL), D3D11_SDK_VERSION, &_Device, nullptr, &_Context)))
 		return false;
-	_NativeDevice = _Device;
-	_NativeContext = _Context;
 
 	IDXGIFactory* factory = nullptr;
 	if (FAILED(CreateDXGIFactory(__uuidof(IDXGIFactory), (void**)&factory)))
@@ -106,7 +104,7 @@ bool D11RHI::Release(void)
 	return false;
 }
 
-VertexBufferRHI* D11RHI::CreateVertexBuffer(unsigned int size, unsigned int usage, IResourceArray* resource_info)
+VertexBufferRHI* D11RHI::CreateVertexBuffer(unsigned int size, unsigned int usage, IDataSize* resource_info)
 {
 	D3D11_BUFFER_DESC desc;
 	ZeroMemory(&desc, sizeof(D3D11_BUFFER_DESC));
@@ -128,7 +126,7 @@ VertexBufferRHI* D11RHI::CreateVertexBuffer(unsigned int size, unsigned int usag
 	return new D11VertexBuffer(buffer, size, usage);
 }
 
-IndexBufferRHI * D11RHI::CreateIndexBuffer(unsigned int size, unsigned int usage, IResourceArray* resource_info)
+IndexBufferRHI * D11RHI::CreateIndexBuffer(unsigned int size, unsigned int usage, IDataSize* resource_info)
 {
 	// 정적 인덱스 버퍼의 구조체를 설정합니다.
 	D3D11_BUFFER_DESC desc;
@@ -149,4 +147,61 @@ IndexBufferRHI * D11RHI::CreateIndexBuffer(unsigned int size, unsigned int usage
 	if (FAILED(_Device->CreateBuffer(&desc, &data, &buffer)))
 		return nullptr;
 	return new D11IndexBuffer(buffer, size, usage);
+}
+
+void D11RHI::BindVertexBuffer(VertexBufferRHI * buffer, unsigned int stride, unsigned int offset)
+{
+	auto vertex_buffer = buffer->GetResource<ID3D11Buffer>();
+	_Context->IASetVertexBuffers(0, 1, &vertex_buffer, &stride, &offset);
+}
+
+void D11RHI::BindIndexBuffer(IndexBufferRHI * buffer, unsigned int format, unsigned int offset)
+{
+	auto index_buffer = buffer->GetResource<ID3D11Buffer>();
+	_Context->IASetIndexBuffer(index_buffer, static_cast<DXGI_FORMAT>(format), offset);
+}
+
+VertexShaderRHI * D11RHI::CreateVertexShader(void)
+{
+	ID3D10Blob* errorMessage = nullptr;
+	ID3D11VertexShader* shader = nullptr;
+
+	ID3D10Blob* vertexShaderBuffer = nullptr;
+	if (FAILED(D3DCompileFromFile(L"Resource/color.vs", NULL, NULL, "ColorVertexShader", "vs_5_0", D3D10_SHADER_ENABLE_STRICTNESS, 0, &vertexShaderBuffer, &errorMessage)))
+	{
+	}
+	// 버퍼로부터 정점 셰이더를 생성한다.
+	if (FAILED(_Device->CreateVertexShader(vertexShaderBuffer->GetBufferPointer(), vertexShaderBuffer->GetBufferSize(), NULL, &shader)))
+	{
+	}
+
+
+
+
+	//_Device->CreateVertexShader()
+
+	return new VertexShaderRHI(shader);
+}
+
+PixelShaderRHI * D11RHI::CreatePixelShader(void)
+{
+	ID3D10Blob* errorMessage = nullptr;
+	ID3D11PixelShader* shader = nullptr;
+
+	
+	// 픽셀 쉐이더 코드를 컴파일한다.
+	ID3D10Blob* pixelShaderBuffer = nullptr;
+	if (FAILED(D3DCompileFromFile(L"Resource/color.ps", NULL, NULL, "ColorPixelShader", "ps_5_0", D3D10_SHADER_ENABLE_STRICTNESS, 0, &pixelShaderBuffer, &errorMessage)))
+	{
+	}
+
+
+
+	// 버퍼에서 픽셀 쉐이더를 생성합니다.
+	if (FAILED(_Device->CreatePixelShader(pixelShaderBuffer->GetBufferPointer(), pixelShaderBuffer->GetBufferSize(), NULL, &shader)))
+	{
+	}
+
+
+	return new PixelShaderRHI(shader);
 }

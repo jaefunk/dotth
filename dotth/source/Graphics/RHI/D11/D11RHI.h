@@ -10,7 +10,7 @@
 #include <directxcolors.h>
 
 #include "Graphics/RHI/DynamicRHI.h"
-#include "Graphics/RHI/D11/D11Resource.h"
+#include "Graphics/RHI/ResourceRHI.h"
 
 using namespace DirectX;
 class D11RHI : public DynamicRHI
@@ -28,9 +28,22 @@ public:
 	//ID3D11DeviceContext* context(void) {
 	//	return _Context;
 	//}
+	virtual void* GetNativeDevice(void) 
+	{
+		return _Device;
+	};
+	virtual void* GetNativeContext(void) 
+	{
+		return _Context;
+	};
+	virtual VertexBufferRHI* CreateVertexBuffer(unsigned int size, unsigned int usage, IDataSize* resource_info) override;
+	virtual IndexBufferRHI* CreateIndexBuffer(unsigned int size, unsigned int usage, IDataSize* resource_info) override;
+	virtual void BindVertexBuffer(VertexBufferRHI* buffer, unsigned int stride, unsigned int offset) override;
+	virtual void BindIndexBuffer(IndexBufferRHI* buffer, unsigned int format, unsigned int offset) override;
 
-	virtual VertexBufferRHI* CreateVertexBuffer(unsigned int size, unsigned int usage, IResourceArray* resource_info) override;
-	virtual IndexBufferRHI* CreateIndexBuffer(unsigned int size, unsigned int usage, IResourceArray* resource_info) override;
+	virtual VertexShaderRHI* CreateVertexShader(void) override;
+	virtual PixelShaderRHI* CreatePixelShader(void) override;
+	
 
 private:
 	ID3D11Device* _Device = nullptr;
