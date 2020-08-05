@@ -1,27 +1,20 @@
-#ifndef __DOTTH_MATRIX__
-#define __DOTTH_MATRIX__
 
-#include "type_float.h"
+#include "TypeFloat.h"
 
-namespace dotth 
-{
-	struct matrix4 {
-		float m[16];
-        matrix4(void);
-        matrix4(const matrix4& copy);
-        matrix4(float _11, float _12, float _13, float _14,
-                float _21, float _22, float _23, float _24,
-                float _31, float _32, float _33, float _34,
-                float _41, float _42, float _43, float _44);
-		static void copy(const matrix4 & src, matrix4 & dst);
-		static void scale(matrix4& dst, const float3& value);
-		static void rotate(matrix4& dst, const float3& value);
-		static void position(matrix4& dst, const float3& value);
-		static void multiply(const matrix4& l, const matrix4& r, matrix4& dst);
-		static const unsigned long matrix_size;
-        static const matrix4 identity;
-        static const matrix4 zero;
-	};
+struct Matrix44 {
+	float m[16];
+	Matrix44(void);
+	Matrix44(const Matrix44& copy);
+	Matrix44(float _11, float _12, float _13, float _14,
+		float _21, float _22, float _23, float _24,
+		float _31, float _32, float _33, float _34,
+		float _41, float _42, float _43, float _44);
+	static void Copy(const Matrix44 & src, Matrix44 & dst);
+	static void Scale(Matrix44& dst, const Float3& value);
+	static void Rotate(Matrix44& dst, const Float3& value);
+	static void Translate(Matrix44& dst, const Float3& value);
+	static void Multiply(const Matrix44& l, const Matrix44& r, Matrix44& dst);
+	
+	static const Matrix44 Identity;
+	static const Matrix44 Zero;
 };
-
-#endif // __DOTTH_MATRIX__

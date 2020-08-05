@@ -11,6 +11,5 @@ public:
 	sample_object(void)
 	{
 		AttachComponent(std::make_shared<PrimitiveComponent>());
-		AttachComponent(std::make_shared<sdr2222>());
 	}
 };

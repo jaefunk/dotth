@@ -3,6 +3,7 @@
 #include "Framework/Component.h"
 #include "Graphics/Renderer.h"
 
+template <class VertexType, class ShaderType>
 class DrawableComponent : public Component
 {
 	/*
@@ -23,6 +24,10 @@ class DrawableComponent : public Component
 protected:
 	VertexBufferRHI* VertexBuffer = nullptr;
 	IndexBufferRHI* IndexBuffer = nullptr;
+	
+	VertexShaderRHI* VertexShader = nullptr;
+	PixelShaderRHI* PixelShader = nullptr;
+	InputLayoutRHI* InputLayout = nullptr;
 
 public:
 	virtual ~DrawableComponent(void)

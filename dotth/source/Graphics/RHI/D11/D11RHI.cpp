@@ -161,47 +161,42 @@ void D11RHI::BindIndexBuffer(IndexBufferRHI * buffer, unsigned int format, unsig
 	_Context->IASetIndexBuffer(index_buffer, static_cast<DXGI_FORMAT>(format), offset);
 }
 
-VertexShaderRHI * D11RHI::CreateVertexShader(void)
+VertexShaderRHI * D11RHI::CreateVertexShader(std::string file_path)
 {
-	ID3D10Blob* errorMessage = nullptr;
+	ID3D10Blob* error_message = nullptr;
+	ID3D10Blob* shader_buffer = nullptr;
 	ID3D11VertexShader* shader = nullptr;
-
-	ID3D10Blob* vertexShaderBuffer = nullptr;
-	if (FAILED(D3DCompileFromFile(L"Resource/color.vs", NULL, NULL, "ColorVertexShader", "vs_5_0", D3D10_SHADER_ENABLE_STRICTNESS, 0, &vertexShaderBuffer, &errorMessage)))
+	if (CompileShaderFromFile(&shader_buffer, file_path, "vs_5_0"))
 	{
+		if (FAILED(_Device->CreateVertexShader(shader_buffer->GetBufferPointer(), shader_buffer->GetBufferSize(), NULL, &shader)))
+		{
+			shader_buffer->Release();
+			return new VertexShaderRHI(shader);
+		}
 	}
-	// 버퍼로부터 정점 셰이더를 생성한다.
-	if (FAILED(_Device->CreateVertexShader(vertexShaderBuffer->GetBufferPointer(), vertexShaderBuffer->GetBufferSize(), NULL, &shader)))
-	{
-	}
-
-
-
-
-	//_Device->CreateVertexShader()
-
-	return new VertexShaderRHI(shader);
+	return nullptr;
 }
 
-PixelShaderRHI * D11RHI::CreatePixelShader(void)
+PixelShaderRHI * D11RHI::CreatePixelShader(std::string file_path)
 {
-	ID3D10Blob* errorMessage = nullptr;
+	ID3D10Blob* error_message = nullptr;
+	ID3D10Blob* shader_buffer = nullptr;
 	ID3D11PixelShader* shader = nullptr;
-
-	
-	// 픽셀 쉐이더 코드를 컴파일한다.
-	ID3D10Blob* pixelShaderBuffer = nullptr;
-	if (FAILED(D3DCompileFromFile(L"Resource/color.ps", NULL, NULL, "ColorPixelShader", "ps_5_0", D3D10_SHADER_ENABLE_STRICTNESS, 0, &pixelShaderBuffer, &errorMessage)))
+	if (CompileShaderFromFile(&shader_buffer, file_path, "ps_5_0"))
 	{
+		if (FAILED(_Device->CreatePixelShader(shader_buffer->GetBufferPointer(), shader_buffer->GetBufferSize(), NULL, &shader)))
+		{
+			shader_buffer->Release();
+			return new PixelShaderRHI(shader);
+		}
 	}
+	return nullptr;
+}
 
-
-
-	// 버퍼에서 픽셀 쉐이더를 생성합니다.
-	if (FAILED(_Device->CreatePixelShader(pixelShaderBuffer->GetBufferPointer(), pixelShaderBuffer->GetBufferSize(), NULL, &shader)))
-	{
-	}
-
-
-	return new PixelShaderRHI(shader);
+bool D11RHI::CompileShaderFromFile(ID3DBlob** out, std::string file_path, std::string model, std::string entry)
+{
+	std::wstring w_file_path(file_path.begin(), file_path.end());	
+	ID3D10Blob* error_message = nullptr;
+	D3DCompileFromFile(w_file_path.c_str(), NULL, NULL, entry.c_str(), model.c_str(), D3D10_SHADER_ENABLE_STRICTNESS, 0, out, &error_message);
+	return true;
 }

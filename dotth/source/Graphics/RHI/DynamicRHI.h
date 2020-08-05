@@ -20,8 +20,8 @@ public:
 	virtual VertexBufferRHI* CreateVertexBuffer(unsigned int size, unsigned int usage, IDataSize* resource_info) = 0;
 	virtual IndexBufferRHI* CreateIndexBuffer(unsigned int size, unsigned int usage, IDataSize* resource_info) = 0;
 
-	virtual VertexShaderRHI* CreateVertexShader(void) = 0;
-	virtual PixelShaderRHI* CreatePixelShader(void) = 0;
+	virtual VertexShaderRHI* CreateVertexShader(std::string file_path) = 0;
+	virtual PixelShaderRHI* CreatePixelShader(std::string file_path) = 0;
 	
 	virtual void BindVertexBuffer(VertexBufferRHI* buffer, unsigned int stride, unsigned int offset) {}
 	virtual void BindIndexBuffer(IndexBufferRHI* buffer, unsigned int format, unsigned int offset) {}

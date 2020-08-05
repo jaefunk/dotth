@@ -56,7 +56,7 @@ public:
 
 
 
-struct float3
+struct Float3
 {
 	union {
 		float f[3] = { 0.f, 0.f, 0.f };
@@ -66,19 +66,19 @@ struct float3
 		struct { float r, g, b; };
 	};
 	
-	float3(void) : _0(0.f), _1(0.f), _2(0.f) {}
-	float3(const float& v) : _0(v), _1(v), _2(v) {}
-	float3(const float& v0, const float& v1, const float& v2) : _0(v0), _1(v1), _2(v2) {}
-	float3(const float3& v) : _0(v._0), _1(v._1), _2(v._2) {};
-	float3(const float3&& v) : _0(v._0), _1(v._1), _2(v._2) {};
-	float3& operator=(const float3& v)
+	Float3(void) : _0(0.f), _1(0.f), _2(0.f) {}
+	Float3(const float& v) : _0(v), _1(v), _2(v) {}
+	Float3(const float& v0, const float& v1, const float& v2) : _0(v0), _1(v1), _2(v2) {}
+	Float3(const Float3& v) : _0(v._0), _1(v._1), _2(v._2) {};
+	Float3(const Float3&& v) : _0(v._0), _1(v._1), _2(v._2) {};
+	Float3& operator=(const Float3& v)
 	{
 		_0 = v._0;
 		_1 = v._1;
 		_2 = v._2;
 		return *this;
 	}
-	float3& operator=(const float3&& v)
+	Float3& operator=(const Float3&& v)
 	{
 		_0 = v._0;
 		_1 = v._1;

@@ -41,8 +41,8 @@ public:
 	virtual void BindVertexBuffer(VertexBufferRHI* buffer, unsigned int stride, unsigned int offset) override;
 	virtual void BindIndexBuffer(IndexBufferRHI* buffer, unsigned int format, unsigned int offset) override;
 
-	virtual VertexShaderRHI* CreateVertexShader(void) override;
-	virtual PixelShaderRHI* CreatePixelShader(void) override;
+	virtual VertexShaderRHI* CreateVertexShader(std::string file_path) override;
+	virtual PixelShaderRHI* CreatePixelShader(std::string file_path) override;
 	
 
 private:
@@ -51,6 +51,9 @@ private:
 	IDXGISwapChain* _SwapChain = nullptr;
 	ID3D11RenderTargetView* _RenderTargetView = nullptr;
 	ID3D11DepthStencilView* _DepthBuffer = nullptr;
+
+public:
+	static bool CompileShaderFromFile(ID3DBlob** out, std::string file_path, std::string model, std::string entry = "main");
 };
 
 // D11RHI

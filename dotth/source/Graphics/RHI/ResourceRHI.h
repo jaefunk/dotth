@@ -80,3 +80,8 @@ class PixelShaderRHI : public ShaderRHI
 public:
 	PixelShaderRHI(void* resource) : ShaderRHI(resource) {}
 };
+
+class InputLayoutRHI : public ResourceRHI
+{
+
+};

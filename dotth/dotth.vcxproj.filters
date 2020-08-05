@@ -7,7 +7,6 @@
     <ClInclude Include="source\math\math.h" />
     <ClInclude Include="source\math\matrix.h" />
     <ClInclude Include="source\math\transform.h" />
-    <ClInclude Include="source\math\type_float.h" />
     <ClInclude Include="source\platform\win\win.h" />
     <ClInclude Include="source\platform\application.h" />
     <ClInclude Include="source\utility\utility.h" />
@@ -48,6 +47,7 @@
     <ClInclude Include="source\components\DrawableComponent.h" />
     <ClInclude Include="source\Graphics\Renderer.h" />
     <ClInclude Include="source\Components\PrimitiveComponent.h" />
+    <ClInclude Include="source\math\TypeFloat.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source\graphics\shader.cpp" />

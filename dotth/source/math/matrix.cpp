@@ -1,20 +1,20 @@
 #include "matrix.h"
-
-#include "math.h"
 #include <cstring>
 #include <cmath>
 
-dotth::matrix4::matrix4(void)
+#define DEGTORAD(x) ((x)*0.0174532925f)
+
+Matrix44::Matrix44(void)
 {
-    memcpy(m, dotth::matrix4::identity.m, dotth::matrix4::matrix_size);
+    memcpy(m, Matrix44::Identity.m, sizeof(Matrix44));
 }
 
-dotth::matrix4::matrix4(const matrix4& copy)
+Matrix44::Matrix44(const Matrix44& copy)
 {
-    memcpy(m, copy.m, dotth::matrix4::matrix_size);
+    memcpy(m, copy.m, sizeof(Matrix44));
 }
 
-dotth::matrix4::matrix4(float _11, float _12, float _13, float _14, float _21, float _22, float _23, float _24, float _31, float _32, float _33, float _34, float _41, float _42, float _43, float _44)
+Matrix44::Matrix44(float _11, float _12, float _13, float _14, float _21, float _22, float _23, float _24, float _31, float _32, float _33, float _34, float _41, float _42, float _43, float _44)
 {
     m[0]  = _11; m[4]  = _12; m[8]  = _13; m[12] = _14;
     m[1]  = _21; m[5]  = _22; m[9]  = _23; m[13] = _24;
@@ -22,28 +22,29 @@ dotth::matrix4::matrix4(float _11, float _12, float _13, float _14, float _21, f
     m[3]  = _41; m[7]  = _42; m[11] = _43; m[15] = _44;
 }
 
-void dotth::matrix4::copy(const matrix4 & src, matrix4 & dst)
+void Matrix44::Copy(const Matrix44 & src, Matrix44 & dst)
 {
-	memcpy(dst.m, src.m, dotth::matrix4::matrix_size);
+	memcpy(dst.m, src.m, sizeof(Matrix44));
 }
 
-void dotth::matrix4::scale(matrix4 & dst, const float3 & value)
+void Matrix44::Scale(Matrix44 & dst, const Float3 & value)
 {
-	memcpy(dst.m, dotth::matrix4::identity.m, dotth::matrix4::matrix_size);
+	memcpy(dst.m, Matrix44::Identity.m, sizeof(Matrix44));
 	dst.m[0] = value.x;
 	dst.m[5] = value.y;
 	dst.m[10] = value.z;
 }
 
-void dotth::matrix4::rotate(matrix4 & dst, const float3 & value)
+
+void Matrix44::Rotate(Matrix44 & dst, const Float3 & value)
 {
-	memcpy(dst.m, dotth::matrix4::identity.m, dotth::matrix4::matrix_size);
-	float sx = sin(deg_to_rad(value.x));
-	float cx = cos(deg_to_rad(value.x));
-	float sy = sin(deg_to_rad(value.y));
-	float cy = cos(deg_to_rad(value.y));
-	float sz = sin(deg_to_rad(value.z));
-	float cz = cos(deg_to_rad(value.z));
+	memcpy(dst.m, Matrix44::Identity.m, sizeof(Matrix44));
+	float sx = sin(DEGTORAD(value.x));
+	float cx = cos(DEGTORAD(value.x));
+	float sy = sin(DEGTORAD(value.y));
+	float cy = cos(DEGTORAD(value.y));
+	float sz = sin(DEGTORAD(value.z));
+	float cz = cos(DEGTORAD(value.z));
 	dst.m[0] = cz * cy;
 	dst.m[1] = (sz * cx) + (cz * sy * sx);
 	dst.m[2] = (sz * sx) - (cz * sy * cx);
@@ -55,15 +56,15 @@ void dotth::matrix4::rotate(matrix4 & dst, const float3 & value)
 	dst.m[10] = cy * cx;
 }
 
-void dotth::matrix4::position(matrix4 & dst, const float3 & value)
+void Matrix44::Translate(Matrix44 & dst, const Float3 & value)
 {
-	memcpy(dst.m, dotth::matrix4::identity.m, dotth::matrix4::matrix_size);
+	memcpy(dst.m, Matrix44::Identity.m, sizeof(Matrix44));
 	dst.m[12] = value.x;
 	dst.m[13] = value.y;
 	dst.m[14] = value.z;
 }
 
-void dotth::matrix4::multiply(const matrix4 & l, const matrix4 & r, matrix4 & dst)
+void Matrix44::Multiply(const Matrix44 & l, const Matrix44 & r, Matrix44 & dst)
 {
 	dst.m[0] = r.m[0] * l.m[0] + r.m[4] * l.m[1] + r.m[8] * l.m[2] + r.m[12] * l.m[3];
 	dst.m[1] = r.m[1] * l.m[0] + r.m[5] * l.m[1] + r.m[9] * l.m[2] + r.m[13] * l.m[3];
@@ -83,7 +84,6 @@ void dotth::matrix4::multiply(const matrix4 & l, const matrix4 & r, matrix4 & ds
 	dst.m[15] = r.m[3] * l.m[12] + r.m[7] * l.m[13] + r.m[11] * l.m[14] + r.m[15] * l.m[15];
 }
 
-const unsigned long dotth::matrix4::matrix_size = sizeof(float) * 16;
-const dotth::matrix4 dotth::matrix4::identity = matrix4(1.f, 0.f, 0.f, 0.f, 0.f, 1.f, 0.f, 0.f, 0.f, 0.f, 1.f, 0.f, 0.f, 0.f, 0.f, 1.f);
-const dotth::matrix4 dotth::matrix4::zero = matrix4(0.f, 0.f, 0.f, 0.f, 0.f, 0.f, 0.f, 0.f, 0.f, 0.f, 0.f, 0.f, 0.f, 0.f, 0.f, 0.f);
+const Matrix44 Matrix44::Identity = Matrix44(1.f, 0.f, 0.f, 0.f, 0.f, 1.f, 0.f, 0.f, 0.f, 0.f, 1.f, 0.f, 0.f, 0.f, 0.f, 1.f);
+const Matrix44 Matrix44::Zero = Matrix44(0.f, 0.f, 0.f, 0.f, 0.f, 0.f, 0.f, 0.f, 0.f, 0.f, 0.f, 0.f, 0.f, 0.f, 0.f, 0.f);
 
