@@ -36,7 +36,7 @@ public:
 			[func](typename decltype(_Children)::value_type child) {
 			if (std::shared_ptr<target_type> casted = std::dynamic_pointer_cast<target_type>(child))
 				func(casted);
-			child->Foreach<target_type>(func);
+			child->template Foreach<target_type>(func);
 		});
 	}
 

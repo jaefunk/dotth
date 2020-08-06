@@ -2,7 +2,7 @@
 #pragma once
 
 #include "Components/DrawableComponent.h"
-
+#include "Graphics/shader.h"
 struct VertexType
 {
 	XMFLOAT3 position;
@@ -12,11 +12,13 @@ struct VertexType
 class PrimitiveComponent : public DrawableComponent<VertexType, int>
 {
 public:
-
+	sdr2222 sd;
 
 public:
 	virtual void OnInit(void) override
 	{
+		sd.OnInit();
+
 		int vertex_count = 3;
 		VertexType vertices[3];
 		vertices[0].position = XMFLOAT3(0.0f, 1.0f, 0.0f);
@@ -36,15 +38,24 @@ public:
 		auto index_res = ResourceArray(indices, index_count);
 		IndexBuffer = Renderer::RHI()->CreateIndexBuffer(sizeof(unsigned long) * index_count, D3D11_USAGE_DEFAULT, &index_res);
 
-		Renderer::context()->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+		D3D11_INPUT_ELEMENT_DESC layout[] =
+		{
+			{ "POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 0, D3D11_INPUT_PER_VERTEX_DATA, 0 },
+			{ "COLOR", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, D3D11_APPEND_ALIGNED_ELEMENT, D3D11_INPUT_PER_VERTEX_DATA, 0 },
+		};
+		unsigned int num_desc = sizeof(layout) / sizeof(layout[0]);
 
-		VertexShader = Renderer::RHI()->CreateVertexShader("Resource/color.vs");
+		VertexShader = Renderer::RHI()->CreateVertexShader("Resource/color.vs", layout, num_desc);
 		PixelShader = Renderer::RHI()->CreatePixelShader("Resource/color.ps");
 	}
+
 	virtual void OnDraw(void) override
 	{
 		Renderer::RHI()->BindVertexBuffer(VertexBuffer, sizeof(VertexType), 0);
 		Renderer::RHI()->BindIndexBuffer(IndexBuffer, DXGI_FORMAT_R32_UINT, 0);
+		Renderer::RHI()->BindVertexShader(VertexShader);
+		Renderer::RHI()->BindPixelShader(PixelShader);
+		sd.OnDraw();
 	}
 };
 

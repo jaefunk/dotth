@@ -20,12 +20,16 @@ public:
 	virtual VertexBufferRHI* CreateVertexBuffer(unsigned int size, unsigned int usage, IDataSize* resource_info) = 0;
 	virtual IndexBufferRHI* CreateIndexBuffer(unsigned int size, unsigned int usage, IDataSize* resource_info) = 0;
 
-	virtual VertexShaderRHI* CreateVertexShader(std::string file_path) = 0;
+	virtual VertexShaderRHI* CreateVertexShader(std::string file_path, void* vertex_desc, unsigned int num_desc) = 0;
 	virtual PixelShaderRHI* CreatePixelShader(std::string file_path) = 0;
 	
 	virtual void BindVertexBuffer(VertexBufferRHI* buffer, unsigned int stride, unsigned int offset) {}
 	virtual void BindIndexBuffer(IndexBufferRHI* buffer, unsigned int format, unsigned int offset) {}
-	virtual void BindVertexShader(void) {}
-	virtual void BindPixelShader(void) {}
+	virtual void BindVertexShader(VertexShaderRHI* shader) {}
+	virtual void BindPixelShader(PixelShaderRHI* shader) {}
+	virtual void VSSetConstantBuffers(unsigned int start, unsigned int num, void* buffer) {}
+	virtual void PSSetConstantBuffers(unsigned int start, unsigned int num, void* buffer) {}
+	virtual void PSSetResources(unsigned int start, unsigned int num, void* buffer) {}
+	virtual void PSSetSamplers(unsigned int start, unsigned int num, void* buffer) {}
 	virtual void BindTexture(void) {}
 };

@@ -28,7 +28,7 @@ bool sdr2222::InitializeShader(ID3D11Device* device, HWND hwnd, WCHAR* vsFilenam
 
 	// 버텍스 쉐이더 코드를 컴파일한다.
 	ID3D10Blob* vertexShaderBuffer = nullptr;
-	if (FAILED(D3DCompileFromFile(L"Resource/color.vs", NULL, NULL, "ColorVertexShader", "vs_5_0", D3D10_SHADER_ENABLE_STRICTNESS, 0, &vertexShaderBuffer, &errorMessage)))
+	if (FAILED(D3DCompileFromFile(L"Resource/color.vs", NULL, NULL, "main", "vs_5_0", D3D10_SHADER_ENABLE_STRICTNESS, 0, &vertexShaderBuffer, &errorMessage)))
 	{
 		// 셰이더 컴파일 실패시 오류메시지를 출력합니다.
 		if (errorMessage)
@@ -46,7 +46,7 @@ bool sdr2222::InitializeShader(ID3D11Device* device, HWND hwnd, WCHAR* vsFilenam
 
 	// 픽셀 쉐이더 코드를 컴파일한다.
 	ID3D10Blob* pixelShaderBuffer = nullptr;
-	if (FAILED(D3DCompileFromFile(L"Resource/color.ps", NULL, NULL, "ColorPixelShader", "ps_5_0", D3D10_SHADER_ENABLE_STRICTNESS, 0, &pixelShaderBuffer, &errorMessage)))
+	if (FAILED(D3DCompileFromFile(L"Resource/color.ps", NULL, NULL, "main", "ps_5_0", D3D10_SHADER_ENABLE_STRICTNESS, 0, &pixelShaderBuffer, &errorMessage)))
 	{
 		// 셰이더 컴파일 실패시 오류메시지를 출력합니다.
 		if (errorMessage)

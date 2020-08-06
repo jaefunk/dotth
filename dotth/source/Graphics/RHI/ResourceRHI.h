@@ -36,6 +36,8 @@ public:
 	{
 		return static_cast<Ty*>(_Resource);
 	}
+	virtual void Bind(void) {}
+	virtual void Unbind(void) {}
 	virtual void Release(void) {}
 };
 

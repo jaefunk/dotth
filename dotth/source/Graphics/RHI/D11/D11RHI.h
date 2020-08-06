@@ -41,9 +41,16 @@ public:
 	virtual void BindVertexBuffer(VertexBufferRHI* buffer, unsigned int stride, unsigned int offset) override;
 	virtual void BindIndexBuffer(IndexBufferRHI* buffer, unsigned int format, unsigned int offset) override;
 
-	virtual VertexShaderRHI* CreateVertexShader(std::string file_path) override;
+	virtual VertexShaderRHI* CreateVertexShader(std::string file_path, void* vertex_desc, unsigned int num_desc) override;
 	virtual PixelShaderRHI* CreatePixelShader(std::string file_path) override;
+
+	virtual void VSSetConstantBuffers(unsigned int start, unsigned int num, void* buffer) override;
+	virtual void PSSetConstantBuffers(unsigned int start, unsigned int num, void* buffer) override;
+	virtual void PSSetResources(unsigned int start, unsigned int num, void* buffer) override;
+	virtual void PSSetSamplers(unsigned int start, unsigned int num, void* buffer) override;
 	
+	virtual void BindVertexShader(VertexShaderRHI* shader) override {}
+	virtual void BindPixelShader(PixelShaderRHI* shader) override {}
 
 private:
 	ID3D11Device* _Device = nullptr;

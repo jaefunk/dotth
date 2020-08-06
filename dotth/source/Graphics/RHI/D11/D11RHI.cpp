@@ -152,6 +152,7 @@ IndexBufferRHI * D11RHI::CreateIndexBuffer(unsigned int size, unsigned int usage
 void D11RHI::BindVertexBuffer(VertexBufferRHI * buffer, unsigned int stride, unsigned int offset)
 {
 	auto vertex_buffer = buffer->GetResource<ID3D11Buffer>();
+	_Context->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 	_Context->IASetVertexBuffers(0, 1, &vertex_buffer, &stride, &offset);
 }
 
@@ -161,7 +162,7 @@ void D11RHI::BindIndexBuffer(IndexBufferRHI * buffer, unsigned int format, unsig
 	_Context->IASetIndexBuffer(index_buffer, static_cast<DXGI_FORMAT>(format), offset);
 }
 
-VertexShaderRHI * D11RHI::CreateVertexShader(std::string file_path)
+VertexShaderRHI * D11RHI::CreateVertexShader(std::string file_path, void* vertex_desc, unsigned int num_desc)
 {
 	ID3D10Blob* error_message = nullptr;
 	ID3D10Blob* shader_buffer = nullptr;
@@ -170,8 +171,11 @@ VertexShaderRHI * D11RHI::CreateVertexShader(std::string file_path)
 	{
 		if (FAILED(_Device->CreateVertexShader(shader_buffer->GetBufferPointer(), shader_buffer->GetBufferSize(), NULL, &shader)))
 		{
+			ID3D11InputLayout* layout = nullptr;
+			_Device->CreateInputLayout(static_cast<D3D11_INPUT_ELEMENT_DESC*>(vertex_desc), num_desc, shader_buffer->GetBufferPointer(), shader_buffer->GetBufferSize(), &layout);
+
 			shader_buffer->Release();
-			return new VertexShaderRHI(shader);
+			return new D11VertexShader(shader, layout);
 		}
 	}
 	return nullptr;
@@ -187,10 +191,34 @@ PixelShaderRHI * D11RHI::CreatePixelShader(std::string file_path)
 		if (FAILED(_Device->CreatePixelShader(shader_buffer->GetBufferPointer(), shader_buffer->GetBufferSize(), NULL, &shader)))
 		{
 			shader_buffer->Release();
-			return new PixelShaderRHI(shader);
+			return new D11PixelShader(shader);
 		}
 	}
 	return nullptr;
+}
+
+void D11RHI::VSSetConstantBuffers(unsigned int start, unsigned int num, void * buffer) 
+{
+	ID3D11Buffer* casted_buffer = static_cast<ID3D11Buffer*>(buffer);
+	_Context->VSSetConstantBuffers(start, num, &casted_buffer);
+}
+
+void D11RHI::PSSetConstantBuffers(unsigned int start, unsigned int num, void * buffer) 
+{
+	ID3D11Buffer* casted_buffer = static_cast<ID3D11Buffer*>(buffer);
+	_Context->PSSetConstantBuffers(start, num, &casted_buffer);
+}
+
+void D11RHI::PSSetResources(unsigned int start, unsigned int num, void * buffer) 
+{
+	ID3D11ShaderResourceView* casted_buffer = static_cast<ID3D11ShaderResourceView*>(buffer);
+	_Context->PSSetShaderResources(start, num, &casted_buffer);
+}
+
+void D11RHI::PSSetSamplers(unsigned int start, unsigned int num, void * buffer) 
+{
+	ID3D11SamplerState* casted_buffer = static_cast<ID3D11SamplerState*>(buffer);
+	_Context->PSSetSamplers(start, num, &casted_buffer);
 }
 
 bool D11RHI::CompileShaderFromFile(ID3DBlob** out, std::string file_path, std::string model, std::string entry)

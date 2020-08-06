@@ -29,7 +29,9 @@ public:
 class D11VertexShader : public VertexShaderRHI
 {
 public:
-	D11VertexShader(ID3D11VertexShader* shader) : VertexShaderRHI(shader) {}
+	ID3D11InputLayout* Layout = nullptr;
+public:
+	D11VertexShader(ID3D11VertexShader* shader, ID3D11InputLayout* layout) : VertexShaderRHI(shader), Layout(layout) {}
 };
 
 class D11PixelShader : public PixelShaderRHI
