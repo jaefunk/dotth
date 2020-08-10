@@ -17,11 +17,14 @@ public:
 
 	virtual void* GetNativeDevice(void) = 0;
 	virtual void* GetNativeContext(void) = 0;
+	virtual ConstantBufferRHI* CreateConstantBuffer(unsigned int size) = 0;
 	virtual VertexBufferRHI* CreateVertexBuffer(unsigned int size, unsigned int usage, IDataSize* resource_info) = 0;
 	virtual IndexBufferRHI* CreateIndexBuffer(unsigned int size, unsigned int usage, IDataSize* resource_info) = 0;
 
 	virtual VertexShaderRHI* CreateVertexShader(std::string file_path, void* vertex_desc, unsigned int num_desc) = 0;
 	virtual PixelShaderRHI* CreatePixelShader(std::string file_path) = 0;
+
+	virtual void UpdateSubreousrce(BufferRHI* buffer, void* data) {}
 	
 	virtual void BindVertexBuffer(VertexBufferRHI* buffer, unsigned int stride, unsigned int offset) {}
 	virtual void BindIndexBuffer(IndexBufferRHI* buffer, unsigned int format, unsigned int offset) {}
@@ -32,4 +35,6 @@ public:
 	virtual void PSSetResources(unsigned int start, unsigned int num, void* buffer) {}
 	virtual void PSSetSamplers(unsigned int start, unsigned int num, void* buffer) {}
 	virtual void BindTexture(void) {}
+	virtual void SetInputLayout(VertexShaderRHI* vertex_shader) {};
+	virtual void DrawIndexed(unsigned int size, unsigned int start, unsigned int base) {}
 };

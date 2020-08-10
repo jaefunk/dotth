@@ -53,6 +53,12 @@ public:
 	unsigned int GetUsage() const { return _Usage; }
 };
 
+class ConstantBufferRHI : public BufferRHI
+{
+public:
+	ConstantBufferRHI(void* resource, unsigned int size) : BufferRHI(resource, size, 0) {}
+};
+
 class VertexBufferRHI : public BufferRHI
 {
 public:
@@ -85,5 +91,6 @@ public:
 
 class InputLayoutRHI : public ResourceRHI
 {
-
+public:
+	InputLayoutRHI(void* resource) : ResourceRHI(resource) {}
 };

@@ -169,14 +169,11 @@ VertexShaderRHI * D11RHI::CreateVertexShader(std::string file_path, void* vertex
 	ID3D11VertexShader* shader = nullptr;
 	if (CompileShaderFromFile(&shader_buffer, file_path, "vs_5_0"))
 	{
-		if (FAILED(_Device->CreateVertexShader(shader_buffer->GetBufferPointer(), shader_buffer->GetBufferSize(), NULL, &shader)))
-		{
-			ID3D11InputLayout* layout = nullptr;
-			_Device->CreateInputLayout(static_cast<D3D11_INPUT_ELEMENT_DESC*>(vertex_desc), num_desc, shader_buffer->GetBufferPointer(), shader_buffer->GetBufferSize(), &layout);
-
-			shader_buffer->Release();
-			return new D11VertexShader(shader, layout);
-		}
+		_Device->CreateVertexShader(shader_buffer->GetBufferPointer(), shader_buffer->GetBufferSize(), NULL, &shader);
+		ID3D11InputLayout* layout = nullptr;
+		_Device->CreateInputLayout(static_cast<D3D11_INPUT_ELEMENT_DESC*>(vertex_desc), num_desc, shader_buffer->GetBufferPointer(), shader_buffer->GetBufferSize(), &layout);
+		shader_buffer->Release();
+		return new D11VertexShader(shader, layout);
 	}
 	return nullptr;
 }
@@ -188,11 +185,9 @@ PixelShaderRHI * D11RHI::CreatePixelShader(std::string file_path)
 	ID3D11PixelShader* shader = nullptr;
 	if (CompileShaderFromFile(&shader_buffer, file_path, "ps_5_0"))
 	{
-		if (FAILED(_Device->CreatePixelShader(shader_buffer->GetBufferPointer(), shader_buffer->GetBufferSize(), NULL, &shader)))
-		{
-			shader_buffer->Release();
-			return new D11PixelShader(shader);
-		}
+		_Device->CreatePixelShader(shader_buffer->GetBufferPointer(), shader_buffer->GetBufferSize(), NULL, &shader);
+		shader_buffer->Release();
+		return new D11PixelShader(shader);
 	}
 	return nullptr;
 }
@@ -219,6 +214,34 @@ void D11RHI::PSSetSamplers(unsigned int start, unsigned int num, void * buffer)
 {
 	ID3D11SamplerState* casted_buffer = static_cast<ID3D11SamplerState*>(buffer);
 	_Context->PSSetSamplers(start, num, &casted_buffer);
+}
+
+void D11RHI::BindVertexShader(VertexShaderRHI * shader) 
+{
+	ID3D11VertexShader* vertex_shader = shader->GetResource<ID3D11VertexShader>();
+	_Context->VSSetShader(vertex_shader, nullptr, 0);
+}
+
+void D11RHI::BindPixelShader(PixelShaderRHI * shader) 
+{
+	ID3D11PixelShader* pixel_shader = shader->GetResource<ID3D11PixelShader>();
+	_Context->PSSetShader(pixel_shader, nullptr, 0);
+}
+
+void D11RHI::UpdateSubreousrce(BufferRHI * buffer, void * data)
+{
+	_Context->UpdateSubresource(buffer->GetResource<ID3D11Buffer>(), 0, nullptr, data, 0, 0);
+}
+
+void D11RHI::DrawIndexed(unsigned int size, unsigned int start, unsigned int base)
+{
+	_Context->DrawIndexed(size, start, base);
+}
+
+void D11RHI::SetInputLayout(VertexShaderRHI * vertex_shader)
+{
+	D11VertexShader* shader = static_cast<D11VertexShader*>(vertex_shader);
+	_Context->IASetInputLayout(shader->Layout);
 }
 
 bool D11RHI::CompileShaderFromFile(ID3DBlob** out, std::string file_path, std::string model, std::string entry)

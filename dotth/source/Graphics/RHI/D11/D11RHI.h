@@ -36,6 +36,21 @@ public:
 	{
 		return _Context;
 	};
+
+	virtual ConstantBufferRHI* CreateConstantBuffer(unsigned int size) override
+	{
+		ID3D11Buffer* constant_buffer = nullptr;
+		D3D11_BUFFER_DESC desc;
+		desc.Usage = D3D11_USAGE_DEFAULT;
+		desc.ByteWidth = size;
+		desc.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
+		desc.CPUAccessFlags = 0;
+		desc.MiscFlags = 0;
+		desc.StructureByteStride = 0;
+		_Device->CreateBuffer(&desc, NULL, &constant_buffer);
+		return new ConstantBufferRHI(constant_buffer, size);
+	}
+
 	virtual VertexBufferRHI* CreateVertexBuffer(unsigned int size, unsigned int usage, IDataSize* resource_info) override;
 	virtual IndexBufferRHI* CreateIndexBuffer(unsigned int size, unsigned int usage, IDataSize* resource_info) override;
 	virtual void BindVertexBuffer(VertexBufferRHI* buffer, unsigned int stride, unsigned int offset) override;
@@ -49,8 +64,15 @@ public:
 	virtual void PSSetResources(unsigned int start, unsigned int num, void* buffer) override;
 	virtual void PSSetSamplers(unsigned int start, unsigned int num, void* buffer) override;
 	
-	virtual void BindVertexShader(VertexShaderRHI* shader) override {}
-	virtual void BindPixelShader(PixelShaderRHI* shader) override {}
+	virtual void BindVertexShader(VertexShaderRHI* shader) override;
+	virtual void BindPixelShader(PixelShaderRHI* shader) override;
+
+	virtual void UpdateSubreousrce(BufferRHI* buffer, void* data) override;
+
+	virtual void DrawIndexed(unsigned int size, unsigned int start, unsigned int base) override;
+
+	virtual void SetInputLayout(VertexShaderRHI* vertex_shader) override;
+
 
 private:
 	ID3D11Device* _Device = nullptr;

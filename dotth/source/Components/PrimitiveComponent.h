@@ -9,9 +9,17 @@ struct VertexType
 	XMFLOAT4 color;
 };
 
+struct MatrixBufferType
+{
+	XMMATRIX world;
+	XMMATRIX view;
+	XMMATRIX projection;
+};
+
 class PrimitiveComponent : public DrawableComponent<VertexType, int>
 {
 public:
+	ConstantBufferRHI* ConstantBuffer = nullptr;
 	sdr2222 sd;
 
 public:
@@ -47,15 +55,43 @@ public:
 
 		VertexShader = Renderer::RHI()->CreateVertexShader("Resource/color.vs", layout, num_desc);
 		PixelShader = Renderer::RHI()->CreatePixelShader("Resource/color.ps");
+		ConstantBuffer = Renderer::RHI()->CreateConstantBuffer(sizeof(MatrixBufferType));
+	}
+
+	virtual void OnUpdate(void) override
+	{
+		
 	}
 
 	virtual void OnDraw(void) override
 	{
+
 		Renderer::RHI()->BindVertexBuffer(VertexBuffer, sizeof(VertexType), 0);
 		Renderer::RHI()->BindIndexBuffer(IndexBuffer, DXGI_FORMAT_R32_UINT, 0);
+		//sd.OnDraw();
+		
+		{
+			
+			D3D11_MAPPED_SUBRESOURCE mappedResource;
+			Renderer::Instance()->context()->Map(ConstantBuffer->GetResource<ID3D11Buffer>(), 0, D3D11_MAP_WRITE_DISCARD, 0, &mappedResource);
+			
+			MatrixBufferType* b = (MatrixBufferType*)mappedResource.pData;
+			b->projection = *Camera::Instance()->Perspective();
+			b->view = *Camera::Instance()->View();
+			XMMATRIX worldMatrix = XMMatrixIdentity();
+			b->world = XMMatrixIdentity();
+			Renderer::Instance()->context()->Unmap(ConstantBuffer->GetResource<ID3D11Buffer>(), 0);
+
+		}
+
+		
+		//Renderer::RHI()->UpdateSubreousrce(ConstantBuffer, &b);
+		Renderer::RHI()->VSSetConstantBuffers(0, 1, ConstantBuffer);
+
+		Renderer::RHI()->SetInputLayout(VertexShader);
 		Renderer::RHI()->BindVertexShader(VertexShader);
 		Renderer::RHI()->BindPixelShader(PixelShader);
-		sd.OnDraw();
+		Renderer::RHI()->DrawIndexed(3, 0, 0);
 	}
 };
 

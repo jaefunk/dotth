@@ -9,18 +9,38 @@ bool sdr2222::Initialize(ID3D11Device* device, HWND hwnd)
 bool sdr2222::Render(ID3D11DeviceContext* deviceContext, int indexCount,
 	XMMATRIX* worldMatrix, XMMATRIX* viewMatrix, XMMATRIX* projectionMatrix)
 {
-	// 렌더링에 사용할 셰이더 매개 변수를 설정합니다.
-	if (!SetShaderParameters(deviceContext, worldMatrix, viewMatrix, projectionMatrix))
+	D3D11_MAPPED_SUBRESOURCE mappedResource;
+	if (FAILED(deviceContext->Map(m_matrixBuffer, 0, D3D11_MAP_WRITE_DISCARD, 0, &mappedResource)))
 	{
 		return false;
 	}
 
-	// 설정된 버퍼를 셰이더로 렌더링한다.
-	RenderShader(deviceContext, indexCount);
-	
+	// 상수 버퍼의 데이터에 대한 포인터를 가져옵니다.
+	MatrixBufferType* dataPtr = (MatrixBufferType*)mappedResource.pData;
+
+	// 상수 버퍼에 행렬을 복사합니다.
+	dataPtr->world = DirectX::XMMatrixTranspose(*worldMatrix);;
+	dataPtr->view = DirectX::XMMatrixTranspose(*viewMatrix);
+	dataPtr->projection = DirectX::XMMatrixTranspose(*projectionMatrix);
+
+	// 상수 버퍼의 잠금을 풉니다.
+	deviceContext->Unmap(m_matrixBuffer, 0);
+
+	// 정점 셰이더에서의 상수 버퍼의 위치를 설정합니다.
+	unsigned bufferNumber = 0;
+
+	// 마지막으로 정점 셰이더의 상수 버퍼를 바뀐 값으로 바꿉니다.
+	deviceContext->VSSetConstantBuffers(bufferNumber, 1, &m_matrixBuffer);
+
+
+	deviceContext->IASetInputLayout(m_layout);
+
+	// 삼각형을 그릴 정점 셰이더와 픽셀 셰이더를 설정합니다.
+	deviceContext->VSSetShader(m_vertexShader, NULL, 0);
+	deviceContext->PSSetShader(m_pixelShader, NULL, 0);
+	deviceContext->DrawIndexed(indexCount, 0, 0);	
 	return true;
 }
-
 
 bool sdr2222::InitializeShader(ID3D11Device* device, HWND hwnd, WCHAR* vsFilename, WCHAR* psFilename)
 {
@@ -141,7 +161,6 @@ void sdr2222::OutputShaderErrorMessage(ID3D10Blob* errorMessage, HWND hwnd, WCHA
 	//MessageBox(hwnd, L"Error compiling sdr2222.", shaderFilename, MB_OK);
 }
 
-
 bool sdr2222::SetShaderParameters(ID3D11DeviceContext* deviceContext, DirectX::XMMATRIX* worldMatrix, DirectX::XMMATRIX* viewMatrix, DirectX::XMMATRIX* projectionMatrix)
 {
 	// 행렬을 transpose하여 셰이더에서 사용할 수 있게 합니다
@@ -175,7 +194,6 @@ bool sdr2222::SetShaderParameters(ID3D11DeviceContext* deviceContext, DirectX::X
 
 	return true;
 }
-
 
 void sdr2222::RenderShader(ID3D11DeviceContext* deviceContext, int indexCount)
 {
