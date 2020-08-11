@@ -41,10 +41,10 @@ public:
 	{
 		ID3D11Buffer* constant_buffer = nullptr;
 		D3D11_BUFFER_DESC desc;
-		desc.Usage = D3D11_USAGE_DEFAULT;
+		desc.Usage = D3D11_USAGE_DYNAMIC;
 		desc.ByteWidth = size;
 		desc.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
-		desc.CPUAccessFlags = 0;
+		desc.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
 		desc.MiscFlags = 0;
 		desc.StructureByteStride = 0;
 		_Device->CreateBuffer(&desc, NULL, &constant_buffer);
