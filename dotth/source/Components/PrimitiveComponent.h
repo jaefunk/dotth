@@ -3,6 +3,7 @@
 
 #include "Components/DrawableComponent.h"
 #include "Graphics/shader.h"
+
 struct VertexType
 {
 	XMFLOAT3 position;
@@ -20,12 +21,29 @@ class PrimitiveComponent : public DrawableComponent<VertexType, int>
 {
 public:
 	ConstantBufferRHI* ConstantBuffer = nullptr;
+	ID3D11Buffer* _ConstantBuffer = nullptr;
 	sdr2222 sd;
 
 public:
 	virtual void OnInit(void) override
 	{
 		sd.OnInit();
+
+		{
+
+		}
+
+		{
+			D3D11_BUFFER_DESC desc;
+			memset(&desc, 0, sizeof(decltype(desc)));
+			desc.Usage = D3D11_USAGE_DYNAMIC;
+			desc.ByteWidth = sizeof(MatrixBufferType);
+			desc.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
+			desc.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
+			desc.MiscFlags = 0;
+			desc.StructureByteStride = 0;
+			_ConstantBuffer = Renderer::RHI()->CreateConstantBuffer(desc);
+		}
 
 		int vertex_count = 3;
 		VertexType vertices[3];
@@ -56,6 +74,8 @@ public:
 		VertexShader = Renderer::RHI()->CreateVertexShader("Resource/color.vs", layout, num_desc);
 		PixelShader = Renderer::RHI()->CreatePixelShader("Resource/color.ps");
 		ConstantBuffer = Renderer::RHI()->CreateConstantBuffer(sizeof(MatrixBufferType));
+
+
 	}
 
 	virtual void OnUpdate(void) override

@@ -81,7 +81,10 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance
 			TranslateMessage(&msg);
 			DispatchMessage(&msg);
 		}
-		g_App.loop();
+		else
+		{
+			g_App.loop();
+		}
     }
 	g_App.Quit();
     return (int) msg.wParam;

@@ -6,25 +6,16 @@
 template <class VertexType, class ShaderType>
 class DrawableComponent : public Component
 {
-	/*
-	ID3D11DeviceContext*                g_pImmediateContext = NULL;
-	ID3D11Texture2D*                    g_pDepthStencil = NULL;
-	ID3D11VertexShader*                 g_pVertexShader = NULL;
-	ID3D11PixelShader*                  g_pPixelShader = NULL;
-	ID3D11InputLayout*                  g_pVertexLayout = NULL;
-	ID3D11Buffer*                       g_pVertexBuffer = NULL;
-	ID3D11Buffer*                       g_pIndexBuffer = NULL;
-	ID3D11Buffer*                       g_pCBNeverChanges = NULL;
-	ID3D11Buffer*                       g_pCBChangeOnResize = NULL;
-	ID3D11Buffer*                       g_pCBChangesEveryFrame = NULL;
-	ID3D11ShaderResourceView*           g_pTextureRV = NULL;
-	ID3D11SamplerState*                 g_pSamplerLinear = NULL;
-
-	*/
 protected:
+	ID3D11Buffer* _VertexBuffer = nullptr;
+	ID3D11Buffer* _IndexBuffer = nullptr;
+	ID3D11InputLayout* _InputLayout = nullptr;
+	ID3D11VertexShader* _VertexShader = nullptr;
+	ID3D11PixelShader* _PixelShader = nullptr;
+
+
 	VertexBufferRHI* VertexBuffer = nullptr;
-	IndexBufferRHI* IndexBuffer = nullptr;
-	
+	IndexBufferRHI* IndexBuffer = nullptr;	
 	VertexShaderRHI* VertexShader = nullptr;
 	PixelShaderRHI* PixelShader = nullptr;
 	InputLayoutRHI* InputLayout = nullptr;
@@ -44,6 +35,17 @@ public:
 			delete IndexBuffer;
 			IndexBuffer = nullptr;
 		}
+
+		if (_VertexBuffer)
+			_VertexBuffer->Release();
+		if (_IndexBuffer)
+			_IndexBuffer->Release();
+		if (_InputLayout)
+			_InputLayout->Release();
+		if (_VertexShader)
+			_VertexShader->Release();
+		if (_PixelShader)
+			_PixelShader->Release();
 	}
 };
 

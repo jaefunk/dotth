@@ -7,27 +7,13 @@
 class Renderer : public SingleInstance<Renderer>
 {
 private:
-	DynamicRHI* _RHI;
+	D11RHI* _RHI;
 	
 public:	
-	static ID3D11Device* device(void) {
-		return static_cast<ID3D11Device*>(Renderer::Instance()->_RHI->GetNativeDevice());
-	}
-	static ID3D11DeviceContext* context(void) {
-		return static_cast<ID3D11DeviceContext*>(Renderer::Instance()->_RHI->GetNativeContext());
-	}
-	static DynamicRHI* RHI(void) {
-		return Renderer::Instance()->_RHI;
-	}
+	static D11RHI* RHI(void);
 
 public:
 	bool Init(void* handle, int width, int height);
-	void clear_buffer(void)
-	{
-		_RHI->PreDraw();
-	}
-	void swap_buffer(void)
-	{
-		_RHI->PostDraw();
-	}
+	void clear_buffer(void);
+	void swap_buffer(void);
 };

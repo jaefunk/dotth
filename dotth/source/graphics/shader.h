@@ -1,8 +1,25 @@
 
 #pragma once
 
+#include "Framework/Base.h"
+
+class Shader : public Base
+{
+private:
+
+};
+
+class VertexShader : public Shader
+{
+
+};
+
+class PixelShader : public Shader
+{
+
+};
+
 #include "Framework/Component.h"
-#include "Graphics/RHI/D11/D11RHI.h"
 #include "Graphics/Renderer.h"
 #include "Graphics/Camera.h"
 class sdr2222 : public Component
@@ -18,12 +35,12 @@ private:
 public:
 	virtual void OnInit(void) override
 	{
-		Initialize(Renderer::device());
+		Initialize(Renderer::RHI()->Device());
 	};
 	virtual void OnDraw(void) override
 	{
 		XMMATRIX worldMatrix = XMMatrixIdentity();
-		Render(Renderer::context(), 3, &worldMatrix, Camera::Instance()->View(), Camera::Instance()->Perspective());
+		Render(Renderer::RHI()->Context(), 3, &worldMatrix, Camera::Instance()->View(), Camera::Instance()->Perspective());
 	}
 	bool Initialize(ID3D11Device*, HWND a = 0);
 	bool Render(ID3D11DeviceContext*, int, XMMATRIX*, XMMATRIX*, XMMATRIX*);
