@@ -68,30 +68,26 @@ public:
 
 		Renderer::RHI()->BindVertexBuffer(VertexBuffer, sizeof(VertexType), 0);
 		Renderer::RHI()->BindIndexBuffer(IndexBuffer, DXGI_FORMAT_R32_UINT, 0);
-		//sd.OnDraw();
+		sd.OnDraw();
 		
-		{
-			
-			D3D11_MAPPED_SUBRESOURCE mappedResource;
-			Renderer::Instance()->context()->Map(ConstantBuffer->GetResource<ID3D11Buffer>(), 0, D3D11_MAP_WRITE_DISCARD, 0, &mappedResource);
-			
-			MatrixBufferType* b = (MatrixBufferType*)mappedResource.pData;
-			b->projection = *Camera::Instance()->Perspective();
-			b->view = *Camera::Instance()->View();
-			XMMATRIX worldMatrix = XMMatrixIdentity();
-			b->world = XMMatrixIdentity();
-			Renderer::Instance()->context()->Unmap(ConstantBuffer->GetResource<ID3D11Buffer>(), 0);
-
-		}
-
-		
-		//Renderer::RHI()->UpdateSubreousrce(ConstantBuffer, &b);
-		Renderer::RHI()->VSSetConstantBuffers(0, 1, ConstantBuffer);
-
-		Renderer::RHI()->SetInputLayout(VertexShader);
-		Renderer::RHI()->BindVertexShader(VertexShader);
-		Renderer::RHI()->BindPixelShader(PixelShader);
-		Renderer::RHI()->DrawIndexed(3, 0, 0);
+		//{
+		//	
+		//	D3D11_MAPPED_SUBRESOURCE mappedResource;
+		//	Renderer::Instance()->context()->Map(ConstantBuffer->GetResource<ID3D11Buffer>(), 0, D3D11_MAP_WRITE_DISCARD, 0, &mappedResource);
+		//	
+		//	MatrixBufferType* b = (MatrixBufferType*)mappedResource.pData;
+		//	b->projection = *Camera::Instance()->Perspective();
+		//	b->view = *Camera::Instance()->View();
+		//	XMMATRIX worldMatrix = XMMatrixIdentity();
+		//	b->world = XMMatrixIdentity();
+		//	Renderer::Instance()->context()->Unmap(ConstantBuffer->GetResource<ID3D11Buffer>(), 0);
+		//	Renderer::RHI()->UpdateSubreousrce(ConstantBuffer, &b);
+		//}
+		//Renderer::RHI()->VSSetConstantBuffers(0, 1, ConstantBuffer);
+		//Renderer::RHI()->SetInputLayout(VertexShader);
+		//Renderer::RHI()->BindVertexShader(VertexShader);
+		//Renderer::RHI()->BindPixelShader(PixelShader);
+		//Renderer::RHI()->DrawIndexed(3, 0, 0);
 	}
 };
 
