@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="source\Components\CubeComponent.h" />
     <ClInclude Include="source\components\DrawableComponent.h" />
     <ClInclude Include="source\Components\PrimitiveComponent.h" />
     <ClInclude Include="source\dotth.h" />
@@ -68,6 +69,7 @@
     <ClInclude Include="source\utility\utility.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="source\Components\CubeComponent.cpp" />
     <ClCompile Include="source\components\DrawableComponent.cpp" />
     <ClCompile Include="source\Components\PrimitiveComponent.cpp" />
     <ClCompile Include="source\external\sql\query_builder.cpp" />

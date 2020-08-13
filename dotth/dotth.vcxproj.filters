@@ -48,6 +48,7 @@
     <ClInclude Include="source\math\TypeFloat.h" />
     <ClInclude Include="source\Graphics\PrimitiveShader.h" />
     <ClInclude Include="source\Graphics\Shader.h" />
+    <ClInclude Include="source\Components\CubeComponent.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source\math\matrix.cpp" />
@@ -86,5 +87,6 @@
     <ClCompile Include="source\Components\PrimitiveComponent.cpp" />
     <ClCompile Include="source\Graphics\PrimitiveShader.cpp" />
     <ClCompile Include="source\Graphics\Shader.cpp" />
+    <ClCompile Include="source\Components\CubeComponent.cpp" />
   </ItemGroup>
 </Project>

@@ -24,103 +24,45 @@ public:
 	ID3D11Buffer* _ConstantBuffer = nullptr;
 	PrimitiveShader* _Shader = nullptr;
 
+	virtual unsigned int GetVertexCount(void) = 0;
+	virtual unsigned int GetIndexCount(void) = 0;
+	virtual VertexType* GetVertexArray(void) = 0;
+	virtual unsigned long* GetIndexArray(void) = 0;
+
 public:
 	virtual void OnInit(void) override
 	{
 		{
-			int vertex_count = 24;
-			VertexType vertices[] =
-			{
-				{ XMFLOAT3(-1.0f, 1.0f, -1.0f),		XMFLOAT4(1.0f, 0.0f, 0.f, 1.f) },
-				{ XMFLOAT3(1.0f, 1.0f, -1.0f),		XMFLOAT4(1.0f, 0.0f, 0.f, 1.f) },
-				{ XMFLOAT3(1.0f, 1.0f, 1.0f),		XMFLOAT4(1.0f, 0.0f, 0.f, 1.f) },
-				{ XMFLOAT3(-1.0f, 1.0f, 1.0f),		XMFLOAT4(1.0f, 0.0f, 0.f, 1.f) },
-
-				{ XMFLOAT3(-1.0f, -1.0f, -1.0f),	XMFLOAT4(0.0f, 1.0f, 0.f, 1.f) },
-				{ XMFLOAT3(1.0f, -1.0f, -1.0f),		XMFLOAT4(0.0f, 1.0f, 0.f, 1.f) },
-				{ XMFLOAT3(1.0f, -1.0f, 1.0f),		XMFLOAT4(0.0f, 1.0f, 0.f, 1.f) },
-				{ XMFLOAT3(-1.0f, -1.0f, 1.0f),		XMFLOAT4(0.0f, 1.0f, 0.f, 1.f) },
-
-				{ XMFLOAT3(-1.0f, -1.0f, 1.0f),		XMFLOAT4(0.0f, 0.0f, 1.f, 1.f) },
-				{ XMFLOAT3(-1.0f, -1.0f, -1.0f),	XMFLOAT4(0.0f, 0.0f, 1.f, 1.f) },
-				{ XMFLOAT3(-1.0f, 1.0f, -1.0f),		XMFLOAT4(0.0f, 0.0f, 1.f, 1.f) },
-				{ XMFLOAT3(-1.0f, 1.0f, 1.0f),		XMFLOAT4(0.0f, 0.0f, 1.f, 1.f) },
-
-				{ XMFLOAT3(1.0f, -1.0f, 1.0f),		XMFLOAT4(1.0f, 0.0f, 1.f, 1.f) },
-				{ XMFLOAT3(1.0f, -1.0f, -1.0f),		XMFLOAT4(1.0f, 0.0f, 1.f, 1.f) },
-				{ XMFLOAT3(1.0f, 1.0f, -1.0f),		XMFLOAT4(1.0f, 0.0f, 1.f, 1.f) },
-				{ XMFLOAT3(1.0f, 1.0f, 1.0f),		XMFLOAT4(1.0f, 0.0f, 1.f, 1.f) },
-
-				{ XMFLOAT3(-1.0f, -1.0f, -1.0f),	XMFLOAT4(0.0f, 1.0f, 1.f, 1.f) },
-				{ XMFLOAT3(1.0f, -1.0f, -1.0f),		XMFLOAT4(0.0f, 1.0f, 1.f, 1.f) },
-				{ XMFLOAT3(1.0f, 1.0f, -1.0f),		XMFLOAT4(0.0f, 1.0f, 1.f, 1.f) },
-				{ XMFLOAT3(-1.0f, 1.0f, -1.0f),		XMFLOAT4(0.0f, 1.0f, 1.f, 1.f) },
-
-				{ XMFLOAT3(-1.0f, -1.0f, 1.0f),		XMFLOAT4(1.0f, 1.0f, 0.f, 1.f) },
-				{ XMFLOAT3(1.0f, -1.0f, 1.0f),		XMFLOAT4(1.0f, 1.0f, 0.f, 1.f) },
-				{ XMFLOAT3(1.0f, 1.0f, 1.0f),		XMFLOAT4(1.0f, 1.0f, 0.f, 1.f) },
-				{ XMFLOAT3(-1.0f, 1.0f, 1.0f),		XMFLOAT4(1.0f, 1.0f, 0.f, 1.f) },
-			};
-
-			//VertexType vertices[3];
-			//vertices[0].position = XMFLOAT3(0.0f, 1.0f, 0.0f);
-			//vertices[0].color = XMFLOAT4(1.0f, 0.0f, 0.0f, 1.0f);
-			//vertices[1].position = XMFLOAT3(1.0f, -1.0f, 0.0f);
-			//vertices[1].color = XMFLOAT4(0.0f, 1.0f, 0.0f, 1.0f);
-			//vertices[2].position = XMFLOAT3(-1.0f, -1.0f, 0.0f);
-			//vertices[2].color = XMFLOAT4(0.0f, 0.0f, 1.0f, 1.0f);
-
 			D3D11_BUFFER_DESC desc;
 			memset(&desc, 0, sizeof(decltype(desc)));
 			desc.Usage = D3D11_USAGE_DEFAULT;
-			desc.ByteWidth = sizeof(VertexType) * vertex_count;
+			desc.ByteWidth = sizeof(VertexType) * GetVertexCount();
 			desc.BindFlags = D3D11_BIND_VERTEX_BUFFER;
-
 			D3D11_SUBRESOURCE_DATA data;
 			memset(&data, 0, sizeof(decltype(data)));
+			VertexType* vertices = GetVertexArray();
 			data.pSysMem = vertices;
 			data.SysMemPitch = 0;
 			data.SysMemSlicePitch = 0;
-
 			_VertexBuffer = Renderer::RHI()->CreateVertexBuffer(desc, data);
+			delete[] vertices;
 		}
 
 		{
-			int index_count = 36;
-
-			unsigned long indices[] =
-			{
-				3,1,0,
-				2,1,3,
-
-				6,4,5,
-				7,4,6,
-
-				11,9,8,
-				10,9,11,
-
-				14,12,13,
-				15,12,14,
-
-				19,17,16,
-				18,17,19,
-
-				22,20,21,
-				23,20,22
-			};
-
 			D3D11_BUFFER_DESC desc;
 			memset(&desc, 0, sizeof(decltype(desc)));
 			desc.Usage = D3D11_USAGE_DEFAULT;
-			desc.ByteWidth = sizeof(unsigned long) * index_count;
+			desc.ByteWidth = sizeof(unsigned long) * GetIndexCount();
 			desc.BindFlags = D3D11_BIND_INDEX_BUFFER;
 
 			D3D11_SUBRESOURCE_DATA data;
 			memset(&data, 0, sizeof(decltype(data)));
+			unsigned long* indices = GetIndexArray();
 			data.pSysMem = indices;
 			data.SysMemPitch = 0;
 			data.SysMemSlicePitch = 0;
 			_IndexBuffer = Renderer::RHI()->CreateIndexBuffer(desc, data);
+			delete[] indices;
 		}
 
 		{
