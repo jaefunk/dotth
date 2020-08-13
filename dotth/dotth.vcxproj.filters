@@ -2,7 +2,6 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClInclude Include="source\framework\shared_node.h" />
-    <ClInclude Include="source\graphics\shader.h" />
     <ClInclude Include="source\graphics\type_vertex.h" />
     <ClInclude Include="source\math\math.h" />
     <ClInclude Include="source\math\matrix.h" />
@@ -17,7 +16,6 @@
     <ClInclude Include="source\external\sql\query_builder.h" />
     <ClInclude Include="source\external\task\task.h" />
     <ClInclude Include="source\external\xml\tinyxml2.h" />
-    <ClInclude Include="source\graphics\shader_color.h" />
     <ClInclude Include="source\framework\sample_object.h" />
     <ClInclude Include="source\framework\Base.h" />
     <ClInclude Include="source\framework\Node.h" />
@@ -48,9 +46,10 @@
     <ClInclude Include="source\Graphics\Renderer.h" />
     <ClInclude Include="source\Components\PrimitiveComponent.h" />
     <ClInclude Include="source\math\TypeFloat.h" />
+    <ClInclude Include="source\Graphics\PrimitiveShader.h" />
+    <ClInclude Include="source\Graphics\Shader.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="source\graphics\shader.cpp" />
     <ClCompile Include="source\math\matrix.cpp" />
     <ClCompile Include="source\math\transform.cpp" />
     <ClCompile Include="source\platform\win\win.cpp" />
@@ -59,7 +58,6 @@
     <ClCompile Include="source\graphics\polygon.cpp" />
     <ClCompile Include="source\external\sql\query_builder.cpp" />
     <ClCompile Include="source\external\xml\tinyxml2.cpp" />
-    <ClCompile Include="source\graphics\shader_color.cpp" />
     <ClCompile Include="source\framework\sample_object.cpp" />
     <ClCompile Include="source\framework\Base.cpp" />
     <ClCompile Include="source\framework\Component.cpp" />
@@ -86,5 +84,7 @@
     <ClCompile Include="source\components\DrawableComponent.cpp" />
     <ClCompile Include="source\Graphics\Renderer.cpp" />
     <ClCompile Include="source\Components\PrimitiveComponent.cpp" />
+    <ClCompile Include="source\Graphics\PrimitiveShader.cpp" />
+    <ClCompile Include="source\Graphics\Shader.cpp" />
   </ItemGroup>
 </Project>

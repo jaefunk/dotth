@@ -3,7 +3,6 @@
 
 #include "Framework/Object.h"
 #include "Components/PrimitiveComponent.h"
-#include "Graphics/shader.h"
 
 class sample_object : public Object
 {

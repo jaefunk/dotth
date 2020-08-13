@@ -2,6 +2,7 @@
 #pragma once
 
 #include "utility/SingleInstance.h"
+#include "Graphics/Camera.h"
 #include "Graphics/RHI/D11/D11RHI.h"
 
 class Renderer : public SingleInstance<Renderer>

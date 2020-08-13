@@ -104,7 +104,7 @@ bool D11RHI::Release(void)
 	return false;
 }
 
-VertexBufferRHI* D11RHI::CreateVertexBuffer(unsigned int size, unsigned int usage, IDataSize* resource_info)
+VertexBufferRHI * D11RHI::CreateVertexBuffer(unsigned int size, unsigned int usage, IDataSize * resource_info)
 {
 	D3D11_BUFFER_DESC desc;
 	ZeroMemory(&desc, sizeof(D3D11_BUFFER_DESC));
@@ -192,19 +192,7 @@ PixelShaderRHI * D11RHI::CreatePixelShader(std::string file_path)
 	return nullptr;
 }
 
-void D11RHI::VSSetConstantBuffers(unsigned int start, unsigned int num, void * buffer) 
-{
-	ID3D11Buffer* casted_buffer = static_cast<ID3D11Buffer*>(buffer);
-	_Context->VSSetConstantBuffers(start, num, &casted_buffer);
-}
-
-void D11RHI::PSSetConstantBuffers(unsigned int start, unsigned int num, void * buffer) 
-{
-	ID3D11Buffer* casted_buffer = static_cast<ID3D11Buffer*>(buffer);
-	_Context->PSSetConstantBuffers(start, num, &casted_buffer);
-}
-
-void D11RHI::PSSetResources(unsigned int start, unsigned int num, void * buffer) 
+void D11RHI::PSSetResources(unsigned int start, unsigned int num, void * buffer)
 {
 	ID3D11ShaderResourceView* casted_buffer = static_cast<ID3D11ShaderResourceView*>(buffer);
 	_Context->PSSetShaderResources(start, num, &casted_buffer);

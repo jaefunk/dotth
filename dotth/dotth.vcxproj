@@ -38,6 +38,7 @@
     <ClInclude Include="source\graphics\Camera.h" />
     <ClInclude Include="source\framework\sample_object.h" />
     <ClInclude Include="source\graphics\polygon.h" />
+    <ClInclude Include="source\Graphics\PrimitiveShader.h" />
     <ClInclude Include="source\Graphics\Renderer.h" />
     <ClInclude Include="source\Graphics\RHI\D11\D11Device.h" />
     <ClInclude Include="source\Graphics\RHI\D11\D11IndexBuffer.h" />
@@ -55,8 +56,7 @@
     <ClInclude Include="source\Graphics\RHI\ShaderRHI.h" />
     <ClInclude Include="source\Graphics\RHI\VertexBufferRHI.h" />
     <ClInclude Include="source\Graphics\RHI\ViewportRHI.h" />
-    <ClInclude Include="source\graphics\shader.h" />
-    <ClInclude Include="source\graphics\shader_color.h" />
+    <ClInclude Include="source\Graphics\Shader.h" />
     <ClInclude Include="source\graphics\type_vertex.h" />
     <ClInclude Include="source\math\math.h" />
     <ClInclude Include="source\math\matrix.h" />
@@ -81,6 +81,7 @@
     <ClCompile Include="source\graphics\Camera.cpp" />
     <ClCompile Include="source\framework\sample_object.cpp" />
     <ClCompile Include="source\graphics\polygon.cpp" />
+    <ClCompile Include="source\Graphics\PrimitiveShader.cpp" />
     <ClCompile Include="source\Graphics\Renderer.cpp" />
     <ClCompile Include="source\Graphics\RHI\D11\D11Device.cpp" />
     <ClCompile Include="source\Graphics\RHI\D11\D11IndexBuffer.cpp" />
@@ -97,8 +98,7 @@
     <ClCompile Include="source\Graphics\RHI\ShaderRHI.cpp" />
     <ClCompile Include="source\Graphics\RHI\VertexBufferRHI.cpp" />
     <ClCompile Include="source\Graphics\RHI\ViewportRHI.cpp" />
-    <ClCompile Include="source\graphics\shader.cpp" />
-    <ClCompile Include="source\graphics\shader_color.cpp" />
+    <ClCompile Include="source\Graphics\Shader.cpp" />
     <ClCompile Include="source\math\matrix.cpp" />
     <ClCompile Include="source\math\transform.cpp" />
     <ClCompile Include="source\platform\application.cpp" />
