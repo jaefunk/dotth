@@ -31,30 +31,35 @@ public:
 			int vertex_count = 24;
 			VertexType vertices[] =
 			{
-				{ XMFLOAT3(-1.0f, 1.0f, -1.0f), XMFLOAT4(0.0f, 0.0f, 1.f, 1.f) },
-				{ XMFLOAT3(1.0f, 1.0f, -1.0f), XMFLOAT4(1.0f, 0.0f, 1.f, 1.f) },
-				{ XMFLOAT3(1.0f, 1.0f, 1.0f), XMFLOAT4(1.0f, 1.0f, 1.f, 1.f) },
-				{ XMFLOAT3(-1.0f, 1.0f, 1.0f), XMFLOAT4(0.0f, 1.0f, 1.f, 1.f) },
-				{ XMFLOAT3(-1.0f, -1.0f, -1.0f), XMFLOAT4(0.0f, 0.0f, 1.f, 1.f) },
-				{ XMFLOAT3(1.0f, -1.0f, -1.0f), XMFLOAT4(1.0f, 0.0f, 1.f, 1.f) },
-				{ XMFLOAT3(1.0f, -1.0f, 1.0f), XMFLOAT4(1.0f, 1.0f, 1.f, 1.f) },
-				{ XMFLOAT3(-1.0f, -1.0f, 1.0f), XMFLOAT4(0.0f, 1.0f, 1.f, 1.f) },
-				{ XMFLOAT3(-1.0f, -1.0f, 1.0f), XMFLOAT4(0.0f, 0.0f, 1.f, 1.f) },
-				{ XMFLOAT3(-1.0f, -1.0f, -1.0f), XMFLOAT4(1.0f, 0.0f, 1.f, 1.f) },
-				{ XMFLOAT3(-1.0f, 1.0f, -1.0f), XMFLOAT4(1.0f, 1.0f, 1.f, 1.f) },
-				{ XMFLOAT3(-1.0f, 1.0f, 1.0f), XMFLOAT4(0.0f, 1.0f, 1.f, 1.f) },
-				{ XMFLOAT3(1.0f, -1.0f, 1.0f), XMFLOAT4(0.0f, 0.0f, 1.f, 1.f) },
-				{ XMFLOAT3(1.0f, -1.0f, -1.0f), XMFLOAT4(1.0f, 0.0f, 1.f, 1.f) },
-				{ XMFLOAT3(1.0f, 1.0f, -1.0f), XMFLOAT4(1.0f, 1.0f, 1.f, 1.f) },
-				{ XMFLOAT3(1.0f, 1.0f, 1.0f), XMFLOAT4(0.0f, 1.0f, 1.f, 1.f) },
-				{ XMFLOAT3(-1.0f, -1.0f, -1.0f), XMFLOAT4(0.0f, 0.0f, 1.f, 1.f) },
-				{ XMFLOAT3(1.0f, -1.0f, -1.0f), XMFLOAT4(1.0f, 0.0f, 1.f, 1.f) },
-				{ XMFLOAT3(1.0f, 1.0f, -1.0f), XMFLOAT4(1.0f, 1.0f, 1.f, 1.f) },
-				{ XMFLOAT3(-1.0f, 1.0f, -1.0f), XMFLOAT4(0.0f, 1.0f, 1.f, 1.f) },
-				{ XMFLOAT3(-1.0f, -1.0f, 1.0f), XMFLOAT4(0.0f, 0.0f, 1.f, 1.f) },
-				{ XMFLOAT3(1.0f, -1.0f, 1.0f), XMFLOAT4(1.0f, 0.0f, 1.f, 1.f) },
-				{ XMFLOAT3(1.0f, 1.0f, 1.0f), XMFLOAT4(1.0f, 1.0f, 1.f, 1.f) },
-				{ XMFLOAT3(-1.0f, 1.0f, 1.0f), XMFLOAT4(0.0f, 1.0f, 1.f, 1.f) },
+				{ XMFLOAT3(-1.0f, 1.0f, -1.0f),		XMFLOAT4(1.0f, 0.0f, 0.f, 1.f) },
+				{ XMFLOAT3(1.0f, 1.0f, -1.0f),		XMFLOAT4(1.0f, 0.0f, 0.f, 1.f) },
+				{ XMFLOAT3(1.0f, 1.0f, 1.0f),		XMFLOAT4(1.0f, 0.0f, 0.f, 1.f) },
+				{ XMFLOAT3(-1.0f, 1.0f, 1.0f),		XMFLOAT4(1.0f, 0.0f, 0.f, 1.f) },
+
+				{ XMFLOAT3(-1.0f, -1.0f, -1.0f),	XMFLOAT4(0.0f, 1.0f, 0.f, 1.f) },
+				{ XMFLOAT3(1.0f, -1.0f, -1.0f),		XMFLOAT4(0.0f, 1.0f, 0.f, 1.f) },
+				{ XMFLOAT3(1.0f, -1.0f, 1.0f),		XMFLOAT4(0.0f, 1.0f, 0.f, 1.f) },
+				{ XMFLOAT3(-1.0f, -1.0f, 1.0f),		XMFLOAT4(0.0f, 1.0f, 0.f, 1.f) },
+
+				{ XMFLOAT3(-1.0f, -1.0f, 1.0f),		XMFLOAT4(0.0f, 0.0f, 1.f, 1.f) },
+				{ XMFLOAT3(-1.0f, -1.0f, -1.0f),	XMFLOAT4(0.0f, 0.0f, 1.f, 1.f) },
+				{ XMFLOAT3(-1.0f, 1.0f, -1.0f),		XMFLOAT4(0.0f, 0.0f, 1.f, 1.f) },
+				{ XMFLOAT3(-1.0f, 1.0f, 1.0f),		XMFLOAT4(0.0f, 0.0f, 1.f, 1.f) },
+
+				{ XMFLOAT3(1.0f, -1.0f, 1.0f),		XMFLOAT4(1.0f, 0.0f, 1.f, 1.f) },
+				{ XMFLOAT3(1.0f, -1.0f, -1.0f),		XMFLOAT4(1.0f, 0.0f, 1.f, 1.f) },
+				{ XMFLOAT3(1.0f, 1.0f, -1.0f),		XMFLOAT4(1.0f, 0.0f, 1.f, 1.f) },
+				{ XMFLOAT3(1.0f, 1.0f, 1.0f),		XMFLOAT4(1.0f, 0.0f, 1.f, 1.f) },
+
+				{ XMFLOAT3(-1.0f, -1.0f, -1.0f),	XMFLOAT4(0.0f, 1.0f, 1.f, 1.f) },
+				{ XMFLOAT3(1.0f, -1.0f, -1.0f),		XMFLOAT4(0.0f, 1.0f, 1.f, 1.f) },
+				{ XMFLOAT3(1.0f, 1.0f, -1.0f),		XMFLOAT4(0.0f, 1.0f, 1.f, 1.f) },
+				{ XMFLOAT3(-1.0f, 1.0f, -1.0f),		XMFLOAT4(0.0f, 1.0f, 1.f, 1.f) },
+
+				{ XMFLOAT3(-1.0f, -1.0f, 1.0f),		XMFLOAT4(1.0f, 1.0f, 0.f, 1.f) },
+				{ XMFLOAT3(1.0f, -1.0f, 1.0f),		XMFLOAT4(1.0f, 1.0f, 0.f, 1.f) },
+				{ XMFLOAT3(1.0f, 1.0f, 1.0f),		XMFLOAT4(1.0f, 1.0f, 0.f, 1.f) },
+				{ XMFLOAT3(-1.0f, 1.0f, 1.0f),		XMFLOAT4(1.0f, 1.0f, 0.f, 1.f) },
 			};
 
 			//VertexType vertices[3];
@@ -153,10 +158,18 @@ public:
 		Renderer::RHI()->BindVertexBuffer(_VertexBuffer, sizeof(VertexType), 0);
 		Renderer::RHI()->BindIndexBuffer(_IndexBuffer, DXGI_FORMAT_R32_UINT, 0);
 		
+
+		static float fX = 0.f;
+		static float fY = 0.f;
+		
 		MatrixBufferType cb;
 		cb.view = DirectX::XMMatrixTranspose(*Camera::Instance()->View());
 		cb.projection = DirectX::XMMatrixTranspose(*Camera::Instance()->Perspective());
-		auto world = XMMatrixIdentity();
+		auto world = DirectX::XMMatrixRotationY(fX);
+		world = world * DirectX::XMMatrixRotationZ(fY);
+		
+		fX += 0.0005f;
+		fY += 0.001f;
 		cb.world = DirectX::XMMatrixTranspose(world);
 		Renderer::RHI()->UpdateSubresource(_ConstantBuffer, &cb);
 

@@ -159,7 +159,7 @@ private:
 	IDXGISwapChain* _SwapChain = nullptr;
 	ID3D11RenderTargetView* _RenderTargetView = nullptr;
 	ID3D11DepthStencilView* _DepthBuffer = nullptr;
-
+	ID3D11RasterizerState* _RasterizerState = nullptr;
 public:
 	static bool CompileShaderFromFile(ID3DBlob** out, std::string file_path, std::string model, std::string entry = "main");
 };

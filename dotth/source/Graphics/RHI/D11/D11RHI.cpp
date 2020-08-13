@@ -40,6 +40,16 @@ bool D11RHI::Init(void* handle, int width, int height)
 		return false;
 	back_buffer_ptr->Release();
 
+	D3D11_RASTERIZER_DESC raster_desc;
+	ZeroMemory(&raster_desc, sizeof(D3D11_RASTERIZER_DESC));
+	raster_desc.FillMode = D3D11_FILL_MODE::D3D11_FILL_SOLID;
+	//raster_desc.FillMode = D3D11_FILL_MODE::D3D11_FILL_WIREFRAME;
+	raster_desc.CullMode = D3D11_CULL_MODE::D3D11_CULL_BACK;
+	raster_desc.FrontCounterClockwise = false;
+	raster_desc.AntialiasedLineEnable = true;
+	_Device->CreateRasterizerState(&raster_desc, &_RasterizerState);
+	_Context->RSSetState(_RasterizerState);
+
 	D3D11_TEXTURE2D_DESC depth_buffer_desc;
 	ZeroMemory(&depth_buffer_desc, sizeof(depth_buffer_desc));
 	depth_buffer_desc.Width = width;
