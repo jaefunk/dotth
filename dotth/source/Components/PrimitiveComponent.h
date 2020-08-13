@@ -28,15 +28,42 @@ public:
 	virtual void OnInit(void) override
 	{
 		{
-			int vertex_count = 3;
+			int vertex_count = 24;
+			VertexType vertices[] =
+			{
+				{ XMFLOAT3(-1.0f, 1.0f, -1.0f), XMFLOAT4(0.0f, 0.0f, 1.f, 1.f) },
+				{ XMFLOAT3(1.0f, 1.0f, -1.0f), XMFLOAT4(1.0f, 0.0f, 1.f, 1.f) },
+				{ XMFLOAT3(1.0f, 1.0f, 1.0f), XMFLOAT4(1.0f, 1.0f, 1.f, 1.f) },
+				{ XMFLOAT3(-1.0f, 1.0f, 1.0f), XMFLOAT4(0.0f, 1.0f, 1.f, 1.f) },
+				{ XMFLOAT3(-1.0f, -1.0f, -1.0f), XMFLOAT4(0.0f, 0.0f, 1.f, 1.f) },
+				{ XMFLOAT3(1.0f, -1.0f, -1.0f), XMFLOAT4(1.0f, 0.0f, 1.f, 1.f) },
+				{ XMFLOAT3(1.0f, -1.0f, 1.0f), XMFLOAT4(1.0f, 1.0f, 1.f, 1.f) },
+				{ XMFLOAT3(-1.0f, -1.0f, 1.0f), XMFLOAT4(0.0f, 1.0f, 1.f, 1.f) },
+				{ XMFLOAT3(-1.0f, -1.0f, 1.0f), XMFLOAT4(0.0f, 0.0f, 1.f, 1.f) },
+				{ XMFLOAT3(-1.0f, -1.0f, -1.0f), XMFLOAT4(1.0f, 0.0f, 1.f, 1.f) },
+				{ XMFLOAT3(-1.0f, 1.0f, -1.0f), XMFLOAT4(1.0f, 1.0f, 1.f, 1.f) },
+				{ XMFLOAT3(-1.0f, 1.0f, 1.0f), XMFLOAT4(0.0f, 1.0f, 1.f, 1.f) },
+				{ XMFLOAT3(1.0f, -1.0f, 1.0f), XMFLOAT4(0.0f, 0.0f, 1.f, 1.f) },
+				{ XMFLOAT3(1.0f, -1.0f, -1.0f), XMFLOAT4(1.0f, 0.0f, 1.f, 1.f) },
+				{ XMFLOAT3(1.0f, 1.0f, -1.0f), XMFLOAT4(1.0f, 1.0f, 1.f, 1.f) },
+				{ XMFLOAT3(1.0f, 1.0f, 1.0f), XMFLOAT4(0.0f, 1.0f, 1.f, 1.f) },
+				{ XMFLOAT3(-1.0f, -1.0f, -1.0f), XMFLOAT4(0.0f, 0.0f, 1.f, 1.f) },
+				{ XMFLOAT3(1.0f, -1.0f, -1.0f), XMFLOAT4(1.0f, 0.0f, 1.f, 1.f) },
+				{ XMFLOAT3(1.0f, 1.0f, -1.0f), XMFLOAT4(1.0f, 1.0f, 1.f, 1.f) },
+				{ XMFLOAT3(-1.0f, 1.0f, -1.0f), XMFLOAT4(0.0f, 1.0f, 1.f, 1.f) },
+				{ XMFLOAT3(-1.0f, -1.0f, 1.0f), XMFLOAT4(0.0f, 0.0f, 1.f, 1.f) },
+				{ XMFLOAT3(1.0f, -1.0f, 1.0f), XMFLOAT4(1.0f, 0.0f, 1.f, 1.f) },
+				{ XMFLOAT3(1.0f, 1.0f, 1.0f), XMFLOAT4(1.0f, 1.0f, 1.f, 1.f) },
+				{ XMFLOAT3(-1.0f, 1.0f, 1.0f), XMFLOAT4(0.0f, 1.0f, 1.f, 1.f) },
+			};
 
-			VertexType vertices[3];
-			vertices[0].position = XMFLOAT3(0.0f, 1.0f, 0.0f);
-			vertices[0].color = XMFLOAT4(1.0f, 0.0f, 0.0f, 1.0f);
-			vertices[1].position = XMFLOAT3(1.0f, -1.0f, 0.0f);
-			vertices[1].color = XMFLOAT4(0.0f, 1.0f, 0.0f, 1.0f);
-			vertices[2].position = XMFLOAT3(-1.0f, -1.0f, 0.0f);
-			vertices[2].color = XMFLOAT4(0.0f, 0.0f, 1.0f, 1.0f);
+			//VertexType vertices[3];
+			//vertices[0].position = XMFLOAT3(0.0f, 1.0f, 0.0f);
+			//vertices[0].color = XMFLOAT4(1.0f, 0.0f, 0.0f, 1.0f);
+			//vertices[1].position = XMFLOAT3(1.0f, -1.0f, 0.0f);
+			//vertices[1].color = XMFLOAT4(0.0f, 1.0f, 0.0f, 1.0f);
+			//vertices[2].position = XMFLOAT3(-1.0f, -1.0f, 0.0f);
+			//vertices[2].color = XMFLOAT4(0.0f, 0.0f, 1.0f, 1.0f);
 
 			D3D11_BUFFER_DESC desc;
 			memset(&desc, 0, sizeof(decltype(desc)));
@@ -54,12 +81,28 @@ public:
 		}
 
 		{
-			int index_count = 3;
+			int index_count = 36;
 
-			unsigned long indices[3];
-			indices[0] = 0;
-			indices[1] = 1;
-			indices[2] = 2;
+			unsigned long indices[] =
+			{
+				3,1,0,
+				2,1,3,
+
+				6,4,5,
+				7,4,6,
+
+				11,9,8,
+				10,9,11,
+
+				14,12,13,
+				15,12,14,
+
+				19,17,16,
+				18,17,19,
+
+				22,20,21,
+				23,20,22
+			};
 
 			D3D11_BUFFER_DESC desc;
 			memset(&desc, 0, sizeof(decltype(desc)));

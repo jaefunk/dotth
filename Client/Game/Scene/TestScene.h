@@ -11,7 +11,7 @@ public:
 	{
 		Camera::Instance()->SetAt(DirectX::XMFLOAT3(0.f, 0.f, 0.f));
 		Camera::Instance()->SetUp(DirectX::XMFLOAT3(0.f, 1.f, 0.f));
-		Camera::Instance()->SetEye(DirectX::XMFLOAT3(0.f, 0.f, -10.f));
+		Camera::Instance()->SetEye(DirectX::XMFLOAT3(10.f, 10.f, -10.f));
 		Camera::Instance()->SetFieldOfView(DirectX::XM_PI * 0.25f);
 		Camera::Instance()->SetNear(0.1f);
 		Camera::Instance()->SetFar(1000.f);

@@ -14,7 +14,7 @@ public:
 		Renderer::RHI()->VSSetShader(_VertexShader);
 		Renderer::RHI()->PSSetShader(_PixelShader);
 		//Renderer::RHI()->PSSetConstantBuffers(0, 1, buffer);
-		Renderer::RHI()->DrawIndexed(3, 0, 0);
+		Renderer::RHI()->DrawIndexed(36, 0, 0);
 
 	}
 };
