@@ -6,34 +6,42 @@
 class CubeComponent : public PrimitiveComponent
 {
 public:
+	virtual unsigned int GetVertexCount(void) override
+	{
+		return 24;
+	}
+	virtual unsigned int GetIndexCount(void) override
+	{
+		return 36;
+	}
 	virtual VertexType* GetVertexArray(void) override
 	{
 		VertexType* vertices = new VertexType[GetVertexCount()];
 
-		vertices[0] = { XMFLOAT3(-1.0f, 1.0f, -1.0f),		XMFLOAT4(1.0f, 0.0f, 0.f, 1.f) };
-		vertices[1] = { XMFLOAT3(1.0f, 1.0f, -1.0f),		XMFLOAT4(1.0f, 0.0f, 0.f, 1.f) };
-		vertices[2] = { XMFLOAT3(1.0f, 1.0f, 1.0f),		XMFLOAT4(1.0f, 0.0f, 0.f, 1.f) };
-		vertices[3] = { XMFLOAT3(-1.0f, 1.0f, 1.0f),		XMFLOAT4(1.0f, 0.0f, 0.f, 1.f) };
-		vertices[4] = { XMFLOAT3(-1.0f, -1.0f, -1.0f),	XMFLOAT4(0.0f, 1.0f, 0.f, 1.f) };
-		vertices[5] = { XMFLOAT3(1.0f, -1.0f, -1.0f),		XMFLOAT4(0.0f, 1.0f, 0.f, 1.f) };
-		vertices[6] = { XMFLOAT3(1.0f, -1.0f, 1.0f),		XMFLOAT4(0.0f, 1.0f, 0.f, 1.f) };
-		vertices[7] = { XMFLOAT3(-1.0f, -1.0f, 1.0f),		XMFLOAT4(0.0f, 1.0f, 0.f, 1.f) };
-		vertices[8] = { XMFLOAT3(-1.0f, -1.0f, 1.0f),		XMFLOAT4(0.0f, 0.0f, 1.f, 1.f) };
-		vertices[9] = { XMFLOAT3(-1.0f, -1.0f, -1.0f),	XMFLOAT4(0.0f, 0.0f, 1.f, 1.f) };
-		vertices[10] = { XMFLOAT3(-1.0f, 1.0f, -1.0f),		XMFLOAT4(0.0f, 0.0f, 1.f, 1.f) };
-		vertices[11] = { XMFLOAT3(-1.0f, 1.0f, 1.0f),		XMFLOAT4(0.0f, 0.0f, 1.f, 1.f) };
-		vertices[12] = { XMFLOAT3(1.0f, -1.0f, 1.0f),		XMFLOAT4(1.0f, 0.0f, 1.f, 1.f) };
-		vertices[13] = { XMFLOAT3(1.0f, -1.0f, -1.0f),		XMFLOAT4(1.0f, 0.0f, 1.f, 1.f) };
-		vertices[14] = { XMFLOAT3(1.0f, 1.0f, -1.0f),		XMFLOAT4(1.0f, 0.0f, 1.f, 1.f) };
-		vertices[15] = { XMFLOAT3(1.0f, 1.0f, 1.0f),		XMFLOAT4(1.0f, 0.0f, 1.f, 1.f) };
-		vertices[16] = { XMFLOAT3(-1.0f, -1.0f, -1.0f),	XMFLOAT4(0.0f, 1.0f, 1.f, 1.f) };
-		vertices[17] = { XMFLOAT3(1.0f, -1.0f, -1.0f),		XMFLOAT4(0.0f, 1.0f, 1.f, 1.f) };
-		vertices[18] = { XMFLOAT3(1.0f, 1.0f, -1.0f),		XMFLOAT4(0.0f, 1.0f, 1.f, 1.f) };
-		vertices[19] = { XMFLOAT3(-1.0f, 1.0f, -1.0f),		XMFLOAT4(0.0f, 1.0f, 1.f, 1.f) };
-		vertices[20] = { XMFLOAT3(-1.0f, -1.0f, 1.0f),		XMFLOAT4(1.0f, 1.0f, 0.f, 1.f) };
-		vertices[21] = { XMFLOAT3(1.0f, -1.0f, 1.0f),		XMFLOAT4(1.0f, 1.0f, 0.f, 1.f) };
-		vertices[22] = { XMFLOAT3(1.0f, 1.0f, 1.0f),		XMFLOAT4(1.0f, 1.0f, 0.f, 1.f) };
-		vertices[23] = { XMFLOAT3(-1.0f, 1.0f, 1.0f),		XMFLOAT4(1.0f, 1.0f, 0.f, 1.f) };
+		vertices[0] =  { XMFLOAT3(-1.0f, +1.0f, -1.0f), XMFLOAT4(1.0f, 0.0f, 0.f, 1.f) };
+		vertices[1] =  { XMFLOAT3(+1.0f, +1.0f, -1.0f), XMFLOAT4(1.0f, 0.0f, 0.f, 1.f) };
+		vertices[2] =  { XMFLOAT3(+1.0f, +1.0f, +1.0f), XMFLOAT4(1.0f, 0.0f, 0.f, 1.f) };
+		vertices[3] =  { XMFLOAT3(-1.0f, +1.0f, +1.0f), XMFLOAT4(1.0f, 0.0f, 0.f, 1.f) };
+		vertices[4] =  { XMFLOAT3(-1.0f, -1.0f, -1.0f), XMFLOAT4(0.0f, 1.0f, 0.f, 1.f) };
+		vertices[5] =  { XMFLOAT3(+1.0f, -1.0f, -1.0f), XMFLOAT4(0.0f, 1.0f, 0.f, 1.f) };
+		vertices[6] =  { XMFLOAT3(+1.0f, -1.0f, +1.0f), XMFLOAT4(0.0f, 1.0f, 0.f, 1.f) };
+		vertices[7] =  { XMFLOAT3(-1.0f, -1.0f, +1.0f), XMFLOAT4(0.0f, 1.0f, 0.f, 1.f) };
+		vertices[8] =  { XMFLOAT3(-1.0f, -1.0f, +1.0f), XMFLOAT4(0.0f, 0.0f, 1.f, 1.f) };
+		vertices[9] =  { XMFLOAT3(-1.0f, -1.0f, -1.0f), XMFLOAT4(0.0f, 0.0f, 1.f, 1.f) };
+		vertices[10] = { XMFLOAT3(-1.0f, +1.0f, -1.0f), XMFLOAT4(0.0f, 0.0f, 1.f, 1.f) };
+		vertices[11] = { XMFLOAT3(-1.0f, +1.0f, +1.0f), XMFLOAT4(0.0f, 0.0f, 1.f, 1.f) };
+		vertices[12] = { XMFLOAT3(+1.0f, -1.0f, +1.0f), XMFLOAT4(1.0f, 0.0f, 1.f, 1.f) };
+		vertices[13] = { XMFLOAT3(+1.0f, -1.0f, -1.0f), XMFLOAT4(1.0f, 0.0f, 1.f, 1.f) };
+		vertices[14] = { XMFLOAT3(+1.0f, +1.0f, -1.0f), XMFLOAT4(1.0f, 0.0f, 1.f, 1.f) };
+		vertices[15] = { XMFLOAT3(+1.0f, +1.0f, +1.0f), XMFLOAT4(1.0f, 0.0f, 1.f, 1.f) };
+		vertices[16] = { XMFLOAT3(-1.0f, -1.0f, -1.0f), XMFLOAT4(0.0f, 1.0f, 1.f, 1.f) };
+		vertices[17] = { XMFLOAT3(+1.0f, -1.0f, -1.0f), XMFLOAT4(0.0f, 1.0f, 1.f, 1.f) };
+		vertices[18] = { XMFLOAT3(+1.0f, +1.0f, -1.0f), XMFLOAT4(0.0f, 1.0f, 1.f, 1.f) };
+		vertices[19] = { XMFLOAT3(-1.0f, +1.0f, -1.0f), XMFLOAT4(0.0f, 1.0f, 1.f, 1.f) };
+		vertices[20] = { XMFLOAT3(-1.0f, -1.0f, +1.0f), XMFLOAT4(1.0f, 1.0f, 0.f, 1.f) };
+		vertices[21] = { XMFLOAT3(+1.0f, -1.0f, +1.0f), XMFLOAT4(1.0f, 1.0f, 0.f, 1.f) };
+		vertices[22] = { XMFLOAT3(+1.0f, +1.0f, +1.0f), XMFLOAT4(1.0f, 1.0f, 0.f, 1.f) };
+		vertices[23] = { XMFLOAT3(-1.0f, +1.0f, +1.0f), XMFLOAT4(1.0f, 1.0f, 0.f, 1.f) };
 
 		return vertices;
 	}
@@ -85,12 +93,8 @@ public:
 
 		return indices;
 	}
-	virtual unsigned int GetVertexCount(void) override
+	virtual std::string GetShaderName(void) override
 	{
-		return 24;
-	}
-	virtual unsigned int GetIndexCount(void) override
-	{
-		return 36;
+		return "Resource/Primitive.fx";
 	}
 };
