@@ -2,6 +2,7 @@
 #pragma once
 
 #include "Components/PrimitiveComponent.h"
+#include "external/fbxsdk/include/fbxsdk.h"
 
 class CubeComponent : public PrimitiveComponent
 {
