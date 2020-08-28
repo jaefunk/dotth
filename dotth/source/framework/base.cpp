@@ -12,12 +12,12 @@ const unsigned int & Base::Serial(void) const
 	return _Serial;
 }
 
-void Base::Name(const std::string & Name)
+void Base::SetName(const std::string & Name)
 {
 	_Name = Name;
 }
 
-const std::string & Base::Name(void)
+const std::string & Base::GetName(void)
 {
 	return _Name;
 }

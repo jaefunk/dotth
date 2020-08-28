@@ -3,16 +3,6 @@
 
 #include "dotth.h"
 
-#pragma comment(lib, "d3d11.lib")
-#pragma comment(lib, "dxgi.lib")
-#pragma comment(lib, "d3dcompiler.lib")
-#include <d3d11.h>
-#include <d3dcompiler.h>
-#include <DirectXMath.h>
-#include <directxcolors.h>
-
-#include "Graphics/RHI/ResourceRHI.h"
-
 using namespace DirectX;
 class D11RHI
 {
@@ -23,12 +13,12 @@ public:
 	bool Release(void);
 
 public:
-	ID3D11Device* Device(void) {
-		return _Device;
-	}
-	ID3D11DeviceContext* Context(void) {
-		return _Context; 
-	}
+	//ID3D11Device* Device(void) {
+	//	return _Device;
+	//}
+	//ID3D11DeviceContext* Context(void) {
+	//	return _Context; 
+	//}
 
 	ID3D11Buffer* CreateVertexBuffer(const D3D11_BUFFER_DESC& desc, const D3D11_SUBRESOURCE_DATA& data)
 	{
@@ -66,7 +56,6 @@ public:
 		_Device->CreateInputLayout(desc, desc_size, blob->GetBufferPointer(), blob->GetBufferSize(), &layout);
 		return layout;
 	}
-
 	void BindVertexBuffer(ID3D11Buffer* buffer, unsigned int stride, unsigned int offset)
 	{
 		_Context->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
@@ -76,12 +65,10 @@ public:
 	{
 		_Context->IASetIndexBuffer(buffer, format, offset);
 	}
-
 	void UpdateSubresource(ID3D11Buffer* buffer, void* data)
 	{
 		_Context->UpdateSubresource(buffer, 0, nullptr, data, 0, 0);
 	}
-
 	void VSSetShader(ID3D11VertexShader* shader)
 	{
 		_Context->VSSetShader(shader, nullptr, 0);
@@ -90,17 +77,14 @@ public:
 	{
 		_Context->PSSetShader(shader, nullptr, 0);
 	}
-
 	void VSSetConstantBuffers(unsigned int start, unsigned int num, ID3D11Buffer* buffer)
 	{
 		_Context->VSSetConstantBuffers(start, num, &buffer);
 	}
-
 	void PSSetConstantBuffers(unsigned int start, unsigned int num, ID3D11Buffer* buffer)
 	{
 		_Context->PSSetConstantBuffers(start, num, &buffer);
 	}
-
 	void BindInputLayout(ID3D11InputLayout* input_layout)
 	{
 		_Context->IASetInputLayout(input_layout);
@@ -113,45 +97,58 @@ public:
 	{
 		_Context->Unmap(resource, subresource);
 	}
-
-	VertexBufferRHI* CreateVertexBuffer(unsigned int size, unsigned int usage, IDataSize* resource_info);
-
-	
-	ConstantBufferRHI* CreateConstantBuffer(unsigned int size)
+	void DrawIndexed(unsigned int size, unsigned int start, unsigned int base)
 	{
-		ID3D11Buffer* constant_buffer = nullptr;
-		D3D11_BUFFER_DESC desc;
-		desc.Usage = D3D11_USAGE_DYNAMIC;
-		desc.ByteWidth = size;
-		desc.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
-		desc.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
-		desc.MiscFlags = 0;
-		desc.StructureByteStride = 0;
-		_Device->CreateBuffer(&desc, NULL, &constant_buffer);
-		return new ConstantBufferRHI(constant_buffer, size);
+		_Context->DrawIndexed(size, start, base);
 	}
 
-	
-	IndexBufferRHI* CreateIndexBuffer(unsigned int size, unsigned int usage, IDataSize* resource_info);
-	void BindVertexBuffer(VertexBufferRHI* buffer, unsigned int stride, unsigned int offset);
-	void BindIndexBuffer(IndexBufferRHI* buffer, unsigned int format, unsigned int offset);
+	ID3D11Resource* CreateTexture2D(void* data, unsigned int size)
+	{
+		//D3DX11_IMAGE_INFO info;
+		//D3DX11GetImageInfoFromMemory(data, size, nullptr, &info, nullptr);
+		ID3D11Resource* resource = NULL;
 
-	VertexShaderRHI* CreateVertexShader(std::string file_path, void* vertex_desc, unsigned int num_desc);
-	PixelShaderRHI* CreatePixelShader(std::string file_path);
+		D3DX11_IMAGE_LOAD_INFO load_info;
+		load_info.Width = 256;
+		load_info.Height = 256;
+		load_info.Depth = D3DX11_DEFAULT;
+		load_info.FirstMipLevel = 0;
+		load_info.MipLevels = 8;
+		load_info.Usage = D3D11_USAGE_DEFAULT;
+		load_info.CpuAccessFlags = D3D11_CPU_ACCESS_READ | D3D11_CPU_ACCESS_WRITE;
+		load_info.MiscFlags = 0;
+		load_info.Format = DXGI_FORMAT_R8G8B8A8_UNORM;
+		load_info.Filter = D3DX11_FILTER_LINEAR;
+		load_info.MipFilter = D3DX11_FILTER_LINEAR;
+		load_info.pSrcInfo = nullptr;
+		D3DX11CreateTextureFromMemory(_Device, data, size, &load_info, nullptr, &resource, nullptr);
 
-	
-	void PSSetResources(unsigned int start, unsigned int num, void* buffer);
-	void PSSetSamplers(unsigned int start, unsigned int num, void* buffer);
+		return resource;
+	}
 
-	void BindVertexShader(VertexShaderRHI* shader);
-	void BindPixelShader(PixelShaderRHI* shader);
+	ID3D11ShaderResourceView* CreateShaderResourceView(ID3D11Resource* resource)
+	{
+		D3D11_SHADER_RESOURCE_VIEW_DESC desc;
+		desc.Format = DXGI_FORMAT_R8G8B8A8_UNORM;
+		desc.ViewDimension = D3D_SRV_DIMENSION_TEXTURE2D;
+		desc.Texture2D.MostDetailedMip = 0;
+		desc.Texture2D.MipLevels = -1;
 
-	void UpdateSubreousrce(BufferRHI* buffer, void* data);
+		ID3D11ShaderResourceView* shader_resource_view;
+		_Device->CreateShaderResourceView(resource, &desc, &shader_resource_view);
 
-	void DrawIndexed(unsigned int size, unsigned int start, unsigned int base);
+		return shader_resource_view;
+	}
 
-	void SetInputLayout(VertexShaderRHI* vertex_shader);
+	void PSSetShaderResource(unsigned int start, unsigned int num, ID3D11ShaderResourceView* resource_view)
+	{
+		_Context->PSSetShaderResources(start, num, &resource_view);
+	}
 
+	void PSSetSamplers(void)
+	{
+		_Context->PSSetSamplers(0, 1, &_SamplerState);
+	}
 
 private:
 	ID3D11Device* _Device = nullptr;
@@ -160,8 +157,7 @@ private:
 	ID3D11RenderTargetView* _RenderTargetView = nullptr;
 	ID3D11DepthStencilView* _DepthBuffer = nullptr;
 	ID3D11RasterizerState* _RasterizerState = nullptr;
-public:
-	static bool CompileShaderFromFile(ID3DBlob** out, std::string file_path, std::string model, std::string entry = "main");
+	ID3D11SamplerState* _SamplerState = nullptr;
 };
 
 // D11RHI

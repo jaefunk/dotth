@@ -33,7 +33,6 @@ public:
 
 	void Draw(ID3D11Buffer* buffer, unsigned int size)
 	{
-
 		Renderer::RHI()->VSSetConstantBuffers(0, 1, buffer);
 		Renderer::RHI()->BindInputLayout(_InputLayout);
 		Renderer::RHI()->VSSetShader(_VertexShader);

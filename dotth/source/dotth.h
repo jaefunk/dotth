@@ -1,5 +1,7 @@
 #pragma once
 
+#include <windows.h>
+
 #include <cstring>
 #include <string>
 #include <ctime>
@@ -26,6 +28,16 @@
 
 #include "external/json/json.hpp"
 #include "external/xml/tinyxml2.h"
+
+#pragma comment(lib, "d3d11.lib")
+#pragma comment(lib, "d3dx11.lib")
+#pragma comment(lib, "dxgi.lib")
+#pragma comment(lib, "d3dcompiler.lib")
+#include <d3d11.h>
+#include <d3dx11.h>
+#include <d3dcompiler.h>
+#include <DirectXMath.h>
+#include <directxcolors.h>
 
 namespace dotth 
 {

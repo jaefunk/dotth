@@ -102,7 +102,7 @@ public:
 	std::shared_ptr<Ty> FindByName(const std::string& name)
 	{
 		auto finded = FindByFunction([name](std::shared_ptr<CastTy> child) {
-			return child->Name() == name;
+			return child->GetName() == name;
 		});
 		return std::dynamic_pointer_cast<CastTy>(finded);
 	}

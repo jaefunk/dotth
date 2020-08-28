@@ -5,12 +5,6 @@
 #include "Graphics/PrimitiveShader.h"
 #include "Graphics/shader.h"
 
-struct VertexType
-{
-	XMFLOAT3 position;
-	XMFLOAT4 color;
-};
-
 struct MatrixBufferType
 {
 	XMMATRIX world;
@@ -24,11 +18,14 @@ public:
 	ID3D11Buffer* _ConstantBuffer = nullptr;
 	Shader _Shader;
 
+	virtual unsigned int GetVertexStructureSize(void) = 0;
 	virtual unsigned int GetVertexCount(void) = 0;
 	virtual unsigned int GetIndexCount(void) = 0;
-	virtual VertexType* GetVertexArray(void) = 0;
+	virtual void* GetVertexArray(void) = 0;
 	virtual unsigned long* GetIndexArray(void) = 0;
 	virtual std::string GetShaderName(void) = 0;
+	virtual void GetInputDesc(D3D11_INPUT_ELEMENT_DESC** desc, unsigned int& size) = 0;
+	
 public:
 	virtual void OnInit(void) override
 	{
@@ -36,11 +33,11 @@ public:
 			D3D11_BUFFER_DESC desc;
 			memset(&desc, 0, sizeof(decltype(desc)));
 			desc.Usage = D3D11_USAGE_DEFAULT;
-			desc.ByteWidth = sizeof(VertexType) * GetVertexCount();
+			desc.ByteWidth = GetVertexStructureSize() * GetVertexCount();
 			desc.BindFlags = D3D11_BIND_VERTEX_BUFFER;
 			D3D11_SUBRESOURCE_DATA data;
 			memset(&data, 0, sizeof(decltype(data)));
-			VertexType* vertices = GetVertexArray();
+			void* vertices = GetVertexArray();
 			data.pSysMem = vertices;
 			data.SysMemPitch = 0;
 			data.SysMemSlicePitch = 0;
@@ -66,12 +63,15 @@ public:
 		}
 
 		{
-			D3D11_INPUT_ELEMENT_DESC layout[] = 
-			{
-				{ "POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 0, D3D11_INPUT_PER_VERTEX_DATA, 0 },
-				{ "COLOR", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, D3D11_APPEND_ALIGNED_ELEMENT, D3D11_INPUT_PER_VERTEX_DATA, 0 },
-			};
-			unsigned int num_desc = sizeof(layout) / sizeof(layout[0]);
+			unsigned int size;
+			D3D11_INPUT_ELEMENT_DESC* layout;// = nullptr;
+			GetInputDesc(&layout, size);
+			//D3D11_INPUT_ELEMENT_DESC layout[] = 
+			//{
+			//	{ "POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 0, D3D11_INPUT_PER_VERTEX_DATA, 0 },
+			//	{ "COLOR", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, D3D11_APPEND_ALIGNED_ELEMENT, D3D11_INPUT_PER_VERTEX_DATA, 0 },
+			//};
+			//unsigned int num_desc = sizeof(layout) / sizeof(layout[0]);
 			_Shader.LoadShader(GetShaderName(), layout, 2);
 		}
 
@@ -96,7 +96,7 @@ public:
 
 	virtual void OnDraw(void) override
 	{
-		Renderer::RHI()->BindVertexBuffer(_VertexBuffer, sizeof(VertexType), 0);
+		Renderer::RHI()->BindVertexBuffer(_VertexBuffer, GetVertexStructureSize(), 0);
 		Renderer::RHI()->BindIndexBuffer(_IndexBuffer, DXGI_FORMAT_R32_UINT, 0);
 		
 

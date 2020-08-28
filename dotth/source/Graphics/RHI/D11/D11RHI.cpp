@@ -1,5 +1,5 @@
 #include "Graphics/RHI/D11/D11RHI.h"
-#include "Graphics/RHI/D11/D11Resource.h"
+//#include "Graphics/RHI/D11/D11Resource.h"
 #include "Graphics/Camera.h"
 
 bool D11RHI::Init(void* handle, int width, int height)
@@ -49,6 +49,17 @@ bool D11RHI::Init(void* handle, int width, int height)
 	raster_desc.AntialiasedLineEnable = true;
 	_Device->CreateRasterizerState(&raster_desc, &_RasterizerState);
 	_Context->RSSetState(_RasterizerState);
+
+	D3D11_SAMPLER_DESC sampler_desc;
+	ZeroMemory(&sampler_desc, sizeof(sampler_desc));
+	sampler_desc.Filter = D3D11_FILTER_MIN_MAG_MIP_LINEAR;
+	sampler_desc.AddressU = D3D11_TEXTURE_ADDRESS_WRAP;
+	sampler_desc.AddressV = D3D11_TEXTURE_ADDRESS_WRAP;
+	sampler_desc.AddressW = D3D11_TEXTURE_ADDRESS_WRAP;
+	sampler_desc.ComparisonFunc = D3D11_COMPARISON_NEVER;
+	sampler_desc.MinLOD = 0;
+	sampler_desc.MaxLOD = D3D11_FLOAT32_MAX;
+	_Device->CreateSamplerState(&sampler_desc, &_SamplerState);
 
 	D3D11_TEXTURE2D_DESC depth_buffer_desc;
 	ZeroMemory(&depth_buffer_desc, sizeof(depth_buffer_desc));
@@ -111,141 +122,7 @@ bool D11RHI::Release(void)
 	_SwapChain->Release();
 	_RenderTargetView->Release();
 	_DepthBuffer->Release();
+	_RasterizerState->Release();
+	_SamplerState->Release();
 	return false;
-}
-
-VertexBufferRHI * D11RHI::CreateVertexBuffer(unsigned int size, unsigned int usage, IDataSize * resource_info)
-{
-	D3D11_BUFFER_DESC desc;
-	ZeroMemory(&desc, sizeof(D3D11_BUFFER_DESC));
-	desc.Usage = D3D11_USAGE_DEFAULT;
-	desc.ByteWidth = size;
-	desc.BindFlags = D3D11_BIND_VERTEX_BUFFER;
-	desc.CPUAccessFlags = 0;
-	desc.MiscFlags = 0;
-	desc.StructureByteStride = 0;
-
-	D3D11_SUBRESOURCE_DATA data;
-	data.pSysMem = resource_info->GetData();
-	data.SysMemPitch = 0;
-	data.SysMemSlicePitch = 0;
-
-	ID3D11Buffer* buffer = nullptr;
-	if (FAILED(_Device->CreateBuffer(&desc, &data, &buffer)))
-		return nullptr;
-	return new D11VertexBuffer(buffer, size, usage);
-}
-
-IndexBufferRHI * D11RHI::CreateIndexBuffer(unsigned int size, unsigned int usage, IDataSize* resource_info)
-{
-	// 정적 인덱스 버퍼의 구조체를 설정합니다.
-	D3D11_BUFFER_DESC desc;
-	ZeroMemory(&desc, sizeof(D3D11_BUFFER_DESC));
-	desc.Usage = D3D11_USAGE_DEFAULT;
-	desc.ByteWidth = size;
-	desc.BindFlags = D3D11_BIND_INDEX_BUFFER;
-	desc.CPUAccessFlags = 0;
-	desc.MiscFlags = 0;
-	desc.StructureByteStride = 0;
-
-	D3D11_SUBRESOURCE_DATA data;
-	data.pSysMem = resource_info->GetData();
-	data.SysMemPitch = 0;
-	data.SysMemSlicePitch = 0;
-
-	ID3D11Buffer* buffer = nullptr;
-	if (FAILED(_Device->CreateBuffer(&desc, &data, &buffer)))
-		return nullptr;
-	return new D11IndexBuffer(buffer, size, usage);
-}
-
-void D11RHI::BindVertexBuffer(VertexBufferRHI * buffer, unsigned int stride, unsigned int offset)
-{
-	auto vertex_buffer = buffer->GetResource<ID3D11Buffer>();
-	_Context->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
-	_Context->IASetVertexBuffers(0, 1, &vertex_buffer, &stride, &offset);
-}
-
-void D11RHI::BindIndexBuffer(IndexBufferRHI * buffer, unsigned int format, unsigned int offset)
-{
-	auto index_buffer = buffer->GetResource<ID3D11Buffer>();
-	_Context->IASetIndexBuffer(index_buffer, static_cast<DXGI_FORMAT>(format), offset);
-}
-
-VertexShaderRHI * D11RHI::CreateVertexShader(std::string file_path, void* vertex_desc, unsigned int num_desc)
-{
-	ID3D10Blob* error_message = nullptr;
-	ID3D10Blob* shader_buffer = nullptr;
-	ID3D11VertexShader* shader = nullptr;
-	if (CompileShaderFromFile(&shader_buffer, file_path, "vs_5_0"))
-	{
-		_Device->CreateVertexShader(shader_buffer->GetBufferPointer(), shader_buffer->GetBufferSize(), NULL, &shader);
-		ID3D11InputLayout* layout = nullptr;
-		_Device->CreateInputLayout(static_cast<D3D11_INPUT_ELEMENT_DESC*>(vertex_desc), num_desc, shader_buffer->GetBufferPointer(), shader_buffer->GetBufferSize(), &layout);
-		shader_buffer->Release();
-		return new D11VertexShader(shader, layout);
-	}
-	return nullptr;
-}
-
-PixelShaderRHI * D11RHI::CreatePixelShader(std::string file_path)
-{
-	ID3D10Blob* error_message = nullptr;
-	ID3D10Blob* shader_buffer = nullptr;
-	ID3D11PixelShader* shader = nullptr;
-	if (CompileShaderFromFile(&shader_buffer, file_path, "ps_5_0"))
-	{
-		_Device->CreatePixelShader(shader_buffer->GetBufferPointer(), shader_buffer->GetBufferSize(), NULL, &shader);
-		shader_buffer->Release();
-		return new D11PixelShader(shader);
-	}
-	return nullptr;
-}
-
-void D11RHI::PSSetResources(unsigned int start, unsigned int num, void * buffer)
-{
-	ID3D11ShaderResourceView* casted_buffer = static_cast<ID3D11ShaderResourceView*>(buffer);
-	_Context->PSSetShaderResources(start, num, &casted_buffer);
-}
-
-void D11RHI::PSSetSamplers(unsigned int start, unsigned int num, void * buffer) 
-{
-	ID3D11SamplerState* casted_buffer = static_cast<ID3D11SamplerState*>(buffer);
-	_Context->PSSetSamplers(start, num, &casted_buffer);
-}
-
-void D11RHI::BindVertexShader(VertexShaderRHI * shader) 
-{
-	ID3D11VertexShader* vertex_shader = shader->GetResource<ID3D11VertexShader>();
-	_Context->VSSetShader(vertex_shader, nullptr, 0);
-}
-
-void D11RHI::BindPixelShader(PixelShaderRHI * shader) 
-{
-	ID3D11PixelShader* pixel_shader = shader->GetResource<ID3D11PixelShader>();
-	_Context->PSSetShader(pixel_shader, nullptr, 0);
-}
-
-void D11RHI::UpdateSubreousrce(BufferRHI * buffer, void * data)
-{
-	_Context->UpdateSubresource(buffer->GetResource<ID3D11Buffer>(), 0, nullptr, data, 0, 0);
-}
-
-void D11RHI::DrawIndexed(unsigned int size, unsigned int start, unsigned int base)
-{
-	_Context->DrawIndexed(size, start, base);
-}
-
-void D11RHI::SetInputLayout(VertexShaderRHI * vertex_shader)
-{
-	D11VertexShader* shader = static_cast<D11VertexShader*>(vertex_shader);
-	_Context->IASetInputLayout(shader->Layout);
-}
-
-bool D11RHI::CompileShaderFromFile(ID3DBlob** out, std::string file_path, std::string model, std::string entry)
-{
-	std::wstring w_file_path(file_path.begin(), file_path.end());	
-	ID3D10Blob* error_message = nullptr;
-	D3DCompileFromFile(w_file_path.c_str(), NULL, NULL, entry.c_str(), model.c_str(), D3D10_SHADER_ENABLE_STRICTNESS, 0, out, &error_message);
-	return true;
 }

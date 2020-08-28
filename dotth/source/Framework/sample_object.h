@@ -3,12 +3,10 @@
 
 #include "Framework/Object.h"
 #include "Components/CubeComponent.h"
+#include "Components/SpriteComponent.h"
 
 class sample_object : public Object
 {
 public:
-	sample_object(void)
-	{
-		AttachComponent(std::make_shared<CubeComponent>());
-	}
+	sample_object(void);
 };

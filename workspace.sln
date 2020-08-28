@@ -5,11 +5,6 @@ VisualStudioVersion = 15.0.28307.1062
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "dotth", "dotth\dotth.vcxproj", "{06D764F5-1B2D-4164-B288-E01BF1C7B8A4}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ConsoleApplication1", "ConsoleApplication1\ConsoleApplication1.vcxproj", "{66773D39-7623-452E-9AE1-3EAABC155FDD}"
-	ProjectSection(ProjectDependencies) = postProject
-		{06D764F5-1B2D-4164-B288-E01BF1C7B8A4} = {06D764F5-1B2D-4164-B288-E01BF1C7B8A4}
-	EndProjectSection
-EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Client", "Client\Client.vcxproj", "{EB1C533D-F918-41F5-8C48-B90AB96E71EB}"
 	ProjectSection(ProjectDependencies) = postProject
 		{06D764F5-1B2D-4164-B288-E01BF1C7B8A4} = {06D764F5-1B2D-4164-B288-E01BF1C7B8A4}
@@ -31,14 +26,6 @@ Global
 		{06D764F5-1B2D-4164-B288-E01BF1C7B8A4}.Release|x64.Build.0 = Release|x64
 		{06D764F5-1B2D-4164-B288-E01BF1C7B8A4}.Release|x86.ActiveCfg = Release|Win32
 		{06D764F5-1B2D-4164-B288-E01BF1C7B8A4}.Release|x86.Build.0 = Release|Win32
-		{66773D39-7623-452E-9AE1-3EAABC155FDD}.Debug|x64.ActiveCfg = Debug|x64
-		{66773D39-7623-452E-9AE1-3EAABC155FDD}.Debug|x64.Build.0 = Debug|x64
-		{66773D39-7623-452E-9AE1-3EAABC155FDD}.Debug|x86.ActiveCfg = Debug|Win32
-		{66773D39-7623-452E-9AE1-3EAABC155FDD}.Debug|x86.Build.0 = Debug|Win32
-		{66773D39-7623-452E-9AE1-3EAABC155FDD}.Release|x64.ActiveCfg = Release|x64
-		{66773D39-7623-452E-9AE1-3EAABC155FDD}.Release|x64.Build.0 = Release|x64
-		{66773D39-7623-452E-9AE1-3EAABC155FDD}.Release|x86.ActiveCfg = Release|Win32
-		{66773D39-7623-452E-9AE1-3EAABC155FDD}.Release|x86.Build.0 = Release|Win32
 		{EB1C533D-F918-41F5-8C48-B90AB96E71EB}.Debug|x64.ActiveCfg = Debug|x64
 		{EB1C533D-F918-41F5-8C48-B90AB96E71EB}.Debug|x64.Build.0 = Debug|x64
 		{EB1C533D-F918-41F5-8C48-B90AB96E71EB}.Debug|x86.ActiveCfg = Debug|Win32
