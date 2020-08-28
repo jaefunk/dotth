@@ -31,7 +31,7 @@ public:
 private:
 	virtual bool OnLoad(const char* data, long length) override
 	{
-		_Resource = Renderer::RHI()->CreateTexture2D((void*)data, length);
+		_Resource = Renderer::RHI()->CreateTexture2D(_FilePath.c_str());
 		_ResourceView = Renderer::RHI()->CreateShaderResourceView(_Resource);
 		
 		return true;

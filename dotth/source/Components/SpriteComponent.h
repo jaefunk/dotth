@@ -19,8 +19,7 @@ public:
 	virtual void GetInputDesc(D3D11_INPUT_ELEMENT_DESC** desc, unsigned int& size) override
 	{
 		texture = new Asset_Texture2D;
-		//texture->Load("test.png");
-		texture->Load("Tutorial07.jpg");
+		texture->Load("test.png");
 		(*desc) = new D3D11_INPUT_ELEMENT_DESC[2];
 		(*desc)[0] = { "POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 0, D3D11_INPUT_PER_VERTEX_DATA, 0 };
 		(*desc)[1] = { "TEXCOORD", 0, DXGI_FORMAT_R32G32_FLOAT, 0, 12, D3D11_INPUT_PER_VERTEX_DATA, 0 };
@@ -42,10 +41,10 @@ public:
 	{
 		pos_uv* vertices = new pos_uv[GetVertexCount()];
 
-		vertices[0] = { XMFLOAT3(-2.0f, +1.0f, +0.0f),  XMFLOAT2(0.0f, 0.0f) };
-		vertices[1] = { XMFLOAT3(+2.0f, +1.0f, +0.0f),  XMFLOAT2(1.0f, 0.0f) };
-		vertices[2] = { XMFLOAT3(-2.0f, -1.0f, +0.0f),  XMFLOAT2(0.0f, 1.0f) };
-		vertices[3] = { XMFLOAT3(+2.0f, -1.0f, +0.0f),  XMFLOAT2(1.0f, 1.0f) };
+		vertices[0] = { XMFLOAT3(-1.0f, +1.0f, +0.0f),  XMFLOAT2(0.0f, 0.0f) };
+		vertices[1] = { XMFLOAT3(+1.0f, +1.0f, +0.0f),  XMFLOAT2(1.0f, 0.0f) };
+		vertices[2] = { XMFLOAT3(-1.0f, -1.0f, +0.0f),  XMFLOAT2(0.0f, 1.0f) };
+		vertices[3] = { XMFLOAT3(+1.0f, -1.0f, +0.0f),  XMFLOAT2(1.0f, 1.0f) };
 
 		return vertices;
 	}
