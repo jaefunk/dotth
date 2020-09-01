@@ -243,7 +243,9 @@ ID3D11Resource * D11RHI::CreateTexture2D(const char * file_name)
 	load_info.MipFilter = D3DX11_FILTER_LINEAR;
 	load_info.pSrcInfo = nullptr;
 
-	D3DX11CreateTextureFromFile(_Device, file_name, &load_info, nullptr, &resource, nullptr);
+	std::string s = file_name;
+	std::wstring w(s.begin(), s.end());
+	D3DX11CreateTextureFromFile(_Device, w.c_str(), &load_info, nullptr, &resource, nullptr);
 
 	return resource;
 }

@@ -52,6 +52,7 @@
     <ClInclude Include="source\Framework\Asset\Asset_Text.h" />
     <ClInclude Include="source\Framework\Asset\Asset_Texture2D.h" />
     <ClInclude Include="source\Components\SpriteComponent.h" />
+    <ClInclude Include="source\Components\ModelComponent.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source\math\matrix.cpp" />
@@ -94,5 +95,6 @@
     <ClCompile Include="source\Framework\Asset\Asset_Text.cpp" />
     <ClCompile Include="source\Framework\Asset\Asset_Texture2D.cpp" />
     <ClCompile Include="source\Components\SpriteComponent.cpp" />
+    <ClCompile Include="source\Components\ModelComponent.cpp" />
   </ItemGroup>
 </Project>
