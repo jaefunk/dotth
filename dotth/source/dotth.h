@@ -39,6 +39,8 @@
 #include <DirectXMath.h>
 #include <directxcolors.h>
 
+#include "Utility/Utility.h"
+
 namespace dotth 
 {
 };

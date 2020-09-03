@@ -230,8 +230,8 @@ ID3D11Resource * D11RHI::CreateTexture2D(const char * file_name)
 	ID3D11Resource* resource = NULL;
 
 	D3DX11_IMAGE_LOAD_INFO load_info;
-	load_info.Width = 256;
-	load_info.Height = 256;
+	load_info.Width = 512;
+	load_info.Height = 512;
 	load_info.Depth = D3DX11_DEFAULT;
 	load_info.FirstMipLevel = 0;
 	load_info.MipLevels = 8;

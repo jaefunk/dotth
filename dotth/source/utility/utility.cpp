@@ -1,7 +1,7 @@
-#include "utility.h"
+#include "Utility.h"
 
 #pragma warning(disable : 4996)
-std::string utility::string::format(const char * format, ...)
+std::string Utility::Str::Format(const char * format, ...)
 {
 	va_list args;
 	va_start(args, format);
@@ -14,5 +14,22 @@ std::string utility::string::format(const char * format, ...)
 	result.resize(size);
 	vsprintf(&(result[0]), format, args);
 	va_end(args);
+	return result;
+}
+
+std::vector<std::string> Utility::Str::Split(std::string src, std::string token)
+{
+	if (token.length() == 0 || src.find(token) == std::string::npos)
+		return std::vector<std::string>({ src });
+
+	std::vector<std::string> result;
+	int offset = 0;
+	int split = 0;
+	while ((split = src.find(token, offset)) != std::string::npos)
+	{
+		result.push_back(src.substr(offset, split - offset));
+		offset = split + token.length();
+	}
+	result.push_back(src.substr(offset, src.length() - offset));
 	return result;
 }

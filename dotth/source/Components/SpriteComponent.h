@@ -2,7 +2,7 @@
 #pragma once
 
 #include "Components/PrimitiveComponent.h"
-#include "../Framework/Asset/Asset_Texture2D.h"
+#include "Framework/Asset/Asset_Texture.h"
 
 struct pos_uv
 {
@@ -12,14 +12,18 @@ struct pos_uv
 
 class SpriteComponent : public PrimitiveComponent
 {
+public:
+	SpriteComponent(const char* asset)
+	{
+		_Texture = std::static_pointer_cast<Asset_Texture>(AssetManager::Instance()->FindOrigin(asset));
+	}
+
 private:
-	Asset_Texture2D* texture;
+	std::shared_ptr<Asset_Texture> _Texture;
 
 public:
 	virtual void GetInputDesc(D3D11_INPUT_ELEMENT_DESC** desc, unsigned int& size) override
 	{
-		texture = new Asset_Texture2D;
-		texture->Load("test.png");
 		(*desc) = new D3D11_INPUT_ELEMENT_DESC[2];
 		(*desc)[0] = { "POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 0, D3D11_INPUT_PER_VERTEX_DATA, 0 };
 		(*desc)[1] = { "TEXCOORD", 0, DXGI_FORMAT_R32G32_FLOAT, 0, 12, D3D11_INPUT_PER_VERTEX_DATA, 0 };
@@ -78,7 +82,7 @@ public:
 		
 		Renderer::RHI()->UpdateSubresource(_ConstantBuffer, &cb);
 
-		texture->BindTexture();
+		_Texture->Bind();
 
 		_Shader.Draw(_ConstantBuffer, GetIndexCount());
 	}

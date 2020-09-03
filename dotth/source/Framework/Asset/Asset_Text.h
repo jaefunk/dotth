@@ -13,7 +13,7 @@ public:
 	}
 
 private:
-	virtual bool OnLoad(const char* data, long length) override
+	virtual bool OnLoad(void* data, size_t size) override
 	{
 		_String.assign((char*)data);
 		return true;

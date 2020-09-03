@@ -1,23 +1,20 @@
 #include "sample_object.h"
 
-#include "Asset/Asset_Text.h"
-#include "Asset/Asset_Binary.h"
 
+#include "Components/CubeComponent.h"
+#include "Components/SpriteComponent.h"
 #include "Components/ModelComponent.h"
 
 sample_object::sample_object(void)
 {
-	auto sc = std::make_shared<SpriteComponent>();
+	auto sc = std::make_shared<SpriteComponent>("cat0");
 	AttachComponent(sc);
 
-	AttachComponent(std::make_shared<ModelComponent>());
+	auto mc = std::make_shared<ModelComponent>("robot0");
+	AttachComponent(mc);
 
-	auto kk = new Asset_Text;
 
-	kk->Load("Client.cpp");
-
-	auto jj = new Asset_Binary;
-
-	jj->Load("Client.ico");
+	//auto model = new Asset_Model;
+	//model->Load("Resource/model/Robot Kyle/Model/RobotKyle.fbx");
 
 }

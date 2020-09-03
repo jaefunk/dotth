@@ -42,7 +42,7 @@ public:
 			data.SysMemPitch = 0;
 			data.SysMemSlicePitch = 0;
 			_VertexBuffer = Renderer::RHI()->CreateVertexBuffer(desc, data);
-			delete[] vertices;
+			//delete[] vertices;
 		}
 
 		{
@@ -59,7 +59,7 @@ public:
 			data.SysMemPitch = 0;
 			data.SysMemSlicePitch = 0;
 			_IndexBuffer = Renderer::RHI()->CreateIndexBuffer(desc, data);
-			delete[] indices;
+			//delete[] indices;
 		}
 
 		{

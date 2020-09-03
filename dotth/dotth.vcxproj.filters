@@ -8,11 +8,9 @@
     <ClInclude Include="source\math\transform.h" />
     <ClInclude Include="source\platform\win\win.h" />
     <ClInclude Include="source\platform\application.h" />
-    <ClInclude Include="source\utility\utility.h" />
     <ClInclude Include="source\dotth.h" />
     <ClInclude Include="source\external\cpplinq\cpplinq.h" />
     <ClInclude Include="source\external\json\json.hpp" />
-    <ClInclude Include="source\external\sql\query_builder.h" />
     <ClInclude Include="source\external\task\task.h" />
     <ClInclude Include="source\external\xml\tinyxml2.h" />
     <ClInclude Include="source\framework\sample_object.h" />
@@ -50,17 +48,18 @@
     <ClInclude Include="source\Framework\Asset\Asset.h" />
     <ClInclude Include="source\Framework\Asset\Asset_Binary.h" />
     <ClInclude Include="source\Framework\Asset\Asset_Text.h" />
-    <ClInclude Include="source\Framework\Asset\Asset_Texture2D.h" />
     <ClInclude Include="source\Components\SpriteComponent.h" />
     <ClInclude Include="source\Components\ModelComponent.h" />
+    <ClInclude Include="source\Utility\Utility.h" />
+    <ClInclude Include="source\Framework\Asset\Asset_Model.h" />
+    <ClInclude Include="source\Framework\Asset\Asset_Texture.h" />
+    <ClInclude Include="source\Framework\Asset\Asset_Renderable.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source\math\matrix.cpp" />
     <ClCompile Include="source\math\transform.cpp" />
     <ClCompile Include="source\platform\win\win.cpp" />
     <ClCompile Include="source\platform\application.cpp" />
-    <ClCompile Include="source\utility\utility.cpp" />
-    <ClCompile Include="source\external\sql\query_builder.cpp" />
     <ClCompile Include="source\external\xml\tinyxml2.cpp" />
     <ClCompile Include="source\framework\sample_object.cpp" />
     <ClCompile Include="source\framework\Base.cpp" />
@@ -93,8 +92,11 @@
     <ClCompile Include="source\Framework\Asset\Asset.cpp" />
     <ClCompile Include="source\Framework\Asset\Asset_Binary.cpp" />
     <ClCompile Include="source\Framework\Asset\Asset_Text.cpp" />
-    <ClCompile Include="source\Framework\Asset\Asset_Texture2D.cpp" />
     <ClCompile Include="source\Components\SpriteComponent.cpp" />
     <ClCompile Include="source\Components\ModelComponent.cpp" />
+    <ClCompile Include="source\Utility\Utility.cpp" />
+    <ClCompile Include="source\Framework\Asset\Asset_Model.cpp" />
+    <ClCompile Include="source\Framework\Asset\Asset_Texture.cpp" />
+    <ClCompile Include="source\Framework\Asset\Asset_Renderable.cpp" />
   </ItemGroup>
 </Project>

@@ -4,9 +4,9 @@
 
 enum class ASSET_TYPE {
 	NONE,
-	TEXT,
 	BINARY,
-	TEXTURE2D,
+	TEXT,	
+	TEXTURE,
 	MODEL,
 	ANIMATION,
 };
@@ -15,40 +15,68 @@ class Asset : public Base
 {
 protected:
 	ASSET_TYPE _Type = ASSET_TYPE::NONE;
-	std::string _FilePath;
+	std::string _Path;
 
 public:
 	Asset(const ASSET_TYPE& type) : _Type(type) 
 	{
 	}
-	bool Load(const std::string FilePath)
+	bool ReadBinary(const char* path, void** data, size_t& size)
 	{
-		_FilePath = FilePath;
-
+		_Path = path;
+		
 		FILE* file;
-		fopen_s(&file, FilePath.c_str(), "r");
+		fopen_s(&file, path, "rb");
 		fseek(file, 0, SEEK_END);
-		auto length = ftell(file);
+		size = ftell(file);
 		fseek(file, 0, SEEK_SET);
-		char* data = new char[length];
-		fread(data, 1, length, file);
+		(*data) = malloc(size);
+		memset((*data), 0, size);
+		fread((*data), size, 1, file);
 		fclose(file);
-
-		OnLoad(data, length);
-
-		delete[] data;
 
 		return true;
 	}
+
+	bool Load(const char* path)
+	{
+		size_t size = 0;
+		void* data = nullptr;
+		if (ReadBinary(path, &data, size))
+		{
+			OnLoad(data, size);
+			free(data);
+		}
+		return true;
+	}
+
 	const ASSET_TYPE GetType(void)
 	{
 		return _Type;
 	}
 	
 private:
-	virtual bool OnLoad(const char* data, long length) = 0;
+	virtual bool OnLoad(void* data, size_t size) = 0;
 
 public:
-	virtual void CloneTo(Asset* dst) {}
+	virtual void CloneTo(std::shared_ptr<Asset> dst) {}
 	virtual void Release(void) {}
+};
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////
+
+#include "Utility/SingleInstance.h"
+
+class AssetManager : public SingleInstance<AssetManager>
+{
+private:
+	std::unordered_map<std::string, std::shared_ptr<Asset>> _Assets;
+
+public:
+	bool LoadAsset(ASSET_TYPE type, const char* key, const char* path);
+	std::shared_ptr<Asset> FindOrigin(const std::string& key);
+	std::shared_ptr<Asset> GetClone(const std::string& key)
+	{
+		return nullptr;
+	}
 };

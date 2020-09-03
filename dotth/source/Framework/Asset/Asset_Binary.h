@@ -13,10 +13,10 @@ public:
 	}
 
 private:
-	virtual bool OnLoad(const char* data, long length) override
+	virtual bool OnLoad(void* data, size_t size) override
 	{
-		_Data.assign(length, 0);
-		memcpy(_Data.data(), data, length);
+		_Data.assign(size, 0);
+		memcpy(_Data.data(), data, size);
 		return true;
 	}
 };
