@@ -26,12 +26,12 @@ unsigned int ModelComponent::GetIndexCount(void)
 
 void * ModelComponent::GetVertexArray(void)
 {
-	return _Model->_Meshes[1]._Vertices.data();
+	return _Model->_Meshes[0]._Vertices.data();
 }
 
 unsigned long * ModelComponent::GetIndexArray(void)
 {
-	return _Model->_Meshes[1]._Indices.data();
+	return _Model->_Meshes[0]._Indices.data();
 }
 
 std::string ModelComponent::GetShaderName(void)

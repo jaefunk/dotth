@@ -36,6 +36,8 @@
     <ClInclude Include="source\Framework\Asset\Asset_Model.h" />
     <ClInclude Include="source\Framework\Asset\Asset_Texture.h" />
     <ClInclude Include="source\Framework\Asset\Asset_Renderable.h" />
+    <ClInclude Include="source\Graphics\RHI\D11\D11Drawable.h" />
+    <ClInclude Include="source\Graphics\RHI\DrawableRHI.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source\math\matrix.cpp" />
@@ -63,5 +65,7 @@
     <ClCompile Include="source\Framework\Asset\Asset_Model.cpp" />
     <ClCompile Include="source\Framework\Asset\Asset_Texture.cpp" />
     <ClCompile Include="source\Framework\Asset\Asset_Renderable.cpp" />
+    <ClCompile Include="source\Graphics\RHI\D11\D11Drawable.cpp" />
+    <ClCompile Include="source\Graphics\RHI\DrawableRHI.cpp" />
   </ItemGroup>
 </Project>

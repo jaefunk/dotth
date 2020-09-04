@@ -1,1 +1,6 @@
-#include "PrimitiveShader.h"
+#include "Graphics/RHI/DrawableRHI.h"
+
+DrawableRHI::DrawableRHI(void)
+{
+
+}

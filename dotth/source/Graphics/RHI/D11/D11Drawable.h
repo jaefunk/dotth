@@ -1,8 +1,10 @@
 
 #pragma once
 
-#include "Shader.h"
+#include "Graphics/RHI/DrawableRHI.h"
 
-class PrimitiveShader : public Shader
+class D11Drawable : public DrawableRHI
 {
+public:
+	D11Drawable(void);
 };

@@ -43,7 +43,9 @@
     <ClInclude Include="source\graphics\Camera.h" />
     <ClInclude Include="source\framework\sample_object.h" />
     <ClInclude Include="source\Graphics\Renderer.h" />
+    <ClInclude Include="source\Graphics\RHI\D11\D11Drawable.h" />
     <ClInclude Include="source\Graphics\RHI\D11\D11RHI.h" />
+    <ClInclude Include="source\Graphics\RHI\DrawableRHI.h" />
     <ClInclude Include="source\Graphics\Shader.h" />
     <ClInclude Include="source\graphics\type_vertex.h" />
     <ClInclude Include="source\math\math.h" />
@@ -74,7 +76,9 @@
     <ClCompile Include="source\graphics\Camera.cpp" />
     <ClCompile Include="source\framework\sample_object.cpp" />
     <ClCompile Include="source\Graphics\Renderer.cpp" />
+    <ClCompile Include="source\Graphics\RHI\D11\D11Drawable.cpp" />
     <ClCompile Include="source\Graphics\RHI\D11\D11RHI.cpp" />
+    <ClCompile Include="source\Graphics\RHI\DrawableRHI.cpp" />
     <ClCompile Include="source\Graphics\Shader.cpp" />
     <ClCompile Include="source\math\matrix.cpp" />
     <ClCompile Include="source\math\transform.cpp" />

@@ -10,7 +10,7 @@ sample_object::sample_object(void)
 	auto sc = std::make_shared<SpriteComponent>("cat0");
 	AttachComponent(sc);
 
-	auto mc = std::make_shared<ModelComponent>("robot1");
+	auto mc = std::make_shared<ModelComponent>("robot0");
 	AttachComponent(mc);
 
 
