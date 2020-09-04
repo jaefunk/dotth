@@ -23,15 +23,15 @@ cbuffer MatrixBuffer : register(b0)
 //////////////
 struct VS_INPUT
 {
-    float3 pos : POSITION;
-    //float3 normal : NORMAL;
+    float3 pos : POSITION0;
+    float3 normal : NORMAL0;
     float2 uv : TEXCOORD0;
 };
 
 struct PS_INPUT
 {
     float4 pos : SV_POSITION;
-    //float3 normal : NORMAL;
+    float3 normal : NORMAL0;
     float2 uv : TEXCOORD0;
 };
 
@@ -51,7 +51,7 @@ PS_INPUT vs_main(VS_INPUT input)
 
     result.pos = mul(result.pos, projectionMatrix);
 
-    //result.normal = float3input.normal;
+    result.normal = input.normal;
     
     result.uv = input.uv;
     
@@ -63,5 +63,10 @@ PS_INPUT vs_main(VS_INPUT input)
 ////////////////////////////////////////////////////////////////////////////////
 float4 ps_main(PS_INPUT input) : SV_Target
 {
-    return txDiffuse.Sample(Sampler, input.uv);
+float3 light_color = float3(1.0f, 1.0f, 1.0f);
+float3 light_dir = float3(0.0f, 0.0f, -1.0f);
+float diff = max(dot(input.normal, light_dir), 0.0f);
+float3 diffuse = diff * light_color;
+float4 result = txDiffuse.Sample(Sampler, input.uv) * float4(diffuse, 1.0f) ;
+    return result;
 }

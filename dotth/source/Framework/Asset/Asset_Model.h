@@ -16,7 +16,7 @@
 struct VertexPNU
 {
 	DirectX::XMFLOAT3 p = DirectX::XMFLOAT3(0.f, 0.f, 0.f);
-	//DirectX::XMFLOAT3 n = DirectX::XMFLOAT3(0.f, 0.f, 0.f);
+	DirectX::XMFLOAT3 n = DirectX::XMFLOAT3(0.f, 0.f, 0.f);
 	DirectX::XMFLOAT2 u = DirectX::XMFLOAT2(0.f, 0.f);
 };
 
@@ -24,7 +24,6 @@ struct Mesh
 {
 	std::vector<VertexPNU> _Vertices;
 	std::vector<unsigned long> _Indices;
-	unsigned int _MaterialIndex = 0;
 
 	bool Init(aiMesh* mesh)
 	{
@@ -36,10 +35,10 @@ struct Mesh
 			_Vertices[index].p.y = p.y;
 			_Vertices[index].p.z = p.z;
 
-			//const aiVector3D& n = mesh->mNormals[index];
-			//_Vertices[index].n.x = n.x;
-			//_Vertices[index].n.y = n.y;
-			//_Vertices[index].n.z = n.z;
+			const aiVector3D& n = mesh->mNormals[index];
+			_Vertices[index].n.x = n.x;
+			_Vertices[index].n.y = n.y;
+			_Vertices[index].n.z = n.z;
 
 			if (mesh->HasTextureCoords(0))
 			{
