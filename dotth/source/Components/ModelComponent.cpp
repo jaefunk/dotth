@@ -9,6 +9,45 @@ ModelComponent::ModelComponent(const char * asset)
 	_Texture = std::static_pointer_cast<Asset_Texture>(AssetManager::Instance()->FindOrigin("robot_t"));
 }
 
+unsigned int ModelComponent::GetVertexStructureSize(void)
+{
+	return sizeof(VertexPNU);
+}
+
+unsigned int ModelComponent::GetVertexCount(void)
+{
+	return _Model->_VertexCount;
+}
+
+unsigned int ModelComponent::GetIndexCount(void)
+{
+	return _Model->_IndexCount;
+}
+
+void * ModelComponent::GetVertexArray(void)
+{
+	return _Model->_Meshes[1]._Vertices.data();
+}
+
+unsigned long * ModelComponent::GetIndexArray(void)
+{
+	return _Model->_Meshes[1]._Indices.data();
+}
+
+std::string ModelComponent::GetShaderName(void)
+{
+	return "Resource/Model.fx";
+}
+
+void ModelComponent::GetInputDesc(D3D11_INPUT_ELEMENT_DESC ** desc, unsigned int & size)
+{
+	(*desc) = new D3D11_INPUT_ELEMENT_DESC[2];
+	(*desc)[0] = { "POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 0, D3D11_INPUT_PER_VERTEX_DATA, 0 };
+	//(*desc)[1] = { "NORMAL", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, D3D11_APPEND_ALIGNED_ELEMENT, D3D11_INPUT_PER_VERTEX_DATA, 0 };
+	(*desc)[1] = { "TEXCOORD0", 0, DXGI_FORMAT_R32G32_FLOAT, 0, D3D11_APPEND_ALIGNED_ELEMENT, D3D11_INPUT_PER_VERTEX_DATA, 0 };
+	size = 2;
+}
+
 void ModelComponent::OnUpdate(void) 
 {
 }

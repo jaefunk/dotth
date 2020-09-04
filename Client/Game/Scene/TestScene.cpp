@@ -4,6 +4,7 @@ void TestScene::OnInit(void)
 {
 	AssetManager::Instance()->LoadAsset(ASSET_TYPE::TEXTURE, "cat0", "test.png");
 	AssetManager::Instance()->LoadAsset(ASSET_TYPE::MODEL, "robot0", "Resource/model/robot/RobotKyle.fbx");
+	AssetManager::Instance()->LoadAsset(ASSET_TYPE::MODEL, "robot1", "Resource/model/robot/xbot.fbx");
 	AssetManager::Instance()->LoadAsset(ASSET_TYPE::TEXTURE, "robot_t", "Resource/model/robot/Robot_Color.png");
 
 	Camera::Instance()->SetAt(DirectX::XMFLOAT3(0.f, 90.f, 0.f));

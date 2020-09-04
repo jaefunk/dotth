@@ -4,7 +4,7 @@
 #include "utility/utility.h"
 #include "Framework/Scenario.h"
 #include "Graphics/Renderer.h"
-#include "Graphics/RHI/DynamicRHI.h"
+
 namespace dotth 
 {
 	class application 

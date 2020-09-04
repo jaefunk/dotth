@@ -11,12 +11,6 @@ protected:
 	ID3D11Buffer* _IndexBuffer = nullptr;
 
 public:
-	virtual ~DrawableComponent(void)
-	{
-		if (_VertexBuffer)
-			_VertexBuffer->Release();
-		if (_IndexBuffer)
-			_IndexBuffer->Release();
-	}
+	virtual ~DrawableComponent(void);
 };
 

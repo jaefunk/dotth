@@ -3,11 +3,16 @@
 #include <stdarg.h>
 #include <string>
 #include <vector>
+#include <chrono>
 
 namespace Utility {
 	namespace Str {
 		std::string Format(const char* format, ...);
 		std::vector<std::string> Split(std::string src, std::string token);
+	}
+
+	namespace Time {
+		long long TSE(void);
 	}
 
 	//class timer

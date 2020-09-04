@@ -33,3 +33,8 @@ std::vector<std::string> Utility::Str::Split(std::string src, std::string token)
 	result.push_back(src.substr(offset, src.length() - offset));
 	return result;
 }
+
+long long Utility::Time::TSE(void)
+{
+	return std::chrono::system_clock::now().time_since_epoch().count() / 1000;
+}

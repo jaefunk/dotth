@@ -5,6 +5,8 @@
 
 bool AssetManager::LoadAsset(ASSET_TYPE type, const char* key, const char* path)
 {
+	
+
 	std::shared_ptr<Asset> asset;
 	switch (type)
 	{
@@ -20,8 +22,15 @@ bool AssetManager::LoadAsset(ASSET_TYPE type, const char* key, const char* path)
 
 	if (asset == nullptr)
 		return false;
+
+	const char* LoadDuration = "[%s] loaded during [%d]ms\n";
+	auto load_begin = Utility::Time::TSE();
 	asset->Load(path);
-	_Assets.insert({ key, asset });
+	auto load_end = Utility::Time::TSE();
+	std::string s = Utility::Str::Format(LoadDuration, key, load_end - load_begin);
+	OutputDebugStringA(s.c_str());
+
+	_Assets.insert({ key, asset });	
 
 	return true;
 }

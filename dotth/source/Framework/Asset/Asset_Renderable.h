@@ -6,8 +6,8 @@
 class Asset_Renderable : public Asset
 {
 public:
-	Asset_Renderable(ASSET_TYPE type) : Asset(type) {}
+	Asset_Renderable(ASSET_TYPE type);
 
 public:
-	virtual void Bind(void) {}
+	virtual void Bind(void);
 };
