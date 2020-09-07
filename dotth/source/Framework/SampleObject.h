@@ -3,9 +3,9 @@
 
 #include "Framework/Object.h"
 
-class sample_object : public Object
+class SampleObject : public Object
 {
 public:
-	sample_object(void);
+	SampleObject(void);
 
 };

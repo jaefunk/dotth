@@ -2,7 +2,6 @@
 #pragma once
 
 #include "Framework/Scene.h"
-#include "framework/sample_object.h"
 
 class TestScene : public Scene
 {

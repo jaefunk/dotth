@@ -13,7 +13,6 @@
     <ClInclude Include="source\external\json\json.hpp" />
     <ClInclude Include="source\external\task\task.h" />
     <ClInclude Include="source\external\xml\tinyxml2.h" />
-    <ClInclude Include="source\framework\sample_object.h" />
     <ClInclude Include="source\framework\Base.h" />
     <ClInclude Include="source\framework\Node.h" />
     <ClInclude Include="source\framework\Component.h" />
@@ -38,6 +37,7 @@
     <ClInclude Include="source\Framework\Asset\Asset_Renderable.h" />
     <ClInclude Include="source\Graphics\RHI\D11\D11Drawable.h" />
     <ClInclude Include="source\Graphics\RHI\DrawableRHI.h" />
+    <ClInclude Include="source\framework\SampleObject.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source\math\matrix.cpp" />
@@ -45,7 +45,6 @@
     <ClCompile Include="source\platform\win\win.cpp" />
     <ClCompile Include="source\platform\application.cpp" />
     <ClCompile Include="source\external\xml\tinyxml2.cpp" />
-    <ClCompile Include="source\framework\sample_object.cpp" />
     <ClCompile Include="source\framework\Base.cpp" />
     <ClCompile Include="source\framework\Component.cpp" />
     <ClCompile Include="source\framework\Object.cpp" />
@@ -67,5 +66,6 @@
     <ClCompile Include="source\Framework\Asset\Asset_Renderable.cpp" />
     <ClCompile Include="source\Graphics\RHI\D11\D11Drawable.cpp" />
     <ClCompile Include="source\Graphics\RHI\DrawableRHI.cpp" />
+    <ClCompile Include="source\framework\SampleObject.cpp" />
   </ItemGroup>
 </Project>

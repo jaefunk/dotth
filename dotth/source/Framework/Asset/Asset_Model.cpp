@@ -12,7 +12,7 @@ void Asset_Model::Bind(void)
 bool Asset_Model::OnLoad(void * data, size_t size)
 {
 	Assimp::Importer importer;
-	_Scene = importer.ReadFileFromMemory(data, size, aiProcess_ConvertToLeftHanded | aiProcess_Triangulate);
+	_Scene = importer.ReadFileFromMemory(data, size, aiProcess_ConvertToLeftHanded | aiProcess_Triangulate | aiProcess_OptimizeMeshes);
 	if (_Scene == nullptr)
 		return false;
 

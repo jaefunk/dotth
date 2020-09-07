@@ -41,7 +41,7 @@
     <ClInclude Include="source\framework\Scene.h" />
     <ClInclude Include="source\framework\shared_node.h" />
     <ClInclude Include="source\graphics\Camera.h" />
-    <ClInclude Include="source\framework\sample_object.h" />
+    <ClInclude Include="source\framework\SampleObject.h" />
     <ClInclude Include="source\Graphics\Renderer.h" />
     <ClInclude Include="source\Graphics\RHI\D11\D11Drawable.h" />
     <ClInclude Include="source\Graphics\RHI\D11\D11RHI.h" />
@@ -74,7 +74,7 @@
     <ClCompile Include="source\Framework\Scenario.cpp" />
     <ClCompile Include="source\framework\Scene.cpp" />
     <ClCompile Include="source\graphics\Camera.cpp" />
-    <ClCompile Include="source\framework\sample_object.cpp" />
+    <ClCompile Include="source\framework\SampleObject.cpp" />
     <ClCompile Include="source\Graphics\Renderer.cpp" />
     <ClCompile Include="source\Graphics\RHI\D11\D11Drawable.cpp" />
     <ClCompile Include="source\Graphics\RHI\D11\D11RHI.cpp" />
