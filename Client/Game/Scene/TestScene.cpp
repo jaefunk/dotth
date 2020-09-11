@@ -20,7 +20,7 @@ void TestScene::OnInit(void)
 	Camera::Instance()->SetFar(1000.f);
 
 	auto obj = std::make_shared<SampleObject>();
-	obj->AttachComponent(std::make_shared<ModelComponent>("robot0"));
+	obj->AttachComponent(std::make_shared<ModelComponent>("robot1"));
 	Root()->Attach(obj);
 }
 

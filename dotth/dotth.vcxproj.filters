@@ -38,6 +38,7 @@
     <ClInclude Include="source\Graphics\RHI\D11\D11Drawable.h" />
     <ClInclude Include="source\Graphics\RHI\DrawableRHI.h" />
     <ClInclude Include="source\framework\SampleObject.h" />
+    <ClInclude Include="source\Graphics\Drawable.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source\math\matrix.cpp" />
@@ -67,5 +68,6 @@
     <ClCompile Include="source\Graphics\RHI\D11\D11Drawable.cpp" />
     <ClCompile Include="source\Graphics\RHI\DrawableRHI.cpp" />
     <ClCompile Include="source\framework\SampleObject.cpp" />
+    <ClCompile Include="source\Graphics\Drawable.cpp" />
   </ItemGroup>
 </Project>

@@ -11,27 +11,27 @@ ModelComponent::ModelComponent(const char * asset)
 
 unsigned int ModelComponent::GetVertexStructureSize(void)
 {
-	return sizeof(VertexPNU);
+	return 0;
 }
 
 unsigned int ModelComponent::GetVertexCount(void)
 {
-	return _Model->_VertexCount;
+	return 0;
 }
 
 unsigned int ModelComponent::GetIndexCount(void)
 {
-	return _Model->_IndexCount;
+	return 0;
 }
 
 void * ModelComponent::GetVertexArray(void)
 {
-	return _Model->_Meshes[0]._Vertices.data();
+	return nullptr;
 }
 
 unsigned long * ModelComponent::GetIndexArray(void)
 {
-	return _Model->_Meshes[0]._Indices.data();
+	return nullptr;
 }
 
 std::string ModelComponent::GetShaderName(void)
@@ -54,8 +54,6 @@ void ModelComponent::OnUpdate(void)
 
 void ModelComponent::OnDraw(void) 
 {
-	Renderer::RHI()->BindVertexBuffer(_VertexBuffer, GetVertexStructureSize(), 0);
-	Renderer::RHI()->BindIndexBuffer(_IndexBuffer, DXGI_FORMAT_R32_UINT, 0);
 	static float f = 0.f;
 	MatrixBufferType cb;
 	cb.view = DirectX::XMMatrixTranspose(*Camera::Instance()->View());
@@ -65,8 +63,13 @@ void ModelComponent::OnDraw(void)
 	cb.world = DirectX::XMMatrixTranspose(world);
 	Renderer::RHI()->UpdateSubresource(_ConstantBuffer, &cb);
 	_Texture->Bind();
-	_Shader.Draw(_ConstantBuffer, GetIndexCount());
-	
+	for (auto drawable : _Model->_Drawables)
+	{
+		//Renderer::RHI()->BindVertexBuffer(_VertexBuffer, GetVertexStructureSize(), 0);
+		//Renderer::RHI()->BindIndexBuffer(_IndexBuffer, DXGI_FORMAT_R32_UINT, 0);
+		drawable.Bind();
+		_Shader.Draw(_ConstantBuffer, drawable._IndexCount);
+	}
 }
 
 void ModelComponent::OnDestroy(void) 

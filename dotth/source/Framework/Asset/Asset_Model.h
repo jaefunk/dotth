@@ -13,19 +13,14 @@
 #include "assimp/postprocess.h"
 #include "assimp/scene.h"
 
-struct VertexPNU
-{
-	DirectX::XMFLOAT3 p = DirectX::XMFLOAT3(0.f, 0.f, 0.f);
-	DirectX::XMFLOAT3 n = DirectX::XMFLOAT3(0.f, 0.f, 0.f);
-	DirectX::XMFLOAT2 u = DirectX::XMFLOAT2(0.f, 0.f);
-};
+#include "Graphics/Drawable.h"
 
 struct Mesh
 {
 	std::vector<VertexPNU> _Vertices;
 	std::vector<unsigned long> _Indices;
 
-	bool Init(aiMesh* mesh)
+	Mesh(aiMesh* mesh)
 	{
 		_Vertices.resize(mesh->mNumVertices);
 		for (unsigned int index = 0; index < mesh->mNumVertices; ++index)
@@ -39,6 +34,10 @@ struct Mesh
 			_Vertices[index].n.x = n.x;
 			_Vertices[index].n.y = n.y;
 			_Vertices[index].n.z = n.z;
+
+			const aiVector3D& t = mesh->mTangents[index];
+
+			const aiVector3D& b = mesh->mBitangents[index];
 
 			if (mesh->HasTextureCoords(0))
 			{
@@ -56,8 +55,6 @@ struct Mesh
 			_Indices.push_back(face.mIndices[1]);
 			_Indices.push_back(face.mIndices[2]);
 		}
-
-		return true;
 	}
 };
 
@@ -72,8 +69,5 @@ private:
 
 public:
 	const aiScene* _Scene;
-	std::vector<Mesh> _Meshes;
-	unsigned int _VertexCount = 0;
-	unsigned int _IndexCount = 0;
-	std::map<std::string, aiBone*> _Bones;
+	std::vector<Drawable> _Drawables;
 };

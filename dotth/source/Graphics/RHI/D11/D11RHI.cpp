@@ -106,7 +106,8 @@ bool D11RHI::Init(void* handle, int width, int height)
 
 void D11RHI::PreDraw(void)
 {
-	_Context->ClearRenderTargetView(_RenderTargetView, DirectX::Colors::MidnightBlue);
+	static XMVECTORF32 ClearColor = { 0.0f, 0.2f, 0.4f, 1.0f };
+	_Context->ClearRenderTargetView(_RenderTargetView, ClearColor);
 	_Context->ClearDepthStencilView(_DepthBuffer, D3D11_CLEAR_DEPTH, 1.0f, 0);
 }
 
