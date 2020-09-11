@@ -37,13 +37,13 @@ public:
 		_VertexBuffer = Renderer::RHI()->CreateVertexBuffer(desc, data);
 	}
 
-	void SetIndex(const std::vector<unsigned long>& v)
+	void SetIndex(const std::vector<unsigned int>& v)
 	{
 		_IndexCount = v.size();
 		D3D11_BUFFER_DESC desc;
 		memset(&desc, 0, sizeof(decltype(desc)));
 		desc.Usage = D3D11_USAGE_DEFAULT;
-		desc.ByteWidth = sizeof(unsigned long) * v.size();
+		desc.ByteWidth = sizeof(unsigned int) * v.size();
 		desc.BindFlags = D3D11_BIND_INDEX_BUFFER;
 		desc.CPUAccessFlags;
 		desc.MiscFlags;

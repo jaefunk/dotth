@@ -51,7 +51,11 @@ PS_INPUT vs_main(VS_INPUT input)
 
     result.pos = mul(result.pos, projectionMatrix);
 
-    result.normal = input.normal;
+float4 n1 = float4(input.normal, 1.0f);
+float4 n2 = mul(n1, worldMatrix);
+float3 n3 = float3(n2.x, n2.y, n2.z);
+
+    result.normal = n3;
     
     result.uv = input.uv;
     
@@ -64,7 +68,7 @@ PS_INPUT vs_main(VS_INPUT input)
 float4 ps_main(PS_INPUT input) : SV_Target
 {
 float3 light_color = float3(1.0f, 1.0f, 1.0f);
-float3 light_dir = float3(0.0f, 0.0f, -1.0f);
+float3 light_dir = float3(1.0f, -1.0f, -1.0f);
 float diff = max(dot(input.normal, light_dir), 0.0f);
 float3 diffuse = diff * light_color;
 float4 result = txDiffuse.Sample(Sampler, input.uv) * float4(diffuse, 1.0f) ;
