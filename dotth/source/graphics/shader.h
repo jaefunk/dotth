@@ -9,33 +9,39 @@ namespace shader {
 	};
 
 	union blobs {
-		struct
-		{
+		struct {
 			ID3D10Blob* vs;
 			ID3D10Blob* ps;
 		};
 		ID3D10Blob* of[shader::stage::end] = { nullptr };
 	};
 	union reflections {
-		struct
-		{
+		struct {
 			ID3D11ShaderReflection* vs;
 			ID3D11ShaderReflection* ps;
 		};
 		ID3D11ShaderReflection* of[shader::stage::end] = { nullptr };
 	};
 
+	struct layout {
+		D3D11_SHADER_BUFFER_DESC desc;
+		std::vector<D3D11_SHADER_VARIABLE_DESC> variables;
+		std::vector<D3D11_SHADER_TYPE_DESC> types;
+		unsigned int size = 0;
+		unsigned int slot = 0;
+	};
+
 	union layouts {
-		struct layout {
-			std::vector<D3D11_SHADER_TYPE_DESC> types;
-			unsigned int size;
-			unsigned int slot;
+		struct {
+			layout* vs;
+			layout* ps;
 		};
+		layout* of[shader::stage::end] = { nullptr };
 	};
 }
 
 using namespace shader;
-class Shader : public Base
+class Shader
 {	
 private:
 	struct COMPILE_DESC {
@@ -48,11 +54,10 @@ private:
 		{stage::ps, "ps_5_0", "ps_main"},
 	};
 
-	
-
 private:
 	blobs _Blobs;
 	reflections _Reflections;
+	layouts _Layouts;
 
 	ID3D11VertexShader* _VertexShader = nullptr;
 	ID3D11PixelShader* _PixelShader = nullptr;
@@ -89,52 +94,36 @@ public:
 				break;
 			}
 
-			void** buffer = reinterpret_cast<void**>(&_Reflections.of[desc._Stage]);
-			GUID k = {};
-			k.Data1 = 0x8d536ca1;
-			k.Data2 = 0x0cca;
-			k.Data3 = 0x4956;
-			k.Data4[0] = 0xa8;
-			k.Data4[1] = 0x37;
-			k.Data4[2] = 0x78;
-			k.Data4[3] = 0x69;
-			k.Data4[4] = 0x63;
-			k.Data4[5] = 0x75;
-			k.Data4[6] = 0x55;
-			k.Data4[7] = 0x84;
-			// 0x8d536ca1, 0x0cca, 0x4956, 0xa8, 0x37, 0x78, 0x69, 0x63, 0x75, 0x55, 0x84
-			D3DReflect(_Blobs.of[desc._Stage]->GetBufferPointer(), _Blobs.of[desc._Stage]->GetBufferSize(), k, reinterpret_cast<void**>(&_Reflections.of[desc._Stage]));
+			auto reflection = _Reflections.of[desc._Stage];
+			GUID guid = { 0x8d536ca1, 0x0cca, 0x4956, { 0xa8, 0x37, 0x78, 0x69, 0x63, 0x75, 0x55, 0x84 } };
+			D3DReflect(_Blobs.of[desc._Stage]->GetBufferPointer(), _Blobs.of[desc._Stage]->GetBufferSize(), guid, reinterpret_cast<void**>(&reflection));		
+			
+			D3D11_SHADER_DESC shader_desc;
+			reflection->GetDesc(&shader_desc);
 
-			D3D11_SHADER_DESC sd;
-			_Reflections.of[desc._Stage]->GetDesc(&sd);
-
-			unsigned bufSlot = 0;
-			for (unsigned i = 0; i < sd.ConstantBuffers; ++i)
+			unsigned int buff_slot = 0;
+			for (unsigned buff_slot = 0; buff_slot < shader_desc.ConstantBuffers; ++buff_slot)
 			{
-				D3D11_SHADER_BUFFER_DESC					__desc;
-				std::vector<D3D11_SHADER_VARIABLE_DESC>		__variables;
-				std::vector<D3D11_SHADER_TYPE_DESC>			__types;
-
-				ID3D11ShaderReflectionConstantBuffer* pCBuffer = _Reflections.of[desc._Stage]->GetConstantBufferByIndex(i);
-				pCBuffer->GetDesc(&__desc);
+				_Layouts.of[desc._Stage] = new layout;
+				_Layouts.of[desc._Stage]->slot = buff_slot;
+				
+				ID3D11ShaderReflectionConstantBuffer* pCBuffer = reflection->GetConstantBufferByIndex(buff_slot);
+				pCBuffer->GetDesc(&_Layouts.of[desc._Stage]->desc);
 
 				unsigned int buff_size = 0;
-				// load desc of each variable for binding on buffer later on
-				for (unsigned j = 0; j < __desc.Variables; ++j)
+				for (unsigned index = 0; index < _Layouts.of[desc._Stage]->desc.Variables; ++index)
 				{
-					// get variable and type descriptions
-					ID3D11ShaderReflectionVariable* pVariable = pCBuffer->GetVariableByIndex(j);
+					ID3D11ShaderReflectionVariable* pVariable = pCBuffer->GetVariableByIndex(index);
 					D3D11_SHADER_VARIABLE_DESC varDesc;
 					pVariable->GetDesc(&varDesc);
-					__variables.push_back(varDesc);
+					_Layouts.of[desc._Stage]->variables.push_back(varDesc);
 
 					ID3D11ShaderReflectionType* pType = pVariable->GetType();
 					D3D11_SHADER_TYPE_DESC typeDesc;
 					pType->GetDesc(&typeDesc);
-					__types.push_back(typeDesc);
+					_Layouts.of[desc._Stage]->types.push_back(typeDesc);
 
-					// accumulate buffer size
-					buff_size += varDesc.Size;
+					_Layouts.of[desc._Stage]->size += varDesc.Size;
 				}
 				
 			}
