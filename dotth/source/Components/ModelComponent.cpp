@@ -68,7 +68,7 @@ void ModelComponent::OnDraw(void)
 		//Renderer::RHI()->BindVertexBuffer(_VertexBuffer, GetVertexStructureSize(), 0);
 		//Renderer::RHI()->BindIndexBuffer(_IndexBuffer, DXGI_FORMAT_R32_UINT, 0);
 		drawable.Bind();
-		_Shader.Draw(_ConstantBuffer, drawable._IndexCount);
+		_Shader2.Draw(_ConstantBuffer, drawable._IndexCount);
 	}
 }
 

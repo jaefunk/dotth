@@ -1,7 +1,5 @@
 #pragma once
 
-#include <windows.h>
-
 #include <cstring>
 #include <string>
 #include <ctime>
@@ -26,9 +24,6 @@
 #include <functional>
 #include <iostream>
 
-#include "external/json/json.hpp"
-#include "external/xml/tinyxml2.h"
-
 #pragma comment(lib, "d3d11.lib")
 #pragma comment(lib, "d3dx11.lib")
 #pragma comment(lib, "dxgi.lib")
@@ -38,6 +33,13 @@
 #include <d3dcompiler.h>
 #include <DirectXMath.h>
 #include <directxcolors.h>
+
+// include external...
+#include "json/json.hpp"
+#include "xml/tinyxml2.h"
+//#define _WIN32_WINNT 0x0501
+//#define WIN32_LEAN_AND_MEAN
+//#include "asio/asio.hpp"
 
 #include "Utility/Utility.h"
 

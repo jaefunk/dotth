@@ -74,5 +74,5 @@ void SpriteComponent::OnDraw(void)
 
 	_Texture->Bind();
 
-	_Shader.Draw(_ConstantBuffer, GetIndexCount());
+	_Shader2.Draw(_ConstantBuffer, GetIndexCount());
 }

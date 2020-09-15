@@ -1,6 +1,5 @@
 // Client.cpp : Defines the entry point for the application.
 //
-
 #include "framework.h"
 #include "Client.h"
 #include "platform/application.h"

@@ -16,6 +16,7 @@ class PrimitiveComponent : public DrawableComponent
 public:
 	ID3D11Buffer* _ConstantBuffer = nullptr;
 	Shader _Shader;
+	Shader2 _Shader2;
 
 	virtual unsigned int GetVertexStructureSize(void) = 0;
 	virtual unsigned int GetVertexCount(void) = 0;

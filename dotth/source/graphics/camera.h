@@ -1,7 +1,7 @@
 
 #pragma once
 
-#include "utility/SingleInstance.h"
+#include "Utility/SingleInstance.h"
 #include <DirectXMath.h>
 
 class Camera : public SingleInstance<Camera>

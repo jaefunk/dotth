@@ -1,7 +1,7 @@
 
 #pragma once
 
-#include "utility/SingleInstance.h"
+#include "Utility/SingleInstance.h"
 #include "Graphics/Camera.h"
 #include "Graphics/RHI/D11/D11RHI.h"
 
