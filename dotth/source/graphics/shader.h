@@ -38,6 +38,16 @@ namespace shader {
 		};
 		layout* of[shader::stage::end] = { nullptr };
 	};
+
+	//struct cpu_buffer {
+	//	std::string name;
+	//	std::size_t size;
+	//	void* data;
+	//};
+
+	//struct gpu_buffer {
+
+	//};
 }
 
 using namespace shader;
@@ -94,7 +104,7 @@ public:
 				break;
 			}
 
-			auto reflection = _Reflections.of[desc._Stage];
+			ID3D11ShaderReflection* reflection = _Reflections.of[desc._Stage];
 			GUID guid = { 0x8d536ca1, 0x0cca, 0x4956, { 0xa8, 0x37, 0x78, 0x69, 0x63, 0x75, 0x55, 0x84 } };
 			D3DReflect(_Blobs.of[desc._Stage]->GetBufferPointer(), _Blobs.of[desc._Stage]->GetBufferSize(), guid, reinterpret_cast<void**>(&reflection));		
 			
@@ -115,21 +125,19 @@ public:
 				{
 					ID3D11ShaderReflectionVariable* pVariable = pCBuffer->GetVariableByIndex(index);
 					D3D11_SHADER_VARIABLE_DESC varDesc;
-					pVariable->GetDesc(&varDesc);
-					_Layouts.of[desc._Stage]->variables.push_back(varDesc);
+					pVariable->GetDesc(&varDesc);					
 
 					ID3D11ShaderReflectionType* pType = pVariable->GetType();
 					D3D11_SHADER_TYPE_DESC typeDesc;
 					pType->GetDesc(&typeDesc);
+					
+					_Layouts.of[desc._Stage]->variables.push_back(varDesc);
 					_Layouts.of[desc._Stage]->types.push_back(typeDesc);
-
 					_Layouts.of[desc._Stage]->size += varDesc.Size;
-				}
-				
+				}				
 			}
 		}
 	}
-
 };
 
 class Shader2
