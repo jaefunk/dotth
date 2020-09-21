@@ -45,11 +45,18 @@ namespace shader {
 		};
 		layout* of[ESTAGE::END] = { nullptr };
 	};
-
 	
-	//struct gpu_buffer {
+	struct cpu_buffer {
+		std::string name;
+		size_t size = 0;
+		void* data = nullptr;
+	};
 
-	//};
+	struct gpu_buffer {
+		bool dirty = false;
+		ID3D11Buffer* buffer = nullptr;
+		unsigned int slot = 0;
+	};
 }
 
 using namespace shader;
@@ -69,7 +76,7 @@ private:
 	ID3D11InputLayout* _InputLayout = nullptr;
 	ID3D11VertexShader* _VertexShader = nullptr;
 	ID3D11PixelShader* _PixelShader = nullptr;
-	
+	std::vector<cpu_buffer> _CpuBuffers;
 
 public:
 	void LoadShader(std::string fp);

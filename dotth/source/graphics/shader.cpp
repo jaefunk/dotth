@@ -38,7 +38,6 @@ void Shader::LoadShader(std::string fp)
 		reflection->GetDesc(&shader_desc);
 		
 		std::vector<D3D11_INPUT_ELEMENT_DESC> elements;
-		elements.resize(shader_desc.InputParameters);
 		for (unsigned int index = 0; index < shader_desc.InputParameters; ++index)
 		{
 			D3D11_SIGNATURE_PARAMETER_DESC signature;
@@ -77,17 +76,17 @@ void Shader::LoadShader(std::string fp)
 			else if (signature.Mask <= 15 && signature.ComponentType == D3D_REGISTER_COMPONENT_FLOAT32)
 				desc.Format = DXGI_FORMAT_R32G32B32A32_FLOAT;
 
-			elements[index] = desc;
+			elements.push_back(desc);
 		}
 
 		_InputLayout = Renderer::RHI()->CreateInputLayout(_Blobs.of[desc.stage], elements.data(), elements.size());
 
-		for (unsigned buff_slot = 0; buff_slot < shader_desc.ConstantBuffers; ++buff_slot)
+		for (unsigned slot = 0; slot < shader_desc.ConstantBuffers; ++slot)
 		{
 			_Layouts.of[desc.stage] = new layout;
-			_Layouts.of[desc.stage]->slot = buff_slot;
+			_Layouts.of[desc.stage]->slot = slot;
 
-			ID3D11ShaderReflectionConstantBuffer* pCBuffer = reflection->GetConstantBufferByIndex(buff_slot);
+			ID3D11ShaderReflectionConstantBuffer* pCBuffer = reflection->GetConstantBufferByIndex(slot);
 			pCBuffer->GetDesc(&_Layouts.of[desc.stage]->desc);
 
 			unsigned int buff_size = 0;
@@ -107,6 +106,29 @@ void Shader::LoadShader(std::string fp)
 			}
 		}
 
+		for (unsigned int index = 0; index < _Layouts.of[desc.stage]->variables.size(); ++index)
+		{
+			auto variable = _Layouts.of[desc.stage]->variables[index];
+			cpu_buffer cb;
+			cb.name = variable.Name;
+			cb.size = variable.Size;
+			cb.data = new char[variable.Size];
+			memset(cb.data, 0, cb.size);
+			_CpuBuffers.push_back(cb);
+		}
 
+
+		D3D11_BUFFER_DESC buffer_desc;
+		buffer_desc.Usage = D3D11_USAGE_DYNAMIC;
+		buffer_desc.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
+		buffer_desc.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
+		buffer_desc.MiscFlags = 0;
+		buffer_desc.StructureByteStride = 0;
+		buffer_desc.ByteWidth = _Layouts.of[desc.stage]->desc.Size;
+
+		gpu_buffer gb;
+		gb.slot = _Layouts.of[desc.stage]->slot;
+		gb.dirty = true;
+		gb.buffer = Renderer::RHI()->CreateConstantBuffer(buffer_desc);
 	}
 }
