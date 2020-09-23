@@ -53,6 +53,7 @@ namespace shader {
 	};
 
 	struct gpu_buffer {
+		ESTAGE stage;
 		bool dirty = false;
 		ID3D11Buffer* buffer = nullptr;
 		unsigned int slot = 0;
@@ -71,12 +72,15 @@ private:
 private:
 	blobs _Blobs;
 	reflections _Reflections;
-	layouts _Layouts;
+	layouts _Layouts2;
+	std::vector<layout> _Layouts;
 
 	ID3D11InputLayout* _InputLayout = nullptr;
 	ID3D11VertexShader* _VertexShader = nullptr;
 	ID3D11PixelShader* _PixelShader = nullptr;
-	std::vector<cpu_buffer> _CpuBuffers;
+	
+	std::vector<cpu_buffer> _CBuffers;
+	std::vector<gpu_buffer> _GBuffers;
 
 public:
 	void LoadShader(std::string fp);
