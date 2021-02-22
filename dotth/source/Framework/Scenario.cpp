@@ -36,6 +36,5 @@ void Scenario::Loop(void)
 	if (_CurrentScene == nullptr)
 		return;
 	_CurrentScene->Update();
-	Camera::Instance()->Sync();
 	_CurrentScene->Draw();
 }

@@ -2,14 +2,11 @@
 //
 #include "framework.h"
 #include "Client.h"
-#include "platform/application.h"
-#include "Game/Scene/TestScene.h"
+
 
 #define MAX_LOADSTRING 100
 
 // Global Variables:
-dotth::application g_App;
-extern dotth::application g_App;
 HINSTANCE hInst;                                // current instance
 HWND hWnd;
 WCHAR szTitle[MAX_LOADSTRING];                  // The title bar text
@@ -63,12 +60,6 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance
 
     //HACCEL hAccelTable = LoadAccelerators(hInstance, MAKEINTRESOURCE(IDC_CLIENT));
 
-    
-	
-	g_App.init_application();
-	g_App.get_renderer()->Init(hWnd, screen_width, screen_height);
-	g_App.get_scenario()->Assign<TestScene>("testscene");
-	g_App.get_scenario()->Push("testscene");
 	
 	
     // Main message loop:
@@ -80,12 +71,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance
 			TranslateMessage(&msg);
 			DispatchMessage(&msg);
 		}
-		else
-		{
-			g_App.loop();
-		}
     }
-	g_App.Quit();
     return (int) msg.wParam;
 }
 

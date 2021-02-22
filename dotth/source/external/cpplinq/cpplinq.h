@@ -31,11 +31,11 @@
 #ifdef _MSC_VER
 #   pragma warning (push)
 #       pragma warning (disable:4512)   // 'class' : assignment operator could not be generated
-// Rationale: cpplinq doesn't rely on assignment operators
+										// Rationale: cpplinq doesn't rely on assignment operators
 #       pragma warning (disable:4702)   // unreachable code
-// Rationale: Depending on the predicates and the calling
-// code the compiler might detect unreacable code that with
-// other predicates are reachable.
+										// Rationale: Depending on the predicates and the calling
+										// code the compiler might detect unreacable code that with
+										// other predicates are reachable.
 #endif
 // ----------------------------------------------------------------------------
 #ifndef CPPLINQ_ASSERT
@@ -50,14 +50,6 @@
 #ifndef CPPLINQ_NOEXCEPT
 #   define CPPLINQ_NOEXCEPT throw ()
 #endif
-
-#ifdef  min
-#undef min
-#endif //  min
-
-#ifdef  max
-#undef max
-#endif //  min
 // ----------------------------------------------------------------------------
 
 // TODO:    Struggled with getting slice protection
@@ -498,7 +490,7 @@ namespace cpplinq
 			}
 
 			template<typename TRangeBuilder>
-			CPPLINQ_INLINEMETHOD typename get_builtup_type<TRangeBuilder, this_type>::type operator >> (TRangeBuilder range_builder) const
+			CPPLINQ_INLINEMETHOD typename get_builtup_type<TRangeBuilder, this_type>::type operator>>(TRangeBuilder range_builder) const
 			{
 				return range_builder.build(*this);
 			}
@@ -585,7 +577,7 @@ namespace cpplinq
 			}
 
 			template<typename TRangeBuilder>
-			CPPLINQ_INLINEMETHOD typename get_builtup_type<TRangeBuilder, this_type>::type operator >> (TRangeBuilder range_builder) const
+			CPPLINQ_INLINEMETHOD typename get_builtup_type<TRangeBuilder, this_type>::type operator>>(TRangeBuilder range_builder) const
 			{
 				return range_builder.build(*this);
 			}
@@ -658,7 +650,7 @@ namespace cpplinq
 			}
 
 			template<typename TRangeBuilder>
-			CPPLINQ_INLINEMETHOD typename get_builtup_type<TRangeBuilder, this_type>::type operator >> (TRangeBuilder range_builder) const
+			CPPLINQ_INLINEMETHOD typename get_builtup_type<TRangeBuilder, this_type>::type operator>>(TRangeBuilder range_builder) const
 			{
 				return range_builder.build(*this);
 			}
@@ -719,7 +711,7 @@ namespace cpplinq
 			}
 
 			template<typename TRangeBuilder>
-			CPPLINQ_INLINEMETHOD typename get_builtup_type<TRangeBuilder, this_type>::type operator >> (TRangeBuilder range_builder) const
+			CPPLINQ_INLINEMETHOD typename get_builtup_type<TRangeBuilder, this_type>::type operator>>(TRangeBuilder range_builder) const
 			{
 				return range_builder.build(*this);
 			}
@@ -768,7 +760,7 @@ namespace cpplinq
 			}
 
 			template<typename TRangeBuilder>
-			CPPLINQ_INLINEMETHOD typename get_builtup_type<TRangeBuilder, this_type>::type operator >> (TRangeBuilder range_builder) const
+			CPPLINQ_INLINEMETHOD typename get_builtup_type<TRangeBuilder, this_type>::type operator>>(TRangeBuilder range_builder) const
 			{
 				return range_builder.build(*this);
 			}
@@ -827,7 +819,7 @@ namespace cpplinq
 			}
 
 			template<typename TRangeBuilder>
-			CPPLINQ_INLINEMETHOD typename get_builtup_type<TRangeBuilder, this_type>::type operator >> (TRangeBuilder range_builder) const
+			CPPLINQ_INLINEMETHOD typename get_builtup_type<TRangeBuilder, this_type>::type operator>>(TRangeBuilder range_builder) const
 			{
 				return range_builder.build(*this);
 			}
@@ -955,7 +947,7 @@ namespace cpplinq
 			}
 
 			template<typename TRangeBuilder>
-			CPPLINQ_INLINEMETHOD typename get_builtup_type<TRangeBuilder, this_type>::type operator >> (TRangeBuilder range_builder) const
+			CPPLINQ_INLINEMETHOD typename get_builtup_type<TRangeBuilder, this_type>::type operator>>(TRangeBuilder range_builder) const
 			{
 				return range_builder.build(*this);
 			}
@@ -1098,7 +1090,7 @@ namespace cpplinq
 			}
 
 			template<typename TRangeBuilder>
-			CPPLINQ_INLINEMETHOD typename get_builtup_type<TRangeBuilder, this_type>::type operator >> (TRangeBuilder range_builder) const
+			CPPLINQ_INLINEMETHOD typename get_builtup_type<TRangeBuilder, this_type>::type operator>>(TRangeBuilder range_builder) const
 			{
 				return range_builder.build(*this);
 			}
@@ -1266,7 +1258,7 @@ namespace cpplinq
 			}
 
 			template<typename TRangeBuilder>
-			CPPLINQ_INLINEMETHOD typename get_builtup_type<TRangeBuilder, this_type>::type operator >> (TRangeBuilder range_builder) const
+			CPPLINQ_INLINEMETHOD typename get_builtup_type<TRangeBuilder, this_type>::type operator>>(TRangeBuilder range_builder) const
 			{
 				return range_builder.build(*this);
 			}
@@ -1375,7 +1367,7 @@ namespace cpplinq
 			}
 
 			template<typename TRangeBuilder>
-			CPPLINQ_INLINEMETHOD typename get_builtup_type<TRangeBuilder, this_type>::type operator >> (TRangeBuilder range_builder) const
+			CPPLINQ_INLINEMETHOD typename get_builtup_type<TRangeBuilder, this_type>::type operator>>(TRangeBuilder range_builder) const
 			{
 				return range_builder.build(*this);
 			}
@@ -1477,7 +1469,7 @@ namespace cpplinq
 			}
 
 			template<typename TRangeBuilder>
-			CPPLINQ_INLINEMETHOD typename get_builtup_type<TRangeBuilder, this_type>::type operator >> (TRangeBuilder range_builder) const
+			CPPLINQ_INLINEMETHOD typename get_builtup_type<TRangeBuilder, this_type>::type operator>>(TRangeBuilder range_builder) const
 			{
 				return range_builder.build(*this);
 			}
@@ -1574,7 +1566,7 @@ namespace cpplinq
 			}
 
 			template<typename TRangeBuilder>
-			CPPLINQ_INLINEMETHOD typename get_builtup_type<TRangeBuilder, this_type>::type operator >> (TRangeBuilder range_builder) const
+			CPPLINQ_INLINEMETHOD typename get_builtup_type<TRangeBuilder, this_type>::type operator>>(TRangeBuilder range_builder) const
 			{
 				return range_builder.build(*this);
 			}
@@ -1682,7 +1674,7 @@ namespace cpplinq
 			}
 
 			template<typename TRangeBuilder>
-			CPPLINQ_INLINEMETHOD typename get_builtup_type<TRangeBuilder, this_type>::type operator >> (TRangeBuilder range_builder) const
+			CPPLINQ_INLINEMETHOD typename get_builtup_type<TRangeBuilder, this_type>::type operator>>(TRangeBuilder range_builder) const
 			{
 				return range_builder.build(*this);
 			}
@@ -1788,7 +1780,7 @@ namespace cpplinq
 			}
 
 			template<typename TRangeBuilder>
-			CPPLINQ_INLINEMETHOD typename get_builtup_type<TRangeBuilder, this_type>::type operator >> (TRangeBuilder range_builder) const
+			CPPLINQ_INLINEMETHOD typename get_builtup_type<TRangeBuilder, this_type>::type operator>>(TRangeBuilder range_builder) const
 			{
 				return range_builder.build(*this);
 			}
@@ -1889,7 +1881,7 @@ namespace cpplinq
 			}
 
 			template<typename TRangeBuilder>
-			CPPLINQ_INLINEMETHOD typename get_builtup_type<TRangeBuilder, this_type>::type operator >> (TRangeBuilder range_builder) const
+			CPPLINQ_INLINEMETHOD typename get_builtup_type<TRangeBuilder, this_type>::type operator>>(TRangeBuilder range_builder) const
 			{
 				return range_builder.build(*this);
 			}
@@ -1981,7 +1973,7 @@ namespace cpplinq
 			}
 
 			template<typename TRangeBuilder>
-			CPPLINQ_INLINEMETHOD typename get_builtup_type<TRangeBuilder, this_type>::type operator >> (TRangeBuilder range_builder) const
+			CPPLINQ_INLINEMETHOD typename get_builtup_type<TRangeBuilder, this_type>::type operator>>(TRangeBuilder range_builder) const
 			{
 				return range_builder.build(*this);
 			}
@@ -2103,7 +2095,7 @@ namespace cpplinq
 			}
 
 			template<typename TRangeBuilder>
-			CPPLINQ_INLINEMETHOD typename get_builtup_type<TRangeBuilder, this_type>::type operator >> (TRangeBuilder range_builder) const
+			CPPLINQ_INLINEMETHOD typename get_builtup_type<TRangeBuilder, this_type>::type operator>>(TRangeBuilder range_builder) const
 			{
 				return range_builder.build(*this);
 			}
@@ -2266,7 +2258,7 @@ namespace cpplinq
 			}
 
 			template<typename TRangeBuilder>
-			CPPLINQ_INLINEMETHOD typename get_builtup_type<TRangeBuilder, this_type>::type operator >> (TRangeBuilder range_builder) const
+			CPPLINQ_INLINEMETHOD typename get_builtup_type<TRangeBuilder, this_type>::type operator>>(TRangeBuilder range_builder) const
 			{
 				return range_builder.build(*this);
 			}
@@ -2434,7 +2426,7 @@ namespace cpplinq
 			}
 
 			template<typename TRangeBuilder>
-			CPPLINQ_INLINEMETHOD typename get_builtup_type<TRangeBuilder, this_type>::type operator >> (TRangeBuilder range_builder) const
+			CPPLINQ_INLINEMETHOD typename get_builtup_type<TRangeBuilder, this_type>::type operator>>(TRangeBuilder range_builder) const
 			{
 				return range_builder.build(*this);
 			}
@@ -2534,7 +2526,7 @@ namespace cpplinq
 			}
 
 			template<typename TRangeBuilder>
-			CPPLINQ_INLINEMETHOD typename get_builtup_type<TRangeBuilder, this_type>::type operator >> (TRangeBuilder range_builder) const
+			CPPLINQ_INLINEMETHOD typename get_builtup_type<TRangeBuilder, this_type>::type operator>>(TRangeBuilder range_builder) const
 			{
 				return range_builder.build(*this);
 			}
@@ -2655,7 +2647,7 @@ namespace cpplinq
 			}
 
 			template<typename TRangeBuilder>
-			CPPLINQ_INLINEMETHOD typename get_builtup_type<TRangeBuilder, this_type>::type operator >> (TRangeBuilder range_builder) const
+			CPPLINQ_INLINEMETHOD typename get_builtup_type<TRangeBuilder, this_type>::type operator>>(TRangeBuilder range_builder) const
 			{
 				return range_builder.build(*this);
 			}
@@ -2795,7 +2787,7 @@ namespace cpplinq
 			}
 
 			template<typename TRangeBuilder>
-			CPPLINQ_INLINEMETHOD typename get_builtup_type<TRangeBuilder, this_type>::type operator >> (TRangeBuilder range_builder) const
+			CPPLINQ_INLINEMETHOD typename get_builtup_type<TRangeBuilder, this_type>::type operator>>(TRangeBuilder range_builder) const
 			{
 				return range_builder.build(*this);
 			}
@@ -2915,7 +2907,7 @@ namespace cpplinq
 			}
 
 			template<typename TRangeBuilder>
-			CPPLINQ_INLINEMETHOD typename get_builtup_type<TRangeBuilder, this_type>::type operator >> (TRangeBuilder range_builder) const
+			CPPLINQ_INLINEMETHOD typename get_builtup_type<TRangeBuilder, this_type>::type operator>>(TRangeBuilder range_builder) const
 			{
 				return range_builder.build(*this);
 			}
@@ -3478,7 +3470,7 @@ namespace cpplinq
 				}
 
 				template<typename TRangeBuilder>
-				CPPLINQ_INLINEMETHOD typename get_builtup_type<TRangeBuilder, this_type>::type operator >> (TRangeBuilder range_builder) const
+				CPPLINQ_INLINEMETHOD typename get_builtup_type<TRangeBuilder, this_type>::type operator>>(TRangeBuilder range_builder) const
 				{
 					return range_builder.build(*this);
 				}
@@ -3966,9 +3958,11 @@ namespace cpplinq
 			}
 
 			template<typename TRange>
-			CPPLINQ_INLINEMETHOD typename TRange::value_type build(TRange range) const
+			CPPLINQ_INLINEMETHOD typename get_transformed_type<selector_type, typename TRange::value_type>::type build(TRange range) const
 			{
-				auto sum = typename TRange::value_type();
+				typedef typename get_transformed_type<selector_type, typename TRange::value_type>::type value_type;
+
+				auto sum = value_type();
 				while (range.next())
 				{
 					sum += selector(range.front());
@@ -4033,9 +4027,11 @@ namespace cpplinq
 			}
 
 			template<typename TRange>
-			CPPLINQ_INLINEMETHOD typename TRange::value_type build(TRange range) const
+			CPPLINQ_INLINEMETHOD typename get_transformed_type<selector_type, typename TRange::value_type>::type build(TRange range) const
 			{
-				auto current = std::numeric_limits<typename TRange::value_type>::lowest();
+				typedef typename get_transformed_type<selector_type, typename TRange::value_type>::type value_type;
+
+				auto current = std::numeric_limits<value_type>::lowest();
 				while (range.next())
 				{
 					auto v = selector(range.front());
@@ -4112,9 +4108,11 @@ namespace cpplinq
 
 
 			template<typename TRange>
-			CPPLINQ_INLINEMETHOD typename TRange::value_type build(TRange range) const
+			CPPLINQ_INLINEMETHOD typename get_transformed_type<selector_type, typename TRange::value_type>::type build(TRange range) const
 			{
-				auto current = std::numeric_limits<typename TRange::value_type>::max();
+				typedef typename get_transformed_type<selector_type, typename TRange::value_type>::type value_type;
+
+				auto current = std::numeric_limits<value_type>::max();
 				while (range.next())
 				{
 					auto v = selector(range.front());
@@ -4191,9 +4189,11 @@ namespace cpplinq
 
 
 			template<typename TRange>
-			CPPLINQ_INLINEMETHOD typename TRange::value_type build(TRange range) const
+			CPPLINQ_INLINEMETHOD typename get_transformed_type<selector_type, typename TRange::value_type>::type build(TRange range) const
 			{
-				auto sum = typename TRange::value_type();
+				typedef typename get_transformed_type<selector_type, typename TRange::value_type>::type value_type;
+
+				auto sum = value_type();
 				int count = 0;
 				while (range.next())
 				{
@@ -4804,7 +4804,7 @@ namespace cpplinq
 			}
 
 			template<typename TPairwiseBuilder>
-			CPPLINQ_INLINEMETHOD typename get_builtup_type<TPairwiseBuilder, this_type>::type operator >> (TPairwiseBuilder pairwise_builder) const
+			CPPLINQ_INLINEMETHOD typename get_builtup_type<TPairwiseBuilder, this_type>::type operator>>(TPairwiseBuilder pairwise_builder) const
 			{
 				return pairwise_builder.build(*this);
 			}
@@ -4911,7 +4911,7 @@ namespace cpplinq
 			}
 
 			template<typename TRangeBuilder>
-			CPPLINQ_INLINEMETHOD typename get_builtup_type<TRangeBuilder, this_type>::type operator >> (TRangeBuilder range_builder) const
+			CPPLINQ_INLINEMETHOD typename get_builtup_type<TRangeBuilder, this_type>::type operator>>(TRangeBuilder range_builder) const
 			{
 				return range_builder.build(*this);
 			}
@@ -5002,7 +5002,7 @@ namespace cpplinq
 			}
 
 			template<typename TRangeBuilder>
-			CPPLINQ_INLINEMETHOD typename get_builtup_type<TRangeBuilder, this_type>::type operator >> (TRangeBuilder range_builder) const
+			CPPLINQ_INLINEMETHOD typename get_builtup_type<TRangeBuilder, this_type>::type operator>>(TRangeBuilder range_builder) const
 			{
 				return range_builder.build(*this);
 			}
@@ -5024,11 +5024,11 @@ namespace cpplinq
 
 	}   // namespace detail
 
-		// -------------------------------------------------------------------------
-		// The interface of cpplinq
-		// -------------------------------------------------------------------------
+	// -------------------------------------------------------------------------
+	// The interface of cpplinq
+	// -------------------------------------------------------------------------
 
-		// Range sources
+	// Range sources
 
 	template<typename TValueIterator>
 	CPPLINQ_INLINEMETHOD detail::from_range<TValueIterator> from_iterators(

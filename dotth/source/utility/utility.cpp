@@ -23,8 +23,8 @@ std::vector<std::string> Utility::Str::Split(std::string src, std::string token)
 		return std::vector<std::string>({ src });
 
 	std::vector<std::string> result;
-	int offset = 0;
-	int split = 0;
+	std::size_t offset = 0;
+	std::size_t split = 0;
 	while ((split = src.find(token, offset)) != std::string::npos)
 	{
 		result.push_back(src.substr(offset, split - offset));

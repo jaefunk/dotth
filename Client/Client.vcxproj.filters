@@ -5,7 +5,6 @@
     <ClInclude Include="Resource.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="Client.h" />
-    <ClInclude Include="Game\Scene\TestScene.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="small.ico" />
@@ -16,6 +15,5 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Client.cpp" />
-    <ClCompile Include="Game\Scene\TestScene.cpp" />
   </ItemGroup>
 </Project>
