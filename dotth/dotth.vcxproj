@@ -20,10 +20,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="source\dotth.h" />
-    <ClInclude Include="source\External\cpplinq\cpplinq.h" />
-    <ClInclude Include="source\External\json\json.hpp" />
-    <ClInclude Include="source\External\task\task.h" />
-    <ClInclude Include="source\External\xml\tinyxml2.h" />
     <ClInclude Include="source\framework\Base.h" />
     <ClInclude Include="source\framework\Component.h" />
     <ClInclude Include="source\framework\Node.h" />
@@ -36,7 +32,6 @@
     <ClInclude Include="source\Utility\Utility.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="source\External\xml\tinyxml2.cpp" />
     <ClCompile Include="source\framework\Base.cpp" />
     <ClCompile Include="source\framework\Component.cpp" />
     <ClCompile Include="source\framework\Object.cpp" />

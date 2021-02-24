@@ -24,6 +24,10 @@
 #include <functional>
 #include <iostream>
 
+#include "External/imgui/imgui.h"
+#include "External/imgui/backends/imgui_impl_dx11.h"
+#include "External/imgui/backends/imgui_impl_win32.h"
+
 namespace dotth 
 {
 };

@@ -12,10 +12,6 @@
     <ClInclude Include="source\utility\SingleInstance.h" />
     <ClInclude Include="source\Utility\Utility.h" />
     <ClInclude Include="source\dotth.h" />
-    <ClInclude Include="source\External\cpplinq\cpplinq.h" />
-    <ClInclude Include="source\External\json\json.hpp" />
-    <ClInclude Include="source\External\task\task.h" />
-    <ClInclude Include="source\External\xml\tinyxml2.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source\framework\Base.cpp" />
@@ -25,6 +21,5 @@
     <ClCompile Include="source\Framework\Scenario.cpp" />
     <ClCompile Include="source\framework\Scene.cpp" />
     <ClCompile Include="source\Utility\Utility.cpp" />
-    <ClCompile Include="source\External\xml\tinyxml2.cpp" />
   </ItemGroup>
 </Project>
