@@ -7,6 +7,12 @@
     <ClInclude Include="targetver.h">
       <Filter>etc</Filter>
     </ClInclude>
+    <ClInclude Include="game\Scenes\EntryPoint.h">
+      <Filter>Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="game\Objects\SampleObject.h">
+      <Filter>Objects</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Client.ico">
@@ -18,10 +24,22 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Client.cpp" />
+    <ClCompile Include="game\Scenes\EntryPoint.cpp">
+      <Filter>Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="game\Objects\SampleObject.cpp">
+      <Filter>Objects</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="etc">
       <UniqueIdentifier>{bcfe25ce-9821-4280-8352-381d3049d09b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scenes">
+      <UniqueIdentifier>{6b523089-cec9-407d-a064-ba0e4722b6aa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Objects">
+      <UniqueIdentifier>{04a702b3-d9ca-47ec-aa3e-d15d4234d28e}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

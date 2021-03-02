@@ -13,10 +13,10 @@ public:
 	void Destroy(void);
 
 protected:
-	virtual void OnInit(void);;
-	virtual void OnUpdate(void);;
-	virtual void OnDraw(void);;
-	virtual void OnDestroy(void);;
+	virtual void OnInit(void);
+	virtual void OnDestroy(void);
+	virtual void OnUpdate(void);
+	virtual void OnDraw(void);
 
 private:
 	std::list<std::shared_ptr<Component>> _Components;

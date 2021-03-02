@@ -20,6 +20,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="source\dotth.h" />
+    <ClInclude Include="source\Framework\Application.h" />
     <ClInclude Include="source\framework\Base.h" />
     <ClInclude Include="source\framework\Component.h" />
     <ClInclude Include="source\framework\Node.h" />
@@ -32,6 +33,7 @@
     <ClInclude Include="source\Utility\Utility.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="source\Framework\Application.cpp" />
     <ClCompile Include="source\framework\Base.cpp" />
     <ClCompile Include="source\framework\Component.cpp" />
     <ClCompile Include="source\framework\Object.cpp" />

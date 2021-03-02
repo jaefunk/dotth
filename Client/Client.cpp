@@ -12,6 +12,9 @@
 #include "Resource.h"
 #include "targetver.h"
 
+#include "Framework/Application.h"
+#include "game/Scenes/EntryPoint.h"
+
 #define MAX_LOADSTRING 100
 
 // Global Variables:
@@ -65,7 +68,9 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance
 	ShowWindow(hWnd, nCmdShow);
 	UpdateWindow(hWnd);
 
-	
+	Configuration Config;
+	Application App(Config);
+	App.Initialize<EntryPoint>();
 	
     // Main message loop:
 	MSG msg = { 0 };
@@ -73,9 +78,11 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance
     {
 		if (PeekMessage(&msg, nullptr, 0, 0, PM_REMOVE))
 		{
-			TranslateMessage(&msg);
-			DispatchMessage(&msg);
+			::TranslateMessage(&msg);
+			::DispatchMessage(&msg);
+			continue;
 		}
+		App.Loop();
     }
     return (int) msg.wParam;
 }

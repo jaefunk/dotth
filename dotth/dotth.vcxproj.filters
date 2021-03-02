@@ -12,6 +12,7 @@
     <ClInclude Include="source\utility\SingleInstance.h" />
     <ClInclude Include="source\Utility\Utility.h" />
     <ClInclude Include="source\dotth.h" />
+    <ClInclude Include="source\Framework\Application.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source\framework\Base.cpp" />
@@ -21,5 +22,6 @@
     <ClCompile Include="source\Framework\Scenario.cpp" />
     <ClCompile Include="source\framework\Scene.cpp" />
     <ClCompile Include="source\Utility\Utility.cpp" />
+    <ClCompile Include="source\Framework\Application.cpp" />
   </ItemGroup>
 </Project>
