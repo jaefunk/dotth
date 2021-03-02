@@ -21,6 +21,6 @@ private:
 public:
 	Base(void);
 	const unsigned int& Serial(void) const;
-	void SetName(const std::string& name);
-	const std::string& GetName(void);
+	void Rename(const std::string& name);
+	const std::string& Name(void);
 };

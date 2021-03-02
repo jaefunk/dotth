@@ -6,7 +6,6 @@
     <ClInclude Include="source\framework\Component.h" />
     <ClInclude Include="source\framework\Node.h" />
     <ClInclude Include="source\framework\Object.h" />
-    <ClInclude Include="source\framework\SampleObject.h" />
     <ClInclude Include="source\Framework\Scenario.h" />
     <ClInclude Include="source\framework\Scene.h" />
     <ClInclude Include="source\utility\SingleInstance.h" />
@@ -18,7 +17,6 @@
     <ClCompile Include="source\framework\Base.cpp" />
     <ClCompile Include="source\framework\Component.cpp" />
     <ClCompile Include="source\framework\Object.cpp" />
-    <ClCompile Include="source\framework\SampleObject.cpp" />
     <ClCompile Include="source\Framework\Scenario.cpp" />
     <ClCompile Include="source\framework\Scene.cpp" />
     <ClCompile Include="source\Utility\Utility.cpp" />

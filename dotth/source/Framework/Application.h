@@ -5,9 +5,9 @@
 
 struct Configuration
 {
-	void* hwnd;
-	int width;
-	int height;
+	void* Hwnd;
+	int Width;
+	int Height;
 
 	bool Validation(void) const
 	{

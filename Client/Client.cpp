@@ -69,6 +69,9 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance
 	UpdateWindow(hWnd);
 
 	Configuration Config;
+	Config.Hwnd = hWnd;
+	Config.Width = screen_width;
+	Config.Height = screen_height;
 	Application App(Config);
 	App.Initialize<EntryPoint>();
 	

@@ -3,6 +3,7 @@
 
 void EntryPoint::OnInit(void)
 {
+	Root()->Attach(std::make_shared<SampleObject>());
 }
 
 void EntryPoint::OnDestroy(void)
