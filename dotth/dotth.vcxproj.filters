@@ -1,25 +1,108 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClInclude Include="source\framework\shared_node.h" />
-    <ClInclude Include="source\framework\Base.h" />
-    <ClInclude Include="source\framework\Component.h" />
-    <ClInclude Include="source\framework\Node.h" />
-    <ClInclude Include="source\framework\Object.h" />
-    <ClInclude Include="source\Framework\Scenario.h" />
-    <ClInclude Include="source\framework\Scene.h" />
-    <ClInclude Include="source\utility\SingleInstance.h" />
-    <ClInclude Include="source\Utility\Utility.h" />
-    <ClInclude Include="source\dotth.h" />
-    <ClInclude Include="source\Framework\Application.h" />
+    <ClCompile Include="Application.cpp">
+      <Filter>Framework</Filter>
+    </ClCompile>
+    <ClCompile Include="Base.cpp">
+      <Filter>Framework</Filter>
+    </ClCompile>
+    <ClCompile Include="Component.cpp">
+      <Filter>Framework</Filter>
+    </ClCompile>
+    <ClCompile Include="Object.cpp">
+      <Filter>Framework</Filter>
+    </ClCompile>
+    <ClCompile Include="Scenario.cpp">
+      <Filter>Framework</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene.cpp">
+      <Filter>Framework</Filter>
+    </ClCompile>
+    <ClCompile Include="Utility.cpp">
+      <Filter>Framework</Filter>
+    </ClCompile>
+    <ClCompile Include="D3D11ConstantBuffer.cpp">
+      <Filter>D3D11</Filter>
+    </ClCompile>
+    <ClCompile Include="D3D11Device.cpp">
+      <Filter>D3D11</Filter>
+    </ClCompile>
+    <ClCompile Include="D3D11IndexBuffer.cpp">
+      <Filter>D3D11</Filter>
+    </ClCompile>
+    <ClCompile Include="D3D11RenderTarget.cpp">
+      <Filter>D3D11</Filter>
+    </ClCompile>
+    <ClCompile Include="D3D11RHI.cpp">
+      <Filter>D3D11</Filter>
+    </ClCompile>
+    <ClCompile Include="D3D11VertexBuffer.cpp">
+      <Filter>D3D11</Filter>
+    </ClCompile>
+    <ClCompile Include="D3D11Viewort.cpp">
+      <Filter>D3D11</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="source\framework\Base.cpp" />
-    <ClCompile Include="source\framework\Component.cpp" />
-    <ClCompile Include="source\framework\Object.cpp" />
-    <ClCompile Include="source\Framework\Scenario.cpp" />
-    <ClCompile Include="source\framework\Scene.cpp" />
-    <ClCompile Include="source\Utility\Utility.cpp" />
-    <ClCompile Include="source\Framework\Application.cpp" />
+    <ClInclude Include="Application.h">
+      <Filter>Framework</Filter>
+    </ClInclude>
+    <ClInclude Include="Base.h">
+      <Filter>Framework</Filter>
+    </ClInclude>
+    <ClInclude Include="Component.h">
+      <Filter>Framework</Filter>
+    </ClInclude>
+    <ClInclude Include="dotth.h">
+      <Filter>Framework</Filter>
+    </ClInclude>
+    <ClInclude Include="Node.h">
+      <Filter>Framework</Filter>
+    </ClInclude>
+    <ClInclude Include="Object.h">
+      <Filter>Framework</Filter>
+    </ClInclude>
+    <ClInclude Include="Scenario.h">
+      <Filter>Framework</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene.h">
+      <Filter>Framework</Filter>
+    </ClInclude>
+    <ClInclude Include="SingleInstance.h">
+      <Filter>Framework</Filter>
+    </ClInclude>
+    <ClInclude Include="Utility.h">
+      <Filter>Framework</Filter>
+    </ClInclude>
+    <ClInclude Include="D3D11ConstantBuffer.h">
+      <Filter>D3D11</Filter>
+    </ClInclude>
+    <ClInclude Include="D3D11Device.h">
+      <Filter>D3D11</Filter>
+    </ClInclude>
+    <ClInclude Include="D3D11IndexBuffer.h">
+      <Filter>D3D11</Filter>
+    </ClInclude>
+    <ClInclude Include="D3D11RenderTarget.h">
+      <Filter>D3D11</Filter>
+    </ClInclude>
+    <ClInclude Include="D3D11RHI.h">
+      <Filter>D3D11</Filter>
+    </ClInclude>
+    <ClInclude Include="D3D11VertexBuffer.h">
+      <Filter>D3D11</Filter>
+    </ClInclude>
+    <ClInclude Include="D3D11Viewort.h">
+      <Filter>D3D11</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Framework">
+      <UniqueIdentifier>{58fc71aa-20f1-47b9-8395-ca2aa5e02a5b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="D3D11">
+      <UniqueIdentifier>{32fecfc4-7362-49a4-9c99-bfad5178d5d9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
 </Project>

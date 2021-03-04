@@ -1,5 +1,5 @@
 #include "EntryPoint.h"
-#include "Objects/SampleObject.h"
+#include "SampleObject.h"
 
 void EntryPoint::OnInit(void)
 {

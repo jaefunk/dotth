@@ -1,7 +1,7 @@
 #pragma once
 
-#include "Framework/Scene.h"
-#include "Utility/SingleInstance.h"
+#include "Scene.h"
+#include "SingleInstance.h"
 
 class Scenario : public SingleInstance<Scenario>
 {

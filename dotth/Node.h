@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Framework/Base.h"
+#include "Base.h"
 
 template <class Ty>
 class Node : public Base, public std::enable_shared_from_this<Ty>

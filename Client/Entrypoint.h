@@ -1,14 +1,11 @@
-
 #pragma once
 
-#include "Framework/Object.h"
+//#include "../dotth/Scene.h"
+#include "Scene.h"
 
-class SampleObject : public Object
+class EntryPoint : public Scene
 {
 public:
-	SampleObject(void);
-
-protected:
 	virtual void OnInit(void) override;
 	virtual void OnDestroy(void) override;
 	virtual void OnUpdate(void) override;

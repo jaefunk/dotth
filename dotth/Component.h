@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Framework/Base.h"
+#include "Base.h"
 
 class Object;
 class Component : public Base

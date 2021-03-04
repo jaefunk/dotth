@@ -12,8 +12,8 @@
 #include "Resource.h"
 #include "targetver.h"
 
-#include "Framework/Application.h"
-#include "game/Scenes/EntryPoint.h"
+#include "Application.h"
+#include "EntryPoint.h"
 
 #define MAX_LOADSTRING 100
 

@@ -19,26 +19,39 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="source\dotth.h" />
-    <ClInclude Include="source\Framework\Application.h" />
-    <ClInclude Include="source\framework\Base.h" />
-    <ClInclude Include="source\framework\Component.h" />
-    <ClInclude Include="source\framework\Node.h" />
-    <ClInclude Include="source\framework\Object.h" />
-    <ClInclude Include="source\Framework\Scenario.h" />
-    <ClInclude Include="source\framework\Scene.h" />
-    <ClInclude Include="source\framework\shared_node.h" />
-    <ClInclude Include="source\utility\SingleInstance.h" />
-    <ClInclude Include="source\Utility\Utility.h" />
+    <ClCompile Include="Application.cpp" />
+    <ClCompile Include="Base.cpp" />
+    <ClCompile Include="Component.cpp" />
+    <ClCompile Include="D3D11ConstantBuffer.cpp" />
+    <ClCompile Include="D3D11Device.cpp" />
+    <ClCompile Include="D3D11IndexBuffer.cpp" />
+    <ClCompile Include="D3D11RenderTarget.cpp" />
+    <ClCompile Include="D3D11RHI.cpp" />
+    <ClCompile Include="D3D11VertexBuffer.cpp" />
+    <ClCompile Include="D3D11Viewort.cpp" />
+    <ClCompile Include="Object.cpp" />
+    <ClCompile Include="Scenario.cpp" />
+    <ClCompile Include="Scene.cpp" />
+    <ClCompile Include="Utility.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="source\Framework\Application.cpp" />
-    <ClCompile Include="source\framework\Base.cpp" />
-    <ClCompile Include="source\framework\Component.cpp" />
-    <ClCompile Include="source\framework\Object.cpp" />
-    <ClCompile Include="source\Framework\Scenario.cpp" />
-    <ClCompile Include="source\framework\Scene.cpp" />
-    <ClCompile Include="source\Utility\Utility.cpp" />
+    <ClInclude Include="Application.h" />
+    <ClInclude Include="Base.h" />
+    <ClInclude Include="Component.h" />
+    <ClInclude Include="D3D11ConstantBuffer.h" />
+    <ClInclude Include="D3D11Device.h" />
+    <ClInclude Include="D3D11IndexBuffer.h" />
+    <ClInclude Include="D3D11RenderTarget.h" />
+    <ClInclude Include="D3D11RHI.h" />
+    <ClInclude Include="D3D11VertexBuffer.h" />
+    <ClInclude Include="D3D11Viewort.h" />
+    <ClInclude Include="dotth.h" />
+    <ClInclude Include="Node.h" />
+    <ClInclude Include="Object.h" />
+    <ClInclude Include="Scenario.h" />
+    <ClInclude Include="Scene.h" />
+    <ClInclude Include="SingleInstance.h" />
+    <ClInclude Include="Utility.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
@@ -134,7 +147,8 @@
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <AdditionalOptions>/std:c++17 %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalIncludeDirectories>source/;</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>
+      </AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -152,7 +166,8 @@
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <AdditionalOptions>/std:c++17 %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalIncludeDirectories>source/;</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>
+      </AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -179,7 +194,8 @@
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <AdditionalOptions>/std:c++17 %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalIncludeDirectories>source/;</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>
+      </AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -201,7 +217,8 @@
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <AdditionalOptions>/std:c++17 %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalIncludeDirectories>source/;</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>
+      </AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>

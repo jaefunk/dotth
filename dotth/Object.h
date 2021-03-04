@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Framework/Node.h"
+#include "Node.h"
 
 class Object : public Node<Object>
 {

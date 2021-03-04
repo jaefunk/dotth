@@ -1,7 +1,7 @@
 #pragma once
 
-#include "Framework/Base.h"
-#include "Framework/Object.h"
+#include "Base.h"
+#include "Object.h"
 
 class Scene : public Base
 {

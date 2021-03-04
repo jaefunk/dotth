@@ -1,4 +1,4 @@
-#include "Framework/Component.h"
+#include "Component.h"
 
 const Object* Component::GetOwner(void)
 {
