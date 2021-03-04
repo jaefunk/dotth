@@ -26,6 +26,10 @@ WCHAR szWindowClass[MAX_LOADSTRING];            // the main window class name
 // Forward declarations of functions included in this code module:
 LRESULT CALLBACK    WndProc(HWND, UINT, WPARAM, LPARAM);
 
+Configuration Config;
+Application App;
+
+
 int APIENTRY wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _In_ LPWSTR lpCmdLine, _In_ int nCmdShow)
 {
     UNREFERENCED_PARAMETER(hPrevInstance);
@@ -67,14 +71,13 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance
 
 	ShowWindow(hWnd, nCmdShow);
 	UpdateWindow(hWnd);
-
-	Configuration Config;
+	
 	Config.Hwnd = hWnd;
 	Config.Width = screen_width;
 	Config.Height = screen_height;
-	Application App(Config);
-	App.Initialize<EntryPoint>();
 	
+	App.Initialize<EntryPoint>(Config);
+
     // Main message loop:
 	MSG msg = { 0 };
     while (WM_QUIT != msg.message)
@@ -102,6 +105,8 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance
 //
 LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
+	if (LRESULT lr = App.WndProc(hWnd, message, wParam, lParam))
+		return lr;
     switch (message)
     {
     case WM_COMMAND:

@@ -2,10 +2,11 @@
 #pragma once
 
 #include "Scenario.h"
+#include "D3D11RHI.h"
 
 struct Configuration
 {
-	void* Hwnd;
+	HWND Hwnd;
 	int Width;
 	int Height;
 
@@ -18,17 +19,13 @@ struct Configuration
 class Application
 {
 public:
-	Application(const Configuration& config)
+	D3D11RHI _RHI;
+
+	template <typename SceneTy>
+	void Initialize(const Configuration& config)
 	{
 		assert(config.Validation());
-	}
-
-	template <
-		typename SceneTy, 
-		typename = typename std::enable_if<std::is_base_of<Scene, SceneTy>::value, SceneTy>::type
-	>
-	void Initialize(void)
-	{
+		_RHI.Initialize(config.Hwnd, config.Width, config.Height);
 		Scenario::Instance()->Assign<SceneTy>("entrypoint");
 		Scenario::Instance()->Push("entrypoint");
 	}
@@ -36,6 +33,16 @@ public:
 	bool Loop()
 	{
 		Scenario::Instance()->Loop();
+		_RHI.Draw();
 		return true;
 	}
+
+
+
+	LRESULT WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
+	{
+		return ImGui_ImplWin32_WndProcHandler(hWnd, msg, wParam, lParam);
+	}
+
 };
+

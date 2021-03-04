@@ -152,4 +152,4 @@ namespace task {
 	}
 };
 
-#endif // __DOTTH_RENDERER__
+#endif // __DOTTH_TASK__
