@@ -22,27 +22,20 @@ public:
 	D3D11RHI _RHI;
 
 	template <typename SceneTy>
-	void Initialize(const Configuration& config)
-	{
-		assert(config.Validation());
-		_RHI.Initialize(config.Hwnd, config.Width, config.Height);
-		Scenario::Instance()->Assign<SceneTy>("entrypoint");
-		Scenario::Instance()->Push("entrypoint");
-	}
-
-	bool Loop()
-	{
-		Scenario::Instance()->Loop();
-		_RHI.Draw();
-		return true;
-	}
-
-
+	void Initialize(const Configuration& config);
+	bool Loop();
 
 	LRESULT WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 	{
 		return ImGui_ImplWin32_WndProcHandler(hWnd, msg, wParam, lParam);
 	}
-
 };
 
+template<typename SceneTy>
+void Application::Initialize(const Configuration & config)
+{
+	assert(config.Validation());
+	_RHI.Initialize(config.Hwnd, config.Width, config.Height);
+	Scenario::Instance()->Assign<SceneTy>("entrypoint");
+	Scenario::Instance()->Push("entrypoint");
+}

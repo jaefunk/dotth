@@ -42,4 +42,6 @@ void Scene::OnDraw(void)
 
 void Scene::OnDestroy(void) 
 {
+	nlohmann::json j;
+	j["asdf"] = 10;
 }

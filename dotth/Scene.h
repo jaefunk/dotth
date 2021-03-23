@@ -2,6 +2,7 @@
 
 #include "Base.h"
 #include "Object.h"
+#include "External/json/json.hpp"
 
 class Scene : public Base
 {

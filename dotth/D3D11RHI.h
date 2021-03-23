@@ -1,8 +1,6 @@
 #pragma once
 
-#include <Windows.h>
-#include <d3d11.h>
-#pragma comment(lib, "d3d11.lib")
+#include "D3D11.h"
 
 class D3D11RHI
 {
@@ -22,5 +20,4 @@ public:
 
 public:
 	void Draw(void);
-	
 };

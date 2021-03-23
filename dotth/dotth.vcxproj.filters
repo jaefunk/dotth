@@ -22,25 +22,7 @@
     <ClCompile Include="Utility.cpp">
       <Filter>Framework</Filter>
     </ClCompile>
-    <ClCompile Include="D3D11ConstantBuffer.cpp">
-      <Filter>D3D11</Filter>
-    </ClCompile>
-    <ClCompile Include="D3D11Device.cpp">
-      <Filter>D3D11</Filter>
-    </ClCompile>
-    <ClCompile Include="D3D11IndexBuffer.cpp">
-      <Filter>D3D11</Filter>
-    </ClCompile>
-    <ClCompile Include="D3D11RenderTarget.cpp">
-      <Filter>D3D11</Filter>
-    </ClCompile>
     <ClCompile Include="D3D11RHI.cpp">
-      <Filter>D3D11</Filter>
-    </ClCompile>
-    <ClCompile Include="D3D11VertexBuffer.cpp">
-      <Filter>D3D11</Filter>
-    </ClCompile>
-    <ClCompile Include="D3D11Viewort.cpp">
       <Filter>D3D11</Filter>
     </ClCompile>
     <ClCompile Include="External\xml\tinyxml2.cpp">
@@ -66,6 +48,9 @@
     </ClCompile>
     <ClCompile Include="External\imgui\imgui_widgets.cpp">
       <Filter>External\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="D3D11Camera.cpp">
+      <Filter>D3D11</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -99,25 +84,7 @@
     <ClInclude Include="Utility.h">
       <Filter>Framework</Filter>
     </ClInclude>
-    <ClInclude Include="D3D11ConstantBuffer.h">
-      <Filter>D3D11</Filter>
-    </ClInclude>
-    <ClInclude Include="D3D11Device.h">
-      <Filter>D3D11</Filter>
-    </ClInclude>
-    <ClInclude Include="D3D11IndexBuffer.h">
-      <Filter>D3D11</Filter>
-    </ClInclude>
-    <ClInclude Include="D3D11RenderTarget.h">
-      <Filter>D3D11</Filter>
-    </ClInclude>
     <ClInclude Include="D3D11RHI.h">
-      <Filter>D3D11</Filter>
-    </ClInclude>
-    <ClInclude Include="D3D11VertexBuffer.h">
-      <Filter>D3D11</Filter>
-    </ClInclude>
-    <ClInclude Include="D3D11Viewort.h">
       <Filter>D3D11</Filter>
     </ClInclude>
     <ClInclude Include="External\cpplinq\cpplinq.h">
@@ -155,6 +122,12 @@
     </ClInclude>
     <ClInclude Include="External\imgui\imstb_truetype.h">
       <Filter>External\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="D3D11Camera.h">
+      <Filter>D3D11</Filter>
+    </ClInclude>
+    <ClInclude Include="D3D11.h">
+      <Filter>D3D11</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
