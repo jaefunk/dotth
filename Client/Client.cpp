@@ -62,7 +62,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance
 	hInst = hInstance; // Store instance handle in our global variable
 	//hWnd = CreateWindowEx(WS_EX_APPWINDOW, szWindowClass, szTitle, WS_CLIPSIBLINGS | WS_CLIPCHILDREN | WS_POPUP, 100, 100, screen_width, screen_height, NULL, NULL, hInst, NULL);
 	//hWnd = CreateWindowW(szWindowClass, szTitle, WS_OVERLAPPED, CW_USEDEFAULT, 0, CW_USEDEFAULT, 0, nullptr, nullptr, hInstance, nullptr);
-	hWnd = CreateWindow(szWindowClass, szTitle, WS_OVERLAPPEDWINDOW ^ WS_THICKFRAME, 4000, 300, screen_width, screen_height, NULL, NULL, hInst, NULL);
+	hWnd = CreateWindow(szWindowClass, szTitle, WS_OVERLAPPEDWINDOW ^ WS_THICKFRAME, 300, 300, screen_width, screen_height, NULL, NULL, hInst, NULL);
 
 	if (!hWnd)
 	{
@@ -105,8 +105,6 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance
 //
 LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
-	if (LRESULT lr = App.WndProc(hWnd, message, wParam, lParam))
-		return lr;
     switch (message)
     {
     case WM_COMMAND:

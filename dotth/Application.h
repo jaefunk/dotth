@@ -24,11 +24,6 @@ public:
 	template <typename SceneTy>
 	void Initialize(const Configuration& config);
 	bool Loop();
-
-	LRESULT WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
-	{
-		return ImGui_ImplWin32_WndProcHandler(hWnd, msg, wParam, lParam);
-	}
 };
 
 template<typename SceneTy>

@@ -1,4 +1,11 @@
 #include "Scene.h"
+#include "curl.h"
+#pragma comment(lib, "libcurl/lib/Win64/libcurl.lib")
+
+size_t writeFunction(void *ptr, size_t size, size_t nmemb, std::string* data) {
+	data->append((char*)ptr, size * nmemb);
+	return size * nmemb;
+}
 
 void Scene::Init(void)
 {
@@ -42,6 +49,4 @@ void Scene::OnDraw(void)
 
 void Scene::OnDestroy(void) 
 {
-	nlohmann::json j;
-	j["asdf"] = 10;
 }
