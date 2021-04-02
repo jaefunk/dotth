@@ -12,13 +12,7 @@ private:
 	std::unordered_map<std::string, std::function<std::shared_ptr<Scene>(void)>> _SignedScene;
 	std::shared_ptr<Scene> _CurrentScene;
 	void ApplyNewScene(void);
-	D3D11RHI* _RHI;
 
-public:
-	void InitRHI(D3D11RHI* RHI)
-	{
-		_RHI = RHI;
-	}
 public:
 	void Push(std::string key);
 	void Pop(void);

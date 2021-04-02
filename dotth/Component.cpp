@@ -1,6 +1,17 @@
 #include "Component.h"
 
-const Object* Component::GetOwner(void)
+void Component::OnInit(void)
 {
-	return _Owner;
+}
+
+void Component::OnUpdate(void)
+{
+}
+
+void Component::OnDraw(void)
+{
+}
+
+void Component::OnDestroy(void)
+{
 }

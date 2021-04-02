@@ -4,6 +4,10 @@
 void Object::Init(void)
 {
 	OnInit();
+	for (std::shared_ptr<Component> Comp : _Components)
+	{
+		Comp->OnInit();
+	}
 	Foreach([](std::shared_ptr<Object> child) {
 		child->Init();
 	});
@@ -12,6 +16,10 @@ void Object::Init(void)
 void Object::Destroy(void)
 {
 	OnDestroy();
+	for (std::shared_ptr<Component> Comp : _Components)
+	{
+		Comp->OnDestroy();
+	}
 	Foreach([](std::shared_ptr<Object> child) {
 		child->Destroy();
 	});
@@ -20,6 +28,10 @@ void Object::Destroy(void)
 void Object::Update(void)
 {
 	OnUpdate();
+	for (std::shared_ptr<Component> Comp : _Components)
+	{
+		Comp->OnUpdate();
+	}
 	Foreach([](std::shared_ptr<Object> child) {
 		child->Update();
 	});
@@ -28,6 +40,10 @@ void Object::Update(void)
 void Object::Draw(void)
 {
 	OnDraw();
+	for (std::shared_ptr<Component> Comp : _Components)
+	{
+		Comp->OnDraw();
+	}
 	Foreach([](std::shared_ptr<Object> child) {
 		child->Draw();
 	});

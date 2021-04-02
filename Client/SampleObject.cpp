@@ -1,4 +1,5 @@
 #include "SampleObject.h"
+#include "../dotth/PrimitiveComponent.h"
 
 SampleObject::SampleObject(void)
 {
@@ -6,6 +7,7 @@ SampleObject::SampleObject(void)
 
 void SampleObject::OnInit(void)
 {
+	AddComponent(std::make_shared<PrimitiveComponent>());
 }
 
 void SampleObject::OnDestroy(void)

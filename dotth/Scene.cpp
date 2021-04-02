@@ -1,38 +1,39 @@
 #include "Scene.h"
-#include "curl.h"
-#pragma comment(lib, "libcurl/lib/Win64/libcurl.lib")
-
-size_t writeFunction(void *ptr, size_t size, size_t nmemb, std::string* data) {
-	data->append((char*)ptr, size * nmemb);
-	return size * nmemb;
-}
 
 void Scene::Init(void)
 {
 	OnInit();
-	_Root->Init();
+	for (std::shared_ptr<Object> Obj : _Objects)
+	{
+		Obj->Init();
+	}	
 }
 
 void Scene::Update(void)
 {
 	OnUpdate();
-	_Root->Update();
+	for (std::shared_ptr<Object> Obj : _Objects)
+	{
+		Obj->Update();
+	}
 }
 
 void Scene::Draw(void)
 {
 	OnDraw();
-	_Root->Draw();
+	for (std::shared_ptr<Object> Obj : _Objects)
+	{
+		Obj->Draw();
+	}
 }
 
 void Scene::Destroy(void)
 {
 	OnDestroy();
-	_Root->Destroy();
-}
-
-const std::shared_ptr<Object>& Scene::Root(void) {
-	return _Root;
+	for (std::shared_ptr<Object> Obj : _Objects)
+	{
+		Obj->Destroy();
+	}
 }
 
 void Scene::OnInit(void) 

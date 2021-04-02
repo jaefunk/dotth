@@ -54,7 +54,7 @@ public:
 		return false;
 	}
 
-	void Attach(std::shared_ptr<Ty> target)
+	void AddChild(std::shared_ptr<Ty> target)
 	{
 		target->Leave();
 		_Children.push_back(target);

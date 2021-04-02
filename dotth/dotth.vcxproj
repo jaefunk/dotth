@@ -23,8 +23,10 @@
     <ClCompile Include="Base.cpp" />
     <ClCompile Include="Component.cpp" />
     <ClCompile Include="D3D11Camera.cpp" />
+    <ClCompile Include="D3D11Primitive.cpp" />
     <ClCompile Include="D3D11RHI.cpp" />
     <ClCompile Include="Object.cpp" />
+    <ClCompile Include="PrimitiveComponent.cpp" />
     <ClCompile Include="Scenario.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="Utility.cpp" />
@@ -35,10 +37,12 @@
     <ClInclude Include="Component.h" />
     <ClInclude Include="D3D11.h" />
     <ClInclude Include="D3D11Camera.h" />
+    <ClInclude Include="D3D11Primitive.h" />
     <ClInclude Include="D3D11RHI.h" />
     <ClInclude Include="dotth.h" />
     <ClInclude Include="Node.h" />
     <ClInclude Include="Object.h" />
+    <ClInclude Include="PrimitiveComponent.h" />
     <ClInclude Include="Scenario.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="SingleInstance.h" />

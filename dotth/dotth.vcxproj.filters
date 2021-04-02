@@ -28,6 +28,12 @@
     <ClCompile Include="D3D11Camera.cpp">
       <Filter>D3D11</Filter>
     </ClCompile>
+    <ClCompile Include="D3D11Primitive.cpp">
+      <Filter>D3D11</Filter>
+    </ClCompile>
+    <ClCompile Include="PrimitiveComponent.cpp">
+      <Filter>Framework</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.h">
@@ -68,6 +74,12 @@
     </ClInclude>
     <ClInclude Include="D3D11.h">
       <Filter>D3D11</Filter>
+    </ClInclude>
+    <ClInclude Include="D3D11Primitive.h">
+      <Filter>D3D11</Filter>
+    </ClInclude>
+    <ClInclude Include="PrimitiveComponent.h">
+      <Filter>Framework</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
