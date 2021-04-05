@@ -1,8 +1,8 @@
 #pragma once
 
-#include "Component.h"
+#include "MeshComponent.h"
 
-class PrimitiveComponent : public Component
+class StaticMeshComponent : public MeshComponent
 {
 public:
 	virtual void OnInit(void) override

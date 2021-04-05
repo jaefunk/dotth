@@ -34,6 +34,12 @@
     <ClCompile Include="PrimitiveComponent.cpp">
       <Filter>Framework</Filter>
     </ClCompile>
+    <ClCompile Include="StaticMeshComponent.cpp">
+      <Filter>Framework</Filter>
+    </ClCompile>
+    <ClCompile Include="MeshComponent.cpp">
+      <Filter>Framework</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.h">
@@ -81,6 +87,39 @@
     <ClInclude Include="PrimitiveComponent.h">
       <Filter>Framework</Filter>
     </ClInclude>
+    <ClInclude Include="StaticMeshComponent.h">
+      <Filter>Framework</Filter>
+    </ClInclude>
+    <ClInclude Include="MeshComponent.h">
+      <Filter>Framework</Filter>
+    </ClInclude>
+    <ClInclude Include="RawMesh.h">
+      <Filter>Framework</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\Math.h">
+      <Filter>Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\MathUtility.h">
+      <Filter>Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\Matrix.h">
+      <Filter>Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\Transform.h">
+      <Filter>Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\Float2.h">
+      <Filter>Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\Float4.h">
+      <Filter>Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\Float3.h">
+      <Filter>Math</Filter>
+    </ClInclude>
+    <ClInclude Include="StaticMesh.h">
+      <Filter>Framework</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Framework">
@@ -88,6 +127,9 @@
     </Filter>
     <Filter Include="D3D11">
       <UniqueIdentifier>{32fecfc4-7362-49a4-9c99-bfad5178d5d9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Math">
+      <UniqueIdentifier>{b4fba5f1-36a5-4623-a21f-0f29a81d22e8}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

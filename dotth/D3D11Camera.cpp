@@ -1,67 +1,82 @@
-﻿#include "D3D11Camera.h"
+﻿
+#include "D3D11Camera.h"
 
-
-D3D11Camera::D3D11Camera()
+XMMATRIX * D3D11Camera::View(void)
 {
-	m_position = XMFLOAT3(0.0f, 0.0f, 0.0f);;
-	m_rotation = XMFLOAT3(0.0f, 0.0f, 0.0f);
+	return &_View;
 }
 
-D3D11Camera::~D3D11Camera()
+XMMATRIX * D3D11Camera::Perspective(void)
 {
+	return &_Perspective;
 }
 
-
-void D3D11Camera::SetPosition(float x, float y, float z)
+XMMATRIX * D3D11Camera::Ortho(void)
 {
-	m_position.x = x;
-	m_position.y = y;
-	m_position.z = z;
+	return &_Ortho;
 }
 
-
-void D3D11Camera::SetRotation(float x, float y, float z)
+void D3D11Camera::SetEye(const XMFLOAT3 & value)
 {
-	m_rotation.x = x;
-	m_rotation.y = y;
-	m_rotation.z = z;
+	_DirtyFlags |= FLAG::VIEW;
+	_Eye = value;
 }
 
-void D3D11Camera::Render()
+void D3D11Camera::SetUp(const XMFLOAT3 & value)
 {
-	XMFLOAT3 up, position, lookAt;
-
-	// 위쪽을 가리키는 벡터를 설정합니다.
-	up.x = 0.0f;
-	up.y = 1.0f;
-	up.z = 0.0f;
-
-	// XMVECTOR 구조체에 로드한다.
-	XMVECTOR upVector = XMLoadFloat3(&up);
-
-	// 3D월드에서 카메라의 위치를 ​​설정합니다.
-	position = m_position;
-
-	// XMVECTOR 구조체에 로드한다.
-	XMVECTOR positionVector = XMLoadFloat3(&position);
-
-	// Calculate the rotation in radians.
-	float radians = m_rotation.y * 0.0174532925f;
-
-	// 기본적으로 카메라가 찾고있는 위치를 설정합니다.
-	lookAt.x = sinf(radians) + m_position.x;
-	lookAt.y = m_position.y;
-	lookAt.z = cosf(radians) + m_position.z;
-
-	// XMVECTOR 구조체에 로드한다.
-	XMVECTOR lookAtVector = XMLoadFloat3(&lookAt);
-
-	// 마지막으로 세 개의 업데이트 된 벡터에서 뷰 행렬을 만듭니다.
-	m_viewMatrix = XMMatrixLookAtLH(positionVector, lookAtVector, upVector);
+	_DirtyFlags |= FLAG::VIEW;
+	_Up = value;
 }
 
-
-void D3D11Camera::GetViewMatrix(XMMATRIX& viewMatrix)
+void D3D11Camera::SetAt(const XMFLOAT3 & value)
 {
-	viewMatrix = m_viewMatrix;
+	_DirtyFlags |= FLAG::VIEW;
+	_At = value;
+}
+
+void D3D11Camera::SetFieldOfView(const float & value)
+{
+	_DirtyFlags |= FLAG::PERSPECTIVE;
+	_Fov = value;
+}
+
+void D3D11Camera::SetViewportSize(const int & width, const int & height)
+{
+	_DirtyFlags |= FLAG::PERSPECTIVE;
+	_DirtyFlags |= FLAG::ORTHO;
+	_Width = width;
+	_Height = height;
+}
+
+void D3D11Camera::SetNear(const float & value)
+{
+	_DirtyFlags |= FLAG::PERSPECTIVE;
+	_DirtyFlags |= FLAG::ORTHO;
+	_Near = value;
+}
+
+void D3D11Camera::SetFar(const float & value)
+{
+	_DirtyFlags |= FLAG::PERSPECTIVE;
+	_DirtyFlags |= FLAG::ORTHO;
+	_Far = value;
+}
+
+void D3D11Camera::Sync(void)
+{
+	if (_DirtyFlags & FLAG::VIEW)
+	{
+		_View = XMMatrixLookAtLH(XMLoadFloat3(&_Eye), XMLoadFloat3(&_At), XMLoadFloat3(&_Up));
+	}
+
+	if (_DirtyFlags & FLAG::PERSPECTIVE)
+	{
+		_Perspective = XMMatrixPerspectiveFovLH(_Fov, static_cast<float>(_Width) / static_cast<float>(_Height), _Near, _Far);
+	}
+
+	if (_DirtyFlags & FLAG::ORTHO)
+	{
+		_Ortho = XMMatrixOrthographicLH(static_cast<float>(_Width), static_cast<float>(_Height), _Near, _Far);
+	}
+	_DirtyFlags = FLAG::NONE;
 }

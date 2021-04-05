@@ -25,10 +25,12 @@
     <ClCompile Include="D3D11Camera.cpp" />
     <ClCompile Include="D3D11Primitive.cpp" />
     <ClCompile Include="D3D11RHI.cpp" />
+    <ClCompile Include="MeshComponent.cpp" />
     <ClCompile Include="Object.cpp" />
     <ClCompile Include="PrimitiveComponent.cpp" />
     <ClCompile Include="Scenario.cpp" />
     <ClCompile Include="Scene.cpp" />
+    <ClCompile Include="StaticMeshComponent.cpp" />
     <ClCompile Include="Utility.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -40,12 +42,23 @@
     <ClInclude Include="D3D11Primitive.h" />
     <ClInclude Include="D3D11RHI.h" />
     <ClInclude Include="dotth.h" />
+    <ClInclude Include="Math\Math.h" />
+    <ClInclude Include="Math\MathUtility.h" />
+    <ClInclude Include="Math\Matrix.h" />
+    <ClInclude Include="Math\Transform.h" />
+    <ClInclude Include="Math\Float2.h" />
+    <ClInclude Include="Math\Float3.h" />
+    <ClInclude Include="Math\Float4.h" />
+    <ClInclude Include="MeshComponent.h" />
     <ClInclude Include="Node.h" />
     <ClInclude Include="Object.h" />
     <ClInclude Include="PrimitiveComponent.h" />
+    <ClInclude Include="RawMesh.h" />
     <ClInclude Include="Scenario.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="SingleInstance.h" />
+    <ClInclude Include="StaticMesh.h" />
+    <ClInclude Include="StaticMeshComponent.h" />
     <ClInclude Include="Utility.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
@@ -105,7 +118,7 @@
     <OutDir>$(SolutionDir)\Output\$(ProjectName)\$(PlatformTarget)\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)\Output\$(ProjectName)\$(PlatformTarget)\$(Configuration)\</IntDir>
     <EnableManagedIncrementalBuild>true</EnableManagedIncrementalBuild>
-    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);External/imgui/;External/libcurl/include/Win64/;</IncludePath>
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
     <LibraryPath>$(LibraryPath);</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -113,7 +126,7 @@
     <OutDir>$(SolutionDir)\Output\$(ProjectName)\$(PlatformTarget)\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)\Output\$(ProjectName)\$(PlatformTarget)\$(Configuration)\</IntDir>
     <EnableManagedIncrementalBuild>true</EnableManagedIncrementalBuild>
-    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);External/imgui/;External/libcurl/include/Win64/;</IncludePath>
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
     <LibraryPath>$(LibraryPath);</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -121,7 +134,7 @@
     <OutDir>$(SolutionDir)\Output\$(ProjectName)\$(PlatformTarget)\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)\Output\$(ProjectName)\$(PlatformTarget)\$(Configuration)\</IntDir>
     <EnableManagedIncrementalBuild>true</EnableManagedIncrementalBuild>
-    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);External/imgui/;External/libcurl/include/Win64/;</IncludePath>
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
     <LibraryPath>$(LibraryPath);</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -129,7 +142,7 @@
     <OutDir>$(SolutionDir)\Output\$(ProjectName)\$(PlatformTarget)\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)\Output\$(ProjectName)\$(PlatformTarget)\$(Configuration)\</IntDir>
     <EnableManagedIncrementalBuild>true</EnableManagedIncrementalBuild>
-    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);External/imgui/;External/libcurl/include/Win64/;</IncludePath>
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
     <LibraryPath>$(LibraryPath);</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
