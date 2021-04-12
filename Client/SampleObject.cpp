@@ -1,5 +1,6 @@
 #include "SampleObject.h"
-#include "../dotth/PrimitiveComponent.h"
+
+#include "../dotth/StaticMeshComponent.h"
 
 SampleObject::SampleObject(void)
 {

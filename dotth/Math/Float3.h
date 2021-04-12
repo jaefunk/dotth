@@ -1,8 +1,6 @@
 
 #pragma once
 
-#include "MathUtility.h"
-
 struct Float3 : public InitializeZero<Float3> {
 	union {
 		struct { float F[3]; };

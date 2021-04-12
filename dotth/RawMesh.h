@@ -3,16 +3,24 @@
 #include "dotth.h"
 #include "Math/Math.h"
 
-enum
+struct Vertex
 {
-	MAX_TEXTURE_COORDS = 8,
+	Vector3F Position;
+	Vector3F Normal;
+	Vector2F UV;
+	Vector3F Color;
 };
 
-struct RawMesh
+class Mesh
 {
-	std::vector<Vector3F> Vertices;
+private:
+	std::vector<Vertex> Vertices;
 	std::vector<uint32_t> Indices;
-	std::vector<Vector3F> Normals;
-	std::vector<uint32_t> Colors;
-	std::vector<Float2> TexCoords[MAX_TEXTURE_COORDS];
+
+	void Clear(void) {
+
+	}
+	bool IsValid(void) const {
+		return true;
+	}
 };

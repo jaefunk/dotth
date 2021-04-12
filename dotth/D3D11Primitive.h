@@ -23,8 +23,8 @@ public:
 	ID3D11Buffer* _VertexBuffer = nullptr;
 	ID3D11Buffer* _IndexBuffer = nullptr;
 	ID3D11Buffer* _ConstantBuffer = nullptr;
-	unsigned int _VertexCount = 0;
-	unsigned int _IndexCount = 0;
+	std::size_t _VertexCount = 0;
+	std::size_t _IndexCount = 0;
 
 public:
 	void SetVertex(const std::vector<D3D11VertexPNU>& v)
@@ -33,7 +33,7 @@ public:
 		D3D11_BUFFER_DESC desc;
 		memset(&desc, 0, sizeof(decltype(desc)));
 		desc.Usage = D3D11_USAGE_DEFAULT;
-		desc.ByteWidth = sizeof(D3D11VertexPNU) * v.size();
+		desc.ByteWidth = static_cast<unsigned int>(sizeof(D3D11VertexPNU) * v.size());
 		desc.BindFlags = D3D11_BIND_VERTEX_BUFFER;
 		desc.CPUAccessFlags;
 		desc.MiscFlags;
@@ -51,7 +51,7 @@ public:
 		D3D11_BUFFER_DESC desc;
 		memset(&desc, 0, sizeof(decltype(desc)));
 		desc.Usage = D3D11_USAGE_DEFAULT;
-		desc.ByteWidth = sizeof(unsigned int) * v.size();
+		desc.ByteWidth = static_cast<unsigned int>(sizeof(unsigned int) * v.size());
 		desc.BindFlags = D3D11_BIND_INDEX_BUFFER;
 		desc.CPUAccessFlags;
 		desc.MiscFlags;
