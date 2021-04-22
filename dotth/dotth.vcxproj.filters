@@ -40,6 +40,9 @@
     <ClCompile Include="MeshComponent.cpp">
       <Filter>Framework</Filter>
     </ClCompile>
+    <ClCompile Include="D3D11Shader.cpp">
+      <Filter>D3D11</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.h">
@@ -119,6 +122,9 @@
     </ClInclude>
     <ClInclude Include="StaticMesh.h">
       <Filter>Framework</Filter>
+    </ClInclude>
+    <ClInclude Include="D3D11Shader.h">
+      <Filter>D3D11</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

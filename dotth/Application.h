@@ -19,8 +19,6 @@ struct Configuration
 class Application
 {
 public:
-	D3D11RHI _RHI;
-
 	template <typename SceneTy>
 	void Initialize(const Configuration& config);
 	bool Loop();
@@ -30,7 +28,7 @@ template<typename SceneTy>
 void Application::Initialize(const Configuration & config)
 {
 	assert(config.Validation());
-	_RHI.Initialize(config.Hwnd, config.Width, config.Height);
+	D3D11RHI::Initialize(config.Hwnd, config.Width, config.Height);
 	Scenario::Instance()->Assign<SceneTy>("entrypoint");
 	Scenario::Instance()->Push("entrypoint");
 }

@@ -10,7 +10,6 @@
 
 #include "Resource.h"
 #include "targetver.h"
-
 #include "Application.h"
 #include "EntryPoint.h"
 

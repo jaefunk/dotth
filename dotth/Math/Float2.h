@@ -3,7 +3,7 @@
 
 struct Float2 : public InitializeZero<Float2> {
 	union {
-		struct { float F[]; };
+		struct { float F[2]; };
 		struct { float X, Y; };
 		struct { float U, V; };
 	};

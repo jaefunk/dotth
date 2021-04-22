@@ -25,6 +25,7 @@
     <ClCompile Include="D3D11Camera.cpp" />
     <ClCompile Include="D3D11Primitive.cpp" />
     <ClCompile Include="D3D11RHI.cpp" />
+    <ClCompile Include="D3D11Shader.cpp" />
     <ClCompile Include="MeshComponent.cpp" />
     <ClCompile Include="Object.cpp" />
     <ClCompile Include="PrimitiveComponent.cpp" />
@@ -41,6 +42,7 @@
     <ClInclude Include="D3D11Camera.h" />
     <ClInclude Include="D3D11Primitive.h" />
     <ClInclude Include="D3D11RHI.h" />
+    <ClInclude Include="D3D11Shader.h" />
     <ClInclude Include="dotth.h" />
     <ClInclude Include="Math\Math.h" />
     <ClInclude Include="Math\MathUtility.h" />
@@ -118,7 +120,7 @@
     <OutDir>$(SolutionDir)\Output\$(ProjectName)\$(PlatformTarget)\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)\Output\$(ProjectName)\$(PlatformTarget)\$(Configuration)\</IntDir>
     <EnableManagedIncrementalBuild>true</EnableManagedIncrementalBuild>
-    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);../dotth/External/</IncludePath>
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(DXSDK_DIR)Include;../dotth/External/</IncludePath>
     <LibraryPath>$(LibraryPath);</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -126,7 +128,7 @@
     <OutDir>$(SolutionDir)\Output\$(ProjectName)\$(PlatformTarget)\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)\Output\$(ProjectName)\$(PlatformTarget)\$(Configuration)\</IntDir>
     <EnableManagedIncrementalBuild>true</EnableManagedIncrementalBuild>
-    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);../dotth/External/</IncludePath>
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(DXSDK_DIR)Include;../dotth/External/</IncludePath>
     <LibraryPath>$(LibraryPath);</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -134,7 +136,7 @@
     <OutDir>$(SolutionDir)\Output\$(ProjectName)\$(PlatformTarget)\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)\Output\$(ProjectName)\$(PlatformTarget)\$(Configuration)\</IntDir>
     <EnableManagedIncrementalBuild>true</EnableManagedIncrementalBuild>
-    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);../dotth/External/</IncludePath>
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(DXSDK_DIR)Include;../dotth/External/</IncludePath>
     <LibraryPath>$(LibraryPath);</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -142,7 +144,7 @@
     <OutDir>$(SolutionDir)\Output\$(ProjectName)\$(PlatformTarget)\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)\Output\$(ProjectName)\$(PlatformTarget)\$(Configuration)\</IntDir>
     <EnableManagedIncrementalBuild>true</EnableManagedIncrementalBuild>
-    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);../dotth/External/</IncludePath>
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(DXSDK_DIR)Include;../dotth/External/</IncludePath>
     <LibraryPath>$(LibraryPath);</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">

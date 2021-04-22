@@ -1,5 +1,6 @@
 #pragma once
 
+#include "D3D11RHI.h"
 #include "Component.h"
 
 class PrimitiveComponent : public Component

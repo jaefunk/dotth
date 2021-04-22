@@ -1,6 +1,5 @@
 #pragma once
 
-//#include "../dotth/Scene.h"
 #include "Scene.h"
 
 class EntryPoint : public Scene

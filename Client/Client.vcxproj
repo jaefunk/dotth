@@ -96,28 +96,28 @@
     <OutDir>$(SolutionDir)Output\$(ProjectName)\$(PlatformTarget)\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)Output\$(ProjectName)\$(PlatformTarget)\$(Configuration)\</IntDir>
     <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);;../dotth/;;../dotth/External/imgui/;../dotth/External/</IncludePath>
-    <LibraryPath>$(LibraryPath);../dotth/External/</LibraryPath>
+    <LibraryPath>$(LibraryPath);../dotth/External/;C:\Program Files (x86)\Microsoft DirectX SDK June 2010\Lib\$(PlatformTarget)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
     <OutDir>$(SolutionDir)Output\$(ProjectName)\$(PlatformTarget)\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)Output\$(ProjectName)\$(PlatformTarget)\$(Configuration)\</IntDir>
     <IncludePath>$(IncludePath);;../dotth/;../dotth/External/imgui/;../dotth/External/</IncludePath>
-    <LibraryPath>$(LibraryPath);../dotth/External/</LibraryPath>
+    <LibraryPath>$(LibraryPath);../dotth/External/;C:\Program Files (x86)\Microsoft DirectX SDK June 2010\Lib\$(PlatformTarget)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
     <OutDir>$(SolutionDir)Output\$(ProjectName)\$(PlatformTarget)\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)Output\$(ProjectName)\$(PlatformTarget)\$(Configuration)\</IntDir>
     <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);;../dotth/;;../dotth/External/imgui/;../dotth/External/</IncludePath>
-    <LibraryPath>$(LibraryPath);../dotth/External/</LibraryPath>
+    <LibraryPath>$(LibraryPath);../dotth/External/;C:\Program Files (x86)\Microsoft DirectX SDK June 2010\Lib\$(PlatformTarget)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
     <OutDir>$(SolutionDir)Output\$(ProjectName)\$(PlatformTarget)\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)Output\$(ProjectName)\$(PlatformTarget)\$(Configuration)\</IntDir>
     <IncludePath>$(IncludePath);;../dotth/;../dotth/External/imgui/;../dotth/External/</IncludePath>
-    <LibraryPath>$(LibraryPath);../dotth/External/</LibraryPath>
+    <LibraryPath>$(LibraryPath);../dotth/External/;C:\Program Files (x86)\Microsoft DirectX SDK June 2010\Lib\$(PlatformTarget)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -126,7 +126,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions);_ENABLE_EXTENDED_ALIGNED_STORAGE</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>
       </AdditionalIncludeDirectories>
@@ -134,7 +134,7 @@
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>d3d11.lib;d3dcompiler.lib;dxgi.lib;%(AdditionalDependencies);dotth.lib;;libcurl\lib\$(PlatformTarget)\libcurl.lib</AdditionalDependencies>
+      <AdditionalDependencies>%(AdditionalDependencies);dotth.lib;;libcurl\lib\$(PlatformTarget)\libcurl.lib</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(DXSDK_DIR)/Lib/x86;../Output/dotth/$(PlatformTarget)/$(Configuration)/;$(WindowsSDK_LibraryPath_x86)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
@@ -145,7 +145,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_DEBUG;_WINDOWS;%(PreprocessorDefinitions);_ENABLE_EXTENDED_ALIGNED_STORAGE</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>
       </AdditionalIncludeDirectories>
@@ -153,7 +153,7 @@
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>d3d11.lib;d3dcompiler.lib;dxgi.lib;%(AdditionalDependencies);dotth.lib;;libcurl\lib\$(PlatformTarget)\libcurl.lib</AdditionalDependencies>
+      <AdditionalDependencies>%(AdditionalDependencies);dotth.lib;;libcurl\lib\$(PlatformTarget)\libcurl.lib</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(DXSDK_DIR)/Lib/x64;../Output/dotth/$(PlatformTarget)/$(Configuration)/;$(WindowsSDK_LibraryPath_x64);</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
@@ -166,7 +166,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;%(PreprocessorDefinitions);_ENABLE_EXTENDED_ALIGNED_STORAGE</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>
       </AdditionalIncludeDirectories>
@@ -176,7 +176,7 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>d3d11.lib;d3dcompiler.lib;dxgi.lib;%(AdditionalDependencies);dotth.lib;;libcurl\lib\$(PlatformTarget)\libcurl.lib</AdditionalDependencies>
+      <AdditionalDependencies>%(AdditionalDependencies);dotth.lib;;libcurl\lib\$(PlatformTarget)\libcurl.lib</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(DXSDK_DIR)/Lib/x86;../Output/dotth/$(PlatformTarget)/$(Configuration)/;$(WindowsSDK_LibraryPath_x86)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
@@ -189,7 +189,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>NDEBUG;_WINDOWS;%(PreprocessorDefinitions);_ENABLE_EXTENDED_ALIGNED_STORAGE</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>
       </AdditionalIncludeDirectories>
@@ -199,7 +199,7 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>d3d11.lib;d3dcompiler.lib;dxgi.lib;%(AdditionalDependencies);dotth.lib;;libcurl\lib\$(PlatformTarget)\libcurl.lib</AdditionalDependencies>
+      <AdditionalDependencies>%(AdditionalDependencies);dotth.lib;;libcurl\lib\$(PlatformTarget)\libcurl.lib</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(DXSDK_DIR)/Lib/x64;../Output/dotth/$(PlatformTarget)/$(Configuration)/;$(WindowsSDK_LibraryPath_x64);</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>

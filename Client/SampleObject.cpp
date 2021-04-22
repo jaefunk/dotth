@@ -8,7 +8,9 @@ SampleObject::SampleObject(void)
 
 void SampleObject::OnInit(void)
 {
-	AddComponent(std::make_shared<PrimitiveComponent>());
+	//auto jj = std::make_shared< StaticMeshComponent>();
+	_StaticMesh = AddComponent<StaticMeshComponent>();
+	//_StaticMesh->LoadMesh()
 }
 
 void SampleObject::OnDestroy(void)

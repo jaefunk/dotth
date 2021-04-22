@@ -21,6 +21,14 @@ private:
 	std::list<std::shared_ptr<Component>> _Components;
 
 public:
+	template <typename ty>
+	std::shared_ptr<ty> AddComponent(void)
+	{
+		std::shared_ptr<ty> value = std::make_shared<ty>();
+		_Components.push_back(value);
+		return value;
+	}
+
 	void AddComponent(std::shared_ptr<Component> component)
 	{
 		for (std::shared_ptr<Component> Comp : _Components)

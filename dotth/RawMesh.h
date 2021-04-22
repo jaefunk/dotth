@@ -3,17 +3,36 @@
 #include "dotth.h"
 #include "Math/Math.h"
 
+struct MatrixBuffer
+{
+	XMMATRIX World;
+	XMMATRIX View;
+	XMMATRIX Projection;
+};
+
 struct Vertex
 {
 	Vector3F Position;
 	Vector3F Normal;
 	Vector2F UV;
 	Vector3F Color;
+	static constexpr std::size_t Size(void)
+	{
+		return sizeof(Vertex);
+	}
+	Vertex(void)
+	{
+	}
+	Vertex(Vector3F pos, Vector3F color)
+	{
+		Position = pos;
+		Color = color;
+	}
 };
 
 class Mesh
 {
-private:
+public:
 	std::vector<Vertex> Vertices;
 	std::vector<uint32_t> Indices;
 
@@ -23,4 +42,9 @@ private:
 	bool IsValid(void) const {
 		return true;
 	}
+};
+
+class StaticMesh : public Mesh
+{
+
 };
