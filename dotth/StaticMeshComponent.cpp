@@ -2,6 +2,7 @@
 
 void StaticMeshComponent::OnInit(void)
 {
+	_Camera.SetViewportSize(640, 480);
 	_Camera.SetAt(DirectX::XMFLOAT3(0.f, 0.f, 0.f));
 	_Camera.SetUp(DirectX::XMFLOAT3(0.f, 1.f, 0.f));
 	_Camera.SetEye(DirectX::XMFLOAT3(0.f, 9.f, -9.f));
@@ -10,30 +11,30 @@ void StaticMeshComponent::OnInit(void)
 	_Camera.SetFar(1000.f);
 
 	_StaticMesh.Vertices.resize(24);
-	_StaticMesh.Vertices[0]  = Vertex(Vector3F(-1.0f, +1.0f, -1.0f), Vector3F(1.0f, 0.0f, 0.f));
-	_StaticMesh.Vertices[1]  = Vertex(Vector3F(+1.0f, +1.0f, -1.0f), Vector3F(1.0f, 0.0f, 0.f));
-	_StaticMesh.Vertices[2]  = Vertex(Vector3F(+1.0f, +1.0f, +1.0f), Vector3F(1.0f, 0.0f, 0.f));
-	_StaticMesh.Vertices[3]  = Vertex(Vector3F(-1.0f, +1.0f, +1.0f), Vector3F(1.0f, 0.0f, 0.f));
-	_StaticMesh.Vertices[4]  = Vertex(Vector3F(-1.0f, -1.0f, -1.0f), Vector3F(0.0f, 1.0f, 0.f));
-	_StaticMesh.Vertices[5]  = Vertex(Vector3F(+1.0f, -1.0f, -1.0f), Vector3F(0.0f, 1.0f, 0.f));
-	_StaticMesh.Vertices[6]  = Vertex(Vector3F(+1.0f, -1.0f, +1.0f), Vector3F(0.0f, 1.0f, 0.f));
-	_StaticMesh.Vertices[7]  = Vertex(Vector3F(-1.0f, -1.0f, +1.0f), Vector3F(0.0f, 1.0f, 0.f));
-	_StaticMesh.Vertices[8]  = Vertex(Vector3F(-1.0f, -1.0f, +1.0f), Vector3F(0.0f, 0.0f, 1.f));
-	_StaticMesh.Vertices[9]  = Vertex(Vector3F(-1.0f, -1.0f, -1.0f), Vector3F(0.0f, 0.0f, 1.f));
-	_StaticMesh.Vertices[10] = Vertex(Vector3F(-1.0f, +1.0f, -1.0f), Vector3F(0.0f, 0.0f, 1.f));
-	_StaticMesh.Vertices[11] = Vertex(Vector3F(-1.0f, +1.0f, +1.0f), Vector3F(0.0f, 0.0f, 1.f));
-	_StaticMesh.Vertices[12] = Vertex(Vector3F(+1.0f, -1.0f, +1.0f), Vector3F(1.0f, 0.0f, 1.f));
-	_StaticMesh.Vertices[13] = Vertex(Vector3F(+1.0f, -1.0f, -1.0f), Vector3F(1.0f, 0.0f, 1.f));
-	_StaticMesh.Vertices[14] = Vertex(Vector3F(+1.0f, +1.0f, -1.0f), Vector3F(1.0f, 0.0f, 1.f));
-	_StaticMesh.Vertices[15] = Vertex(Vector3F(+1.0f, +1.0f, +1.0f), Vector3F(1.0f, 0.0f, 1.f));
-	_StaticMesh.Vertices[16] = Vertex(Vector3F(-1.0f, -1.0f, -1.0f), Vector3F(0.0f, 1.0f, 1.f));
-	_StaticMesh.Vertices[17] = Vertex(Vector3F(+1.0f, -1.0f, -1.0f), Vector3F(0.0f, 1.0f, 1.f));
-	_StaticMesh.Vertices[18] = Vertex(Vector3F(+1.0f, +1.0f, -1.0f), Vector3F(0.0f, 1.0f, 1.f));
-	_StaticMesh.Vertices[19] = Vertex(Vector3F(-1.0f, +1.0f, -1.0f), Vector3F(0.0f, 1.0f, 1.f));
-	_StaticMesh.Vertices[20] = Vertex(Vector3F(-1.0f, -1.0f, +1.0f), Vector3F(1.0f, 1.0f, 0.f));
-	_StaticMesh.Vertices[21] = Vertex(Vector3F(+1.0f, -1.0f, +1.0f), Vector3F(1.0f, 1.0f, 0.f));
-	_StaticMesh.Vertices[22] = Vertex(Vector3F(+1.0f, +1.0f, +1.0f), Vector3F(1.0f, 1.0f, 0.f));
-	_StaticMesh.Vertices[23] = Vertex(Vector3F(-1.0f, +1.0f, +1.0f), Vector3F(1.0f, 1.0f, 0.f));
+	_StaticMesh.Vertices[0]  = Vertex(Vector3F(-1.0f, +1.0f, -1.0f), Color4F(1.0f, 0.0f, 0.f, 1.f));
+	_StaticMesh.Vertices[1]  = Vertex(Vector3F(+1.0f, +1.0f, -1.0f), Color4F(1.0f, 0.0f, 0.f, 1.f));
+	_StaticMesh.Vertices[2]  = Vertex(Vector3F(+1.0f, +1.0f, +1.0f), Color4F(1.0f, 0.0f, 0.f, 1.f));
+	_StaticMesh.Vertices[3]  = Vertex(Vector3F(-1.0f, +1.0f, +1.0f), Color4F(1.0f, 0.0f, 0.f, 1.f));
+	_StaticMesh.Vertices[4]  = Vertex(Vector3F(-1.0f, -1.0f, -1.0f), Color4F(0.0f, 1.0f, 0.f, 1.f));
+	_StaticMesh.Vertices[5]  = Vertex(Vector3F(+1.0f, -1.0f, -1.0f), Color4F(0.0f, 1.0f, 0.f, 1.f));
+	_StaticMesh.Vertices[6]  = Vertex(Vector3F(+1.0f, -1.0f, +1.0f), Color4F(0.0f, 1.0f, 0.f, 1.f));
+	_StaticMesh.Vertices[7]  = Vertex(Vector3F(-1.0f, -1.0f, +1.0f), Color4F(0.0f, 1.0f, 0.f, 1.f));
+	_StaticMesh.Vertices[8]  = Vertex(Vector3F(-1.0f, -1.0f, +1.0f), Color4F(0.0f, 0.0f, 1.f, 1.f));
+	_StaticMesh.Vertices[9]  = Vertex(Vector3F(-1.0f, -1.0f, -1.0f), Color4F(0.0f, 0.0f, 1.f, 1.f));
+	_StaticMesh.Vertices[10] = Vertex(Vector3F(-1.0f, +1.0f, -1.0f), Color4F(0.0f, 0.0f, 1.f, 1.f));
+	_StaticMesh.Vertices[11] = Vertex(Vector3F(-1.0f, +1.0f, +1.0f), Color4F(0.0f, 0.0f, 1.f, 1.f));
+	_StaticMesh.Vertices[12] = Vertex(Vector3F(+1.0f, -1.0f, +1.0f), Color4F(1.0f, 0.0f, 1.f, 1.f));
+	_StaticMesh.Vertices[13] = Vertex(Vector3F(+1.0f, -1.0f, -1.0f), Color4F(1.0f, 0.0f, 1.f, 1.f));
+	_StaticMesh.Vertices[14] = Vertex(Vector3F(+1.0f, +1.0f, -1.0f), Color4F(1.0f, 0.0f, 1.f, 1.f));
+	_StaticMesh.Vertices[15] = Vertex(Vector3F(+1.0f, +1.0f, +1.0f), Color4F(1.0f, 0.0f, 1.f, 1.f));
+	_StaticMesh.Vertices[16] = Vertex(Vector3F(-1.0f, -1.0f, -1.0f), Color4F(0.0f, 1.0f, 1.f, 1.f));
+	_StaticMesh.Vertices[17] = Vertex(Vector3F(+1.0f, -1.0f, -1.0f), Color4F(0.0f, 1.0f, 1.f, 1.f));
+	_StaticMesh.Vertices[18] = Vertex(Vector3F(+1.0f, +1.0f, -1.0f), Color4F(0.0f, 1.0f, 1.f, 1.f));
+	_StaticMesh.Vertices[19] = Vertex(Vector3F(-1.0f, +1.0f, -1.0f), Color4F(0.0f, 1.0f, 1.f, 1.f));
+	_StaticMesh.Vertices[20] = Vertex(Vector3F(-1.0f, -1.0f, +1.0f), Color4F(1.0f, 1.0f, 0.f, 1.f));
+	_StaticMesh.Vertices[21] = Vertex(Vector3F(+1.0f, -1.0f, +1.0f), Color4F(1.0f, 1.0f, 0.f, 1.f));
+	_StaticMesh.Vertices[22] = Vertex(Vector3F(+1.0f, +1.0f, +1.0f), Color4F(1.0f, 1.0f, 0.f, 1.f));
+	_StaticMesh.Vertices[23] = Vertex(Vector3F(-1.0f, +1.0f, +1.0f), Color4F(1.0f, 1.0f, 0.f, 1.f));
 
 	_StaticMesh.Indices.resize(36);
 	_StaticMesh.Indices[0] = 3;
@@ -130,17 +131,16 @@ void StaticMeshComponent::OnInit(void)
 
 void StaticMeshComponent::OnUpdate(void)
 {
-
+	_Camera.Sync();
 }
 
 void StaticMeshComponent::OnDraw(void)
 {
 	unsigned int offset;
 	const unsigned int vertex_type_size = static_cast<unsigned int>(sizeof(decltype(_StaticMesh.Vertices)::value_type));
-
 	D3D11RHI::Context()->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
-	D3D11RHI::Context()->IASetVertexBuffers(0, 1, &_VertexBuffer, &vertex_type_size, &offset);
-	D3D11RHI::Context()->IASetIndexBuffer(_IndexBuffer, DXGI_FORMAT_R32_UINT, 0);
+	D3D11RHI::BindVertexBuffer(_VertexBuffer, vertex_type_size);
+	D3D11RHI::BindIndexBuffer(_IndexBuffer);
 
 	static float fX = 0.f;
 	static float fY = 0.f;
@@ -166,6 +166,12 @@ void StaticMeshComponent::OnDraw(void)
 	//Renderer::RHI()->Unmap(_ConstantBuffer, 0);
 
 	//_Shader2.Draw(_ConstantBuffer, GetIndexCount());
+
+	D3D11RHI::Context()->VSSetConstantBuffers(0, 1, &_ConstantBuffer);
+	D3D11RHI::Context()->IASetInputLayout(_InputLayout);
+	D3D11RHI::Context()->VSSetShader(_VertexShader, nullptr, 0);
+	D3D11RHI::Context()->PSSetShader(_PixelShader, nullptr, 0);
+	D3D11RHI::Context()->DrawIndexed(_StaticMesh.Indices.size(), 0, 0);
 }
 
 void StaticMeshComponent::OnDestroy(void)
@@ -179,7 +185,7 @@ bool StaticMeshComponent::LoadShader(std::string file_name, D3D11_INPUT_ELEMENT_
 	std::wstring w_file_name(file_name.begin(), file_name.end());
 
 	std::ifstream file;
-	file.open(file_name, std::ios_base::in);
+	file.open(file_name, std::ios_base::binary);
 	
 	std::string file_text;
 	while (file) {
@@ -190,7 +196,8 @@ bool StaticMeshComponent::LoadShader(std::string file_name, D3D11_INPUT_ELEMENT_
 	file.close();
 
 	ID3D10Blob* vs_out = nullptr;
-	D3DCompile(file_text.data(), file_text.length(), "", nullptr, D3D_COMPILE_STANDARD_FILE_INCLUDE, "vs_main", "vs_5_0", D3DCOMPILE_ENABLE_STRICTNESS, 0, &vs_out, &error_message);
+	
+	D3DCompile(file_text.data(), file_text.length(), nullptr, nullptr, nullptr, "vs_main", "vs_5_0", 0, 0, &vs_out, &error_message);
 	if (error_message)
 	{
 		OutputDebugStringA((char*)error_message->GetBufferPointer());
@@ -203,7 +210,7 @@ bool StaticMeshComponent::LoadShader(std::string file_name, D3D11_INPUT_ELEMENT_
 	vs_out->Release();
 
 	ID3D10Blob* ps_out = nullptr;
-	D3DCompile(file_text.data(), file_text.length(), "", nullptr, D3D_COMPILE_STANDARD_FILE_INCLUDE, "ps_main", "ps_5_0", D3DCOMPILE_ENABLE_STRICTNESS, 0, &ps_out, &error_message);
+	D3DCompile(file_text.data(), file_text.length(), nullptr, nullptr, nullptr, "ps_main", "ps_5_0", 0, 0, &ps_out, &error_message);
 	if (error_message)
 	{
 		OutputDebugStringA((char*)error_message->GetBufferPointer());

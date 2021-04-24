@@ -16,6 +16,8 @@ private:
 	ID3D11DeviceContext* _Context;
 	IDXGISwapChain* _SwapChain;
 	ID3D11RenderTargetView* _BackBufferRTV;
+	ID3D11RasterizerState* _RasterizerState;
+	ID3D11SamplerState* _SamplerState;
 	ID3D11DepthStencilView* _DepthStencilView;	
 	D3D_FEATURE_LEVEL _FeatureLevel;
 	
@@ -36,4 +38,7 @@ public:
 	static ID3D11VertexShader* CreateVertexShader(ID3D10Blob* blob);
 	static ID3D11PixelShader* CreatePixelShader(ID3D10Blob* blob);
 	static ID3D11InputLayout* CreateInputLayout(ID3D10Blob* blob, D3D11_INPUT_ELEMENT_DESC* desc, unsigned int desc_size);
+
+	static void BindVertexBuffer(ID3D11Buffer* buffer, unsigned int size, unsigned int offset = 0);
+	static void BindIndexBuffer(ID3D11Buffer* buffer);
 };

@@ -13,9 +13,9 @@ struct MatrixBuffer
 struct Vertex
 {
 	Vector3F Position;
-	Vector3F Normal;
-	Vector2F UV;
-	Vector3F Color;
+	//Vector3F Normal;
+	//Vector2F UV;
+	Color4F Color;
 	static constexpr std::size_t Size(void)
 	{
 		return sizeof(Vertex);
@@ -23,7 +23,7 @@ struct Vertex
 	Vertex(void)
 	{
 	}
-	Vertex(Vector3F pos, Vector3F color)
+	Vertex(Vector3F pos, Color4F color)
 	{
 		Position = pos;
 		Color = color;

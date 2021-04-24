@@ -2,81 +2,128 @@
 
 bool D3D11RHI::Initialize(HWND hwnd, unsigned int width, unsigned int height)
 {
-	// Setup swap chain
-	DXGI_SWAP_CHAIN_DESC sd;
+	D3D11RHI::Instance()->_FeatureLevel = D3D_FEATURE_LEVEL_11_1;
+	if (FAILED(D3D11CreateDevice(nullptr, D3D_DRIVER_TYPE::D3D_DRIVER_TYPE_HARDWARE, nullptr, 0, &D3D11RHI::Instance()->_FeatureLevel, 1, D3D11_SDK_VERSION, &D3D11RHI::Instance()->_Device, nullptr, &D3D11RHI::Instance()->_Context)))
+	{
+		return false;
+	}
+
+	IDXGIFactory* factory = nullptr;
+	if (FAILED(CreateDXGIFactory(__uuidof(IDXGIFactory), (void**)&factory)))
+	{
+		return false;
+	}
+
+	DXGI_SWAP_CHAIN_DESC scd;
+	ZeroMemory(&scd, sizeof(scd));
+	scd.BufferCount = 1;
+	scd.BufferDesc.Width = width;
+	scd.BufferDesc.Height = height;
+	scd.BufferDesc.Format = DXGI_FORMAT_R8G8B8A8_UNORM;
+	scd.BufferDesc.RefreshRate.Numerator = 60;
+	scd.BufferDesc.RefreshRate.Denominator = 1;
+	scd.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT;
+	scd.OutputWindow = (HWND)hwnd;
+	scd.SampleDesc.Count = 1;
+	scd.SampleDesc.Quality = 0;
+	scd.Windowed = true;
+	if (FAILED(factory->CreateSwapChain(D3D11RHI::Instance()->_Device, &scd, &D3D11RHI::Instance()->_SwapChain)))
+	{
+		return false;
+	}
+
+	ID3D11Texture2D* backbuffer = nullptr;
+	if (FAILED(D3D11RHI::SwapChain()->GetBuffer(0, __uuidof(ID3D11Texture2D), reinterpret_cast<void**>(&backbuffer))))
+	{
+		return false;
+	}
+	if (FAILED(D3D11RHI::Device()->CreateRenderTargetView(backbuffer, NULL, &D3D11RHI::Instance()->_BackBufferRTV)))
+	{
+		return false;
+	}
+	backbuffer->Release();
+
+	D3D11_RASTERIZER_DESC rd;
+	ZeroMemory(&rd, sizeof(D3D11_RASTERIZER_DESC));
+	rd.FillMode = D3D11_FILL_MODE::D3D11_FILL_SOLID;
+	//raster_desc.FillMode = D3D11_FILL_MODE::D3D11_FILL_WIREFRAME;
+	rd.CullMode = D3D11_CULL_MODE::D3D11_CULL_BACK;
+	rd.FrontCounterClockwise = false;
+	rd.AntialiasedLineEnable = true;
+	if (FAILED(D3D11RHI::Device()->CreateRasterizerState(&rd, &D3D11RHI::Instance()->_RasterizerState)))
+	{
+		return false;
+	}
+	D3D11RHI::Context()->RSSetState(D3D11RHI::Instance()->_RasterizerState);
+
+	D3D11_SAMPLER_DESC sd;
 	ZeroMemory(&sd, sizeof(sd));
-	sd.BufferCount = 2;
-	sd.BufferDesc.Width = 0;
-	sd.BufferDesc.Height = 0;
-	sd.BufferDesc.Format = DXGI_FORMAT_R8G8B8A8_UNORM;
-	sd.BufferDesc.RefreshRate.Numerator = 60;
-	sd.BufferDesc.RefreshRate.Denominator = 1;
-	sd.Flags = DXGI_SWAP_CHAIN_FLAG_ALLOW_MODE_SWITCH;
-	sd.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT;
-	sd.OutputWindow = hwnd;
-	sd.SampleDesc.Count = 1;
-	sd.SampleDesc.Quality = 0;
-	sd.Windowed = TRUE;
-	sd.SwapEffect = DXGI_SWAP_EFFECT_DISCARD;
-
-	UINT createDeviceFlags = 0;
-	//createDeviceFlags |= D3D11_CREATE_DEVICE_DEBUG;
-	D3D_FEATURE_LEVEL featureLevel;
-	const D3D_FEATURE_LEVEL featureLevelArray[2] = { D3D_FEATURE_LEVEL_11_0, D3D_FEATURE_LEVEL_10_0, };
-	if (D3D11CreateDeviceAndSwapChain(NULL, D3D_DRIVER_TYPE_HARDWARE, NULL, createDeviceFlags, featureLevelArray, 2, D3D11_SDK_VERSION, &sd, &D3D11RHI::Instance()->_SwapChain, &D3D11RHI::Instance()->_Device, &featureLevel, &D3D11RHI::Instance()->_Context) != S_OK)
+	sd.Filter = D3D11_FILTER_MIN_MAG_MIP_LINEAR;
+	sd.AddressU = D3D11_TEXTURE_ADDRESS_WRAP;
+	sd.AddressV = D3D11_TEXTURE_ADDRESS_WRAP;
+	sd.AddressW = D3D11_TEXTURE_ADDRESS_WRAP;
+	sd.ComparisonFunc = D3D11_COMPARISON_NEVER;
+	sd.MinLOD = 0;
+	sd.MaxLOD = D3D11_FLOAT32_MAX;
+	if (FAILED(D3D11RHI::Device()->CreateSamplerState(&sd, &D3D11RHI::Instance()->_SamplerState)))
+	{
 		return false;
+	}
 
-	D3D11_TEXTURE2D_DESC depth_buffer_desc;
-	ZeroMemory(&depth_buffer_desc, sizeof(depth_buffer_desc));
-	depth_buffer_desc.Width = width;
-	depth_buffer_desc.Height = height;
-	depth_buffer_desc.MipLevels = 1;
-	depth_buffer_desc.ArraySize = 1;
-	depth_buffer_desc.Format = DXGI_FORMAT_D24_UNORM_S8_UINT;
-	depth_buffer_desc.SampleDesc.Count = 1;
-	depth_buffer_desc.SampleDesc.Quality = 0;
-	depth_buffer_desc.Usage = D3D11_USAGE_DEFAULT;
-	depth_buffer_desc.BindFlags = D3D11_BIND_DEPTH_STENCIL;
-	depth_buffer_desc.CPUAccessFlags = 0;
-	depth_buffer_desc.MiscFlags = 0;
-	ID3D11Texture2D* depth_stencil_buffer = nullptr;
-	if (Device()->CreateTexture2D(&depth_buffer_desc, NULL, &depth_stencil_buffer))
+	D3D11_TEXTURE2D_DESC db;
+	ZeroMemory(&db, sizeof(db));
+	db.Width = width;
+	db.Height = height;
+	db.MipLevels = 1;
+	db.ArraySize = 1;
+	db.Format = DXGI_FORMAT_D24_UNORM_S8_UINT;
+	db.SampleDesc.Count = 1;
+	db.SampleDesc.Quality = 0;
+	db.Usage = D3D11_USAGE_DEFAULT;
+	db.BindFlags = D3D11_BIND_DEPTH_STENCIL;
+	db.CPUAccessFlags = 0;
+	db.MiscFlags = 0;
+	ID3D11Texture2D* depthstencilbuffer = nullptr;
+	if (FAILED(D3D11RHI::Device()->CreateTexture2D(&db, NULL, &depthstencilbuffer)))
+	{
 		return false;
+	}
 
-	D3D11_DEPTH_STENCIL_VIEW_DESC depth_stencil_view_desc;
-	ZeroMemory(&depth_stencil_view_desc, sizeof(depth_stencil_view_desc));
-	depth_stencil_view_desc.Format = depth_buffer_desc.Format;
-	depth_stencil_view_desc.ViewDimension = D3D11_DSV_DIMENSION_TEXTURE2D;
-	depth_stencil_view_desc.Texture2D.MipSlice = 0;
-	if (Device()->CreateDepthStencilView(depth_stencil_buffer, &depth_stencil_view_desc, &D3D11RHI::Instance()->_DepthStencilView))
+	D3D11_DEPTH_STENCIL_VIEW_DESC dsvd;
+	ZeroMemory(&dsvd, sizeof(dsvd));
+	dsvd.Format = db.Format;
+	dsvd.ViewDimension = D3D11_DSV_DIMENSION_TEXTURE2D;
+	dsvd.Texture2D.MipSlice = 0;
+	if (FAILED(D3D11RHI::Device()->CreateDepthStencilView(depthstencilbuffer, &dsvd, &D3D11RHI::Instance()->_DepthStencilView)))
+	{
 		return false;
-	depth_stencil_buffer->Release();
+	}
+	depthstencilbuffer->Release();
 
-	
+	D3D11RHI::Context()->OMSetRenderTargets(1, &D3D11RHI::Instance()->_BackBufferRTV, D3D11RHI::Instance()->_DepthStencilView);
 
-	ID3D11Texture2D* pBackBuffer;
-	D3D11RHI::Instance()->_SwapChain->GetBuffer(0, IID_PPV_ARGS(&pBackBuffer));
-	D3D11RHI::Instance()->_Device->CreateRenderTargetView(pBackBuffer, NULL, &D3D11RHI::Instance()->_BackBufferRTV);
-	pBackBuffer->Release();
-	   
+	D3D11_VIEWPORT viewport;
+	viewport.Width = static_cast<float>(width);
+	viewport.Height = static_cast<float>(height);
+	viewport.MinDepth = 0.0f;
+	viewport.MaxDepth = 1.0f;
+	viewport.TopLeftX = 0.0f;
+	viewport.TopLeftY = 0.0f;
+	D3D11RHI::Context()->RSSetViewports(1, &viewport);
+
 	return true;
 }
 
 void D3D11RHI::PreDraw(void)
 {
-	//static XMVECTORF32 ClearColor = { 0.0f, 0.2f, 0.4f, 1.0f };
-	//Context()->ClearRenderTargetView(BackBuffer(), ClearColor);
-	//Context()->ClearDepthStencilView(DepthBuffer(), D3D11_CLEAR_DEPTH, 1.0f, 0);
-
-	XMFLOAT4 clear_color = XMFLOAT4(0.145f, 0.145f, 0.145f, 1.00f);
-	const float clear_color_with_alpha[4] = { clear_color.x * clear_color.w, clear_color.y * clear_color.w, clear_color.z * clear_color.w, clear_color.w };
-	D3D11RHI::Context()->OMSetRenderTargets(1, &D3D11RHI::Instance()->_BackBufferRTV, NULL);
-	D3D11RHI::Context()->ClearRenderTargetView(D3D11RHI::Instance()->_BackBufferRTV, clear_color_with_alpha);
+	const float clear_color_with_alpha[4] = { 0.145f, 0.145f, 0.145f, 1.00f };
+	D3D11RHI::Context()->ClearRenderTargetView(D3D11RHI::BackBuffer(), clear_color_with_alpha);
+	D3D11RHI::Context()->ClearDepthStencilView(D3D11RHI::DepthBuffer(), D3D11_CLEAR_DEPTH, 1.0f, 0);
 }
 
 void D3D11RHI::PostDraw(void)
 {
-	D3D11RHI::SwapChain()->Present(1, 0);
+	D3D11RHI::SwapChain()->Present(0, 0);
 }
 
 ID3D11Device * D3D11RHI::Device()
@@ -130,4 +177,16 @@ ID3D11InputLayout * D3D11RHI::CreateInputLayout(ID3D10Blob * blob, D3D11_INPUT_E
 	ID3D11InputLayout* layout = nullptr;
 	Device()->CreateInputLayout(desc, desc_size, blob->GetBufferPointer(), blob->GetBufferSize(), &layout);
 	return layout;
+}
+
+void D3D11RHI::BindVertexBuffer(ID3D11Buffer* buffer, unsigned int size, unsigned int offset)
+{
+	D3D11RHI::Context()->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+	D3D11RHI::Context()->IASetVertexBuffers(0, 1, &buffer, &size, &offset);
+	
+}
+
+void D3D11RHI::BindIndexBuffer(ID3D11Buffer* buffer)
+{
+	D3D11RHI::Context()->IASetIndexBuffer(buffer, DXGI_FORMAT_R32_UINT, 0);
 }
