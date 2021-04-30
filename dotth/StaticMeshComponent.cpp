@@ -2,14 +2,6 @@
 
 void StaticMeshComponent::OnInit(void)
 {
-	_Camera.SetViewportSize(640, 480);
-	_Camera.SetAt(DirectX::XMFLOAT3(0.f, 0.f, 0.f));
-	_Camera.SetUp(DirectX::XMFLOAT3(0.f, 1.f, 0.f));
-	_Camera.SetEye(DirectX::XMFLOAT3(0.f, 9.f, -9.f));
-	_Camera.SetFieldOfView(DirectX::XM_PI * 0.25f);
-	_Camera.SetNear(0.1f);
-	_Camera.SetFar(1000.f);
-
 	_StaticMesh.Vertices.resize(24);
 	_StaticMesh.Vertices[0]  = Vertex(Vector3F(-1.0f, +1.0f, -1.0f), Color4F(1.0f, 0.0f, 0.f, 1.f));
 	_StaticMesh.Vertices[1]  = Vertex(Vector3F(+1.0f, +1.0f, -1.0f), Color4F(1.0f, 0.0f, 0.f, 1.f));
@@ -131,12 +123,10 @@ void StaticMeshComponent::OnInit(void)
 
 void StaticMeshComponent::OnUpdate(void)
 {
-	_Camera.Sync();
 }
 
 void StaticMeshComponent::OnDraw(void)
 {
-	unsigned int offset;
 	const unsigned int vertex_type_size = static_cast<unsigned int>(sizeof(decltype(_StaticMesh.Vertices)::value_type));
 	D3D11RHI::Context()->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 	D3D11RHI::BindVertexBuffer(_VertexBuffer, vertex_type_size);
@@ -146,13 +136,13 @@ void StaticMeshComponent::OnDraw(void)
 	static float fY = 0.f;
 
 	MatrixBuffer cb;
-	cb.View = DirectX::XMMatrixTranspose(*_Camera.View());
-	cb.Projection = DirectX::XMMatrixTranspose(*_Camera.Perspective());
+	cb.View = DirectX::XMMatrixTranspose(*D3D11RHI::Camera()->View());
+	cb.Projection = DirectX::XMMatrixTranspose(*D3D11RHI::Camera()->Perspective());
 	auto world = DirectX::XMMatrixRotationY(fX);
 	world = world * DirectX::XMMatrixRotationZ(fY);
 
-	fX += 0.0005f;
-	fY += 0.001f;
+	fX += 0.005f;
+	fY += 0.01f;
 	cb.World = DirectX::XMMatrixTranspose(world);
 	D3D11RHI::Context()->UpdateSubresource(_ConstantBuffer, 0, nullptr,  &cb, 0, 0);
 
@@ -171,7 +161,7 @@ void StaticMeshComponent::OnDraw(void)
 	D3D11RHI::Context()->IASetInputLayout(_InputLayout);
 	D3D11RHI::Context()->VSSetShader(_VertexShader, nullptr, 0);
 	D3D11RHI::Context()->PSSetShader(_PixelShader, nullptr, 0);
-	D3D11RHI::Context()->DrawIndexed(_StaticMesh.Indices.size(), 0, 0);
+	D3D11RHI::Context()->DrawIndexed(static_cast<unsigned int>(_StaticMesh.Indices.size()), 0, 0);
 }
 
 void StaticMeshComponent::OnDestroy(void)

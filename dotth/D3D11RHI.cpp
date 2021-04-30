@@ -2,6 +2,7 @@
 
 bool D3D11RHI::Initialize(HWND hwnd, unsigned int width, unsigned int height)
 {
+	D3D11RHI::Instance()->_Camera.SetViewportSize(width, height);
 	D3D11RHI::Instance()->_FeatureLevel = D3D_FEATURE_LEVEL_11_1;
 	if (FAILED(D3D11CreateDevice(nullptr, D3D_DRIVER_TYPE::D3D_DRIVER_TYPE_HARDWARE, nullptr, 0, &D3D11RHI::Instance()->_FeatureLevel, 1, D3D11_SDK_VERSION, &D3D11RHI::Instance()->_Device, nullptr, &D3D11RHI::Instance()->_Context)))
 	{
@@ -46,7 +47,7 @@ bool D3D11RHI::Initialize(HWND hwnd, unsigned int width, unsigned int height)
 	D3D11_RASTERIZER_DESC rd;
 	ZeroMemory(&rd, sizeof(D3D11_RASTERIZER_DESC));
 	rd.FillMode = D3D11_FILL_MODE::D3D11_FILL_SOLID;
-	//raster_desc.FillMode = D3D11_FILL_MODE::D3D11_FILL_WIREFRAME;
+	//rd.FillMode = D3D11_FILL_MODE::D3D11_FILL_WIREFRAME;
 	rd.CullMode = D3D11_CULL_MODE::D3D11_CULL_BACK;
 	rd.FrontCounterClockwise = false;
 	rd.AntialiasedLineEnable = true;
@@ -123,7 +124,7 @@ void D3D11RHI::PreDraw(void)
 
 void D3D11RHI::PostDraw(void)
 {
-	D3D11RHI::SwapChain()->Present(0, 0);
+	D3D11RHI::SwapChain()->Present(1, 0);
 }
 
 ID3D11Device * D3D11RHI::Device()
@@ -149,6 +150,11 @@ ID3D11RenderTargetView * D3D11RHI::BackBuffer()
 ID3D11DepthStencilView* D3D11RHI::DepthBuffer()
 {
 	return D3D11RHI::Instance()->_DepthStencilView;
+}
+
+D3D11Camera* D3D11RHI::Camera()
+{
+	return &D3D11RHI::Instance()->_Camera;
 }
 
 ID3D11Buffer * D3D11RHI::CreateBuffer(const D3D11_BUFFER_DESC* desc, const D3D11_SUBRESOURCE_DATA* data)

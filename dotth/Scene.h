@@ -2,6 +2,7 @@
 
 #include "Base.h"
 #include "Object.h"
+#include "Math/Math.h"
 
 class Scene : public Base
 {
@@ -23,22 +24,8 @@ private:
 	std::list<std::shared_ptr<Object>> _Objects;
 
 public:
-	void AddObject(std::shared_ptr<Object> object)
-	{
-		for (std::shared_ptr<Object> Obj : _Objects)
-		{
-			if (object->Serial() == Obj->Serial())
-			{
-				return;
-			}
-		}
-		_Objects.push_back(object);
-	}
-	void RemoveObject(std::shared_ptr<Object> object)
-	{
-		_Objects.remove(object);
-	}
-	
+	void SpwanObject(std::shared_ptr<Object> object);
+	void RemoveObject(std::shared_ptr<Object> object);
 	template <typename CastTy = Object>
 	std::shared_ptr<Object> FindObject(std::string name)
 	{
@@ -51,4 +38,13 @@ public:
 		}
 		return nullptr;
 	}
+
+public:	// about camera...
+	void SetCameraPosition(const Float3& value);
+	void SetCameraUp(const Float3& value);
+	void SetCameraLookAt(const Float3& value);
+	void SetCameraViewportSize(const int& width, const int& height);
+	void SetCameraFrustumFieldOfView(const float& radian);
+	void SetCameraFrustumNearFieldDistance(const float& value);
+	void SetCameraFrustumFarFieldDistance(const float& value);
 };
