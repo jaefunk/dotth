@@ -38,9 +38,9 @@ public:
 	static ID3D11DepthStencilView* DepthBuffer();
 	static D3D11Camera* Camera();
 	static ID3D11Buffer* CreateBuffer(const D3D11_BUFFER_DESC* desc, const D3D11_SUBRESOURCE_DATA* data);
-	static ID3D11VertexShader* CreateVertexShader(ID3D10Blob* blob);
-	static ID3D11PixelShader* CreatePixelShader(ID3D10Blob* blob);
-	static ID3D11InputLayout* CreateInputLayout(ID3D10Blob* blob, D3D11_INPUT_ELEMENT_DESC* desc, unsigned int desc_size);
+	static ID3D11VertexShader* CreateVertexShader(ID3DBlob* blob);
+	static ID3D11PixelShader* CreatePixelShader(ID3DBlob* blob);
+	static ID3D11InputLayout* CreateInputLayout(ID3DBlob* blob, D3D11_INPUT_ELEMENT_DESC* desc, unsigned int desc_size);
 
 	static void BindVertexBuffer(ID3D11Buffer* buffer, unsigned int size, unsigned int offset = 0);
 	static void BindIndexBuffer(ID3D11Buffer* buffer);

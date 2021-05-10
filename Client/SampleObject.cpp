@@ -19,7 +19,6 @@ void SampleObject::OnDestroy(void)
 
 void SampleObject::OnUpdate(void)
 {
-	printf("asdf");
 }
 
 void SampleObject::OnDraw(void)

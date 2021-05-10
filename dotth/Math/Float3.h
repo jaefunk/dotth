@@ -5,26 +5,21 @@
 
 struct Float3 : public InitializeZero<Float3> {
 	union {
-		struct { float F[3]; };
-		struct { float X, Y, Z; };
+		struct { float f[3]; };
+		struct { float x, y, z; };
 	};
-	Float3(void)
+	Float3(void) = default;
+	Float3(float _x, float _y, float _z)
+		: x(_x), y(_y), z(_z)
 	{
-
-	}
-	Float3(float _X, float _Y, float _Z)
-	{
-		X = _X;
-		Y = _Y;
-		Z = _Z;
 	}
 	operator DirectX::XMFLOAT3()
 	{
-		return DirectX::XMFLOAT3(F);
+		return DirectX::XMFLOAT3(f);
 	}
 	operator DirectX::XMFLOAT3() const
 	{
-		return DirectX::XMFLOAT3(F);
+		return DirectX::XMFLOAT3(f);
 	}
 };
 

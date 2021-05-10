@@ -11,6 +11,7 @@
 #include <dinput.h>
 #include <d3dcompiler.h>
 #include <directxmath.h>
+#include <D3D11Shader.h>
 
 using namespace DirectX;
 

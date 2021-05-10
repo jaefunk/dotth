@@ -26,6 +26,7 @@
     <ClCompile Include="D3D11Primitive.cpp" />
     <ClCompile Include="D3D11RHI.cpp" />
     <ClCompile Include="D3D11Shader.cpp" />
+    <ClCompile Include="D3D11StaticMesh.cpp" />
     <ClCompile Include="MeshComponent.cpp" />
     <ClCompile Include="Object.cpp" />
     <ClCompile Include="PrimitiveComponent.cpp" />
@@ -43,6 +44,7 @@
     <ClInclude Include="D3D11Primitive.h" />
     <ClInclude Include="D3D11RHI.h" />
     <ClInclude Include="D3D11Shader.h" />
+    <ClInclude Include="D3D11StaticMesh.h" />
     <ClInclude Include="dotth.h" />
     <ClInclude Include="Math\Math.h" />
     <ClInclude Include="Math\MathUtility.h" />

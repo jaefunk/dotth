@@ -1,6 +1,5 @@
 #pragma once
 
-#include "Base.h"
 #include "Object.h"
 #include "Math/Math.h"
 

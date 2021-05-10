@@ -43,6 +43,9 @@
     <ClCompile Include="D3D11Shader.cpp">
       <Filter>D3D11</Filter>
     </ClCompile>
+    <ClCompile Include="D3D11StaticMesh.cpp">
+      <Filter>D3D11</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.h">
@@ -124,6 +127,9 @@
       <Filter>Framework</Filter>
     </ClInclude>
     <ClInclude Include="D3D11Shader.h">
+      <Filter>D3D11</Filter>
+    </ClInclude>
+    <ClInclude Include="D3D11StaticMesh.h">
       <Filter>D3D11</Filter>
     </ClInclude>
   </ItemGroup>

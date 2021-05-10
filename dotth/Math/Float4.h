@@ -1,20 +1,24 @@
 
+#pragma once
+
 struct Float4 : public InitializeZero<Float4> {
 	union {
-		struct { float F[4]; };
-		struct { float X, Y, Z, W; };
-		struct { float R, G, B, A; };
+		struct { float f[4]; };
+		struct { float x, y, z, w; };
+		struct { float r, g, b, a; };
 	};
-	Float4(void)
+	Float4(void) = default;
+	Float4(float _x, float _y, float _z, float _w)
+		: x(_x), y(_y), z(_z), w(_w)
 	{
-
 	}
-	Float4(float _X, float _Y, float _Z, float _W)
+	operator DirectX::XMFLOAT4()
 	{
-		X = _X;
-		Y = _Y;
-		Z = _Z;
-		W = _W;
+		return DirectX::XMFLOAT4(f);
+	}
+	operator DirectX::XMFLOAT4() const
+	{
+		return DirectX::XMFLOAT4(f);
 	}
 };
 

@@ -17,6 +17,8 @@ bool D3D11RHI::Initialize(HWND hwnd, unsigned int width, unsigned int height)
 
 	DXGI_SWAP_CHAIN_DESC scd;
 	ZeroMemory(&scd, sizeof(scd));
+
+
 	scd.BufferCount = 1;
 	scd.BufferDesc.Width = width;
 	scd.BufferDesc.Height = height;
@@ -164,21 +166,21 @@ ID3D11Buffer * D3D11RHI::CreateBuffer(const D3D11_BUFFER_DESC* desc, const D3D11
 	return buffer;
 }
 
-ID3D11VertexShader * D3D11RHI::CreateVertexShader(ID3D10Blob * blob)
+ID3D11VertexShader * D3D11RHI::CreateVertexShader(ID3DBlob * blob)
 {
 	ID3D11VertexShader* shader = nullptr;
 	Device()->CreateVertexShader(blob->GetBufferPointer(), blob->GetBufferSize(), nullptr, &shader);
 	return shader;
 }
 
-ID3D11PixelShader * D3D11RHI::CreatePixelShader(ID3D10Blob * blob)
+ID3D11PixelShader * D3D11RHI::CreatePixelShader(ID3DBlob * blob)
 {
 	ID3D11PixelShader* shader = nullptr;
 	Device()->CreatePixelShader(blob->GetBufferPointer(), blob->GetBufferSize(), nullptr, &shader);
 	return shader;
 }
 
-ID3D11InputLayout * D3D11RHI::CreateInputLayout(ID3D10Blob * blob, D3D11_INPUT_ELEMENT_DESC * desc, unsigned int desc_size)
+ID3D11InputLayout * D3D11RHI::CreateInputLayout(ID3DBlob * blob, D3D11_INPUT_ELEMENT_DESC * desc, unsigned int desc_size)
 {
 	ID3D11InputLayout* layout = nullptr;
 	Device()->CreateInputLayout(desc, desc_size, blob->GetBufferPointer(), blob->GetBufferSize(), &layout);

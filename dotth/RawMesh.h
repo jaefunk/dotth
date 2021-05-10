@@ -43,8 +43,3 @@ public:
 		return true;
 	}
 };
-
-class StaticMesh : public Mesh
-{
-
-};
