@@ -9,10 +9,9 @@
 struct Transform 
 {
 protected:
-	Vector3F Rotation{ 0.f, 0.f, 0.f };
-	Vector3F Translation{ 0.f, 0.f, 0.f };
 	Vector3F Scale3D{ 1.f, 1.f, 1.f };
+	Vector3F Translation{ 0.f, 0.f, 0.f };
+	Vector3F Rotation{ 0.f, 0.f, 0.f };
 
 public:
-	
 };

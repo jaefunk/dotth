@@ -1,6 +1,6 @@
 #include "SampleObject.h"
 
-#include "../dotth/StaticMeshComponent.h"
+#include "StaticMeshComponent.h"
 
 SampleObject::SampleObject(void)
 {

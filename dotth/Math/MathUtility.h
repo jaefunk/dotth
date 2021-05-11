@@ -6,6 +6,7 @@
 
 // Copied from float.h
 #define MAX_FLOAT	(3.402823466e+38F)
+#define SMALL_FLOAT	(1.e-4f)
 
 // Aux constants.
 #define INV_PI		(0.31830988618f)
