@@ -26,6 +26,11 @@ struct Float3 : public InitializeZero<Float3> {
 		for (int index = 0; index < ELEMENTCOUNT; ++index)
 			result[index] = left[index] - right[index];
 	}
+	static void Multiply(const ThisType& left, const ThisType& right, ThisType& result)
+	{
+		for (int index = 0; index < ELEMENTCOUNT; ++index)
+			result[index] = left[index] * right[index];
+	}
 	static void Multiply(const ThisType& left, const float& right, ThisType& result)
 	{
 		for (int index = 0; index < ELEMENTCOUNT; ++index)
