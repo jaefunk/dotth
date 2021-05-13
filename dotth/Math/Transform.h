@@ -24,9 +24,9 @@ public:
 
 	void SetRotation(const Vector3F& value) { Rotation = value; }
 	void Rotate(const Vector3F& value) { Vector3F::Add(Rotation, value, Rotation); }
-	void RotateAxisX(const float& value) { Rotation.x += value; }
-	void RotateAxisY(const float& value) { Rotation.y += value; }
-	void RotateAxisZ(const float& value) { Rotation.z += value; }
+	void RotatePitch(const float& value) { Rotation.x += value; }
+	void RotateYaw(const float& value) { Rotation.y += value; }
+	void RotateRoll(const float& value) { Rotation.z += value; }
 	const Vector3F& GetRotation(void) { return Rotation; }
 
 	void SetPosition(const Vector3F& value) { Position = value; }
@@ -36,7 +36,7 @@ public:
 	void TranslateZ(const float& value) { Position.z += value; }
 	const Vector3F& GetPosition(void) { return Position; }
 
-	const Matrix& ToMatrix(bool withScale) 
+	Matrix ToMatrix(bool withScale) 
 	{
 		return withScale ? ToMatrixWithScale() : ToMatrixNoScale();
 	}
@@ -44,21 +44,21 @@ public:
 private:
 	Matrix ToMatrixWithScale(void) 
 	{ 
-		XMMATRIX pos = XMMatrixTranslation(Position.x, Position.y, Position.z);
-		XMMATRIX rotx = XMMatrixRotationX(Rotation.x);
-		XMMATRIX roty = XMMatrixRotationY(Rotation.y);
-		XMMATRIX rotz = XMMatrixRotationZ(Rotation.z);
-		XMMATRIX scl = XMMatrixScaling(Scale.x, Scale.y, Scale.z);
-
-		XMMATRIX total = scl * rotz * roty * rotx * pos;
-		XMFLOAT4X4 result;
-		XMStoreFloat4x4(&result, XMMatrixTranspose(total));
-		auto ff = &result.m;
-		return Matrix(ff);
+		Matrix scl = Matrix::Scaling(Scale);
+		Matrix pitch = Matrix::RotatePitch(Rotation.x);
+		Matrix yaw = Matrix::RotateYaw(Rotation.y);
+		Matrix roll = Matrix::RotateRoll(Rotation.z);
+		Matrix pos = Matrix::Translate(Position);
+		Matrix total = scl * pitch * yaw * roll * pos;
+		return total;
 	}
 	Matrix ToMatrixNoScale(void)
 	{
-		Matrix OutMatrix;
-		return OutMatrix;
+		Matrix pos = Matrix::Translate(Position);
+		Matrix pitch = Matrix::RotatePitch(Rotation.x);
+		Matrix yaw = Matrix::RotateYaw(Rotation.y);
+		Matrix roll = Matrix::RotateRoll(Rotation.z);
+		Matrix total = pitch * yaw * roll * pos;
+		return total;
 	}
 };

@@ -2,6 +2,7 @@
 
 #include "Node.h"
 #include "Component.h"
+#include "Math/Transform.h"
 
 class Object : public Node<Object>
 {
@@ -18,13 +19,17 @@ protected:
 	virtual void OnDraw(void);
 
 private:
+	Transform _Transform;
 	std::list<std::shared_ptr<Component>> _Components;
 
+public:
+	Transform& GetTransform(void) { return _Transform; }
 public:
 	template <typename ty>
 	std::shared_ptr<ty> AddComponent(void)
 	{
 		std::shared_ptr<ty> value = std::make_shared<ty>();
+		value->SetOwner(this->shared_from_this());
 		_Components.push_back(value);
 		return value;
 	}

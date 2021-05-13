@@ -13,6 +13,11 @@ void EntryPoint::OnInit(void)
 	
 	std::shared_ptr<SampleObject> so = std::make_shared<SampleObject>();
 	SpwanObject(so);
+	so->GetTransform().TranslateY(2.f);
+	std::shared_ptr<SampleObject> so2 = std::make_shared<SampleObject>();
+	so2->Rename("A");
+	SpwanObject(so2);
+	
 }
 
 void EntryPoint::OnDestroy(void)
@@ -21,13 +26,7 @@ void EntryPoint::OnDestroy(void)
 
 void EntryPoint::OnUpdate(void)
 {
-	static float f = 0.f;
-	static float d = 0.05f;
-	f += d;
-	if (abs(f) > 3.f)
-		d *= -1;
-
-	SetCameraLookAt(Float3(f, 0.f, 0.f));
+	FindObject("A")->GetTransform().RotateYaw(0.01f);
 }
 
 void EntryPoint::OnDraw(void)

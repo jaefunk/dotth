@@ -33,6 +33,7 @@ struct Vertex
 class Mesh
 {
 public:
+	Matrix Matrix;
 	std::vector<Vertex> Vertices;
 	std::vector<uint32_t> Indices;
 

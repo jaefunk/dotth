@@ -1,5 +1,6 @@
 #include "StaticMeshComponent.h"
 #include "D3D11StaticMesh.h"
+#include "Object.h"
 
 void StaticMeshComponent::OnInit(void)
 {	
@@ -14,6 +15,7 @@ void StaticMeshComponent::OnUpdate(void)
 
 void StaticMeshComponent::OnDraw(void)
 {
+	_StaticMesh->Matrix = GetOwner()->GetTransform().ToMatrix(true);
 	_StaticMesh->Draw();
 }
 

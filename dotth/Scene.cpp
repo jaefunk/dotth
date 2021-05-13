@@ -74,7 +74,6 @@ void Scene::RemoveObject(std::shared_ptr<Object> object)
 void Scene::SetCameraPosition(const Float3& value)
 {
 	D3D11RHI::Camera()->SetEye(value);
-	Float2 j;
 }
 void Scene::SetCameraUp(const Float3& value)
 {

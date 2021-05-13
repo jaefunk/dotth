@@ -15,7 +15,7 @@ public:
 	}
 	
 	template <typename CastTy = Object>
-	const std::shared_ptr<CastTy> GetOwner(void) const
+	std::shared_ptr<CastTy> GetOwner(void)
 	{
 		if (_Owner.expired())
 			return nullptr;

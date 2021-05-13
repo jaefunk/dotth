@@ -3,7 +3,7 @@
 
 #include "../D3D11.h"
 
-struct Float2 : public InitializeZero<Float2> {
+struct Float2 {
 	union {
 		struct { float f[2]; };
 		struct { float x, y; };

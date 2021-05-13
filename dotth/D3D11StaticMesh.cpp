@@ -196,12 +196,7 @@ void D3D11StaticMesh::Draw(void)
 	MatrixBuffer cb;
 	cb.View = DirectX::XMMatrixTranspose(*D3D11RHI::Camera()->View());
 	cb.Projection = DirectX::XMMatrixTranspose(*D3D11RHI::Camera()->Perspective());
-	auto world = DirectX::XMMatrixRotationY(fX);
-	world = world * DirectX::XMMatrixRotationZ(fY);
-
-	fX += 0.005f;
-	fY += 0.01f;
-	cb.World = DirectX::XMMatrixTranspose(world);
+	cb.World = Matrix;
 	D3D11RHI::Context()->UpdateSubresource(_ConstantBuffer, 0, nullptr, &cb, 0, 0);
 	D3D11RHI::Context()->VSSetConstantBuffers(0, 1, &_ConstantBuffer);
 	D3D11RHI::Context()->IASetInputLayout(_InputLayout);

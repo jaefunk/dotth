@@ -1,10 +1,12 @@
 
 #pragma once
 
-#include "../D3D11.h"
-
+#undef ELEMENTCOUNT
 #define ELEMENTCOUNT 3
-struct Float3 : public InitializeZero<Float3> {
+#undef SMALL_FLOAT
+#define SMALL_FLOAT	(1.e-4f)
+
+struct Float3 {
 	union {
 		struct { float f[3]; };
 		struct { float x, y, z; };
