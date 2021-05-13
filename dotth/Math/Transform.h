@@ -36,29 +36,29 @@ public:
 	void TranslateZ(const float& value) { Position.z += value; }
 	const Vector3F& GetPosition(void) { return Position; }
 
-	Matrix ToMatrix(bool withScale) 
+	Matrix ToMatrix(bool withScale) const
 	{
 		return withScale ? ToMatrixWithScale() : ToMatrixNoScale();
 	}
 
 private:
-	Matrix ToMatrixWithScale(void) 
+	Matrix ToMatrixWithScale(void) const
 	{ 
 		Matrix scl = Matrix::Scaling(Scale);
 		Matrix pitch = Matrix::RotatePitch(Rotation.x);
 		Matrix yaw = Matrix::RotateYaw(Rotation.y);
 		Matrix roll = Matrix::RotateRoll(Rotation.z);
 		Matrix pos = Matrix::Translate(Position);
-		Matrix total = scl * pitch * yaw * roll * pos;
+		Matrix total = pos * roll * yaw * pitch * scl;
 		return total;
 	}
-	Matrix ToMatrixNoScale(void)
+	Matrix ToMatrixNoScale(void) const
 	{
 		Matrix pos = Matrix::Translate(Position);
 		Matrix pitch = Matrix::RotatePitch(Rotation.x);
 		Matrix yaw = Matrix::RotateYaw(Rotation.y);
 		Matrix roll = Matrix::RotateRoll(Rotation.z);
-		Matrix total = pitch * yaw * roll * pos;
+		Matrix total = pos * roll * yaw * pitch;
 		return total;
 	}
 };

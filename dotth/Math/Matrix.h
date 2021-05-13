@@ -34,7 +34,7 @@ struct Matrix
 	Matrix operator*(const Matrix& right)
 	{
 		Matrix Result;
-		Matrix::Multiply(right, *this, Result);
+		Matrix::Multiply(*this, right, Result);
 		return Result;
 	}
 

@@ -10,14 +10,15 @@ void EntryPoint::OnInit(void)
 	SetCameraFrustumNearFieldDistance(0.1f);
 	SetCameraFrustumFarFieldDistance(1000.f);
 	
+
+
+	std::shared_ptr<SampleObject> A = std::make_shared<SampleObject>();
+	A->TranslateX(2.f);
+	SpawnObject(A);
 	
-	std::shared_ptr<SampleObject> so = std::make_shared<SampleObject>();
-	SpwanObject(so);
-	so->GetTransform().TranslateY(2.f);
-	std::shared_ptr<SampleObject> so2 = std::make_shared<SampleObject>();
-	so2->Rename("A");
-	SpwanObject(so2);
-	
+	std::shared_ptr<SampleObject> B = std::make_shared<SampleObject>();
+	B->TranslateX(-2.f);
+	A->AddChild(B);
 }
 
 void EntryPoint::OnDestroy(void)
@@ -26,7 +27,6 @@ void EntryPoint::OnDestroy(void)
 
 void EntryPoint::OnUpdate(void)
 {
-	FindObject("A")->GetTransform().RotateYaw(0.01f);
 }
 
 void EntryPoint::OnDraw(void)

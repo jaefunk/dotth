@@ -54,7 +54,7 @@ void Scene::OnDestroy(void)
 {
 }
 
-void Scene::SpwanObject(std::shared_ptr<Object> object)
+void Scene::SpawnObject(std::shared_ptr<Object> object)
 {
 	for (std::shared_ptr<Object> Obj : _Objects)
 	{

@@ -23,7 +23,7 @@ private:
 	std::list<std::shared_ptr<Object>> _Objects;
 
 public:
-	void SpwanObject(std::shared_ptr<Object> object);
+	void SpawnObject(std::shared_ptr<Object> object);
 	void RemoveObject(std::shared_ptr<Object> object);
 	template <typename CastTy = Object>
 	std::shared_ptr<Object> FindObject(std::string name)
