@@ -10,12 +10,12 @@ void StaticMeshComponent::OnInit(void)
 
 void StaticMeshComponent::OnUpdate(void)
 {
-	MeshComponent::OnUpdate();
+	
 }
 
 void StaticMeshComponent::OnDraw(void)
 {
-	_StaticMesh->Matrix = GetOwner()->GetTransform().ToMatrix(true);
+	_StaticMesh->Matrix = GetOwner()->GetTransform().GetWorldMatrix();
 	_StaticMesh->Draw();
 }
 

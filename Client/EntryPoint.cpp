@@ -17,6 +17,7 @@ void EntryPoint::OnInit(void)
 	SpawnObject(A);
 	
 	std::shared_ptr<SampleObject> B = std::make_shared<SampleObject>();
+	B->Rename("a");
 	B->TranslateX(-2.f);
 	A->AddChild(B);
 }
@@ -27,6 +28,7 @@ void EntryPoint::OnDestroy(void)
 
 void EntryPoint::OnUpdate(void)
 {
+	
 }
 
 void EntryPoint::OnDraw(void)

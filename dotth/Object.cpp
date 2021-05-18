@@ -10,7 +10,7 @@ void Object::Init(void)
 	}
 	Foreach([](std::shared_ptr<Object> child) {
 		child->Init();
-	});
+		});
 }
 
 void Object::Destroy(void)
@@ -22,7 +22,7 @@ void Object::Destroy(void)
 	}
 	Foreach([](std::shared_ptr<Object> child) {
 		child->Destroy();
-	});
+		});
 }
 
 void Object::Update(void)
@@ -34,7 +34,19 @@ void Object::Update(void)
 	}
 	Foreach([](std::shared_ptr<Object> child) {
 		child->Update();
-	});
+		});
+}
+
+void Object::LateUpdate(void)
+{
+	OnLateUpdate();
+	for (std::shared_ptr<Component> Comp : _Components)
+	{
+		Comp->OnLateUpdate();
+	}
+	Foreach([](std::shared_ptr<Object> child) {
+		child->LateUpdate();
+		});
 }
 
 void Object::Draw(void)
@@ -46,7 +58,7 @@ void Object::Draw(void)
 	}
 	Foreach([](std::shared_ptr<Object> child) {
 		child->Draw();
-	});
+		});
 }
 
 void Object::OnInit(void)
@@ -55,12 +67,13 @@ void Object::OnInit(void)
 
 void Object::OnUpdate(void)
 {
+	printf("%d\n", Serial());
 }
 
 void Object::OnDraw(void)
 {
 }
 
-void Object::OnDestroy(void) 
+void Object::OnDestroy(void)
 {
 }

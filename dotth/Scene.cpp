@@ -17,11 +17,19 @@ void Scene::Update(void)
 	{
 		Obj->Update();
 	}
+	D3D11RHI::Camera()->Sync();
+	for (std::shared_ptr<Object> Obj : _Objects)
+	{
+		Obj->UpdateTransform();
+	}
+	for (std::shared_ptr<Object> Obj : _Objects)
+	{
+		Obj->LateUpdate();
+	}
 }
 
 void Scene::Draw(void)
 {
-	D3D11RHI::Camera()->Sync();
 	OnDraw();
 	for (std::shared_ptr<Object> Obj : _Objects)
 	{

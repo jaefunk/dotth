@@ -3,7 +3,6 @@
 
 bool D3D11StaticMesh::LoadShader(std::string file_name)
 {
-	
 	unsigned int desc_size = 2;
 	D3D11_INPUT_ELEMENT_DESC* input_desc = new D3D11_INPUT_ELEMENT_DESC[desc_size];
 	input_desc[0] = { "POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 0, D3D11_INPUT_PER_VERTEX_DATA, 0 };
@@ -189,10 +188,7 @@ void D3D11StaticMesh::Draw(void)
 	D3D11RHI::Context()->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 	D3D11RHI::BindVertexBuffer(_VertexBuffer, vertex_type_size);
 	D3D11RHI::BindIndexBuffer(_IndexBuffer);
-
-	static float fX = 0.f;
-	static float fY = 0.f;
-
+	
 	MatrixBuffer cb;
 	cb.View = DirectX::XMMatrixTranspose(*D3D11RHI::Camera()->View());
 	cb.Projection = DirectX::XMMatrixTranspose(*D3D11RHI::Camera()->Perspective());

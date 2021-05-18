@@ -9,6 +9,7 @@ class Object : public Node<Object>
 public:
 	void Init(void);
 	void Update(void);
+	void LateUpdate(void);
 	void Draw(void);
 	void Destroy(void);
 
@@ -16,6 +17,7 @@ protected:
 	virtual void OnInit(void);
 	virtual void OnDestroy(void);
 	virtual void OnUpdate(void);
+	virtual void OnLateUpdate(void) {}
 	virtual void OnDraw(void);
 
 private:
@@ -23,6 +25,18 @@ private:
 	std::list<std::shared_ptr<Component>> _Components;
 
 public:
+	void UpdateTransform(void)
+	{
+		Transform* ParentTransform = nullptr;
+		std::shared_ptr<Object> Prt = Parent<Object>();
+		if (Prt != nullptr)
+			ParentTransform = &Prt->_Transform;
+		_Transform.Update(ParentTransform);
+
+		Foreach([](std::shared_ptr<Object> child) {
+			child->UpdateTransform();
+			});
+	}
 	const Transform& GetTransform(void) { return _Transform; }
 
 public:

@@ -8,6 +8,10 @@ void Component::OnUpdate(void)
 {
 }
 
+void Component::OnLateUpdate(void)
+{
+}
+
 void Component::OnDraw(void)
 {
 }
