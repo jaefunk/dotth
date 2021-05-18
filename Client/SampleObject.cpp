@@ -18,7 +18,7 @@ void SampleObject::OnDestroy(void)
 void SampleObject::OnUpdate(void)
 {
 	//if (Name() != "a")
-		RotateYaw(0.1f);
+		//RotateYaw(0.1f);
 }
 
 void SampleObject::OnDraw(void)

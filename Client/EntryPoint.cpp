@@ -13,12 +13,14 @@ void EntryPoint::OnInit(void)
 
 
 	std::shared_ptr<SampleObject> A = std::make_shared<SampleObject>();
-	A->TranslateX(2.f);
+	A->TranslateX(0.f);
 	SpawnObject(A);
 	
 	std::shared_ptr<SampleObject> B = std::make_shared<SampleObject>();
 	B->Rename("a");
-	B->TranslateX(-2.f);
+	B->TranslateX(2.f);
+	B->TranslateY(2.f);
+	//A->Scaling(0.5f);
 	A->AddChild(B);
 }
 

@@ -12,6 +12,7 @@ protected:
 	Vector3F Scale{ 1.f, 1.f, 1.f };
 	Vector3F Rotation{ 0.f, 0.f, 0.f };
 	Vector3F Position{ 0.f, 0.f, 0.f };
+	Vector3F WorldScale{ 1.f, 1.f, 1.f };
 	Matrix WorldMatrix;
 
 public:
@@ -41,9 +42,13 @@ public:
 	{
 		Matrix ParentMatrix;
 		ParentMatrix.SetIdentity();
+		WorldScale = Scale;
 		if (Parent != nullptr)
+		{
 			ParentMatrix = Parent->ToMatrixNoScale();
-		WorldMatrix = ParentMatrix * ToMatrixNoScale();
+			Float3::Multiply(Scale, Parent->WorldScale, WorldScale);
+		}
+		WorldMatrix = ParentMatrix * ToMatrixWithScale();
 	}
 
 	const Matrix& GetWorldMatrix(void) const
@@ -52,17 +57,20 @@ public:
 	}
 
 private:
-	Matrix ToMatrixWithScale(const Transform* Parent = nullptr) const
+	Matrix ToMatrixWithScale(const Transform* Parent = nullptr)
 	{ 
-		Matrix scl = Matrix::Scaling(Scale);
+		Matrix scl = Matrix::Scaling(WorldScale);
 		Matrix pitch = Matrix::RotatePitch(Rotation.x);
 		Matrix yaw = Matrix::RotateYaw(Rotation.y);
 		Matrix roll = Matrix::RotateRoll(Rotation.z);
 		Matrix pos = Matrix::Translate(Position);
 		Matrix local = pos * roll * yaw * pitch * scl;
 		Matrix world = local;
+		
 		if (Parent != nullptr)
+		{
 			world = Parent->ToMatrixNoScale() * local;
+		}
 		return world;
 	}
 	Matrix ToMatrixNoScale(const Transform* Parent = nullptr) const
