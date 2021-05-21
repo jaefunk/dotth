@@ -17,6 +17,8 @@ void StaticMeshComponent::OnDraw(void)
 {
 	_StaticMesh->Matrix = GetOwner()->GetTransform().GetWorldMatrix();
 	_StaticMesh->Draw();
+
+
 }
 
 void StaticMeshComponent::OnDestroy(void)

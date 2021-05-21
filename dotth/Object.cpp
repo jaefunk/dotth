@@ -67,7 +67,6 @@ void Object::OnInit(void)
 
 void Object::OnUpdate(void)
 {
-	printf("%d\n", Serial());
 }
 
 void Object::OnDraw(void)

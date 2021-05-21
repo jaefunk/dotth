@@ -33,7 +33,6 @@ public:
 			{
 				func(casted);
 			}
-			elm->Foreach<target_type>(func);
 		}
 	}
 
@@ -59,6 +58,10 @@ public:
 		target->Leave();
 		_Children.push_back(target);
 		target->_Parent = this->shared_from_this();
+
+		std::string pname = Name();
+		std::string cname = target->Name();
+		printf("[%s] add child [%s]", pname.c_str(), cname.c_str());
 	}
 
 	void Leave(void)

@@ -66,7 +66,7 @@ struct Matrix
 		}
 	}
 
-	static void Multiply(const ThisType& left, const ThisType& right, ThisType& result)
+	static void Multiply(const ThisType left, const ThisType right, ThisType& result)
 	{
 		result.SetZero();
 		for (int r = 0; r < 4; r++)
@@ -74,8 +74,8 @@ struct Matrix
 			for (int c = 0; c < 4; c++)
 			{
 				Float4 Row, Col, Last;
-				Matrix::Row(left, r, Row);
-				Matrix::Column(right, c, Col);
+				Matrix::Row(right, r, Row);
+				Matrix::Column(left, c, Col);
 				Float4::Multiply(Row, Col, Last);
 				result.rc[r][c] = Last.f[0] + Last.f[1] + Last.f[2] + Last.f[3];
 			}

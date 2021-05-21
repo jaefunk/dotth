@@ -13,6 +13,7 @@ protected:
 	Vector3F Rotation{ 0.f, 0.f, 0.f };
 	Vector3F Position{ 0.f, 0.f, 0.f };
 	Vector3F WorldScale{ 1.f, 1.f, 1.f };
+	Vector3F WorldPosition{ 0.f, 0.f, 0.f };
 	Matrix WorldMatrix;
 
 public:
@@ -40,46 +41,29 @@ public:
 
 	void Update(const Transform* Parent = nullptr)
 	{
-		Matrix ParentMatrix;
-		ParentMatrix.SetIdentity();
-		WorldScale = Scale;
-		if (Parent != nullptr)
-		{
-			ParentMatrix = Parent->ToMatrixNoScale();
-			Float3::Multiply(Scale, Parent->WorldScale, WorldScale);
-		}
-		WorldMatrix = ParentMatrix * ToMatrixWithScale();
+		WorldMatrix = ToMatrixWithScale(Parent);
 	}
 
-	const Matrix& GetWorldMatrix(void) const
+	Matrix GetWorldMatrix(void) const
 	{
 		return WorldMatrix;
 	}
 
 private:
-	Matrix ToMatrixWithScale(const Transform* Parent = nullptr)
+	Matrix ToMatrixWithScale(const Transform* Parent = nullptr) const
 	{ 
-		Matrix scl = Matrix::Scaling(WorldScale);
-		Matrix pitch = Matrix::RotatePitch(Rotation.x);
-		Matrix yaw = Matrix::RotateYaw(Rotation.y);
-		Matrix roll = Matrix::RotateRoll(Rotation.z);
-		Matrix pos = Matrix::Translate(Position);
-		Matrix local = pos * roll * yaw * pitch * scl;
-		Matrix world = local;
-		
+		Matrix Result;
+		Result = Matrix::Scaling(Scale) * ToMatrixNoScale();
 		if (Parent != nullptr)
-		{
-			world = Parent->ToMatrixNoScale() * local;
-		}
-		return world;
+			Result = Result * Parent->GetWorldMatrix();
+		return Result;
 	}
-	Matrix ToMatrixNoScale(const Transform* Parent = nullptr) const
+	Matrix ToMatrixNoScale(void) const
 	{
 		Matrix pos = Matrix::Translate(Position);
 		Matrix pitch = Matrix::RotatePitch(Rotation.x);
 		Matrix yaw = Matrix::RotateYaw(Rotation.y);
 		Matrix roll = Matrix::RotateRoll(Rotation.z);
-		Matrix total = pos * roll * yaw * pitch;
-		return total;
+		return pitch * yaw * roll * pos;
 	}
 };
