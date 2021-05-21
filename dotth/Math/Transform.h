@@ -8,13 +8,13 @@
 
 struct Transform 
 {
-protected:
+private:
 	Vector3F Scale{ 1.f, 1.f, 1.f };
-	Vector3F Rotation{ 0.f, 0.f, 0.f };
-	Vector3F Position{ 0.f, 0.f, 0.f };
 	Vector3F WorldScale{ 1.f, 1.f, 1.f };
-	Vector3F WorldPosition{ 0.f, 0.f, 0.f };
+	Vector3F Rotation{ 0.f, 0.f, 0.f };
+	Vector3F Position{ 0.f, 0.f, 0.f };	
 	Matrix WorldMatrix;
+	Matrix WorldMatrixNoScale;
 
 public:
 	void SetScale(const Vector3F& value) { Scale = value; }
@@ -24,6 +24,7 @@ public:
 	void ScalingY(const float& value) { Scale.y *= value; }
 	void ScalingZ(const float& value) { Scale.z *= value; }
 	const Vector3F& GetScale(void) { return Scale; }
+	const Vector3F& GetWorldScale(void) { return WorldScale; }
 
 	void SetRotation(const Vector3F& value) { Rotation = value; }
 	void Rotate(const Vector3F& value) { Vector3F::Add(Rotation, value, Rotation); }
@@ -41,29 +42,27 @@ public:
 
 	void Update(const Transform* Parent = nullptr)
 	{
-		WorldMatrix = ToMatrixWithScale(Parent);
+		WorldScale = Scale;
+		Float3 TmpPosition = Position;
+		if (Parent != nullptr)
+		{
+			Vector3F::Multiply(Scale, Parent->WorldScale, WorldScale);
+			Vector3F::Multiply(Position, Parent->WorldScale, TmpPosition);
+		}
+		Matrix scl = Matrix::Scaling(WorldScale);
+		Matrix pitch = Matrix::RotatePitch(Rotation.x);
+		Matrix yaw = Matrix::RotateYaw(Rotation.y);
+		Matrix roll = Matrix::RotateRoll(Rotation.z);
+		Matrix pos = Matrix::Translate(TmpPosition);
+		if (Parent != nullptr)
+			WorldMatrixNoScale = pitch * yaw * roll * pos * Parent->WorldMatrixNoScale;
+		else
+			WorldMatrixNoScale = pitch * yaw * roll * pos;
+		WorldMatrix = scl * WorldMatrixNoScale;
 	}
 
 	Matrix GetWorldMatrix(void) const
 	{
 		return WorldMatrix;
-	}
-
-private:
-	Matrix ToMatrixWithScale(const Transform* Parent = nullptr) const
-	{ 
-		Matrix Result;
-		Result = Matrix::Scaling(Scale) * ToMatrixNoScale();
-		if (Parent != nullptr)
-			Result = Result * Parent->GetWorldMatrix();
-		return Result;
-	}
-	Matrix ToMatrixNoScale(void) const
-	{
-		Matrix pos = Matrix::Translate(Position);
-		Matrix pitch = Matrix::RotatePitch(Rotation.x);
-		Matrix yaw = Matrix::RotateYaw(Rotation.y);
-		Matrix roll = Matrix::RotateRoll(Rotation.z);
-		return pitch * yaw * roll * pos;
 	}
 };

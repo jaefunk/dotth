@@ -11,13 +11,37 @@ struct Float3 {
 		struct { float f[3]; };
 		struct { float x, y, z; };
 	};
-	Float3(void) = default;
+	Float3(void)
+	{
+
+	}
+	Float3(const Float3& value)
+	{
+		this->x = value.x;
+		this->y = value.y;
+		this->z = value.z;
+	}
 	Float3(float _x, float _y, float _z)
 		: x(_x), y(_y), z(_z)
 	{
 	}
 
 	using ThisType = Float3;
+	Float3& operator =(Float3 && right)
+	{
+		this->x = right.x;
+		this->y = right.y;
+		this->z = right.z;
+		return *this;
+	}
+	Float3& operator =(const Float3& right)
+	{
+		this->x = right.x;
+		this->y = right.y;
+		this->z = right.z;
+		return *this;
+	}
+
 	static void Add(const ThisType& left, const ThisType& right, ThisType& result)
 	{
 		for (int index = 0; index < ELEMENTCOUNT; ++index)

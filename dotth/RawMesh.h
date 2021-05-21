@@ -16,12 +16,17 @@ struct Vertex
 	//Vector3F Normal;
 	//Vector2F UV;
 	Color4F Color;
-	static constexpr std::size_t Size(void)
-	{
-		return sizeof(Vertex);
-	}
+	//static constexpr std::size_t Size(void)
+	//{
+	//	return sizeof(Vertex);
+	//}
 	Vertex(void)
 	{
+	}
+	Vertex(const Vertex& v)
+	{
+		Position = v.Position;
+		Color = v.Color;
 	}
 	Vertex(Vector3F pos, Color4F color)
 	{
