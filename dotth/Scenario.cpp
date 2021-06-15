@@ -32,11 +32,9 @@ void Scenario::ApplyNewScene(void)
 
 void Scenario::Loop(void)
 {
-	printf("LOOP: ");
 	ApplyNewScene();
 	if (_CurrentScene == nullptr)
 		return;
 	_CurrentScene->Update();
 	_CurrentScene->Draw();
-	printf("\n");
 }

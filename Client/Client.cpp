@@ -140,6 +140,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance
 //
 LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
+	App.WndProc(hWnd, message, wParam, lParam);
     switch (message)
     {
     case WM_COMMAND:

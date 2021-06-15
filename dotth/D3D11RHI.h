@@ -7,6 +7,8 @@
 
 class D3D11RHI : public SingleInstance<D3D11RHI>
 {
+public:
+	virtual ~D3D11RHI();
 private:
 	HWND _Hwnd;
 	unsigned int _Width;

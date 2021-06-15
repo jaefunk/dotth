@@ -1,10 +1,25 @@
 #include "D3D11RHI.h"
 
+D3D11RHI::~D3D11RHI()
+{
+	D3D11RHI::Instance()->_Device->Release();
+	D3D11RHI::Instance()->_Context->Release();;
+	D3D11RHI::Instance()->_SwapChain->Release();
+	D3D11RHI::Instance()->_BackBufferRTV->Release();
+	D3D11RHI::Instance()->_RasterizerState->Release();
+	D3D11RHI::Instance()->_SamplerState->Release();
+	D3D11RHI::Instance()->_DepthStencilView->Release();;
+}
+
 bool D3D11RHI::Initialize(HWND hwnd, unsigned int width, unsigned int height)
 {
 	D3D11RHI::Instance()->_Camera.SetViewportSize(width, height);
 	D3D11RHI::Instance()->_FeatureLevel = D3D_FEATURE_LEVEL_11_1;
-	if (FAILED(D3D11CreateDevice(nullptr, D3D_DRIVER_TYPE::D3D_DRIVER_TYPE_HARDWARE, nullptr, 0, &D3D11RHI::Instance()->_FeatureLevel, 1, D3D11_SDK_VERSION, &D3D11RHI::Instance()->_Device, nullptr, &D3D11RHI::Instance()->_Context)))
+	UINT createDeviceFlags = 0;
+#if defined(DEBUG) || defined(_DEBUG)
+	//createDeviceFlags |= D3D11_DEBUG;
+#endif
+	if (FAILED(D3D11CreateDevice(nullptr, D3D_DRIVER_TYPE::D3D_DRIVER_TYPE_HARDWARE, nullptr, createDeviceFlags, &D3D11RHI::Instance()->_FeatureLevel, 1, D3D11_SDK_VERSION, &D3D11RHI::Instance()->_Device, nullptr, &D3D11RHI::Instance()->_Context)))
 	{
 		return false;
 	}
@@ -15,13 +30,16 @@ bool D3D11RHI::Initialize(HWND hwnd, unsigned int width, unsigned int height)
 		return false;
 	}
 
+
+	const unsigned int RenderTargetWidth = 512;
+	const unsigned int RenderTargetHeight = 512;
 	DXGI_SWAP_CHAIN_DESC scd;
 	ZeroMemory(&scd, sizeof(scd));
 
 
 	scd.BufferCount = 1;
-	scd.BufferDesc.Width = width;
-	scd.BufferDesc.Height = height;
+	scd.BufferDesc.Width = RenderTargetWidth;
+	scd.BufferDesc.Height = RenderTargetHeight;
 	scd.BufferDesc.Format = DXGI_FORMAT_R8G8B8A8_UNORM;
 	scd.BufferDesc.RefreshRate.Numerator = 60;
 	scd.BufferDesc.RefreshRate.Denominator = 1;
@@ -75,8 +93,8 @@ bool D3D11RHI::Initialize(HWND hwnd, unsigned int width, unsigned int height)
 
 	D3D11_TEXTURE2D_DESC db;
 	ZeroMemory(&db, sizeof(db));
-	db.Width = width;
-	db.Height = height;
+	db.Width = RenderTargetWidth;
+	db.Height = RenderTargetHeight;
 	db.MipLevels = 1;
 	db.ArraySize = 1;
 	db.Format = DXGI_FORMAT_D24_UNORM_S8_UINT;
@@ -106,12 +124,12 @@ bool D3D11RHI::Initialize(HWND hwnd, unsigned int width, unsigned int height)
 	D3D11RHI::Context()->OMSetRenderTargets(1, &D3D11RHI::Instance()->_BackBufferRTV, D3D11RHI::Instance()->_DepthStencilView);
 
 	D3D11_VIEWPORT viewport;
-	viewport.Width = static_cast<float>(width);
-	viewport.Height = static_cast<float>(height);
+	viewport.TopLeftX = 0.0f;
+	viewport.TopLeftY = 0.0f;	
+	viewport.Width = static_cast<float>(RenderTargetWidth);
+	viewport.Height = static_cast<float>(RenderTargetHeight);
 	viewport.MinDepth = 0.0f;
 	viewport.MaxDepth = 1.0f;
-	viewport.TopLeftX = 0.0f;
-	viewport.TopLeftY = 0.0f;
 	D3D11RHI::Context()->RSSetViewports(1, &viewport);
 
 	return true;
@@ -126,7 +144,7 @@ void D3D11RHI::PreDraw(void)
 
 void D3D11RHI::PostDraw(void)
 {
-	D3D11RHI::SwapChain()->Present(1, 0);
+	D3D11RHI::SwapChain()->Present(1, 0);	
 }
 
 ID3D11Device * D3D11RHI::Device()

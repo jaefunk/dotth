@@ -21,6 +21,7 @@ class Application
 public:
 	template <typename SceneTy>
 	void Initialize(const Configuration& config);
+	void WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);
 	bool Loop();
 };
 

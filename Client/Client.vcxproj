@@ -96,28 +96,28 @@
     <OutDir>$(SolutionDir)Output\$(ProjectName)\$(PlatformTarget)\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)Output\$(ProjectName)\$(PlatformTarget)\$(Configuration)\</IntDir>
     <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);;../dotth/;;../dotth/External/imgui/;../dotth/External/</IncludePath>
-    <LibraryPath>$(LibraryPath);../dotth/;../dotth/External/;C:\Program Files (x86)\Microsoft DirectX SDK June 2010\Lib\$(PlatformTarget)</LibraryPath>
+    <LibraryPath>$(LibraryPath);C:\Program Files (x86)\Microsoft DirectX SDK June 2010\Lib\$(PlatformTarget);../dotth/;../dotth/External/</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
     <OutDir>$(SolutionDir)Output\$(ProjectName)\$(PlatformTarget)\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)Output\$(ProjectName)\$(PlatformTarget)\$(Configuration)\</IntDir>
     <IncludePath>$(IncludePath);;../dotth/;../dotth/External/imgui/;../dotth/External/</IncludePath>
-    <LibraryPath>$(LibraryPath);../dotth/;../dotth/External/;C:\Program Files (x86)\Microsoft DirectX SDK June 2010\Lib\$(PlatformTarget)</LibraryPath>
+    <LibraryPath>$(LibraryPath);C:\Program Files (x86)\Microsoft DirectX SDK June 2010\Lib\$(PlatformTarget);../dotth/;../dotth/External/</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
     <OutDir>$(SolutionDir)Output\$(ProjectName)\$(PlatformTarget)\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)Output\$(ProjectName)\$(PlatformTarget)\$(Configuration)\</IntDir>
     <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);;../dotth/;;../dotth/External/imgui/;../dotth/External/</IncludePath>
-    <LibraryPath>$(LibraryPath);../dotth/;../dotth/External/;C:\Program Files (x86)\Microsoft DirectX SDK June 2010\Lib\$(PlatformTarget)</LibraryPath>
+    <LibraryPath>$(LibraryPath);C:\Program Files (x86)\Microsoft DirectX SDK June 2010\Lib\$(PlatformTarget);../dotth/;../dotth/External/</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
     <OutDir>$(SolutionDir)Output\$(ProjectName)\$(PlatformTarget)\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)Output\$(ProjectName)\$(PlatformTarget)\$(Configuration)\</IntDir>
     <IncludePath>$(IncludePath);;../dotth/;../dotth/External/imgui/;../dotth/External/</IncludePath>
-    <LibraryPath>$(LibraryPath);../dotth/;../dotth/External/;C:\Program Files (x86)\Microsoft DirectX SDK June 2010\Lib\$(PlatformTarget)</LibraryPath>
+    <LibraryPath>$(LibraryPath);C:\Program Files (x86)\Microsoft DirectX SDK June 2010\Lib\$(PlatformTarget);../dotth/;../dotth/External/</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
