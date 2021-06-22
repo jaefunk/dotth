@@ -1,4 +1,8 @@
 
+
+#include "assimp/Importer.hpp"
+#include "assimp/scene.h"
+#include "assimp/postprocess.h"
 #include "D3D11StaticMesh.h"
 
 bool D3D11StaticMesh::LoadShader(std::string file_name)
@@ -68,69 +72,94 @@ bool D3D11StaticMesh::LoadShader(std::string file_name)
 
 void D3D11StaticMesh::Load(const char * file)
 {
-	Vertices.resize(24);
-	Vertices[0] = Vertex(Vector3F(-0.5f, +0.5f, -0.5f), Color4F(1.0f, 0.0f, 0.f, 1.f));
-	Vertices[1] = Vertex(Vector3F(+0.5f, +0.5f, -0.5f), Color4F(1.0f, 0.0f, 0.f, 1.f));
-	Vertices[2] = Vertex(Vector3F(+0.5f, +0.5f, +0.5f), Color4F(1.0f, 0.0f, 0.f, 1.f));
-	Vertices[3] = Vertex(Vector3F(-0.5f, +0.5f, +0.5f), Color4F(1.0f, 0.0f, 0.f, 1.f));
-	Vertices[4] = Vertex(Vector3F(-0.5f, -0.5f, -0.5f), Color4F(0.0f, 1.0f, 0.f, 1.f));
-	Vertices[5] = Vertex(Vector3F(+0.5f, -0.5f, -0.5f), Color4F(0.0f, 1.0f, 0.f, 1.f));
-	Vertices[6] = Vertex(Vector3F(+0.5f, -0.5f, +0.5f), Color4F(0.0f, 1.0f, 0.f, 1.f));
-	Vertices[7] = Vertex(Vector3F(-0.5f, -0.5f, +0.5f), Color4F(0.0f, 1.0f, 0.f, 1.f));
-	Vertices[8] = Vertex(Vector3F(-0.5f, -0.5f, +0.5f), Color4F(0.0f, 0.0f, 1.f, 1.f));
-	Vertices[9] = Vertex(Vector3F(-0.5f, -0.5f, -0.5f), Color4F(0.0f, 0.0f, 1.f, 1.f));
-	Vertices[10] = Vertex(Vector3F(-0.5f, +0.5f, -0.5f), Color4F(0.0f, 0.0f, 1.f, 1.f));
-	Vertices[11] = Vertex(Vector3F(-0.5f, +0.5f, +0.5f), Color4F(0.0f, 0.0f, 1.f, 1.f));
-	Vertices[12] = Vertex(Vector3F(+0.5f, -0.5f, +0.5f), Color4F(1.0f, 0.0f, 1.f, 1.f));
-	Vertices[13] = Vertex(Vector3F(+0.5f, -0.5f, -0.5f), Color4F(1.0f, 0.0f, 1.f, 1.f));
-	Vertices[14] = Vertex(Vector3F(+0.5f, +0.5f, -0.5f), Color4F(1.0f, 0.0f, 1.f, 1.f));
-	Vertices[15] = Vertex(Vector3F(+0.5f, +0.5f, +0.5f), Color4F(1.0f, 0.0f, 1.f, 1.f));
-	Vertices[16] = Vertex(Vector3F(-0.5f, -0.5f, -0.5f), Color4F(0.0f, 1.0f, 1.f, 1.f));
-	Vertices[17] = Vertex(Vector3F(+0.5f, -0.5f, -0.5f), Color4F(0.0f, 1.0f, 1.f, 1.f));
-	Vertices[18] = Vertex(Vector3F(+0.5f, +0.5f, -0.5f), Color4F(0.0f, 1.0f, 1.f, 1.f));
-	Vertices[19] = Vertex(Vector3F(-0.5f, +0.5f, -0.5f), Color4F(0.0f, 1.0f, 1.f, 1.f));
-	Vertices[20] = Vertex(Vector3F(-0.5f, -0.5f, +0.5f), Color4F(1.0f, 1.0f, 0.f, 1.f));
-	Vertices[21] = Vertex(Vector3F(+0.5f, -0.5f, +0.5f), Color4F(1.0f, 1.0f, 0.f, 1.f));
-	Vertices[22] = Vertex(Vector3F(+0.5f, +0.5f, +0.5f), Color4F(1.0f, 1.0f, 0.f, 1.f));
-	Vertices[23] = Vertex(Vector3F(-0.5f, +0.5f, +0.5f), Color4F(1.0f, 1.0f, 0.f, 1.f));
+	Assimp::Importer importer;
+	const aiScene* scene = importer.ReadFile(file, aiProcess_ConvertToLeftHanded | aiProcess_GenNormals | aiProcess_CalcTangentSpace);
+	
+	for (int i = 0; i < scene->mNumMeshes; ++i)
+	{
+		auto mesh = scene->mMeshes[i];
+		if (mesh->HasFaces())
+		{
+			Vertices.resize(mesh->mNumVertices);
+			for (int i = 0; i < mesh->mNumVertices; ++i)
+			{
+				Vertices[i].Position = { mesh->mVertices->x,mesh->mVertices->y, mesh->mVertices->z };
+				Vertices[i].Color = { 1.f, 0.f, 1.f, 1.f };
+			}
+			Indices.clear();
+			for (int i = 0; i < mesh->mNumFaces; ++i)
+			{
+				for (int j = 0; j < mesh->mFaces[i].mNumIndices; ++j)
+				{
+					Indices.push_back(mesh->mFaces[i].mIndices[j]);
+				}
+			}
+		}
+	}
 
-	Indices.resize(36);
-	Indices[0] = 3;
-	Indices[1] = 1;
-	Indices[2] = 0;
-	Indices[3] = 2;
-	Indices[4] = 1;
-	Indices[5] = 3;
-	Indices[6] = 6;
-	Indices[7] = 4;
-	Indices[8] = 5;
-	Indices[9] = 7;
-	Indices[10] = 4;
-	Indices[11] = 6;
-	Indices[12] = 11;
-	Indices[13] = 9;
-	Indices[14] = 8;
-	Indices[15] = 10;
-	Indices[16] = 9;
-	Indices[17] = 11;
-	Indices[18] = 14;
-	Indices[19] = 12;
-	Indices[20] = 13;
-	Indices[21] = 15;
-	Indices[22] = 12;
-	Indices[23] = 14;
-	Indices[24] = 19;
-	Indices[25] = 17;
-	Indices[26] = 16;
-	Indices[27] = 18;
-	Indices[28] = 17;
-	Indices[29] = 19;
-	Indices[30] = 22;
-	Indices[31] = 20;
-	Indices[32] = 21;
-	Indices[33] = 23;
-	Indices[34] = 20;
-	Indices[35] = 22;
+	//Vertices.resize(24);
+	//Vertices[0] = Vertex(Vector3F(-0.5f, +0.5f, -0.5f), Color4F(1.0f, 0.0f, 0.f, 1.f));
+	//Vertices[1] = Vertex(Vector3F(+0.5f, +0.5f, -0.5f), Color4F(1.0f, 0.0f, 0.f, 1.f));
+	//Vertices[2] = Vertex(Vector3F(+0.5f, +0.5f, +0.5f), Color4F(1.0f, 0.0f, 0.f, 1.f));
+	//Vertices[3] = Vertex(Vector3F(-0.5f, +0.5f, +0.5f), Color4F(1.0f, 0.0f, 0.f, 1.f));
+	//Vertices[4] = Vertex(Vector3F(-0.5f, -0.5f, -0.5f), Color4F(0.0f, 1.0f, 0.f, 1.f));
+	//Vertices[5] = Vertex(Vector3F(+0.5f, -0.5f, -0.5f), Color4F(0.0f, 1.0f, 0.f, 1.f));
+	//Vertices[6] = Vertex(Vector3F(+0.5f, -0.5f, +0.5f), Color4F(0.0f, 1.0f, 0.f, 1.f));
+	//Vertices[7] = Vertex(Vector3F(-0.5f, -0.5f, +0.5f), Color4F(0.0f, 1.0f, 0.f, 1.f));
+	//Vertices[8] = Vertex(Vector3F(-0.5f, -0.5f, +0.5f), Color4F(0.0f, 0.0f, 1.f, 1.f));
+	//Vertices[9] = Vertex(Vector3F(-0.5f, -0.5f, -0.5f), Color4F(0.0f, 0.0f, 1.f, 1.f));
+	//Vertices[10] = Vertex(Vector3F(-0.5f, +0.5f, -0.5f), Color4F(0.0f, 0.0f, 1.f, 1.f));
+	//Vertices[11] = Vertex(Vector3F(-0.5f, +0.5f, +0.5f), Color4F(0.0f, 0.0f, 1.f, 1.f));
+	//Vertices[12] = Vertex(Vector3F(+0.5f, -0.5f, +0.5f), Color4F(1.0f, 0.0f, 1.f, 1.f));
+	//Vertices[13] = Vertex(Vector3F(+0.5f, -0.5f, -0.5f), Color4F(1.0f, 0.0f, 1.f, 1.f));
+	//Vertices[14] = Vertex(Vector3F(+0.5f, +0.5f, -0.5f), Color4F(1.0f, 0.0f, 1.f, 1.f));
+	//Vertices[15] = Vertex(Vector3F(+0.5f, +0.5f, +0.5f), Color4F(1.0f, 0.0f, 1.f, 1.f));
+	//Vertices[16] = Vertex(Vector3F(-0.5f, -0.5f, -0.5f), Color4F(0.0f, 1.0f, 1.f, 1.f));
+	//Vertices[17] = Vertex(Vector3F(+0.5f, -0.5f, -0.5f), Color4F(0.0f, 1.0f, 1.f, 1.f));
+	//Vertices[18] = Vertex(Vector3F(+0.5f, +0.5f, -0.5f), Color4F(0.0f, 1.0f, 1.f, 1.f));
+	//Vertices[19] = Vertex(Vector3F(-0.5f, +0.5f, -0.5f), Color4F(0.0f, 1.0f, 1.f, 1.f));
+	//Vertices[20] = Vertex(Vector3F(-0.5f, -0.5f, +0.5f), Color4F(1.0f, 1.0f, 0.f, 1.f));
+	//Vertices[21] = Vertex(Vector3F(+0.5f, -0.5f, +0.5f), Color4F(1.0f, 1.0f, 0.f, 1.f));
+	//Vertices[22] = Vertex(Vector3F(+0.5f, +0.5f, +0.5f), Color4F(1.0f, 1.0f, 0.f, 1.f));
+	//Vertices[23] = Vertex(Vector3F(-0.5f, +0.5f, +0.5f), Color4F(1.0f, 1.0f, 0.f, 1.f));
+
+	//Indices.resize(36);
+	//Indices[0] = 3;
+	//Indices[1] = 1;
+	//Indices[2] = 0;
+	//Indices[3] = 2;
+	//Indices[4] = 1;
+	//Indices[5] = 3;
+	//Indices[6] = 6;
+	//Indices[7] = 4;
+	//Indices[8] = 5;
+	//Indices[9] = 7;
+	//Indices[10] = 4;
+	//Indices[11] = 6;
+	//Indices[12] = 11;
+	//Indices[13] = 9;
+	//Indices[14] = 8;
+	//Indices[15] = 10;
+	//Indices[16] = 9;
+	//Indices[17] = 11;
+	//Indices[18] = 14;
+	//Indices[19] = 12;
+	//Indices[20] = 13;
+	//Indices[21] = 15;
+	//Indices[22] = 12;
+	//Indices[23] = 14;
+	//Indices[24] = 19;
+	//Indices[25] = 17;
+	//Indices[26] = 16;
+	//Indices[27] = 18;
+	//Indices[28] = 17;
+	//Indices[29] = 19;
+	//Indices[30] = 22;
+	//Indices[31] = 20;
+	//Indices[32] = 21;
+	//Indices[33] = 23;
+	//Indices[34] = 20;
+	//Indices[35] = 22;
 
 
 	const unsigned int vertex_type_size = static_cast<unsigned int>(sizeof(decltype(Vertices)::value_type));
@@ -184,14 +213,15 @@ void D3D11StaticMesh::Load(const char * file)
 
 void D3D11StaticMesh::Draw(void)
 {
+	const unsigned int offset = 0;
 	const unsigned int vertex_type_size = static_cast<unsigned int>(sizeof(decltype(Vertices)::value_type));
 	D3D11RHI::Context()->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
-	D3D11RHI::BindVertexBuffer(_VertexBuffer, vertex_type_size);
-	D3D11RHI::BindIndexBuffer(_IndexBuffer);
+	D3D11RHI::Context()->IASetVertexBuffers(0, 1, &_VertexBuffer, &vertex_type_size, &offset);
+	D3D11RHI::Context()->IASetIndexBuffer(_IndexBuffer, DXGI_FORMAT_R32_UINT, 0);
 	
 	MatrixBuffer cb;
-	cb.View = DirectX::XMMatrixTranspose(*D3D11RHI::Camera()->View());
-	cb.Projection = DirectX::XMMatrixTranspose(*D3D11RHI::Camera()->Perspective());
+	cb.View = DirectX::XMMatrixTranspose(D3D11RHI::Camera()->View());
+	cb.Projection = DirectX::XMMatrixTranspose(D3D11RHI::Camera()->Perspective());
 	cb.World = Matrix;
 	D3D11RHI::Context()->UpdateSubresource(_ConstantBuffer, 0, nullptr, &cb, 0, 0);
 	D3D11RHI::Context()->VSSetConstantBuffers(0, 1, &_ConstantBuffer);

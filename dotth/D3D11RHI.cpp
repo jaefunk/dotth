@@ -207,7 +207,6 @@ ID3D11InputLayout * D3D11RHI::CreateInputLayout(ID3DBlob * blob, D3D11_INPUT_ELE
 
 void D3D11RHI::BindVertexBuffer(ID3D11Buffer* buffer, unsigned int size, unsigned int offset)
 {
-	D3D11RHI::Context()->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 	D3D11RHI::Context()->IASetVertexBuffers(0, 1, &buffer, &size, &offset);
 	
 }

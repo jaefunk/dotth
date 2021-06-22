@@ -1,19 +1,19 @@
 ﻿
 #include "D3D11Camera.h"
 
-XMMATRIX * D3D11Camera::View(void)
+const XMMATRIX& D3D11Camera::View(void)
 {
-	return &_View;
+	return _View;
 }
 
-XMMATRIX * D3D11Camera::Perspective(void)
+const XMMATRIX& D3D11Camera::Perspective(void)
 {
-	return &_Perspective;
+	return _Perspective;
 }
 
-XMMATRIX * D3D11Camera::Ortho(void)
+const XMMATRIX& D3D11Camera::Ortho(void)
 {
-	return &_Ortho;
+	return _Ortho;
 }
 
 void D3D11Camera::SetEye(const XMFLOAT3 & value)

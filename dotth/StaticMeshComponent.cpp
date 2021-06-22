@@ -5,7 +5,7 @@
 void StaticMeshComponent::OnInit(void)
 {	
 	_StaticMesh = std::make_shared<D3D11StaticMesh>();
-	_StaticMesh->Load("");
+	_StaticMesh->Load("Resource/model/robot/RobotKyle.fbx");
 }
 
 void StaticMeshComponent::OnUpdate(void)

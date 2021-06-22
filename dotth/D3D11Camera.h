@@ -26,9 +26,9 @@ private:
 	int _Height = 0;
 
 public:
-	XMMATRIX* View(void);
-	XMMATRIX* Perspective(void);
-	XMMATRIX* Ortho(void);
+	const XMMATRIX& View(void);
+	const XMMATRIX& Perspective(void);
+	const XMMATRIX& Ortho(void);
 	void SetEye(const XMFLOAT3& value);
 	void SetUp(const XMFLOAT3& value);
 	void SetAt(const XMFLOAT3& value);
