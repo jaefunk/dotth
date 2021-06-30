@@ -13,9 +13,9 @@ struct MatrixBuffer
 struct Vertex
 {
 	Vector3F Position;
-	//Vector3F Normal;
-	//Vector2F UV;
 	Color4F Color;
+	Vector3F Normal;
+	Vector2F UV;
 	//static constexpr std::size_t Size(void)
 	//{
 	//	return sizeof(Vertex);
@@ -41,11 +41,4 @@ public:
 	Matrix Matrix;
 	std::vector<Vertex> Vertices;
 	std::vector<uint32_t> Indices;
-
-	void Clear(void) {
-
-	}
-	bool IsValid(void) const {
-		return true;
-	}
 };

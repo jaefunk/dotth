@@ -176,42 +176,42 @@ D3D11Camera* D3D11RHI::Camera()
 {
 	return &D3D11RHI::Instance()->_Camera;
 }
-
-ID3D11Buffer * D3D11RHI::CreateBuffer(const D3D11_BUFFER_DESC* desc, const D3D11_SUBRESOURCE_DATA* data)
-{
-	ID3D11Buffer* buffer = nullptr;
-	Device()->CreateBuffer(desc, data, &buffer);
-	return buffer;
-}
-
-ID3D11VertexShader * D3D11RHI::CreateVertexShader(ID3DBlob * blob)
-{
-	ID3D11VertexShader* shader = nullptr;
-	Device()->CreateVertexShader(blob->GetBufferPointer(), blob->GetBufferSize(), nullptr, &shader);
-	return shader;
-}
-
-ID3D11PixelShader * D3D11RHI::CreatePixelShader(ID3DBlob * blob)
-{
-	ID3D11PixelShader* shader = nullptr;
-	Device()->CreatePixelShader(blob->GetBufferPointer(), blob->GetBufferSize(), nullptr, &shader);
-	return shader;
-}
-
-ID3D11InputLayout * D3D11RHI::CreateInputLayout(ID3DBlob * blob, D3D11_INPUT_ELEMENT_DESC * desc, unsigned int desc_size)
-{
-	ID3D11InputLayout* layout = nullptr;
-	Device()->CreateInputLayout(desc, desc_size, blob->GetBufferPointer(), blob->GetBufferSize(), &layout);
-	return layout;
-}
-
-void D3D11RHI::BindVertexBuffer(ID3D11Buffer* buffer, unsigned int size, unsigned int offset)
-{
-	D3D11RHI::Context()->IASetVertexBuffers(0, 1, &buffer, &size, &offset);
-	
-}
-
-void D3D11RHI::BindIndexBuffer(ID3D11Buffer* buffer)
-{
-	D3D11RHI::Context()->IASetIndexBuffer(buffer, DXGI_FORMAT_R32_UINT, 0);
-}
+//
+//ID3D11Buffer * D3D11RHI::CreateBuffer(const D3D11_BUFFER_DESC* desc, const D3D11_SUBRESOURCE_DATA* data)
+//{
+//	ID3D11Buffer* buffer = nullptr;
+//	Device()->CreateBuffer(desc, data, &buffer);
+//	return buffer;
+//}
+//
+//ID3D11VertexShader * D3D11RHI::CreateVertexShader(ID3DBlob * blob)
+//{
+//	ID3D11VertexShader* shader = nullptr;
+//	Device()->CreateVertexShader(blob->GetBufferPointer(), blob->GetBufferSize(), nullptr, &shader);
+//	return shader;
+//}
+//
+//ID3D11PixelShader * D3D11RHI::CreatePixelShader(ID3DBlob * blob)
+//{
+//	ID3D11PixelShader* shader = nullptr;
+//	Device()->CreatePixelShader(blob->GetBufferPointer(), blob->GetBufferSize(), nullptr, &shader);
+//	return shader;
+//}
+//
+//ID3D11InputLayout * D3D11RHI::CreateInputLayout(ID3DBlob * blob, D3D11_INPUT_ELEMENT_DESC * desc, unsigned int desc_size)
+//{
+//	ID3D11InputLayout* layout = nullptr;
+//	Device()->CreateInputLayout(desc, desc_size, blob->GetBufferPointer(), blob->GetBufferSize(), &layout);
+//	return layout;
+//}
+//
+//void D3D11RHI::BindVertexBuffer(ID3D11Buffer* buffer, unsigned int size, unsigned int offset)
+//{
+//	D3D11RHI::Context()->IASetVertexBuffers(0, 1, &buffer, &size, &offset);
+//	
+//}
+//
+//void D3D11RHI::BindIndexBuffer(ID3D11Buffer* buffer)
+//{
+//	D3D11RHI::Context()->IASetIndexBuffer(buffer, DXGI_FORMAT_R32_UINT, 0);
+//}

@@ -26,6 +26,8 @@ bool D3D11StaticMesh::LoadShader(std::string file_name)
 	}
 	file.close();
 
+	
+
 	ID3DBlob* vs_out = nullptr;
 	//D3DCompileFromFile(L"a", nullptr, nullptr, "vs_main", "vs_5_0", 0, 0, &vs_out, &error_message);
 	D3DCompile(file_text.data(), file_text.length(), nullptr, nullptr, nullptr, "vs_main", "vs_5_0", 0, 0, &vs_out, &error_message);
@@ -50,13 +52,14 @@ bool D3D11StaticMesh::LoadShader(std::string file_name)
 		error_message->Release();
 		return false;
 	}
-	_VertexShader = D3D11RHI::CreateVertexShader(vs_out);
-	if (input_desc != nullptr && desc_size != 0)
-		_InputLayout = D3D11RHI::CreateInputLayout(vs_out, input_desc, desc_size);
-
+	
+	D3D11RHI::Device()->CreateVertexShader(vs_out->GetBufferPointer(), vs_out->GetBufferSize(), nullptr, &_VertexShader);
+	D3D11RHI::Device()->CreateInputLayout(input_desc, desc_size, vs_out->GetBufferPointer(), vs_out->GetBufferSize(), &_InputLayout);
 	vs_out->Release();
 	
 	ID3DBlob* ps_out = nullptr;
+	std::wstring wfp(file_name.begin(), file_name.end());
+	//D3DCompileFromFile(wfp.c_str(), nullptr, nullptr, "ps_main", "ps_5_0", D3DCOMPILE_ENABLE_STRICTNESS, 0, &ps_out, &error_message);
 	D3DCompile(file_text.data(), file_text.length(), nullptr, nullptr, nullptr, "ps_main", "ps_5_0", 0, 0, &ps_out, &error_message);
 	if (error_message)
 	{
@@ -64,7 +67,8 @@ bool D3D11StaticMesh::LoadShader(std::string file_name)
 		error_message->Release();
 		return false;
 	}
-	_PixelShader = D3D11RHI::CreatePixelShader(ps_out);
+	
+	D3D11RHI::Device()->CreatePixelShader(ps_out->GetBufferPointer(), ps_out->GetBufferSize(), nullptr, &_PixelShader);
 	ps_out->Release();
 
 	return true;
@@ -73,26 +77,39 @@ bool D3D11StaticMesh::LoadShader(std::string file_name)
 void D3D11StaticMesh::Load(const char * file)
 {
 	Assimp::Importer importer;
-	const aiScene* scene = importer.ReadFile(file, aiProcess_ConvertToLeftHanded | aiProcess_GenNormals | aiProcess_CalcTangentSpace);
+	const aiScene* scene = importer.ReadFile(file, aiProcess_ConvertToLeftHanded | aiProcess_Triangulate | aiProcess_OptimizeMeshes);
 	
-	for (int i = 0; i < scene->mNumMeshes; ++i)
+	for (unsigned int index = 0; index < scene->mNumMeshes; ++index)
 	{
-		auto mesh = scene->mMeshes[i];
+		auto mesh = scene->mMeshes[index];
 		if (mesh->HasFaces())
 		{
 			Vertices.resize(mesh->mNumVertices);
-			for (int i = 0; i < mesh->mNumVertices; ++i)
+			for (unsigned int i = 0; i < mesh->mNumVertices; ++i)
 			{
-				Vertices[i].Position = { mesh->mVertices->x,mesh->mVertices->y, mesh->mVertices->z };
-				Vertices[i].Color = { 1.f, 0.f, 1.f, 1.f };
+				Vertices[i].Position = { mesh->mVertices[i].x, mesh->mVertices[i].y, mesh->mVertices[i].z };
+				Vertices[i].Color = { static_cast<float>((rand()&256))/256.f, static_cast<float>((rand() & 256)) / 256.f, static_cast<float>((rand() & 256)) / 256.f, static_cast<float>((rand() & 256)) };
+
+				const aiVector3D& n = mesh->mNormals[i];
+				Vertices[i].Normal.x = n.x;
+				Vertices[i].Normal.y = n.y;
+				Vertices[i].Normal.z = n.z;
+
+				if (mesh->HasTextureCoords(0))
+				{
+					const aiVector3D& u = mesh->mTextureCoords[0][i];
+					Vertices[i].UV.x = u.x;
+					Vertices[i].UV.y = u.y;
+				}
 			}
-			Indices.clear();
+			Indices.resize(mesh->mNumFaces * 3);
 			for (int i = 0; i < mesh->mNumFaces; ++i)
 			{
-				for (int j = 0; j < mesh->mFaces[i].mNumIndices; ++j)
-				{
-					Indices.push_back(mesh->mFaces[i].mIndices[j]);
-				}
+				const aiFace& face = mesh->mFaces[i];
+				unsigned int current = i * 3;
+				Indices[current + 0] = face.mIndices[0];
+				Indices[current + 1] = face.mIndices[1];
+				Indices[current + 2] = face.mIndices[2];
 			}
 		}
 	}
@@ -173,11 +190,11 @@ void D3D11StaticMesh::Load(const char * file)
 		desc.BindFlags = D3D11_BIND_VERTEX_BUFFER;
 
 		D3D11_SUBRESOURCE_DATA data;
-		memset(&data, 0, sizeof(decltype(data)));
+		//memset(&data, 0, sizeof(decltype(data)));
 		data.pSysMem = Vertices.data();
 		data.SysMemPitch = 0;
 		data.SysMemSlicePitch = 0;
-		_VertexBuffer = D3D11RHI::CreateBuffer(&desc, &data);
+		D3D11RHI::Device()->CreateBuffer(&desc, &data, &_VertexBuffer);
 	}
 
 	{
@@ -188,11 +205,11 @@ void D3D11StaticMesh::Load(const char * file)
 		desc.BindFlags = D3D11_BIND_INDEX_BUFFER;
 
 		D3D11_SUBRESOURCE_DATA data;
-		memset(&data, 0, sizeof(decltype(data)));
+		//memset(&data, 0, sizeof(decltype(data)));
 		data.pSysMem = Indices.data();
 		data.SysMemPitch = 0;
 		data.SysMemSlicePitch = 0;
-		_IndexBuffer = D3D11RHI::CreateBuffer(&desc, &data);
+		D3D11RHI::Device()->CreateBuffer(&desc, &data, &_IndexBuffer);
 	}
 
 	{
@@ -203,7 +220,7 @@ void D3D11StaticMesh::Load(const char * file)
 		desc.Usage = D3D11_USAGE_DEFAULT;
 		//desc.Usage = D3D11_USAGE_DYNAMIC;
 		//desc.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
-		_ConstantBuffer = D3D11RHI::CreateBuffer(&desc, nullptr);
+		D3D11RHI::Device()->CreateBuffer(&desc, nullptr, &_ConstantBuffer);
 	}
 
 	{
@@ -215,15 +232,15 @@ void D3D11StaticMesh::Draw(void)
 {
 	const unsigned int offset = 0;
 	const unsigned int vertex_type_size = static_cast<unsigned int>(sizeof(decltype(Vertices)::value_type));
-	D3D11RHI::Context()->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
-	D3D11RHI::Context()->IASetVertexBuffers(0, 1, &_VertexBuffer, &vertex_type_size, &offset);
-	D3D11RHI::Context()->IASetIndexBuffer(_IndexBuffer, DXGI_FORMAT_R32_UINT, 0);
-	
+
 	MatrixBuffer cb;
 	cb.View = DirectX::XMMatrixTranspose(D3D11RHI::Camera()->View());
 	cb.Projection = DirectX::XMMatrixTranspose(D3D11RHI::Camera()->Perspective());
 	cb.World = Matrix;
 	D3D11RHI::Context()->UpdateSubresource(_ConstantBuffer, 0, nullptr, &cb, 0, 0);
+	D3D11RHI::Context()->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+	D3D11RHI::Context()->IASetVertexBuffers(0, 1, &_VertexBuffer, &vertex_type_size, &offset);
+	D3D11RHI::Context()->IASetIndexBuffer(_IndexBuffer, DXGI_FORMAT_R32_UINT, 0);
 	D3D11RHI::Context()->VSSetConstantBuffers(0, 1, &_ConstantBuffer);
 	D3D11RHI::Context()->IASetInputLayout(_InputLayout);
 	D3D11RHI::Context()->VSSetShader(_VertexShader, nullptr, 0);
