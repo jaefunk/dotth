@@ -3,12 +3,12 @@
 
 const XMMATRIX& D3D11Camera::View(void)
 {
-	return DirectX::XMMatrixTranspose(_View);
+	return _View;
 }
 
 const XMMATRIX& D3D11Camera::Perspective(void)
 {
-	return DirectX::XMMatrixTranspose(_Perspective);
+	return _Perspective;
 }
 
 const XMMATRIX& D3D11Camera::Ortho(void)
@@ -66,7 +66,9 @@ void D3D11Camera::Sync(void)
 {
 	if (_DirtyFlags & FLAG::VIEW)
 	{
-		_View = XMMatrixLookAtLH(XMLoadFloat3(&_Eye), XMLoadFloat3(&_At), XMLoadFloat3(&_Up));
+		XMVECTOR EyeDirection = XMVectorSubtract(XMLoadFloat3(&_At), XMLoadFloat3(&_Eye));
+		_View = XMMatrixLookToLH(XMLoadFloat3(&_Eye), EyeDirection, XMLoadFloat3(&_Up));
+		
 	}
 
 	if (_DirtyFlags & FLAG::PERSPECTIVE)
