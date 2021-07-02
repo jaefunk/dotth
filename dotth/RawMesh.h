@@ -1,14 +1,6 @@
 #pragma once
 
 #include "dotth.h"
-#include "Math/Math.h"
-
-struct MatrixBuffer
-{
-	XMMATRIX World;
-	XMMATRIX View;
-	XMMATRIX Projection;
-};
 
 struct Vertex
 {

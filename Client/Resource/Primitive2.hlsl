@@ -1,8 +1,6 @@
 cbuffer MatrixBuffer : register(b0)
 {
-	matrix worldMatrix;
-	matrix viewMatrix;
-	matrix projectionMatrix;
+	matrix wvp;
 };
 
 struct VertexInputType
@@ -20,12 +18,8 @@ struct PixelInputType
 PixelInputType vs_main(VertexInputType input)
 {
     PixelInputType output;
-    
     input.position.w = 1.0f;
-
-    output.position = mul(input.position, worldMatrix);
-    output.position = mul(output.position, viewMatrix);
-    output.position = mul(output.position, projectionMatrix);
+    output.position = mul(input.position, wvp);
     output.color = input.color;
     return output;
 }

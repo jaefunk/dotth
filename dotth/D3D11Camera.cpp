@@ -3,12 +3,12 @@
 
 const XMMATRIX& D3D11Camera::View(void)
 {
-	return _View;
+	return DirectX::XMMatrixTranspose(_View);
 }
 
 const XMMATRIX& D3D11Camera::Perspective(void)
 {
-	return _Perspective;
+	return DirectX::XMMatrixTranspose(_Perspective);
 }
 
 const XMMATRIX& D3D11Camera::Ortho(void)

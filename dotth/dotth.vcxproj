@@ -142,6 +142,7 @@
     <ClInclude Include="RawMesh.h" />
     <ClInclude Include="Scenario.h" />
     <ClInclude Include="Scene.h" />
+    <ClInclude Include="Shader.h" />
     <ClInclude Include="SingleInstance.h" />
     <ClInclude Include="StaticMesh.h" />
     <ClInclude Include="StaticMeshComponent.h" />

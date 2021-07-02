@@ -9,6 +9,7 @@ class StaticMeshComponent : public MeshComponent
 {
 private:
 	std::shared_ptr<StaticMesh> _StaticMesh;
+	std::shared_ptr<Shader> _Shader;
 
 public:
 	virtual void OnInit(void) override;

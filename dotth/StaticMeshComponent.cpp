@@ -6,7 +6,9 @@ void StaticMeshComponent::OnInit(void)
 {	
 	_StaticMesh = std::make_shared<D3D11StaticMesh>();
 	_StaticMesh->Load("Resource/model/robot/RobotKyle.fbx");
-	//_StaticMesh->Load("Resource/Sphere.FBX");
+
+	_Shader = std::make_shared<D3D11Shader>();
+	_Shader->Load("Resource/Primitive2.hlsl");
 }
 
 void StaticMeshComponent::OnUpdate(void)
@@ -16,9 +18,8 @@ void StaticMeshComponent::OnUpdate(void)
 
 void StaticMeshComponent::OnDraw(void)
 {
-	_StaticMesh->Matrix = GetOwner()->GetTransform().GetWorldMatrix();
-	//_StaticMesh->Matrix.SetIdentity();
 	_StaticMesh->Draw();
+	_Shader->Draw(GetOwner()->GetTransform().GetWorldMatrix(), static_cast<unsigned int>(_StaticMesh->Indices.size()));
 }
 
 void StaticMeshComponent::OnDestroy(void)

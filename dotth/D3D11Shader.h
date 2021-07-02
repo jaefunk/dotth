@@ -1,18 +1,18 @@
 #pragma once
 
-#include "dotth.h"
+
+#include "Shader.h"
 #include "D3D11RHI.h"
 
-class D3D11Shader
+class D3D11Shader : public Shader
 {
-public:
+private:
+	ID3D11Buffer* _ConstantBuffer = nullptr;
+	ID3D11VertexShader* _VertexShader = nullptr;
+	ID3D11PixelShader* _PixelShader = nullptr;
+	ID3D11InputLayout* _InputLayout = nullptr;
 
-	void Draw(ID3D11Buffer* buffer, unsigned int size)
-	{
-		//Renderer::RHI()->VSSetConstantBuffers(0, 1, buffer);
-		//Renderer::RHI()->BindInputLayout(_InputLayout);
-		//Renderer::RHI()->VSSetShader(_VertexShader);
-		//Renderer::RHI()->PSSetShader(_PixelShader);
-		//Renderer::RHI()->DrawIndexed(size, 0, 0);
-	}
+public:
+	virtual bool Load(const char* FileName) override;
+	virtual void Draw(const Matrix& matrix, unsigned int size) override;
 };
