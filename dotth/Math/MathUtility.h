@@ -1,8 +1,8 @@
 
 #pragma once
 
-#undef  PI
-#define PI			(3.1415926535897932f)
+//#undef  PI
+//#define PI			(3.1415926535897932f)
 
 // Copied from float.h
 #define MAX_FLOAT	(3.402823466e+38F)

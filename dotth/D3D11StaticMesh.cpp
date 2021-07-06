@@ -1,8 +1,6 @@
 
 
-#include "assimp/Importer.hpp"
-#include "assimp/scene.h"
-#include "assimp/postprocess.h"
+
 #include "D3D11StaticMesh.h"
 
 void D3D11StaticMesh::Load(const char * file)
@@ -12,7 +10,7 @@ void D3D11StaticMesh::Load(const char * file)
 	
 	for (unsigned int index = 0; index < scene->mNumMeshes; ++index)
 	{
-		auto mesh = scene->mMeshes[index];
+		aiMesh* mesh = scene->mMeshes[index];
 		if (mesh->HasFaces())
 		{
 			Vertices.resize(mesh->mNumVertices);
@@ -40,10 +38,10 @@ void D3D11StaticMesh::Load(const char * file)
 				}
 			}
 			Indices.resize(mesh->mNumFaces * 3);
-			for (int i = 0; i < mesh->mNumFaces; ++i)
+			for (unsigned int i = 0; i < mesh->mNumFaces; ++i)
 			{
 				const aiFace& face = mesh->mFaces[i];
-				unsigned int current = i * 3;
+				unsigned int current = i * 3U;
 				Indices[current + 0] = face.mIndices[0];
 				Indices[current + 1] = face.mIndices[1];
 				Indices[current + 2] = face.mIndices[2];

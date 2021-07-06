@@ -1,6 +1,31 @@
 #pragma once
 
+#include "assimp/Importer.hpp"
+#include "assimp/scene.h"
+#include "assimp/postprocess.h"
 #include "dotth.h"
+
+struct mesh {
+	std::string name;
+	unsigned int textureIndex;
+	std::vector<Vector3F> vertices;
+	std::vector<Vector3F> normals;
+	std::vector<Vector2F> textureCoords;
+	std::vector<unsigned int> indices;
+};
+
+struct texture {
+	std::string name;
+	unsigned int width;
+	unsigned int height;
+	std::vector<Color4F> pixels;
+};
+
+struct model {
+	std::string name;
+	std::vector<mesh> meshs;
+	std::vector<texture> textures;
+};
 
 struct Vertex
 {
@@ -33,4 +58,8 @@ public:
 	Matrix Matrix;
 	std::vector<Vertex> Vertices;
 	std::vector<uint32_t> Indices;
+};
+
+class asset3d
+{
 };
