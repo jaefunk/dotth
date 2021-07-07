@@ -49,6 +49,7 @@
     <ClCompile Include="D3D11AssimpWrapper.cpp">
       <Filter>D3D11</Filter>
     </ClCompile>
+    <ClCompile Include="RawMesh.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.h">

@@ -6,11 +6,10 @@
 class D3D11StaticMesh : public StaticMesh
 {
 private:
-	ID3D11Buffer* _VertexBuffer = nullptr;
-	ID3D11Buffer* _IndexBuffer = nullptr;
+	std::vector<ID3D11Buffer*> _VertexBuffers;
+	std::vector<ID3D11Buffer*> _IndexBuffers;
 
 public:
-	virtual void Load(const char* file) override;
-	virtual void Draw(void) override;
+	virtual void Load(const std::string& path) override;
+	virtual void Draw(const unsigned int& index) override;
 };
-

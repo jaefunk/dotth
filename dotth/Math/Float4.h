@@ -3,6 +3,7 @@
 
 #undef ELEMENTCOUNT
 #define ELEMENTCOUNT 4
+
 struct Float4 {
 	union {
 		struct { float f[4]; };
@@ -17,6 +18,10 @@ struct Float4 {
 	}
 	Float4(float _x, float _y, float _z, float _w)
 		: x(_x), y(_y), z(_z), w(_w)
+	{
+	}
+	Float4(unsigned char _r, unsigned char _g, unsigned char _b, unsigned char _a)
+		: x(_r/255.f), y(_g / 255.f), z(_b / 255.f), w(_a / 255.f)
 	{
 	}
 	using ThisType = Float4;

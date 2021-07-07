@@ -1,17 +1,29 @@
 #pragma once
 
-#include "assimp/Importer.hpp"
-#include "assimp/scene.h"
-#include "assimp/postprocess.h"
 #include "dotth.h"
 
-struct mesh {
+struct vertice {
+	Vector3F position;
+	Vector3F normal;
+	Vector3F tangent;
+	Vector3F bitangent;
+	Vector2F textureCoord;
+	Vector4F color;
+};
+
+struct section {
 	std::string name;
 	unsigned int textureIndex;
-	std::vector<Vector3F> vertices;
-	std::vector<Vector3F> normals;
-	std::vector<Vector2F> textureCoords;
+	std::vector<vertice> vertices;
 	std::vector<unsigned int> indices;
+	unsigned int GetVerticeByteWidth(void)
+	{
+		return static_cast<unsigned int>(sizeof(decltype(vertices)::value_type) * vertices.size());
+	}
+	unsigned int GetIndiceByteWidth(void)
+	{
+		return static_cast<unsigned int>(sizeof(decltype(indices)::value_type) * indices.size());
+	}
 };
 
 struct texture {
@@ -21,45 +33,13 @@ struct texture {
 	std::vector<Color4F> pixels;
 };
 
-struct model {
+class model 
+{
+protected:
 	std::string name;
-	std::vector<mesh> meshs;
+	std::vector<section> sections;
 	std::vector<texture> textures;
-};
 
-struct Vertex
-{
-	Vector3F Position;
-	Color4F Color;
-	Vector3F Normal;
-	Vector2F UV;
-	//static constexpr std::size_t Size(void)
-	//{
-	//	return sizeof(Vertex);
-	//}
-	Vertex(void)
-	{
-	}
-	Vertex(const Vertex& v)
-	{
-		Position = v.Position;
-		Color = v.Color;
-	}
-	Vertex(Vector3F pos, Color4F color)
-	{
-		Position = pos;
-		Color = color;
-	}
-};
-
-class Mesh
-{
 public:
-	Matrix Matrix;
-	std::vector<Vertex> Vertices;
-	std::vector<uint32_t> Indices;
-};
-
-class asset3d
-{
+	bool LoadWithAssimp(const std::string& path);
 };
