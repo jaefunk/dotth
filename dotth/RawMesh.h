@@ -5,9 +5,9 @@
 struct vertice {
 	Vector3F position;
 	Vector3F normal;
+	Vector2F textureCoord;
 	Vector3F tangent;
 	Vector3F bitangent;
-	Vector2F textureCoord;
 	Vector4F color;
 };
 
@@ -16,14 +16,8 @@ struct section {
 	unsigned int textureIndex;
 	std::vector<vertice> vertices;
 	std::vector<unsigned int> indices;
-	unsigned int GetVerticeByteWidth(void)
-	{
-		return static_cast<unsigned int>(sizeof(decltype(vertices)::value_type) * vertices.size());
-	}
-	unsigned int GetIndiceByteWidth(void)
-	{
-		return static_cast<unsigned int>(sizeof(decltype(indices)::value_type) * indices.size());
-	}
+	unsigned int GetVerticeByteWidth(void) const;
+	unsigned int GetIndiceByteWidth(void) const;
 };
 
 struct texture {

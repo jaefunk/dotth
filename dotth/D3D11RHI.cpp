@@ -176,6 +176,57 @@ D3D11Camera* D3D11RHI::Camera()
 {
 	return &D3D11RHI::Instance()->_Camera;
 }
+
+ID3D11SamplerState* D3D11RHI::Sampler()
+{
+	return D3D11RHI::Instance()->_SamplerState;
+}
+
+ID3D11ShaderResourceView* D3D11RHI::LoadTexture(void)
+{
+	struct f4 {
+		float r, g, b, a;
+	};
+	static std::vector<f4> f;
+	f.resize(128 * 128);
+	for (auto x = 0; x < 128 * 128; ++x)
+	{
+		f[x].r = 1.f;
+		f[x].g = 0.f;
+		f[x].b = 0.f;
+		f[x].a = 1.f;
+	}
+
+	ID3D11ShaderResourceView* texSRV;
+
+	static const uint32_t s_pixel = 0xffc99aff;
+
+	ID3D11Texture2D* tex;
+
+	D3D11_TEXTURE2D_DESC desc = {};
+	desc.Width = desc.Height = 128;
+	desc.MipLevels = desc.ArraySize = 1;
+	desc.Format = DXGI_FORMAT_R32G32B32A32_FLOAT;
+	desc.SampleDesc.Count = 1;
+	desc.Usage = D3D11_USAGE_IMMUTABLE;
+	desc.BindFlags = D3D11_BIND_SHADER_RESOURCE;
+
+	D3D11_SUBRESOURCE_DATA initData;
+	initData.pSysMem = f.data();
+	initData.SysMemPitch = sizeof(f4);
+	initData.SysMemSlicePitch = 0;
+	HRESULT hr = D3D11RHI::Device()->CreateTexture2D(&desc, &initData, &tex);
+
+	D3D11_SHADER_RESOURCE_VIEW_DESC SRVDesc = {};
+	SRVDesc.Format = DXGI_FORMAT_R32G32B32A32_FLOAT;
+	SRVDesc.ViewDimension = D3D11_SRV_DIMENSION_TEXTURE2D;
+	SRVDesc.Texture2D.MipLevels = 1;
+
+	hr = D3D11RHI::Device()->CreateShaderResourceView(tex,
+		&SRVDesc, &texSRV);
+
+	return texSRV;
+}
 //
 //ID3D11Buffer * D3D11RHI::CreateBuffer(const D3D11_BUFFER_DESC* desc, const D3D11_SUBRESOURCE_DATA* data)
 //{

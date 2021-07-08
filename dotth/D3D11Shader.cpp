@@ -3,10 +3,15 @@
 
 bool D3D11Shader::Load(const char * file_name)
 {
-	unsigned int desc_size = 2;
+	unsigned int desc_size = 6;
 	D3D11_INPUT_ELEMENT_DESC* input_desc = new D3D11_INPUT_ELEMENT_DESC[desc_size];
 	input_desc[0] = { "POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 0, D3D11_INPUT_PER_VERTEX_DATA, 0 };
-	input_desc[1] = { "COLOR", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, D3D11_APPEND_ALIGNED_ELEMENT, D3D11_INPUT_PER_VERTEX_DATA, 0 };
+	input_desc[1] = { "NORMAL", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, D3D11_APPEND_ALIGNED_ELEMENT, D3D11_INPUT_PER_VERTEX_DATA, 0 };
+	input_desc[2] = { "TEXCOORD", 0, DXGI_FORMAT_R32G32_FLOAT, 0, D3D11_APPEND_ALIGNED_ELEMENT, D3D11_INPUT_PER_VERTEX_DATA, 0 };
+	input_desc[3] = { "TANGENT", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, D3D11_APPEND_ALIGNED_ELEMENT, D3D11_INPUT_PER_VERTEX_DATA, 0 };
+	input_desc[4] = { "BINORMAL", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, D3D11_APPEND_ALIGNED_ELEMENT, D3D11_INPUT_PER_VERTEX_DATA, 0 };
+	input_desc[5] = { "COLOR", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, D3D11_APPEND_ALIGNED_ELEMENT, D3D11_INPUT_PER_VERTEX_DATA, 0 };
+
 
 	ID3DBlob* error_message = nullptr;
 
@@ -56,11 +61,17 @@ bool D3D11Shader::Load(const char * file_name)
 	//desc.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
 	D3D11RHI::Device()->CreateBuffer(&desc, nullptr, &_ConstantBuffer);
 
+	_SRV = D3D11RHI::LoadTexture();
 	return true;
 }
 
 void D3D11Shader::Draw(const Matrix& matrix, unsigned int size)
 {
+	D3D11RHI::Context()->PSSetShaderResources(0, 1, &_SRV);
+	ID3D11SamplerState* jj = D3D11RHI::Sampler();
+	D3D11RHI::Context()->PSSetSamplers(0, 1, &jj);
+
+
 	auto wv = XMMatrixMultiply(XMMatrixTranspose(D3D11RHI::Camera()->View()), matrix);
 	auto result = XMMatrixMultiply(XMMatrixTranspose(D3D11RHI::Camera()->Perspective()), wv);
 	D3D11RHI::Context()->UpdateSubresource(_ConstantBuffer, 0, nullptr, &result, 0, 0);

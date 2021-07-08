@@ -17,7 +17,7 @@ void StaticMeshComponent::OnUpdate(void)
 
 void StaticMeshComponent::OnDraw(void)
 {
-	for (auto i = 0; i < _StaticMesh->GetSectionSize(); ++i)
+	for (unsigned int i = 0; i < _StaticMesh->GetSectionSize(); ++i)
 	{
 		_StaticMesh->Draw(i);
 		_Shader->Draw(GetOwner()->GetTransform().GetWorldMatrix(), _StaticMesh->GetIndicesSize(i));

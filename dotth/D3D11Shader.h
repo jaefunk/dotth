@@ -12,6 +12,9 @@ private:
 	ID3D11PixelShader* _PixelShader = nullptr;
 	ID3D11InputLayout* _InputLayout = nullptr;
 
+
+	ID3D11ShaderResourceView* _SRV = nullptr;
+
 public:
 	virtual bool Load(const char* FileName) override;
 	virtual void Draw(const Matrix& matrix, unsigned int size) override;

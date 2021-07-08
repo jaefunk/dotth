@@ -3,6 +3,15 @@
 #include "assimp/scene.h"
 #include "assimp/postprocess.h"
 
+unsigned int section::GetVerticeByteWidth(void) const
+{
+	return static_cast<unsigned int>(sizeof(decltype(vertices)::value_type) * vertices.size());
+}
+unsigned int section::GetIndiceByteWidth(void) const
+{
+	return static_cast<unsigned int>(sizeof(decltype(indices)::value_type) * indices.size());
+}
+
 bool model::LoadWithAssimp(const std::string& path)
 {
 	Assimp::Importer importer;
