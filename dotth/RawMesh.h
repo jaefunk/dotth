@@ -25,6 +25,8 @@ struct texture {
 	unsigned int width;
 	unsigned int height;
 	std::vector<Color4F> pixels;
+
+	bool Load(const std::string& path);
 };
 
 class model 

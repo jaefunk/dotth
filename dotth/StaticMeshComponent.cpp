@@ -6,6 +6,9 @@ void StaticMeshComponent::OnInit(void)
 {	
 	_StaticMesh = std::make_shared<D3D11StaticMesh>();
 	_StaticMesh->Load("Resource/model/robot/RobotKyle.fbx");
+
+	texture t;
+	t.Load("Resource/model/robot/Robot_Color.jpg");
 	_Shader = std::make_shared<D3D11Shader>();
 	_Shader->Load("Resource/Primitive2.hlsl");
 }

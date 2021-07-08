@@ -46,7 +46,7 @@
     <ClCompile Include="D3D11StaticMesh.cpp">
       <Filter>D3D11</Filter>
     </ClCompile>
-    <ClCompile Include="D3D11AssimpWrapper.cpp">
+    <ClCompile Include="D3D11Texture2D.cpp">
       <Filter>D3D11</Filter>
     </ClCompile>
     <ClCompile Include="RawMesh.cpp" />
@@ -136,7 +136,7 @@
     <ClInclude Include="D3D11StaticMesh.h">
       <Filter>D3D11</Filter>
     </ClInclude>
-    <ClInclude Include="D3D11AssimpWrapper.h">
+    <ClInclude Include="D3D11Texture2D.h">
       <Filter>D3D11</Filter>
     </ClInclude>
     <ClInclude Include="External\assimp\Compiler\poppack1.h" />
@@ -220,6 +220,28 @@
     <ClInclude Include="External\assimp\XMLTools.h" />
     <ClInclude Include="External\assimp\ZipArchiveIOSystem.h" />
     <ClInclude Include="Shader.h" />
+    <ClInclude Include="External\zlib\zlib_include\crc32.h" />
+    <ClInclude Include="External\zlib\zlib_include\deflate.h" />
+    <ClInclude Include="External\zlib\zlib_include\gzguts.h" />
+    <ClInclude Include="External\zlib\zlib_include\inffast.h" />
+    <ClInclude Include="External\zlib\zlib_include\inffixed.h" />
+    <ClInclude Include="External\zlib\zlib_include\inflate.h" />
+    <ClInclude Include="External\zlib\zlib_include\inftrees.h" />
+    <ClInclude Include="External\zlib\zlib_include\trees.h" />
+    <ClInclude Include="External\zlib\zlib_include\zconf.h" />
+    <ClInclude Include="External\zlib\zlib_include\zlib.h" />
+    <ClInclude Include="External\zlib\zlib_include\zutil.h" />
+    <ClInclude Include="External\libjpeg\include\jconfig.h" />
+    <ClInclude Include="External\libjpeg\include\jmorecfg.h" />
+    <ClInclude Include="External\libjpeg\include\jpeglib.h" />
+    <ClInclude Include="External\libpng\include\png.h" />
+    <ClInclude Include="External\libpng\include\pngconf.h" />
+    <ClInclude Include="External\libpng\include\pngdebug.h" />
+    <ClInclude Include="External\libpng\include\pnginfo.h" />
+    <ClInclude Include="External\libpng\include\pnglibconf.h" />
+    <ClInclude Include="External\libpng\include\pngprefix.h" />
+    <ClInclude Include="External\libpng\include\pngpriv.h" />
+    <ClInclude Include="External\libpng\include\pngstruct.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Framework">
