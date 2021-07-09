@@ -61,17 +61,11 @@ bool D3D11Shader::Load(const char * file_name)
 	//desc.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
 	D3D11RHI::Device()->CreateBuffer(&desc, nullptr, &_ConstantBuffer);
 
-	_SRV = D3D11RHI::LoadTexture();
 	return true;
 }
 
 void D3D11Shader::Draw(const Matrix& matrix, unsigned int size)
 {
-	D3D11RHI::Context()->PSSetShaderResources(0, 1, &_SRV);
-	ID3D11SamplerState* jj = D3D11RHI::Sampler();
-	D3D11RHI::Context()->PSSetSamplers(0, 1, &jj);
-
-
 	auto wv = XMMatrixMultiply(XMMatrixTranspose(D3D11RHI::Camera()->View()), matrix);
 	auto result = XMMatrixMultiply(XMMatrixTranspose(D3D11RHI::Camera()->Perspective()), wv);
 	D3D11RHI::Context()->UpdateSubresource(_ConstantBuffer, 0, nullptr, &result, 0, 0);

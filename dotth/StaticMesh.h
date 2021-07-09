@@ -1,6 +1,6 @@
 #pragma once
 
-#include "RawMesh.h"
+#include "Asset3d.h"
 
 class StaticMesh : public model
 {

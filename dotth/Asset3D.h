@@ -20,21 +20,11 @@ struct section {
 	unsigned int GetIndiceByteWidth(void) const;
 };
 
-struct texture {
-	std::string name;
-	unsigned int width;
-	unsigned int height;
-	std::vector<Color4F> pixels;
-
-	bool Load(const std::string& path);
-};
-
 class model 
 {
 protected:
 	std::string name;
 	std::vector<section> sections;
-	std::vector<texture> textures;
 
 public:
 	bool LoadWithAssimp(const std::string& path);

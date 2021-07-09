@@ -20,6 +20,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Application.cpp" />
+    <ClCompile Include="Asset2D.cpp" />
+    <ClCompile Include="Asset3D.cpp" />
     <ClCompile Include="Base.cpp" />
     <ClCompile Include="Component.cpp" />
     <ClCompile Include="D3D11Texture2D.cpp" />
@@ -31,14 +33,17 @@
     <ClCompile Include="MeshComponent.cpp" />
     <ClCompile Include="Object.cpp" />
     <ClCompile Include="PrimitiveComponent.cpp" />
-    <ClCompile Include="RawMesh.cpp" />
     <ClCompile Include="Scenario.cpp" />
     <ClCompile Include="Scene.cpp" />
+    <ClCompile Include="StaticMesh.cpp" />
     <ClCompile Include="StaticMeshComponent.cpp" />
+    <ClCompile Include="Texture2D.cpp" />
     <ClCompile Include="Utility.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.h" />
+    <ClInclude Include="Asset2D.h" />
+    <ClInclude Include="Asset3D.h" />
     <ClInclude Include="Base.h" />
     <ClInclude Include="Component.h" />
     <ClInclude Include="D3D11.h" />
@@ -162,13 +167,13 @@
     <ClInclude Include="Node.h" />
     <ClInclude Include="Object.h" />
     <ClInclude Include="PrimitiveComponent.h" />
-    <ClInclude Include="RawMesh.h" />
     <ClInclude Include="Scenario.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="Shader.h" />
     <ClInclude Include="SingleInstance.h" />
     <ClInclude Include="StaticMesh.h" />
     <ClInclude Include="StaticMeshComponent.h" />
+    <ClInclude Include="Texture2D.h" />
     <ClInclude Include="Utility.h" />
   </ItemGroup>
   <ItemGroup>

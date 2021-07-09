@@ -21,6 +21,7 @@ struct PixelInputType
     float4 position : SV_POSITION;
     float3 normal : NORMAL0;
     float2 coord : TEXCOORD0;
+    float4 color : COLOR0;
 };
 
 PixelInputType vs_main(VertexInputType input)
@@ -37,6 +38,8 @@ PixelInputType vs_main(VertexInputType input)
     output.normal = mul(input_normal, wvp).xyz;
 
     output.coord = input.coord;
+
+    output.color = input.color;
     return output;
 }
 

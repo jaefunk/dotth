@@ -1,7 +1,7 @@
 #pragma once
 
-#include "D3D11.h"
 #include "dotth.h"
+#include "D3D11.h"
 #include "D3D11Camera.h"
 #include "SingleInstance.h"
 
