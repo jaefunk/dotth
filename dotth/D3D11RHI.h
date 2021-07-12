@@ -46,6 +46,4 @@ public:
 	//static ID3D11InputLayout* CreateInputLayout(ID3DBlob* blob, D3D11_INPUT_ELEMENT_DESC* desc, unsigned int desc_size);
 	//static void BindVertexBuffer(ID3D11Buffer* buffer, unsigned int size, unsigned int offset = 0);
 	//static void BindIndexBuffer(ID3D11Buffer* buffer);
-
-	static ID3D11ShaderResourceView* LoadTexture(void);
 };
