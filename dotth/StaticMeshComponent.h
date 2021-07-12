@@ -1,10 +1,9 @@
 #pragma once
 
 #include "MeshComponent.h"
+#include "ResourceManager.h"
 #include "D3D11Shader.h"
-#include "D3D11Camera.h"
-#include "StaticMesh.h"
-#include "Texture2D.h"
+
 
 class StaticMeshComponent : public MeshComponent
 {

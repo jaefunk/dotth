@@ -155,16 +155,12 @@ bool texture::LoadJpeg(const std::string& path)
 
 	int distance = 0;
 	texels.resize(width * height);
-	for (int index = 0; index < width * height; ++index)
+	for (unsigned int index = 0; index < width * height; ++index)
 	{
 		texels[index].R = pData[distance++];
 		texels[index].G = pData[distance++];
 		texels[index].B = pData[distance++];
 		texels[index].A = 255;
-		/*texels[index].R = pData[distance++];
-		texels[index].G = pData[distance++];
-		texels[index].B = pData[distance++];
-		texels[index].A = 255;*/
 	}
 
 	delete[] pData;

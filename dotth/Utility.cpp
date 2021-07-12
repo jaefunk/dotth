@@ -34,6 +34,22 @@ std::vector<std::string> Utility::Str::Split(std::string src, std::string token)
 	return result;
 }
 
+std::string Utility::Str::Replace(std::string src, std::string from, std::string to)
+{
+	if (from.length() == 0 || src.find(from) == std::string::npos)
+		return src;
+
+	std::string result = src;
+	std::string::size_type pos = 0;
+	std::string::size_type offset = 0;
+	while ((pos = result.find(from, offset)) != std::string::npos)
+	{
+		result.replace(result.begin() + pos, result.begin() + pos + from.size(), to);
+		offset = pos + to.size();
+	}
+	return result;
+}
+
 long long Utility::Time::TSE(void)
 {
 	return std::chrono::system_clock::now().time_since_epoch().count() / 1000;

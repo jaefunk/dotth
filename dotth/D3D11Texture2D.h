@@ -11,6 +11,6 @@ private:
 	ID3D11ShaderResourceView* _ShaderResourceView = nullptr;
 
 public:
-	virtual void Load(const std::string& path) override;
+	void Load(const std::string& key);
 	virtual void Draw(const unsigned int& index) override;
 };

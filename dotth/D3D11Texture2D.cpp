@@ -1,16 +1,14 @@
 ﻿
 #include "D3D11Texture2D.h"
+#include "ResourceManager.h"
 
-void D3D11Texture2D::Load(const std::string& path)
+void D3D11Texture2D::Load(const std::string& key)
 {
-	LoadJpeg(path);
-
-	_Texture2D = nullptr;
-
+	Raw = ResourceManager::Find<texture>(key);
 	D3D11_TEXTURE2D_DESC desc;
 	ZeroMemory(&desc, sizeof(desc));
-	desc.Width = width;
-	desc.Height = height;
+	desc.Width = Raw->width;
+	desc.Height = Raw->height;
 	desc.MipLevels = desc.ArraySize = 1;
 	desc.Format = DXGI_FORMAT_R8G8B8A8_UNORM;
 	desc.SampleDesc.Count = 1;
@@ -21,8 +19,8 @@ void D3D11Texture2D::Load(const std::string& path)
 
 	D3D11_SUBRESOURCE_DATA initData;
 	ZeroMemory(&initData, sizeof(initData));
-	initData.pSysMem = texels.data();
-	initData.SysMemPitch = sizeof(r8g8b8a8) * width;
+	initData.pSysMem = Raw->texels.data();
+	initData.SysMemPitch = sizeof(r8g8b8a8) * Raw->width;
 	initData.SysMemSlicePitch = 0;
 	D3D11RHI::Device()->CreateTexture2D(&desc, &initData, (ID3D11Texture2D**)&_Texture2D);
 

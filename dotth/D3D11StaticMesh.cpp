@@ -2,10 +2,12 @@
 
 
 #include "D3D11StaticMesh.h"
+#include "ResourceManager.h"
 
-void D3D11StaticMesh::Load(const std::string& path)
+void D3D11StaticMesh::Load(const std::string& key)
 {
-	LoadWithAssimp(path);
+	Raw = ResourceManager::Instance()->Find<model>(key);
+	const auto& sections = Raw->sections;
 	_VertexBuffers.resize(sections.size());
 	_IndexBuffers.resize(sections.size());
 

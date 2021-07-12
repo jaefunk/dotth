@@ -9,6 +9,7 @@ namespace Utility {
 	namespace Str {
 		std::string Format(const char* format, ...);
 		std::vector<std::string> Split(std::string src, std::string token);
+		std::string Replace(std::string src, std::string from, std::string to);
 	}
 
 	namespace Time {

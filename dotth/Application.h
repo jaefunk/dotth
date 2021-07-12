@@ -3,6 +3,7 @@
 
 #include "Scenario.h"
 #include "D3D11RHI.h"
+#include "ResourceManager.h"
 
 struct Configuration
 {
@@ -29,6 +30,8 @@ template<typename SceneTy>
 void Application::Initialize(const Configuration & config)
 {
 	assert(config.Validation());
+	ResourceManager::Instance()->Initialize();
+	ResourceManager::Instance()->Load("reserved.json");
 	D3D11RHI::Initialize(config.Hwnd, config.Width, config.Height);
 	Scenario::Instance()->Assign<SceneTy>("entrypoint");
 	Scenario::Instance()->Push("entrypoint");

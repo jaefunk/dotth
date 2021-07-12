@@ -61,6 +61,8 @@
     <ClCompile Include="Asset3D.cpp">
       <Filter>Framework</Filter>
     </ClCompile>
+    <ClCompile Include="ResourceManager.cpp" />
+    <ClCompile Include="AssetBase.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.h">
@@ -259,6 +261,8 @@
     <ClInclude Include="Asset3D.h">
       <Filter>Framework</Filter>
     </ClInclude>
+    <ClInclude Include="ResourceManager.h" />
+    <ClInclude Include="AssetBase.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Framework">

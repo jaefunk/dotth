@@ -10,6 +10,6 @@ private:
 	std::vector<ID3D11Buffer*> _IndexBuffers;
 
 public:
-	virtual void Load(const std::string& path) override;
+	void Load(const std::string& key);
 	virtual void Draw(const unsigned int& index) override;
 };

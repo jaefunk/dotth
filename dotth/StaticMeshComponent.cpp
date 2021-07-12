@@ -1,15 +1,14 @@
 #include "StaticMeshComponent.h"
 #include "D3D11StaticMesh.h"
 #include "D3D11Texture2D.h"
-#include "Object.h"
 
 void StaticMeshComponent::OnInit(void)
 {	
 	_StaticMesh = std::make_shared<D3D11StaticMesh>();
-	_StaticMesh->Load("Resource/model/robot/RobotKyle.fbx");
+	_StaticMesh->Load("Sphere");
 
 	_Texture2D = std::make_shared<D3D11Texture2D>();
-	_Texture2D->Load("Resource/model/robot/Robot_Color.jpg");
+	_Texture2D->Load("uv_checker");
 
 	_Shader = std::make_shared<D3D11Shader>();
 	_Shader->Load("Resource/Primitive2.hlsl");

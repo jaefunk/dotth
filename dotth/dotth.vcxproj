@@ -22,6 +22,7 @@
     <ClCompile Include="Application.cpp" />
     <ClCompile Include="Asset2D.cpp" />
     <ClCompile Include="Asset3D.cpp" />
+    <ClCompile Include="AssetBase.cpp" />
     <ClCompile Include="Base.cpp" />
     <ClCompile Include="Component.cpp" />
     <ClCompile Include="D3D11Texture2D.cpp" />
@@ -33,6 +34,7 @@
     <ClCompile Include="MeshComponent.cpp" />
     <ClCompile Include="Object.cpp" />
     <ClCompile Include="PrimitiveComponent.cpp" />
+    <ClCompile Include="ResourceManager.cpp" />
     <ClCompile Include="Scenario.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="StaticMesh.cpp" />
@@ -44,6 +46,7 @@
     <ClInclude Include="Application.h" />
     <ClInclude Include="Asset2D.h" />
     <ClInclude Include="Asset3D.h" />
+    <ClInclude Include="AssetBase.h" />
     <ClInclude Include="Base.h" />
     <ClInclude Include="Component.h" />
     <ClInclude Include="D3D11.h" />
@@ -167,6 +170,7 @@
     <ClInclude Include="Node.h" />
     <ClInclude Include="Object.h" />
     <ClInclude Include="PrimitiveComponent.h" />
+    <ClInclude Include="ResourceManager.h" />
     <ClInclude Include="Scenario.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="Shader.h" />

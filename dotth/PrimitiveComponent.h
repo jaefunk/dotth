@@ -1,7 +1,7 @@
 #pragma once
 
-#include "D3D11RHI.h"
 #include "Component.h"
+#include "Object.h"
 
 class PrimitiveComponent : public Component
 {

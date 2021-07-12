@@ -1,6 +1,6 @@
 #pragma once
 
-#include "dotth.h"
+#include "AssetBase.h"
 
 struct vertice {
 	Vector3F position;
@@ -20,12 +20,20 @@ struct section {
 	unsigned int GetIndiceByteWidth(void) const;
 };
 
-class model 
+class model : public AssetBase
 {
-protected:
+public:
 	std::string name;
 	std::vector<section> sections;
 
 public:
+	virtual bool Load(const ASSET_TYPE& type, const std::string& path) override
+	{
+		if (type == ASSET_TYPE::FBX)
+			return LoadWithAssimp(path);
+		return false;
+	}
+
+private:
 	bool LoadWithAssimp(const std::string& path);
 };
