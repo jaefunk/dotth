@@ -4,13 +4,23 @@
 #include "D3D11StaticMesh.h"
 #include "ResourceManager.h"
 
-void D3D11StaticMesh::Load(const std::string& key)
+unsigned int D3D11StaticMesh::GetSectionSize(void)
 {
-	Raw = ResourceManager::Instance()->Find<model>(key);
-	const auto& sections = Raw->sections;
+	return static_cast<unsigned int>(_VertexBuffers.size());
+}
+
+unsigned int D3D11StaticMesh::GetIndicesSize(int index)
+{
+	D3D11_BUFFER_DESC desc;
+	_IndexBuffers[index]->GetDesc(&desc);
+	return desc.ByteWidth / sizeof(unsigned int);
+}
+
+void D3D11StaticMesh::Load(std::shared_ptr<model> raw)
+{
+	const auto& sections = raw->sections;
 	_VertexBuffers.resize(sections.size());
 	_IndexBuffers.resize(sections.size());
-
 	for (auto index = 0; index < sections.size(); ++index)
 	{
 		D3D11_BUFFER_DESC VertexDesc;
@@ -37,6 +47,11 @@ void D3D11StaticMesh::Load(const std::string& key)
 		IndexData.SysMemSlicePitch = 0;
 		D3D11RHI::Device()->CreateBuffer(&IndexDesc, &IndexData, &_IndexBuffers[index]);
 	}
+}
+
+void D3D11StaticMesh::Load(const std::string& key)
+{
+	Load(ResourceManager::Instance()->Find<model>(key));
 }
 
 void D3D11StaticMesh::Draw(const unsigned int& index)

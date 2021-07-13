@@ -35,10 +35,11 @@ namespace dotth
 {
 };
 
-// convention...
-//
-// class name:				PascalCase
-// all function name:		PascalCase
-// class member variable:	_PascalCase
-// function parameter:		camelCase
-// function local variable: snake_case
+/*
+to do list {
+	resource manager
+	imgui
+	skeletal mesh
+	user input
+}
+*/ 

@@ -8,6 +8,7 @@ protected:
 	std::shared_ptr<texture> Raw;
 
 public:
+	virtual void Load(std::shared_ptr<texture> raw) = 0;
 	virtual void Load(const std::string& path) = 0;
 	virtual void Draw(const unsigned int& index) = 0;
 };

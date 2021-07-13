@@ -1,5 +1,6 @@
 #include "EntryPoint.h"
 #include "SampleObject.h"
+#include "../dotth/StaticMeshComponent.h"
 
 void EntryPoint::OnInit(void)
 {
@@ -11,16 +12,16 @@ void EntryPoint::OnInit(void)
 	SetCameraFrustumFarFieldDistance(1000.f);
 	
 	std::shared_ptr<SampleObject> A = std::make_shared<SampleObject>();
-	A->Rename("A");
+	auto smc = A->AddComponent<StaticMeshComponent>();
 	SpawnObject(A);
 
 
-	std::shared_ptr<SampleObject> B = std::make_shared<SampleObject>();
-	B->Rename("B");
-	B->Scaling(0.5f);
-	B->TranslateX(100.f);
+	//std::shared_ptr<SampleObject> B = std::make_shared<SampleObject>();
+	//B->Rename("B");
+	//B->Scaling(0.5f);
+	//B->TranslateX(100.f);
 
-	A->AddChild(B);
+	//A->AddChild(B);
 }
 
 void EntryPoint::OnDestroy(void)

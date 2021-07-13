@@ -13,7 +13,4 @@ protected:
 	virtual void OnDestroy(void) override;
 	virtual void OnUpdate(void) override;
 	virtual void OnDraw(void) override;
-
-private:
-	std::shared_ptr<class StaticMeshComponent> _StaticMesh;
 };

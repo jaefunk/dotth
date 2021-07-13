@@ -8,7 +8,6 @@ SampleObject::SampleObject(void)
 
 void SampleObject::OnInit(void)
 {
-	_StaticMesh = AddComponent<StaticMeshComponent>();
 }
 
 void SampleObject::OnDestroy(void)

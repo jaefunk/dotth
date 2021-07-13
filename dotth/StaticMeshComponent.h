@@ -7,7 +7,7 @@
 
 class StaticMeshComponent : public MeshComponent
 {
-private:
+public:
 	std::shared_ptr<StaticMesh> _StaticMesh;
 	std::shared_ptr<Texture2D> _Texture2D;
 	std::shared_ptr<Shader> _Shader;
