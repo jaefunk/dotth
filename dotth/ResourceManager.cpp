@@ -51,7 +51,7 @@ std::shared_ptr<AssetBase> ResourceManager::LoadAsset(const std::string& path)
 		asset = std::make_shared<texture>();
 		asset->Load(ASSET_TYPE::JPEG, path);
 	}
-	else if (path.find(".fbx") != std::string::npos)
+	else if (path.find(".fbx") != std::string::npos || path.find(".FBX") != std::string::npos)
 	{
 		asset = std::make_shared<model>();
 		asset->Load(ASSET_TYPE::FBX, path);

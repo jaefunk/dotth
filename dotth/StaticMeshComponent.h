@@ -13,6 +13,10 @@ public:
 	std::shared_ptr<Shader> _Shader;
 
 public:
+	void Load1(void);
+	void Load2(void);
+
+public:
 	virtual void OnInit(void) override;
 	virtual void OnUpdate(void) override;
 	virtual void OnDraw(void) override;

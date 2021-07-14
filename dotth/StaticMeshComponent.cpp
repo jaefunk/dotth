@@ -4,11 +4,28 @@
 
 void StaticMeshComponent::OnInit(void)
 {	
+	
+}
+
+void StaticMeshComponent::Load1(void)
+{
 	_StaticMesh = std::make_shared<D3D11StaticMesh>();
-	_StaticMesh->Load("RobotKyle");
+	_StaticMesh->Load("Sphere");
 
 	_Texture2D = std::make_shared<D3D11Texture2D>();
-	_Texture2D->Load("Robot_Color");
+	_Texture2D->Load("uv_checker");
+
+	_Shader = std::make_shared<D3D11Shader>();
+	_Shader->Load("Resource/Primitive2.hlsl");
+}
+
+void StaticMeshComponent::Load2(void)
+{
+	_StaticMesh = std::make_shared<D3D11StaticMesh>();
+	_StaticMesh->Load("Cube");
+
+	_Texture2D = std::make_shared<D3D11Texture2D>();
+	_Texture2D->Load("uv_checker");
 
 	_Shader = std::make_shared<D3D11Shader>();
 	_Shader->Load("Resource/Primitive2.hlsl");
