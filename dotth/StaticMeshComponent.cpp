@@ -45,7 +45,6 @@ void StaticMeshComponent::Load2(void)
 
 void StaticMeshComponent::OnUpdate(void)
 {
-	
 }
 
 void StaticMeshComponent::OnDraw(void)

@@ -13,9 +13,9 @@ struct VertexOutputType
 
 struct PixelOutputType
 {
-	float4 Normal				: SV_Target0;			//Normal map
-	float4 Diffuse				: SV_Target1;			//Color
-	float4 Position				: SV_Target2;
+	float4 Position				: SV_Target0;
+	float4 Normal				: SV_Target1;			//Normal map	
+	float4 Diffuse				: SV_Target2;			//Color
 };
 
 PixelOutputType main(VertexOutputType input)
@@ -34,14 +34,14 @@ PixelOutputType main(VertexOutputType input)
 	float3 B = cross(T, N);
 
 	float3x3 TBN = float3x3(T, B, N);
-	input.normal = normalize(mul(normalFromMap, TBN));
+	input.normal = normalize(mul(input.normal, TBN));
 
 	// Sample the texture
 	float4 textureColor = Texture.Sample(Sampler, input.coord);
 
+	output.Position = float4(input.worldPos, 1.0f);
 	output.Normal = float4(input.normal, 1.0f);
 	output.Diffuse = textureColor;
-	output.Position = float4( input.worldPos, 1.0f);
 
 
 	return output;

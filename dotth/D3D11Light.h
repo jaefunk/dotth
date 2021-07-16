@@ -22,6 +22,7 @@ private:
 public:
 	LightShaderClass();
 	~LightShaderClass();
+	int index = 0;
 
 	bool Initialize(ID3D11Device*, HWND);
 	void Shutdown();

@@ -262,6 +262,7 @@ bool LightShaderClass::SetShaderParameters(ID3D11DeviceContext* deviceContext, X
 	XMFLOAT3 lightDirection)
 {
 	// 행렬을 transpose하여 셰이더에서 사용할 수 있게 합니다
+	//worldMatrix = XMMatrixScaling(1.f, 1.f, 1.f);
 	worldMatrix = XMMatrixTranspose(worldMatrix);
 	viewMatrix = XMMatrixTranspose(viewMatrix);
 	projectionMatrix = XMMatrixTranspose(projectionMatrix);
@@ -291,8 +292,12 @@ bool LightShaderClass::SetShaderParameters(ID3D11DeviceContext* deviceContext, X
 	deviceContext->VSSetConstantBuffers(bufferNumber, 1, &m_matrixBuffer);
 
 	// Set shader texture resource in the pixel shader.
-	deviceContext->PSSetShaderResources(0, 1, &colorTexture);
-	deviceContext->PSSetShaderResources(1, 1, &normalTexture);
+	auto position = D3D11RHI::DeferredBuffer()->GetShaderResourceView(POSITION);
+	auto normal = D3D11RHI::DeferredBuffer()->GetShaderResourceView(NORMAL);
+	auto diffuse = D3D11RHI::DeferredBuffer()->GetShaderResourceView(DIFFUSE);
+	deviceContext->PSSetShaderResources(0, 1, &position);
+	deviceContext->PSSetShaderResources(1, 1, &normal);
+	deviceContext->PSSetShaderResources(2, 1, &diffuse);
 
 	// light constant buffer를 잠글 수 있도록 기록한다.
 	if (FAILED(deviceContext->Map(m_lightBuffer, 0, D3D11_MAP_WRITE_DISCARD, 0, &mappedResource)))

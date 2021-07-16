@@ -6,8 +6,10 @@
 /////////////
 // GLOBALS //
 /////////////
-Texture2D colorTexture : register(t0);
+Texture2D positionTexture : register(t0);
 Texture2D normalTexture : register(t1);
+Texture2D diffuseTexture : register(t2);
+
 
 
 ///////////////////
@@ -41,27 +43,43 @@ struct PixelInputType
 ////////////////////////////////////////////////////////////////////////////////
 float4 main(PixelInputType input) : SV_TARGET
 {
-	float4 colors;
-	float4 normals;
-	float3 lightDir;
-	float lightIntensity;
-	float4 outputColor;
+	float4 positions = positionTexture.Sample(SampleTypePoint, input.tex);
+	float4 colors = diffuseTexture.Sample(SampleTypePoint, input.tex);
+	float4 normals = normalTexture.Sample(SampleTypePoint, input.tex);
+	positions = normalize(positions);
+	return colors;
+	
+	//lightPosition = float3(1, 1, 1);
 
+	//int3 sampleIndices = int3(input.position.xy, 0);
 
-	// 이 텍스처 좌표 위치에서 포인트 샘플러를 사용하여 컬러 렌더링 텍스처에서 색상을 샘플링합니다.
-	colors = colorTexture.Sample(SampleTypePoint, input.tex);
+	//float3 normal = normalTexture.Load(sampleIndices).xyz;
+	//float3 position = positionTexture.Load(sampleIndices).xyz;
+	//float3 diffuse = diffuseTexture.Load(sampleIndices).xyz;
 
-	// 이 텍스쳐 좌표 위치에있는 포인트 샘플러를 사용하여 normal 렌더 텍스처로부터 법선을 샘플링합니다.
-	normals = normalTexture.Sample(SampleTypePoint, input.tex);
+	//float3 L = lightPosition - position;
+	//float dist = ;
 
-	// 계산을 위해 빛 방향을 반전시킵니다.
-	lightDir = -lightDirection;
+	//if (dist > 2.0f)
+	//{
+	//	return float4(0.0f, 0.0f, 0.0f, 0.0f);
+	//}
 
-	lightDir = float3(1, 1, 1);
-	// 이 픽셀의 빛의 양을 계산합니다.
-	lightIntensity = saturate(dot(normals.xyz, lightDir));
+	//L /= dist;
 
-	// 광도와 결합 된 픽셀의 색상을 기반으로 최종 색상 확산 량을 결정합니다.
-	outputColor = saturate(colors * lightIntensity);
-	return outputColor;
+	//float att = max(0.0f, 1.0f - (dist / 2.0f));
+
+	//float lightAmount = saturate(dot(normal, L));
+	//float3 color = lightAmount * lightColor * att;
+
+	////Specular calc
+	//float3 V = cameraPosition - position;
+	//float3 H = normalize(L + V);
+	//float specular = pow(saturate(dot(normal, H)), 10) * att;
+
+	//float3 finalDiffuse = color * diffuse;
+	//float3 finalSpecular = specular * diffuse * att;
+
+	//float4 totalColor = float4(finalDiffuse + finalSpecular, 1.0f);
+	//return totalColor;
 }

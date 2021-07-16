@@ -165,14 +165,14 @@ bool D3D11RHI::Initialize(HWND hwnd, unsigned int width, unsigned int height)
 
 void D3D11RHI::StandbyDeferred(void)
 {
-	float clear_color_with_alpha[4] = { 0.145f, 0.145f, 0.145f, 1.00f };
+	float clear_color_with_alpha[4] = { 0.f, 0.f, 0.f, 0.f };	
 	D3D11RHI::DeferredBuffer()->SetRenderTargets(D3D11RHI::Context());
 	D3D11RHI::DeferredBuffer()->ClearRenderTargets(D3D11RHI::Context(), clear_color_with_alpha);
 }
 
 void D3D11RHI::PreDraw(void)
 {	
-	float clear_color_with_alpha[4] = { 0.145f, 0.145f, 0.145f, 1.00f };
+	float clear_color_with_alpha[4] = { 0.f, 0.f, 0.f, 0.f };
 	D3D11RHI::Context()->OMSetRenderTargets(1, &D3D11RHI::Instance()->_BackBufferRTV, D3D11RHI::DepthStencilView());
 	D3D11RHI::Context()->ClearRenderTargetView(D3D11RHI::BackBuffer(), clear_color_with_alpha);
 	D3D11RHI::Context()->ClearDepthStencilView(D3D11RHI::DepthStencilView(), D3D11_CLEAR_DEPTH, 1.0f, 0);
@@ -188,9 +188,9 @@ void D3D11RHI::PreDraw(void)
 		XMMatrixIdentity(), 
 		camera.View(), 
 		camera.Ortho(), 
-		D3D11RHI::DeferredBuffer()->GetShaderResourceView(0), 
-		D3D11RHI::DeferredBuffer()->GetShaderResourceView(1), 
-		XMFLOAT3(0.f, 0.f, 1.f));	
+		D3D11RHI::DeferredBuffer()->GetShaderResourceView(0),
+		D3D11RHI::DeferredBuffer()->GetShaderResourceView(1),
+		XMFLOAT3(1.f, 1.f, 1.f));	
 }
 
 void D3D11RHI::PostDraw(void)

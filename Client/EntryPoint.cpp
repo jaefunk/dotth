@@ -4,10 +4,10 @@
 
 void EntryPoint::OnInit(void)
 {
-	SetCameraPosition(Float3(0.f, 0, -300.f));
+	SetCameraPosition(Float3(0.f, 400.f, -200.f));
 	SetCameraLookAt(Float3(0.f, 0, 0.f));
 	SetCameraUp(Float3(0.f, 1.f, 0.f));
-	SetCameraFrustumFieldOfView(3.141592f * 0.25f);
+	SetCameraFrustumFieldOfView(3.141592f * 0.3f);
 	SetCameraFrustumNearFieldDistance(0.1f);
 	SetCameraFrustumFarFieldDistance(1000.f);
 	
