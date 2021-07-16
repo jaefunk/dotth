@@ -30,11 +30,15 @@ void Scenario::ApplyNewScene(void)
 	_CurrentScene->Init();
 }
 
-void Scenario::Loop(void)
+void Scenario::Update(void)
 {
 	ApplyNewScene();
 	if (_CurrentScene == nullptr)
 		return;
 	_CurrentScene->Update();
+}
+
+void Scenario::Draw(void)
+{
 	_CurrentScene->Draw();
 }

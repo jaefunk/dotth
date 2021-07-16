@@ -1,9 +1,11 @@
 #pragma once
 
 #include "dotth.h"
+#include "SingleInstance.h"
 #include "D3D11.h"
 #include "D3D11Camera.h"
-#include "SingleInstance.h"
+#include "D3D11DeferredBuffer.h"
+#include "D3D11Light.h"
 
 class D3D11RHI : public SingleInstance<D3D11RHI>
 {
@@ -22,6 +24,8 @@ private:
 	ID3D11RasterizerState* _RasterizerState;
 	ID3D11SamplerState* _SamplerState;
 	ID3D11DepthStencilView* _DepthStencilView;	
+	ID3D11DepthStencilState* _DepthStencilState;
+	ID3D11DepthStencilState* _DepthDisableStencilState;
 	D3D_FEATURE_LEVEL _FeatureLevel;
 	D3D11Camera _Camera;
 	
@@ -29,6 +33,7 @@ public:
 	static bool Initialize(HWND hwnd, unsigned int width, unsigned int height);
 
 public:
+	static void StandbyDeferred(void);
 	static void PreDraw(void);
 	static void PostDraw(void);
 
@@ -37,7 +42,7 @@ public:
 	static ID3D11DeviceContext* Context();
 	static IDXGISwapChain* SwapChain();
 	static ID3D11RenderTargetView* BackBuffer();
-	static ID3D11DepthStencilView* DepthBuffer();
+	static ID3D11DepthStencilView* DepthStencilView();
 	static D3D11Camera* Camera();
 	static ID3D11SamplerState* Sampler();
 	//static ID3D11Buffer* CreateBuffer(const D3D11_BUFFER_DESC* desc, const D3D11_SUBRESOURCE_DATA* data);
@@ -46,4 +51,14 @@ public:
 	//static ID3D11InputLayout* CreateInputLayout(ID3DBlob* blob, D3D11_INPUT_ELEMENT_DESC* desc, unsigned int desc_size);
 	//static void BindVertexBuffer(ID3D11Buffer* buffer, unsigned int size, unsigned int offset = 0);
 	//static void BindIndexBuffer(ID3D11Buffer* buffer);
+
+private:
+	std::shared_ptr<D3D11DeferredBuffer> _DeferredBuffer;
+	std::shared_ptr<OrthoWindowClass> _OrthoWindow;
+	std::shared_ptr<class SimpleVertexShader> _DeferredLightVertexShader;
+	std::shared_ptr<class SimplePixelShader> _DeferredLightPixelShader;
+	std::shared_ptr<class LightShaderClass> _Light;
+public:
+	static std::shared_ptr<D3D11DeferredBuffer> DeferredBuffer(void);
 };
+

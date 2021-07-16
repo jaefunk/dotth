@@ -31,8 +31,17 @@ void Application::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 
 bool Application::Loop()
 {
+	Scenario::Instance()->Update();
+	//D3D11RHI::PreDraw();
+	//Scenario::Instance()->Draw();
+	//D3D11RHI::PostDraw();
+
+	Scenario::Instance()->Update();
+	D3D11RHI::StandbyDeferred();
+	Scenario::Instance()->Draw();
 	D3D11RHI::PreDraw();
-	Scenario::Instance()->Loop();
 	D3D11RHI::PostDraw();
+
+	
 	return true;
 }

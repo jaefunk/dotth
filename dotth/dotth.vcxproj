@@ -25,6 +25,8 @@
     <ClCompile Include="AssetBase.cpp" />
     <ClCompile Include="Base.cpp" />
     <ClCompile Include="Component.cpp" />
+    <ClCompile Include="D3D11DeferredBuffer.cpp" />
+    <ClCompile Include="D3D11Light.cpp" />
     <ClCompile Include="D3D11Texture2D.cpp" />
     <ClCompile Include="D3D11Camera.cpp" />
     <ClCompile Include="D3D11Primitive.cpp" />
@@ -50,6 +52,8 @@
     <ClInclude Include="Base.h" />
     <ClInclude Include="Component.h" />
     <ClInclude Include="D3D11.h" />
+    <ClInclude Include="D3D11DeferredBuffer.h" />
+    <ClInclude Include="D3D11Light.h" />
     <ClInclude Include="D3D11Texture2D.h" />
     <ClInclude Include="D3D11Camera.h" />
     <ClInclude Include="D3D11Primitive.h" />

@@ -42,3 +42,8 @@ void D3D11Texture2D::Draw(const unsigned int& index)
 	//ID3D11SamplerState* jj = D3D11RHI::Sampler();
 	//D3D11RHI::Context()->PSSetSamplers(0, 1, &jj);
 }
+
+ID3D11ShaderResourceView* D3D11Texture2D::GetShaderResourceView(void)
+{
+	return _ShaderResourceView;
+}

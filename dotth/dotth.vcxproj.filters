@@ -63,6 +63,8 @@
     </ClCompile>
     <ClCompile Include="ResourceManager.cpp" />
     <ClCompile Include="AssetBase.cpp" />
+    <ClCompile Include="D3D11DeferredBuffer.cpp" />
+    <ClCompile Include="D3D11Light.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.h">
@@ -263,6 +265,8 @@
     </ClInclude>
     <ClInclude Include="ResourceManager.h" />
     <ClInclude Include="AssetBase.h" />
+    <ClInclude Include="D3D11DeferredBuffer.h" />
+    <ClInclude Include="D3D11Light.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Framework">

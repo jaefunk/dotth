@@ -17,6 +17,12 @@ void StaticMeshComponent::Load1(void)
 
 	_Shader = std::make_shared<D3D11Shader>();
 	_Shader->Load("Resource/Primitive2.hlsl");
+
+	_DeferredVertexShader = std::make_shared<SimpleVertexShader>(D3D11RHI::Device(), D3D11RHI::Context());
+	_DeferredVertexShader->LoadShaderFile(L"../Output/Client/x64/Debug/deferred_vs.cso");
+
+	_DeferredPixelShader = std::make_shared<SimplePixelShader>(D3D11RHI::Device(), D3D11RHI::Context());
+	_DeferredPixelShader->LoadShaderFile(L"../Output/Client/x64/Debug/deferred_ps.cso");
 }
 
 void StaticMeshComponent::Load2(void)
@@ -29,6 +35,12 @@ void StaticMeshComponent::Load2(void)
 
 	_Shader = std::make_shared<D3D11Shader>();
 	_Shader->Load("Resource/Primitive2.hlsl");
+
+	_DeferredVertexShader = std::make_shared<SimpleVertexShader>(D3D11RHI::Device(), D3D11RHI::Context());
+	_DeferredVertexShader->LoadShaderFile(L"../Output/Client/x64/Debug/deferred_vs.cso");
+
+	_DeferredPixelShader = std::make_shared<SimplePixelShader>(D3D11RHI::Device(), D3D11RHI::Context());
+	_DeferredPixelShader->LoadShaderFile(L"../Output/Client/x64/Debug/deferred_ps.cso");
 }
 
 void StaticMeshComponent::OnUpdate(void)
@@ -38,11 +50,31 @@ void StaticMeshComponent::OnUpdate(void)
 
 void StaticMeshComponent::OnDraw(void)
 {
+
+	auto wv = XMMatrixMultiply(D3D11RHI::Camera()->View(), GetOwner()->GetTransform().GetWorldMatrix());
+	auto result = XMMatrixMultiply(D3D11RHI::Camera()->Perspective(), wv);
+	XMFLOAT4X4 world, view, proj;
+	XMStoreFloat4x4(&world, GetOwner()->GetTransform().GetWorldMatrix());
+	XMStoreFloat4x4(&view, XMMatrixTranspose(D3D11RHI::Camera()->View()));
+	XMStoreFloat4x4(&proj, XMMatrixTranspose(D3D11RHI::Camera()->Perspective()));
+	
 	for (unsigned int i = 0; i < _StaticMesh->GetSectionSize(); ++i)
 	{
 		_StaticMesh->Draw(i);
 		_Texture2D->Draw(i);
-		_Shader->Draw(GetOwner()->GetTransform().GetWorldMatrix(), _StaticMesh->GetIndicesSize(i));
+		
+		_DeferredVertexShader->SetMatrix4x4("world", world);
+		_DeferredVertexShader->SetMatrix4x4("view", view);
+		_DeferredVertexShader->SetMatrix4x4("projection", proj);
+		_DeferredVertexShader->CopyAllBufferData();
+		_DeferredVertexShader->SetShader();
+		
+		_DeferredPixelShader->SetSamplerState("Sampler", D3D11RHI::Sampler());
+		_DeferredPixelShader->SetShaderResourceView("Texture", _Texture2D->GetShaderResourceView());
+		_DeferredPixelShader->CopyAllBufferData();
+		_DeferredPixelShader->SetShader();
+		
+		D3D11RHI::Context()->DrawIndexed(_StaticMesh->GetIndicesSize(i), 0, 0);
 	}
 }
 

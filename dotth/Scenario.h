@@ -16,7 +16,9 @@ private:
 public:
 	void Push(std::string key);
 	void Pop(void);
-	void Loop(void);
+
+	void Update(void);
+	void Draw(void);
 
 public:
 	template <typename SceneTy, typename = typename std::enable_if<std::is_base_of<Scene, SceneTy>::value, SceneTy>::type>
