@@ -68,7 +68,6 @@ void D3D11Camera::Sync(void)
 	{
 		XMVECTOR EyeDirection = XMVectorSubtract(XMLoadFloat3(&_At), XMLoadFloat3(&_Eye));
 		_View = XMMatrixLookToLH(XMLoadFloat3(&_Eye), EyeDirection, XMLoadFloat3(&_Up));
-		
 	}
 
 	if (_DirtyFlags & FLAG::PERSPECTIVE)

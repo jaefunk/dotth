@@ -49,9 +49,6 @@ void StaticMeshComponent::OnUpdate(void)
 
 void StaticMeshComponent::OnDraw(void)
 {
-
-	auto wv = XMMatrixMultiply(D3D11RHI::Camera()->View(), GetOwner()->GetTransform().GetWorldMatrix());
-	auto result = XMMatrixMultiply(D3D11RHI::Camera()->Perspective(), wv);
 	XMFLOAT4X4 world, view, proj;
 	XMStoreFloat4x4(&world, GetOwner()->GetTransform().GetWorldMatrix());
 	XMStoreFloat4x4(&view, XMMatrixTranspose(D3D11RHI::Camera()->View()));
