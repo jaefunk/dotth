@@ -4,24 +4,24 @@
 
 void EntryPoint::OnInit(void)
 {
-	SetCameraPosition(Float3(0.f, 400.f, -200.f));
+	SetCameraPosition(Float3(0.f, 0.f, -200.f));
 	SetCameraLookAt(Float3(0.f, 0, 0.f));
 	SetCameraUp(Float3(0.f, 1.f, 0.f));
 	SetCameraFrustumFieldOfView(3.141592f * 0.3f);
 	SetCameraFrustumNearFieldDistance(0.1f);
 	SetCameraFrustumFarFieldDistance(1000.f);
 	
-	std::shared_ptr<SampleObject> A = std::make_shared<SampleObject>();
-	auto smc = A->AddComponent<StaticMeshComponent>();
+	o1 = std::make_shared<SampleObject>();
+	auto smc = o1->AddComponent<StaticMeshComponent>();
 	smc->Load1();
-	SpawnObject(A);
-	A->TranslateX(-70.f);
+	SpawnObject(o1);
+	o1->TranslateX(-70.f);
 
-	std::shared_ptr<SampleObject> B = std::make_shared<SampleObject>();
-	auto smc2 = B->AddComponent<StaticMeshComponent>();
+	o2 = std::make_shared<SampleObject>();
+	auto smc2 = o2->AddComponent<StaticMeshComponent>();
 	smc2->Load2();
-	SpawnObject(B);
-	B->TranslateX(70.f);
+	SpawnObject(o2);
+	o2->TranslateX(70.f);
 
 
 	//std::shared_ptr<SampleObject> B = std::make_shared<SampleObject>();
@@ -38,7 +38,9 @@ void EntryPoint::OnDestroy(void)
 
 void EntryPoint::OnUpdate(void)
 {
-	
+	static float a = 0.f;
+	a += 0.3f;
+	SetCameraPosition(Float3(0.f, a, -200.f));
 }
 
 void EntryPoint::OnDraw(void)

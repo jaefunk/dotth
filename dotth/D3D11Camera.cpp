@@ -78,7 +78,7 @@ void D3D11Camera::Sync(void)
 
 	if (_DirtyFlags & FLAG::ORTHO)
 	{
-		_Ortho = XMMatrixOrthographicLH(static_cast<float>(_Width), static_cast<float>(_Height), _Near, _Far);
+		_Ortho = XMMatrixOrthographicLH(static_cast<float>(_Width), static_cast<float>(_Height), 0.f, 1000.f);
 	}
 	_DirtyFlags = FLAG::NONE;
 }
