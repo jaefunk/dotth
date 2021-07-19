@@ -31,8 +31,8 @@ bool D3D11RHI::Initialize(HWND hwnd, unsigned int width, unsigned int height)
 		return false;
 	}
 
-	const unsigned int RenderTargetWidth = 1920;
-	const unsigned int RenderTargetHeight = 1080;
+	const unsigned int RenderTargetWidth = width;
+	const unsigned int RenderTargetHeight = height;
 	DXGI_SWAP_CHAIN_DESC scd;
 	ZeroMemory(&scd, sizeof(scd));
 
@@ -160,6 +160,7 @@ bool D3D11RHI::Initialize(HWND hwnd, unsigned int width, unsigned int height)
 	//D3D11RHI::Instance()->_DeferredLightVertexShader->LoadShaderFile(L"../Output/Client/x64/Debug/light_vs.cso");
 	//D3D11RHI::Instance()->_DeferredLightPixelShader = std::make_shared<SimplePixelShader>(D3D11RHI::Device(), D3D11RHI::Context());
 	//D3D11RHI::Instance()->_DeferredLightPixelShader->LoadShaderFile(L"../Output/Client/x64/Debug/light_ps.cso");
+
 	return true;
 }
 

@@ -2,6 +2,9 @@
 
 void Application::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
+	if (ImGui_ImplWin32_WndProcHandler(hWnd, message, wParam, lParam))
+		return;
+
 	switch (message)
 	{
 	case WM_KEYDOWN:
@@ -31,17 +34,30 @@ void Application::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 
 bool Application::Loop()
 {
-	Scenario::Instance()->Update();
-	//D3D11RHI::PreDraw();
-	//Scenario::Instance()->Draw();
-	//D3D11RHI::PostDraw();
-
+	
+	
 	Scenario::Instance()->Update();
 	D3D11RHI::StandbyDeferred();
 	Scenario::Instance()->Draw();
 	D3D11RHI::PreDraw();
-	D3D11RHI::PostDraw();
+	
+	ImGui_ImplDX11_NewFrame();
+	ImGui_ImplWin32_NewFrame();
+	ImGui::NewFrame();
+	
+    ImGui::Begin("Hello, world!");                          // Create a window called "Hello, world!" and append into it.
+    ImGui::Text("This is some useful text.");               // Display some text (you can use a format strings too)
+    ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
+    ImGui::End();
+	ImGui::Render();
+	
+	ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
 
 	
+
+
+	
+
+	D3D11RHI::PostDraw();
 	return true;
 }

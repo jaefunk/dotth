@@ -164,8 +164,6 @@ int OrthoWindowClass::GetIndexCount()
 
 bool OrthoWindowClass::InitializeBuffers(ID3D11Device* device, int windowWidth, int windowHeight)
 {
-	windowWidth = 1280;
-	windowHeight = 720;
 	float left = (float)((windowWidth / 2) * -1);
 
 	float right = left + (float)windowWidth;
