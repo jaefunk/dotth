@@ -21,7 +21,7 @@ private:
 	ID3D11DeviceContext* _Context;
 	IDXGISwapChain* _SwapChain;
 	ID3D11RenderTargetView* _BackBufferRTV;
-	ID3D11RasterizerState* _RasterizerState;
+	ID3D11RasterizerState* _RasterizerStateSolid;
 	ID3D11SamplerState* _SamplerState;
 	ID3D11DepthStencilView* _DepthStencilView;	
 	ID3D11DepthStencilState* _DepthStencilState;

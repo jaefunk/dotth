@@ -14,35 +14,17 @@ struct VertexOutputType
 struct PixelOutputType
 {
 	float4 Position				: SV_Target0;
-	float4 Normal				: SV_Target1;			//Normal map	
-	float4 Diffuse				: SV_Target2;			//Color
+	float4 Diffuse				: SV_Target1;	// Color
+	float4 Normal				: SV_Target2;	// Normal
 };
 
 PixelOutputType main(VertexOutputType input)
 {
-	PixelOutputType output;
-
-	input.normal = normalize(input.normal);
-	input.tangent = normalize(input.tangent);
-
-	// Read and unpack normal from map
-	float3 normalFromMap = float3(1.0f, 1.0f, 1.0f);//NormalMap.Sample(Sampler, input.uv).xyz * 2 - 1;
-
-	// Transform from tangent to world space
-	float3 N = input.normal;
-	float3 T = normalize(input.tangent - N * dot(input.tangent, N));
-	float3 B = cross(T, N);
-
-	float3x3 TBN = float3x3(T, B, N);
-	input.normal = normalize(mul(input.normal, TBN));
-
-	// Sample the texture
-	float4 textureColor = Texture.Sample(Sampler, input.coord);
+	PixelOutputType output;	
 
 	output.Position = float4(input.worldPos, 1.0f);
+	output.Diffuse = Texture.Sample(Sampler, input.coord);;
 	output.Normal = float4(input.normal, 1.0f);
-	output.Diffuse = textureColor;
-
 
 	return output;
 }

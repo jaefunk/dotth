@@ -7,7 +7,7 @@ D3D11RHI::~D3D11RHI()
 	D3D11RHI::Instance()->_Context->Release();;
 	D3D11RHI::Instance()->_SwapChain->Release();
 	D3D11RHI::Instance()->_BackBufferRTV->Release();
-	D3D11RHI::Instance()->_RasterizerState->Release();
+	D3D11RHI::Instance()->_RasterizerStateSolid->Release();
 	D3D11RHI::Instance()->_SamplerState->Release();
 	D3D11RHI::Instance()->_DepthStencilView->Release();;
 }
@@ -121,8 +121,8 @@ bool D3D11RHI::Initialize(HWND hwnd, unsigned int width, unsigned int height)
 	rd.MultisampleEnable = false;
 	rd.ScissorEnable = false;
 	rd.SlopeScaledDepthBias = 0.0f;
-	D3D11RHI::Device()->CreateRasterizerState(&rd, &D3D11RHI::Instance()->_RasterizerState);
-	D3D11RHI::Context()->RSSetState(D3D11RHI::Instance()->_RasterizerState);
+	D3D11RHI::Device()->CreateRasterizerState(&rd, &D3D11RHI::Instance()->_RasterizerStateSolid);
+	D3D11RHI::Context()->RSSetState(D3D11RHI::Instance()->_RasterizerStateSolid);
 
 	D3D11_SAMPLER_DESC sd;
 	ZeroMemory(&sd, sizeof(sd));
@@ -172,12 +172,12 @@ void D3D11RHI::StandbyDeferred(void)
 
 void D3D11RHI::PreDraw(void)
 {	
-	float clear_color_with_alpha[4] = { 1.f, 1.f, 1.f, 1.f };
+	float clear_color_with_alpha[4] = { 0.f, 0.f, 0.f, 0.f };
 	D3D11RHI::Context()->OMSetRenderTargets(1, &D3D11RHI::Instance()->_BackBufferRTV, D3D11RHI::DepthStencilView());
 	D3D11RHI::Context()->ClearRenderTargetView(D3D11RHI::BackBuffer(), clear_color_with_alpha);
 	D3D11RHI::Context()->ClearDepthStencilView(D3D11RHI::DepthStencilView(), D3D11_CLEAR_DEPTH, 1.0f, 0);
 
-	D3D11RHI::Context()->RSSetState(D3D11RHI::Instance()->_RasterizerState);
+	D3D11RHI::Context()->RSSetState(D3D11RHI::Instance()->_RasterizerStateSolid);
 	D3D11RHI::Context()->OMSetDepthStencilState(D3D11RHI::Instance()->_DepthStencilState, 0);
 
 	D3D11RHI::Instance()->_OrthoWindow->Render(D3D11RHI::Context());
@@ -190,7 +190,7 @@ void D3D11RHI::PreDraw(void)
 		camera.Ortho(), 
 		D3D11RHI::DeferredBuffer()->GetShaderResourceView(0),
 		D3D11RHI::DeferredBuffer()->GetShaderResourceView(1),
-		XMFLOAT3(1.f, 1.f, 1.f));	
+		XMFLOAT3(-1.f, -1.f, 1.f));	
 }
 
 void D3D11RHI::PostDraw(void)

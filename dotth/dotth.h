@@ -37,9 +37,11 @@ namespace dotth
 
 /*
 to do list {
-	resource manager
+	deferred rendering		- done
+	resource manager		- done
+	directional light		- done
 	imgui
+	user input	
 	skeletal mesh
-	user input
 }
 */ 

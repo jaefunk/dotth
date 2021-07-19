@@ -1,6 +1,14 @@
 ﻿[
     "uv_checker.jpg",
-    "Cube.FBX",
-    "Sphere.fbx"
-    
+    "white.jpg",
+    "Axis.fbx",
+    "Sphere.fbx",
+    "Camera.fbx",
+    "Floor.fbx",
+    "Frustum.fbx",
+    "Plane.fbx",
+    "Cube.fbx",
+    "Room.fbx",
+    "ColorCalibrator.fbx",
+    "ColorGrid.jpg"
 ]

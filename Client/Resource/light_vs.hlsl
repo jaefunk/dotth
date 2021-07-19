@@ -13,19 +13,20 @@ cbuffer MatrixBuffer
 	matrix projectionMatrix;
 };
 
+
 //////////////
 // TYPEDEFS //
 //////////////
 struct VertexInputType
 {
 	float4 position : POSITION;
-	float2 tex : TEXCOORD0;
+	float2 coord : TEXCOORD0;
 };
 
 struct PixelInputType
 {
 	float4 position : SV_POSITION;
-	float2 tex : TEXCOORD0;
+	float2 coord : TEXCOORD0;
 };
 
 
@@ -46,7 +47,7 @@ PixelInputType main(VertexInputType input)
 	output.position = mul(output.position, projectionMatrix);
 
 	// 픽셀 쉐이더의 텍스처 좌표를 저장한다.
-	output.tex = input.tex;
+	output.coord = input.coord;
 
 	return output;
 }

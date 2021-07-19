@@ -30,15 +30,15 @@ bool model::LoadWithAssimp(const std::string& path)
 			if (mesh->HasPositions())
 			{
 				sections[index].vertices[i].position.x = mesh->mVertices[i].x;
-				sections[index].vertices[i].position.y = mesh->mVertices[i].y;
-				sections[index].vertices[i].position.z = mesh->mVertices[i].z;
+				sections[index].vertices[i].position.y = -mesh->mVertices[i].z;
+				sections[index].vertices[i].position.z = mesh->mVertices[i].y;
 			}
 
 			if (mesh->HasNormals())
 			{
 				sections[index].vertices[i].normal.x = mesh->mNormals[i].x;
-				sections[index].vertices[i].normal.y = mesh->mNormals[i].y;
-				sections[index].vertices[i].normal.z = mesh->mNormals[i].z;
+				sections[index].vertices[i].normal.y = -mesh->mNormals[i].z;
+				sections[index].vertices[i].normal.z = mesh->mNormals[i].y;
 			}
 
 			if (mesh->HasTangentsAndBitangents())

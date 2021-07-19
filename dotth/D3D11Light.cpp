@@ -293,11 +293,12 @@ bool LightShaderClass::SetShaderParameters(ID3D11DeviceContext* deviceContext, X
 
 	// Set shader texture resource in the pixel shader.
 	auto position = D3D11RHI::DeferredBuffer()->GetShaderResourceView(POSITION);
-	auto normal = D3D11RHI::DeferredBuffer()->GetShaderResourceView(NORMAL);
 	auto diffuse = D3D11RHI::DeferredBuffer()->GetShaderResourceView(DIFFUSE);
+	auto normal = D3D11RHI::DeferredBuffer()->GetShaderResourceView(NORMAL);
 	deviceContext->PSSetShaderResources(0, 1, &position);
-	deviceContext->PSSetShaderResources(1, 1, &normal);
-	deviceContext->PSSetShaderResources(2, 1, &diffuse);
+	deviceContext->PSSetShaderResources(1, 1, &diffuse);
+	deviceContext->PSSetShaderResources(2, 1, &normal);
+	
 
 	// light constant buffer를 잠글 수 있도록 기록한다.
 	if (FAILED(deviceContext->Map(m_lightBuffer, 0, D3D11_MAP_WRITE_DISCARD, 0, &mappedResource)))
@@ -310,7 +311,7 @@ bool LightShaderClass::SetShaderParameters(ID3D11DeviceContext* deviceContext, X
 
 	// 조명 변수를 상수 버퍼에 복사합니다.
 	dataPtr2->lightDirection = lightDirection;
-	dataPtr2->padding = 0.0f;
+	dataPtr2->padding = 1.0f;
 
 	// 상수 버퍼의 잠금을 해제합니다.
 	deviceContext->Unmap(m_lightBuffer, 0);
