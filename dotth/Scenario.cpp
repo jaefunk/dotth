@@ -42,3 +42,8 @@ void Scenario::Draw(void)
 {
 	_CurrentScene->Draw();
 }
+
+void Scenario::DrawImGui(void)
+{
+	_CurrentScene->DrawImGui();
+}

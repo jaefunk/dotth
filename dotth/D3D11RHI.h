@@ -31,11 +31,16 @@ private:
 	
 public:
 	static bool Initialize(HWND hwnd, unsigned int width, unsigned int height);
+	static void InitializeImGui(HWND hwnd, unsigned int width, unsigned int height);
 
 public:
 	static void StandbyDeferred(void);
-	static void PreDraw(void);
-	static void PostDraw(void);
+	static void Draw(void);
+	static void BeginImGui(void);
+	static void EndImGui(void);
+	
+
+	static void Present(void);
 
 public:
 	static ID3D11Device* Device();

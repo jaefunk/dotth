@@ -39,25 +39,18 @@ bool Application::Loop()
 	Scenario::Instance()->Update();
 	D3D11RHI::StandbyDeferred();
 	Scenario::Instance()->Draw();
-	D3D11RHI::PreDraw();
+	D3D11RHI::Draw();
 	
-	ImGui_ImplDX11_NewFrame();
-	ImGui_ImplWin32_NewFrame();
-	ImGui::NewFrame();
-	
-    ImGui::Begin("Hello, world!");                          // Create a window called "Hello, world!" and append into it.
-    ImGui::Text("This is some useful text.");               // Display some text (you can use a format strings too)
-    ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
-    ImGui::End();
-	ImGui::Render();
-	
-	ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
+
+	D3D11RHI::BeginImGui();
+	Scenario::Instance()->DrawImGui();
+	D3D11RHI::EndImGui();
 
 	
 
 
 	
 
-	D3D11RHI::PostDraw();
+	D3D11RHI::Present();
 	return true;
 }

@@ -25,9 +25,9 @@
 #include <functional>
 #include <iostream>
 
-#include "External/imgui/imgui.h"
-#include "External/imgui/backends/imgui_impl_dx11.h"
-#include "External/imgui/backends/imgui_impl_win32.h"
+#include "imgui/imgui.h"
+#include "imgui/backends/imgui_impl_win32.h"
+#include "imgui/backends/imgui_impl_dx11.h"
 
 #include "Math/Math.h"
 
@@ -40,7 +40,8 @@ to do list {
 	deferred rendering		- done
 	resource manager		- done
 	directional light		- done
-	imgui
+	imgui					- done
+	arrange					- on going
 	user input	
 	skeletal mesh
 }

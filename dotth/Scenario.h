@@ -19,6 +19,7 @@ public:
 
 	void Update(void);
 	void Draw(void);
+	void DrawImGui(void);
 
 public:
 	template <typename SceneTy, typename = typename std::enable_if<std::is_base_of<Scene, SceneTy>::value, SceneTy>::type>

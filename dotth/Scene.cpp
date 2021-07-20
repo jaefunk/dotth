@@ -37,6 +37,11 @@ void Scene::Draw(void)
 	}
 }
 
+void Scene::DrawImGui(void)
+{
+	OnDrawImGui();
+}
+
 void Scene::Destroy(void)
 {
 	OnDestroy();
@@ -55,6 +60,10 @@ void Scene::OnUpdate(void)
 }
 
 void Scene::OnDraw(void) 
+{
+}
+
+void Scene::OnDrawImGui(void)
 {
 }
 

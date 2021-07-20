@@ -49,8 +49,20 @@ void EntryPoint::OnUpdate(void)
 	//SetCameraPosition(Float3(0.f, 300.f + a, -500.f));
 	//SetCameraLookAt(Float3(0.f, 000.f + a, 0.f));
 	o2->RotateYaw(0.001f);
+	
 }
 
 void EntryPoint::OnDraw(void)
 {
+}
+
+void EntryPoint::OnDrawImGui(void)
+{
+	ImGui::Begin("Hello, world!");
+	ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
+	ImGui::Text("%f %f %f", o2->GetLocalRotation().x, o2->GetLocalRotation().y, o2->GetLocalRotation().z);
+	static float f = 0.f;
+	ImGui::DragFloat("test", &f, 1.f, 0.f, 1000.f, "%f", 1.f);
+	o2->SetPosition(Vector3F(0.f, f, 0.f));
+	ImGui::End();
 }

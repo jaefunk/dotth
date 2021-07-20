@@ -164,6 +164,16 @@ bool D3D11RHI::Initialize(HWND hwnd, unsigned int width, unsigned int height)
 	return true;
 }
 
+void D3D11RHI::InitializeImGui(HWND hwnd, unsigned int width, unsigned int height)
+{
+	IMGUI_CHECKVERSION();
+	ImGui::CreateContext();
+	//ImGuiIO& io = ImGui::GetIO(); (void)io;
+	ImGui::StyleColorsDark();
+	ImGui_ImplWin32_Init(hwnd);
+	ImGui_ImplDX11_Init(D3D11RHI::Device(), D3D11RHI::Context());
+}
+
 void D3D11RHI::StandbyDeferred(void)
 {
 	float clear_color_with_alpha[4] = { 0.f, 0.f, 0.f, 0.f };	
@@ -171,7 +181,7 @@ void D3D11RHI::StandbyDeferred(void)
 	D3D11RHI::DeferredBuffer()->ClearRenderTargets(D3D11RHI::Context(), clear_color_with_alpha);
 }
 
-void D3D11RHI::PreDraw(void)
+void D3D11RHI::Draw(void)
 {	
 	float clear_color_with_alpha[4] = { 0.f, 0.f, 0.f, 0.f };
 	D3D11RHI::Context()->OMSetRenderTargets(1, &D3D11RHI::Instance()->_BackBufferRTV, D3D11RHI::DepthStencilView());
@@ -194,10 +204,24 @@ void D3D11RHI::PreDraw(void)
 		XMFLOAT3(-1.f, -1.f, 1.f));	
 }
 
-void D3D11RHI::PostDraw(void)
+void D3D11RHI::BeginImGui(void)
+{
+	ImGui_ImplDX11_NewFrame();
+	ImGui_ImplWin32_NewFrame();
+	ImGui::NewFrame();
+}
+
+void D3D11RHI::EndImGui(void)
+{
+	ImGui::Render();
+	ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
+}
+
+void D3D11RHI::Present(void)
 {
 	D3D11RHI::SwapChain()->Present(1, 0);
 }
+
 
 ID3D11Device * D3D11RHI::Device()
 {

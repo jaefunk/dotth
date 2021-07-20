@@ -11,12 +11,14 @@ private:
 	virtual void Init(void);
 	virtual void Update(void);
 	virtual void Draw(void);
+	virtual void DrawImGui(void);
 	virtual void Destroy(void);
 
 public:
 	virtual void OnInit(void);
 	virtual void OnUpdate(void);
 	virtual void OnDraw(void);
+	virtual void OnDrawImGui(void);
 	virtual void OnDestroy(void);
 
 private:
