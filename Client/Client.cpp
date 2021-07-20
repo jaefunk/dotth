@@ -106,10 +106,11 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance
 
 	ShowWindow(hWnd, nCmdShow);
 	UpdateWindow(hWnd);
-	
+	RECT rect = { 0, 0, 0, 0 };
+	::GetClientRect(hWnd, &rect);
 	Config.Hwnd = hWnd;
-	Config.Width = screen_width;
-	Config.Height = screen_height;
+	Config.Width = rect.right - rect.left;
+	Config.Height = rect.bottom - rect.top;
 	
 	App.Initialize<EntryPoint>(Config);
 

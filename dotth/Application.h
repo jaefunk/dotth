@@ -43,7 +43,7 @@ void Application::Initialize(const Configuration & config)
 
 	IMGUI_CHECKVERSION();
 	ImGui::CreateContext();
-	ImGuiIO& io = ImGui::GetIO(); (void)io;
+	//ImGuiIO& io = ImGui::GetIO(); (void)io;
 	ImGui::StyleColorsDark();
 	ImGui_ImplWin32_Init(config.Hwnd);
 	ImGui_ImplDX11_Init(D3D11RHI::Device(), D3D11RHI::Context());
