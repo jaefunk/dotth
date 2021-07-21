@@ -50,7 +50,7 @@ bool D3D11RHI::Initialize(HWND hwnd, unsigned int width, unsigned int height)
 	scd.SampleDesc.Count = 1;
 	scd.SampleDesc.Quality = 0;
 	scd.Windowed = true;
-	scd.Flags = 0;	
+	scd.Flags = 0;
 
 	if (FAILED(factory->CreateSwapChain(D3D11RHI::Instance()->_Device, &scd, &D3D11RHI::Instance()->_SwapChain)))
 	{
@@ -140,7 +140,7 @@ bool D3D11RHI::Initialize(HWND hwnd, unsigned int width, unsigned int height)
 
 	D3D11_VIEWPORT viewport;
 	viewport.TopLeftX = 0.0f;
-	viewport.TopLeftY = 0.0f;	
+	viewport.TopLeftY = 0.0f;
 	viewport.Width = static_cast<float>(RenderTargetWidth);
 	viewport.Height = static_cast<float>(RenderTargetHeight);
 	viewport.MinDepth = 0.0f;
@@ -176,13 +176,13 @@ void D3D11RHI::InitializeImGui(HWND hwnd, unsigned int width, unsigned int heigh
 
 void D3D11RHI::StandbyDeferred(void)
 {
-	float clear_color_with_alpha[4] = { 0.f, 0.f, 0.f, 0.f };	
+	float clear_color_with_alpha[4] = { 0.f, 0.f, 0.f, 0.f };
 	D3D11RHI::DeferredBuffer()->SetRenderTargets(D3D11RHI::Context());
 	D3D11RHI::DeferredBuffer()->ClearRenderTargets(D3D11RHI::Context(), clear_color_with_alpha);
 }
 
 void D3D11RHI::Draw(void)
-{	
+{
 	float clear_color_with_alpha[4] = { 0.f, 0.f, 0.f, 0.f };
 	D3D11RHI::Context()->OMSetRenderTargets(1, &D3D11RHI::Instance()->_BackBufferRTV, D3D11RHI::DepthStencilView());
 	D3D11RHI::Context()->ClearRenderTargetView(D3D11RHI::BackBuffer(), clear_color_with_alpha);
@@ -195,13 +195,13 @@ void D3D11RHI::Draw(void)
 
 	auto camera = D3D11RHI::Instance()->_Camera;
 	D3D11RHI::Instance()->_Light->Render(
-		D3D11RHI::Context(), 6, 
-		XMMatrixIdentity(), 
+		D3D11RHI::Context(), 6,
 		XMMatrixIdentity(),
-		camera.Ortho(), 
+		XMMatrixIdentity(),
+		camera.Ortho(),
 		D3D11RHI::DeferredBuffer()->GetShaderResourceView(0),
 		D3D11RHI::DeferredBuffer()->GetShaderResourceView(1),
-		XMFLOAT3(-1.f, -1.f, 1.f));	
+		XMFLOAT3(-1.f, -1.f, 1.f));
 }
 
 void D3D11RHI::BeginImGui(void)
@@ -223,22 +223,22 @@ void D3D11RHI::Present(void)
 }
 
 
-ID3D11Device * D3D11RHI::Device()
+ID3D11Device* D3D11RHI::Device()
 {
 	return D3D11RHI::Instance()->_Device;
 }
 
-ID3D11DeviceContext * D3D11RHI::Context()
+ID3D11DeviceContext* D3D11RHI::Context()
 {
 	return D3D11RHI::Instance()->_Context;
 }
 
-IDXGISwapChain * D3D11RHI::SwapChain()
+IDXGISwapChain* D3D11RHI::SwapChain()
 {
 	return D3D11RHI::Instance()->_SwapChain;
 }
 
-ID3D11RenderTargetView * D3D11RHI::BackBuffer()
+ID3D11RenderTargetView* D3D11RHI::BackBuffer()
 {
 	return D3D11RHI::Instance()->_BackBufferRTV;
 }
