@@ -2,8 +2,7 @@
 
 #include "dotth.h"
 
-enum ASSET_TYPE {
-	
+enum class EXTENSION_TYPE {	
 	JPEG,
 	FBX,
 };
@@ -11,5 +10,5 @@ enum ASSET_TYPE {
 struct AssetBase
 {
 public:
-	virtual bool Load(const ASSET_TYPE& type, const std::string& path) = 0;
+	virtual bool Load(const std::string& path) = 0;
 };

@@ -5,127 +5,30 @@
 #include <setjmp.h>
 #pragma comment(lib, "libjpeg/lib/libjpeg_a.lib")
 
-class JpegLoader
+bool TextureBase::Load(const std::string& path)
 {
-public:
-	struct ImageInfo
-	{
-		unsigned int nWidth;
-		unsigned int nHeight;
-		unsigned char nNumComponent;
-		unsigned char* pData;
-	};
+	std::filesystem::path fs(path);
+	std::string extension = fs.extension().u8string();
+	if (extension == ".jpg" || extension == ".JPG" || extension == ".jpeg" || extension == ".JPEG")
+		return LoadJpeg(path);
+	return false;
+}
 
-	JpegLoader()
-	{
-		m_pImageInfo = NULL;
-	}
-	~JpegLoader()
-	{
-		Cleanup();
-	}
-
-	const ImageInfo* Load(const char* szFileName)
-	{
-		Cleanup();
-
-		jpeg_decompress_struct cinfo;
-		ErrorManager errorManager;
-		FILE* pFile;
-		fopen_s(&pFile, szFileName, "rb");
-		//FILE* pFile = fopen(szFileName, "rb");
-		if (!pFile)
-			return NULL;
-
-		// set our custom error handler
-		cinfo.err = jpeg_std_error(&errorManager.defaultErrorManager);
-		errorManager.defaultErrorManager.error_exit = ErrorExit;
-		errorManager.defaultErrorManager.output_message = OutputMessage;
-		if (setjmp(errorManager.jumpBuffer))
-		{
-			// We jump here on errorz
-			Cleanup();
-			jpeg_destroy_decompress(&cinfo);
-			fclose(pFile);
-			return NULL;
-		}
-
-		jpeg_create_decompress(&cinfo);
-		jpeg_stdio_src(&cinfo, pFile);
-		jpeg_read_header(&cinfo, TRUE);
-		jpeg_start_decompress(&cinfo);
-
-		m_pImageInfo = new ImageInfo();
-		m_pImageInfo->nWidth = cinfo.image_width;
-		m_pImageInfo->nHeight = cinfo.image_height;
-		m_pImageInfo->nNumComponent = cinfo.num_components;
-		m_pImageInfo->pData = new uint8_t[m_pImageInfo->nWidth * m_pImageInfo->nHeight * m_pImageInfo->nNumComponent];
-
-		while (cinfo.output_scanline < cinfo.image_height)
-		{
-			uint8_t* p = m_pImageInfo->pData + cinfo.output_scanline * cinfo.image_width * cinfo.num_components;
-			jpeg_read_scanlines(&cinfo, &p, 1);
-		}
-
-		jpeg_finish_decompress(&cinfo);
-		jpeg_destroy_decompress(&cinfo);
-		fclose(pFile);
-
-		return m_pImageInfo;
-	}
-
-private:
-	ImageInfo* m_pImageInfo;
-	void Cleanup()
-	{
-		if (m_pImageInfo)
-		{
-			delete[] m_pImageInfo->pData;
-			delete m_pImageInfo;
-			m_pImageInfo = NULL;
-		}
-	}
-
-	struct ErrorManager
-	{
-		jpeg_error_mgr defaultErrorManager;
-		jmp_buf jumpBuffer;
-	};
-
-	static void ErrorExit(j_common_ptr cinfo)
-	{
-		// cinfo->err is actually a pointer to my_error_mgr.defaultErrorManager, since pub
-		// is the first element of my_error_mgr we can do a sneaky cast
-		ErrorManager* pErrorManager = (ErrorManager*)cinfo->err;
-		(*cinfo->err->output_message)(cinfo); // print error message (actually disabled below)
-		longjmp(pErrorManager->jumpBuffer, 1);
-	}
-	static void OutputMessage(j_common_ptr cinfo)
-	{
-		// disable error messages
-		/*char buffer[JMSG_LENGTH_MAX];
-		(*cinfo->err->format_message) (cinfo, buffer);
-		fprintf(stderr, "%s\n", buffer);*/
-	}
-};
-
-
-bool texture::LoadJpeg(const std::string& path)
+bool TextureBase::LoadJpeg(const std::string& path)
 {
 	jpeg_error_mgr error_msg;
-	jmp_buf jumpBuffer;
-	
+	error_msg.error_exit = [](j_common_ptr cinfo) {};
+	error_msg.output_message = [](j_common_ptr cinfo) {};
 
-	jpeg_decompress_struct cinfo;
 	FILE* pFile;
 	fopen_s(&pFile, path.c_str(), "rb");
 	if (!pFile)
 		return false;
 
-	// set our custom error handler
+	jpeg_decompress_struct cinfo;
 	cinfo.err = jpeg_std_error(&error_msg);
-	error_msg.error_exit = [](j_common_ptr cinfo) {};
-	error_msg.output_message = [](j_common_ptr cinfo) {};
+	
+	jmp_buf jumpBuffer;
 	if (setjmp(jumpBuffer))
 	{
 		jpeg_destroy_decompress(&cinfo);
@@ -138,29 +41,31 @@ bool texture::LoadJpeg(const std::string& path)
 	jpeg_read_header(&cinfo, TRUE);
 	jpeg_start_decompress(&cinfo);
 
-	width = cinfo.image_width;
-	height = cinfo.image_height;
-	component_count = cinfo.num_components;
-	unsigned char* pData;
-	pData = new unsigned char[cinfo.output_width * cinfo.output_height * component_count];
-	pData[0] = 10;
+	Width = cinfo.image_width;
+	Height = cinfo.image_height;
+	ComponentCount = cinfo.num_components;
 
-	unsigned int counter = 0;
+	unsigned int ByteSize = cinfo.output_width * cinfo.output_height * ComponentCount;
+	unsigned char* pData = new unsigned char[ByteSize];
+
 	unsigned char* position = pData;
 	while (cinfo.output_scanline < cinfo.image_height)
 	{
 		jpeg_read_scanlines(&cinfo, &position, 1);
-		position += cinfo.output_width * cinfo.output_components;
+		int address = cinfo.output_width * cinfo.output_components;
+		position += address;
 	}
 
 	int distance = 0;
-	texels.resize(width * height);
-	for (unsigned int index = 0; index < width * height; ++index)
+	unsigned int Area = Width * Height;
+	Texels.resize(Area);
+	for (unsigned int index = 0; index < Width * Height; ++index)
 	{
-		texels[index].R = pData[distance++];
-		texels[index].G = pData[distance++];
-		texels[index].B = pData[distance++];
-		texels[index].A = 255;
+		Texels[index].R = pData[distance + 0];
+		Texels[index].G = pData[distance + 1];
+		Texels[index].B = pData[distance + 2];
+		Texels[index].A = 255;
+		distance += cinfo.output_components;
 	}
 
 	delete[] pData;
@@ -169,4 +74,14 @@ bool texture::LoadJpeg(const std::string& path)
 	fclose(pFile);
 
 	return true;
+}
+
+void* TextureBase::GetSysMem(void)
+{
+	return static_cast<void*>(Texels.data());
+}
+
+unsigned int TextureBase::GetSysMemPitch(void)
+{
+	return Width * static_cast<unsigned int>(sizeof(R8G8B8A8));
 }

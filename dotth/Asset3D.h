@@ -2,37 +2,30 @@
 
 #include "AssetBase.h"
 
-struct vertice {
-	Vector3F position;
-	Vector3F normal;
-	Vector2F textureCoord;
-	Vector3F tangent;
-	Vector3F bitangent;
-	Vector4F color;
+struct Vertice {
+	Float3 position;
+	Float3 normal;
+	Float2 textureCoord;
+	Float3 tangent;
+	Float3 bitangent;
+	Float4 color;
 };
 
-struct section {
-	std::string name;
+struct Section {
 	unsigned int textureIndex;
-	std::vector<vertice> vertices;
+	std::vector<Vertice> vertices;
 	std::vector<unsigned int> indices;
 	unsigned int GetVerticeByteWidth(void) const;
 	unsigned int GetIndiceByteWidth(void) const;
 };
 
-class model : public AssetBase
+class ModelBase : public AssetBase
 {
 public:
-	std::string name;
-	std::vector<section> sections;
+	std::vector<Section> sections;
 
 public:
-	virtual bool Load(const ASSET_TYPE& type, const std::string& path) override
-	{
-		if (type == ASSET_TYPE::FBX)
-			return LoadWithAssimp(path);
-		return false;
-	}
+	virtual bool Load(const std::string& path) override;
 
 private:
 	bool LoadWithAssimp(const std::string& path);

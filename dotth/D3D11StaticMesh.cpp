@@ -16,9 +16,11 @@ unsigned int D3D11StaticMesh::GetIndicesSize(int index)
 	return desc.ByteWidth / sizeof(unsigned int);
 }
 
-void D3D11StaticMesh::Load(std::shared_ptr<model> raw)
+bool D3D11StaticMesh::Load(const std::string& key)
 {
-	const auto& sections = raw->sections;
+	std::shared_ptr<ModelBase> base = ResourceManager::Find<ModelBase>(key);
+
+	const auto& sections = base->sections;
 	_VertexBuffers.resize(sections.size());
 	_IndexBuffers.resize(sections.size());
 	for (auto index = 0; index < sections.size(); ++index)
@@ -47,17 +49,14 @@ void D3D11StaticMesh::Load(std::shared_ptr<model> raw)
 		IndexData.SysMemSlicePitch = 0;
 		D3D11RHI::Device()->CreateBuffer(&IndexDesc, &IndexData, &_IndexBuffers[index]);
 	}
-}
 
-void D3D11StaticMesh::Load(const std::string& key)
-{
-	Load(ResourceManager::Instance()->Find<model>(key));
+	return true;
 }
 
 void D3D11StaticMesh::Draw(const unsigned int& index)
 {
 	const unsigned int offset = 0;
-	const unsigned int vertex_type_size = static_cast<unsigned int>(sizeof(vertice));
+	const unsigned int vertex_type_size = static_cast<unsigned int>(sizeof(Vertice));
 	D3D11RHI::Context()->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 	D3D11RHI::Context()->IASetVertexBuffers(0, 1, &_VertexBuffers[index], &vertex_type_size, &offset);
 	D3D11RHI::Context()->IASetIndexBuffer(_IndexBuffers[index], DXGI_FORMAT_R32_UINT, 0);

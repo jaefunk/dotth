@@ -24,6 +24,7 @@
 #include <type_traits>
 #include <functional>
 #include <iostream>
+#include <filesystem>
 
 #include "imgui/imgui.h"
 #include "imgui/backends/imgui_impl_win32.h"

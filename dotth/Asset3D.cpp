@@ -4,16 +4,25 @@
 #include "assimp/postprocess.h"
 
 
-unsigned int section::GetVerticeByteWidth(void) const
+unsigned int Section::GetVerticeByteWidth(void) const
 {
 	return static_cast<unsigned int>(sizeof(decltype(vertices)::value_type) * vertices.size());
 }
-unsigned int section::GetIndiceByteWidth(void) const
+unsigned int Section::GetIndiceByteWidth(void) const
 {
 	return static_cast<unsigned int>(sizeof(decltype(indices)::value_type) * indices.size());
 }
 
-bool model::LoadWithAssimp(const std::string& path)
+bool ModelBase::Load(const std::string& path)
+{
+	std::filesystem::path fs(path);
+	std::string extension = fs.extension().u8string();
+	if (extension == ".fbx" || extension == ".FBX")
+		return LoadWithAssimp(path);
+	return false;
+}
+
+bool ModelBase::LoadWithAssimp(const std::string& path)
 {
 	Assimp::Importer importer;
 	auto scene = importer.ReadFile(path, aiProcess_ConvertToLeftHanded | aiProcess_Triangulate | aiProcess_OptimizeMeshes);
@@ -80,40 +89,6 @@ bool model::LoadWithAssimp(const std::string& path)
 			sections[index].indices[current + 2] = mesh->mFaces[i].mIndices[2];
 		}
 	}
-	//sections.clear();
-	//section s;
-	//vertice v;
 
-	//v.position = Float3(-1.f, 1.f, 0.f);
-	//v.textureCoord = Float2(0.f, 0.f);
-	//v.color = Float4(1.f, 0.f, 0.f, 1.f);
-	//s.vertices.push_back(v);
-
-	//v.position = Float3(1.f, 1.f, 0.f);
-	//v.textureCoord = Float2(1.f, 0.f);
-	//v.color = Float4(0.f, 1.f, 0.f, 1.f);
-	//s.vertices.push_back(v);
-	//
-	//v.position = Float3(-1.f, -1.f, 0.f);
-	//v.textureCoord = Float2(0.f, 1.f);
-	//v.color = Float4(0.f, 0.f, 1.f, 1.f);
-	//s.vertices.push_back(v);
-	//
-	//v.position = Float3(1.f, -1.f, 0.f);
-	//v.textureCoord = Float2(1.f, 1.f);
-	//v.color = Float4(1.f, 1.f, 1.f, 1.f);
-	//s.vertices.push_back(v);
-
-	//s.indices.push_back(0);
-	//s.indices.push_back(1);
-	//s.indices.push_back(2);
-
-	//s.indices.push_back(1);
-	//s.indices.push_back(3);
-	//s.indices.push_back(2);
-
-	//s.textureIndex = 0;
-
-	//sections.push_back(s);
 	return true;
 }

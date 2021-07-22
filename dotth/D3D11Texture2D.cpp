@@ -2,12 +2,14 @@
 #include "D3D11Texture2D.h"
 #include "ResourceManager.h"
 
-void D3D11Texture2D::Load(std::shared_ptr<texture> raw)
+bool D3D11Texture2D::Load(const std::string& key)
 {
+	std::shared_ptr<TextureBase> base = ResourceManager::Find<TextureBase>(key);
+
 	D3D11_TEXTURE2D_DESC desc;
 	ZeroMemory(&desc, sizeof(desc));
-	desc.Width = raw->width;
-	desc.Height = raw->height;
+	desc.Width = base->Width;
+	desc.Height = base->Height;
 	desc.MipLevels = desc.ArraySize = 1;
 	desc.Format = DXGI_FORMAT_R8G8B8A8_UNORM;
 	desc.SampleDesc.Count = 1;
@@ -18,8 +20,8 @@ void D3D11Texture2D::Load(std::shared_ptr<texture> raw)
 
 	D3D11_SUBRESOURCE_DATA initData;
 	ZeroMemory(&initData, sizeof(initData));
-	initData.pSysMem = raw->texels.data();
-	initData.SysMemPitch = sizeof(r8g8b8a8) * raw->width;
+	initData.pSysMem = base->GetSysMem();
+	initData.SysMemPitch = base->GetSysMemPitch();
 	initData.SysMemSlicePitch = 0;
 	D3D11RHI::Device()->CreateTexture2D(&desc, &initData, (ID3D11Texture2D**)&_Texture2D);
 
@@ -29,18 +31,13 @@ void D3D11Texture2D::Load(std::shared_ptr<texture> raw)
 	SRVDesc.ViewDimension = D3D11_SRV_DIMENSION_TEXTURE2D;
 	SRVDesc.Texture2D.MipLevels = 1;
 	D3D11RHI::Device()->CreateShaderResourceView(_Texture2D, &SRVDesc, &_ShaderResourceView);
-}
 
-void D3D11Texture2D::Load(const std::string& key)
-{
-	Load(ResourceManager::Find<texture>(key));
+	return true;
 }
 
 void D3D11Texture2D::Draw(const unsigned int& index)
 {
 	D3D11RHI::Context()->PSSetShaderResources(0, 1, &_ShaderResourceView);
-	//ID3D11SamplerState* jj = D3D11RHI::Sampler();
-	//D3D11RHI::Context()->PSSetSamplers(0, 1, &jj);
 }
 
 ID3D11ShaderResourceView* D3D11Texture2D::GetShaderResourceView(void)

@@ -18,6 +18,7 @@ public:
 public:
 	void Load1(void);
 	void Load2(void);
+	void Load3(void);
 
 public:
 	virtual void OnInit(void) override;

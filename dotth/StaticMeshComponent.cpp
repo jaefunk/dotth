@@ -43,6 +43,24 @@ void StaticMeshComponent::Load2(void)
 	_DeferredPixelShader->LoadShaderFile(L"../Output/Client/x64/Debug/deferred_ps.cso");
 }
 
+void StaticMeshComponent::Load3(void)
+{
+	_StaticMesh = std::make_shared<D3D11StaticMesh>();
+	_StaticMesh->Load("Plane");
+
+	_Texture2D = std::make_shared<D3D11Texture2D>();
+	_Texture2D->Load("uv_checker");
+
+	_Shader = std::make_shared<D3D11Shader>();
+	_Shader->Load("Resource/Primitive2.hlsl");
+
+	_DeferredVertexShader = std::make_shared<SimpleVertexShader>(D3D11RHI::Device(), D3D11RHI::Context());
+	_DeferredVertexShader->LoadShaderFile(L"../Output/Client/x64/Debug/deferred_vs.cso");
+
+	_DeferredPixelShader = std::make_shared<SimplePixelShader>(D3D11RHI::Device(), D3D11RHI::Context());
+	_DeferredPixelShader->LoadShaderFile(L"../Output/Client/x64/Debug/deferred_ps.cso");
+}
+
 void StaticMeshComponent::OnUpdate(void)
 {
 }

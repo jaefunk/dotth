@@ -58,6 +58,19 @@ void EntryPoint::OnDraw(void)
 
 void EntryPoint::OnDrawImGui(void)
 {
+	if (ImGui::TreeNode("Outer size"))
+	{
+		static bool b = true;
+		ImGui::Checkbox("visible", &b);
+		if (ImGui::TreeNode("Outer size2"))
+		{
+			ImGui::Checkbox("visible", &b);
+			ImGui::TreePop();
+		}
+		ImGui::TreePop();
+	}
+
+
 	ImGui::Begin("Hello, world!");
 	ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
 	ImGui::Text("%f %f %f", o2->GetLocalRotation().x, o2->GetLocalRotation().y, o2->GetLocalRotation().z);

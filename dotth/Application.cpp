@@ -8,16 +8,16 @@ void Application::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 	switch (message)
 	{
 	case WM_KEYDOWN:
-		printf("%lld key down %llu\n", wParam, lParam);
+		//printf("%lld key down %llu\n", wParam, lParam);
 		break;
 		//case WM_CHAR:
 		//	printf("b\n");
 		//	break;
 	case WM_KEYUP:
-		printf("%lld key up %llu\n", wParam, lParam);
+		//printf("%lld key up %llu\n", wParam, lParam);
 		break;
 	case WM_MOUSEMOVE: 
-		printf("%lld mousemove %llu\n", wParam, lParam);
+		//printf("%lld mousemove %llu\n", wParam, lParam);
 		break;
 	case WM_LBUTTONDOWN: break;
 	case WM_LBUTTONUP: break;
@@ -33,24 +33,17 @@ void Application::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 }
 
 bool Application::Loop()
-{
-	
-	
+{	
 	Scenario::Instance()->Update();
+
 	D3D11RHI::StandbyDeferred();
 	Scenario::Instance()->Draw();
 	D3D11RHI::Draw();
-	
-
 	D3D11RHI::BeginImGui();
 	Scenario::Instance()->DrawImGui();
+	//static bool b = true;
+	//ImGui::ShowDemoWindow(&b);
 	D3D11RHI::EndImGui();
-
-	
-
-
-	
-
 	D3D11RHI::Present();
 	return true;
 }

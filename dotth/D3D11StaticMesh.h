@@ -14,7 +14,6 @@ public:
 	virtual unsigned int GetIndicesSize(int index) override;
 
 public:
-	virtual void Load(std::shared_ptr<model> raw) override;
-	virtual void Load(const std::string& key) override;
+	virtual bool Load(const std::string& key) override;
 	virtual void Draw(const unsigned int& index) override;
 };
