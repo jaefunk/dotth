@@ -43,7 +43,7 @@ to do list {
 	directional light		- done
 	imgui					- done
 	arrange					- on going
-	user input	
+	user input	-
 	skeletal mesh
 }
 */ 
