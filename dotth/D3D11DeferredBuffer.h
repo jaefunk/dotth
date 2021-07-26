@@ -25,17 +25,12 @@ private:
 
 class OrthoWindowClass
 {
-private:
+public:
 	struct VertexType
 	{
 		XMFLOAT3 position;
 		XMFLOAT2 texture;
 	};
-
-public:
-	OrthoWindowClass();
-	OrthoWindowClass(const OrthoWindowClass&);
-	~OrthoWindowClass();
 
 	bool Initialize(ID3D11Device*, int, int);
 	void Shutdown();

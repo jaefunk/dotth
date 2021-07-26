@@ -116,20 +116,6 @@ ID3D11ShaderResourceView* D3D11DeferredBuffer::GetShaderResourceView(int index)
 
 
 
-OrthoWindowClass::OrthoWindowClass()
-{
-}
-
-
-OrthoWindowClass::OrthoWindowClass(const OrthoWindowClass& other)
-{
-}
-
-
-OrthoWindowClass::~OrthoWindowClass()
-{
-}
-
 
 bool OrthoWindowClass::Initialize(ID3D11Device* device, int windowWidth, int windowHeight)
 {

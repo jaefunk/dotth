@@ -5,7 +5,7 @@
 
 class D3D11StaticMesh : public StaticMesh
 {
-private:
+protected:
 	std::vector<ID3D11Buffer*> _VertexBuffers;
 	std::vector<ID3D11Buffer*> _IndexBuffers;
 
