@@ -73,6 +73,7 @@
     <ClCompile Include="External\imgui\imgui_tables.cpp" />
     <ClCompile Include="External\imgui\imgui_widgets.cpp" />
     <ClCompile Include="D3D11OrthoRect.cpp" />
+    <ClCompile Include="D3D11Material.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.h">
@@ -284,6 +285,7 @@
     <ClInclude Include="External\imgui\imstb_textedit.h" />
     <ClInclude Include="External\imgui\imstb_truetype.h" />
     <ClInclude Include="D3D11OrthoRect.h" />
+    <ClInclude Include="D3D11Material.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Framework">
