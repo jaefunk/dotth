@@ -5,6 +5,7 @@
 #include "D3D11.h"
 #include "D3D11Camera.h"
 #include "D3D11DeferredBuffer.h"
+#include "D3D11OrthoRect.h"
 #include "D3D11Light.h"
 
 class D3D11RHI : public SingleInstance<D3D11RHI>
@@ -59,7 +60,7 @@ public:
 
 private:
 	std::shared_ptr<D3D11DeferredBuffer> _DeferredBuffer;
-	std::shared_ptr<OrthoWindowClass> _OrthoWindow;
+	std::shared_ptr<D3D11OrthoRect> _OrthoRect;
 	std::shared_ptr<class SimpleVertexShader> _DeferredLightVertexShader;
 	std::shared_ptr<class SimplePixelShader> _DeferredLightPixelShader;
 	std::shared_ptr<class LightShaderClass> _Light;

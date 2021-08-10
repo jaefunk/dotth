@@ -150,8 +150,8 @@ bool D3D11RHI::Initialize(HWND hwnd, unsigned int width, unsigned int height)
 	D3D11RHI::Instance()->_DeferredBuffer = std::make_shared<D3D11DeferredBuffer>();
 	D3D11RHI::Instance()->_DeferredBuffer->Initialize(D3D11RHI::Device(), RenderTargetWidth, RenderTargetHeight);
 
-	D3D11RHI::Instance()->_OrthoWindow = std::make_shared<OrthoWindowClass>();
-	D3D11RHI::Instance()->_OrthoWindow->Initialize(D3D11RHI::Device(), RenderTargetWidth, RenderTargetHeight);
+	D3D11RHI::Instance()->_OrthoRect = std::make_shared<D3D11OrthoRect>();
+	D3D11RHI::Instance()->_OrthoRect->Initialize(D3D11RHI::Device(), RenderTargetWidth, RenderTargetHeight);
 
 
 	D3D11RHI::Instance()->_Light = std::make_shared<LightShaderClass>();
@@ -191,7 +191,7 @@ void D3D11RHI::Draw(void)
 	D3D11RHI::Context()->RSSetState(D3D11RHI::Instance()->_RasterizerStateSolid);
 	D3D11RHI::Context()->OMSetDepthStencilState(D3D11RHI::Instance()->_DepthStencilState, 0);
 
-	D3D11RHI::Instance()->_OrthoWindow->Render(D3D11RHI::Context());
+	D3D11RHI::Instance()->_OrthoRect->Render(D3D11RHI::Context());
 
 	auto camera = D3D11RHI::Instance()->_Camera;
 	D3D11RHI::Instance()->_Light->Render(

@@ -3,26 +3,59 @@
 
 
 
-bool D3D11OrthoRect::Initialize(ID3D11Device* device, int width, int height)
+
+bool D3D11OrthoRect::Initialize(ID3D11Device* device, int windowWidth, int windowHeight)
 {
-	float left = (float)((width / 2) * -1);
+	return InitializeBuffers(device, windowWidth, windowHeight);
+}
 
-	float right = left + (float)width;
 
-	float top = (float)(height / 2);
+void D3D11OrthoRect::Shutdown()
+{
+	ShutdownBuffers();
+}
 
-	float bottom = top - (float)height;
 
-	_VertexCount = 4;
-	_IndexCount = 6;
+void D3D11OrthoRect::Render(ID3D11DeviceContext* deviceContext)
+{
+	unsigned int stride = sizeof(VertexType);
+	unsigned int offset = 0;
 
-	VertexType* vertices = new VertexType[_VertexCount];
+	deviceContext->IASetVertexBuffers(0, 1, &m_vertexBuffer, &stride, &offset);
+
+	deviceContext->IASetIndexBuffer(m_indexBuffer, DXGI_FORMAT_R32_UINT, 0);
+
+	deviceContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+}
+
+
+int D3D11OrthoRect::GetIndexCount()
+{
+	return m_indexCount;
+}
+
+
+bool D3D11OrthoRect::InitializeBuffers(ID3D11Device* device, int windowWidth, int windowHeight)
+{
+	float left = (float)((windowWidth / 2) * -1);
+
+	float right = left + (float)windowWidth;
+
+	float top = (float)(windowHeight / 2);
+
+	float bottom = top - (float)windowHeight;
+
+	m_vertexCount = 4;
+
+	m_indexCount = 6;
+
+	VertexType* vertices = new VertexType[m_vertexCount];
 	if (!vertices)
 	{
 		return false;
 	}
 
-	unsigned long* indices = new unsigned long[_IndexCount];
+	unsigned long* indices = new unsigned long[m_indexCount];
 	if (!indices)
 	{
 		return false;
@@ -49,7 +82,7 @@ bool D3D11OrthoRect::Initialize(ID3D11Device* device, int width, int height)
 
 	D3D11_BUFFER_DESC vertexBufferDesc;
 	vertexBufferDesc.Usage = D3D11_USAGE_DEFAULT;
-	vertexBufferDesc.ByteWidth = sizeof(VertexType) * _VertexCount;
+	vertexBufferDesc.ByteWidth = sizeof(VertexType) * m_vertexCount;
 	vertexBufferDesc.BindFlags = D3D11_BIND_VERTEX_BUFFER;
 	vertexBufferDesc.CPUAccessFlags = 0;
 	vertexBufferDesc.MiscFlags = 0;
@@ -60,14 +93,14 @@ bool D3D11OrthoRect::Initialize(ID3D11Device* device, int width, int height)
 	vertexData.SysMemPitch = 0;
 	vertexData.SysMemSlicePitch = 0;
 
-	if (FAILED(device->CreateBuffer(&vertexBufferDesc, &vertexData, &_VertexBuffer)))
+	if (FAILED(device->CreateBuffer(&vertexBufferDesc, &vertexData, &m_vertexBuffer)))
 	{
 		return false;
 	}
 
 	D3D11_BUFFER_DESC indexBufferDesc;
 	indexBufferDesc.Usage = D3D11_USAGE_DEFAULT;
-	indexBufferDesc.ByteWidth = sizeof(unsigned long) * _IndexCount;
+	indexBufferDesc.ByteWidth = sizeof(unsigned long) * m_indexCount;
 	indexBufferDesc.BindFlags = D3D11_BIND_INDEX_BUFFER;
 	indexBufferDesc.CPUAccessFlags = 0;
 	indexBufferDesc.MiscFlags = 0;
@@ -78,7 +111,7 @@ bool D3D11OrthoRect::Initialize(ID3D11Device* device, int width, int height)
 	indexData.SysMemPitch = 0;
 	indexData.SysMemSlicePitch = 0;
 
-	if (FAILED(device->CreateBuffer(&indexBufferDesc, &indexData, &_IndexBuffer)))
+	if (FAILED(device->CreateBuffer(&indexBufferDesc, &indexData, &m_indexBuffer)))
 	{
 		return false;
 	}
@@ -93,33 +126,23 @@ bool D3D11OrthoRect::Initialize(ID3D11Device* device, int width, int height)
 }
 
 
-void D3D11OrthoRect::Shutdown()
+void D3D11OrthoRect::ShutdownBuffers()
 {
-	if (_IndexBuffer)
+	if (m_indexBuffer)
 	{
-		_IndexBuffer->Release();
-		_IndexBuffer = nullptr;
+		m_indexBuffer->Release();
+		m_indexBuffer = 0;
 	}
 
-	if (_VertexBuffer)
+	if (m_vertexBuffer)
 	{
-		_VertexBuffer->Release();
-		_VertexBuffer = nullptr;
+		m_vertexBuffer->Release();
+		m_vertexBuffer = 0;
 	}
 }
 
 
-void D3D11OrthoRect::Render(ID3D11DeviceContext* context)
+void D3D11OrthoRect::RenderBuffers(ID3D11DeviceContext* deviceContext)
 {
-	unsigned int stride = sizeof(VertexType);
-	unsigned int offset = 0;
-	context->IASetVertexBuffers(0, 1, &_VertexBuffer, &stride, &offset);
-	context->IASetIndexBuffer(_IndexBuffer, DXGI_FORMAT_R32_UINT, 0);
-	context->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
-}
 
-
-int D3D11OrthoRect::GetIndexCount()
-{
-	return _IndexCount;
 }
