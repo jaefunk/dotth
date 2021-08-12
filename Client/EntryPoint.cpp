@@ -48,7 +48,7 @@ void EntryPoint::OnUpdate(void)
 	////float z = sin(a) * r;
 	//SetCameraPosition(Float3(0.f, 300.f + a, -500.f));
 	//SetCameraLookAt(Float3(0.f, 000.f + a, 0.f));
-	o2->RotateYaw(0.001f);
+	//o2->RotateYaw(0.001f);
 	
 }
 
@@ -58,24 +58,13 @@ void EntryPoint::OnDraw(void)
 
 void EntryPoint::OnDrawImGui(void)
 {
-	if (ImGui::TreeNode("Outer size"))
-	{
-		static bool b = true;
-		ImGui::Checkbox("visible", &b);
-		if (ImGui::TreeNode("Outer size2"))
-		{
-			ImGui::Checkbox("visible", &b);
-			ImGui::TreePop();
-		}
-		ImGui::TreePop();
-	}
-
-
-	ImGui::Begin("Hello, world!");
-	ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
-	ImGui::Text("%f %f %f", o2->GetLocalRotation().x, o2->GetLocalRotation().y, o2->GetLocalRotation().z);
-	static float f = 0.f;
-	ImGui::DragFloat("test", &f, 1.f, 0.f, 1000.f, "%f", 1.f);
-	o2->SetPosition(Vector3F(0.f, f, 0.f));
+	ImGui::Begin("test");
+	static float pitch = 0.f;
+	static float yaw = 0.f;
+	static float roll = 0.f;
+	ImGui::DragFloat("yaw", &yaw, 0.01f, 0.f, 3.14159f * 2.f, "%f", 1.f);
+	ImGui::DragFloat("pitch", &pitch, 0.01f, 0.f, 3.14159f * 2.f, "%f", 1.f);
+	ImGui::DragFloat("roll", &roll, 0.01f, 0.f, 3.14159f * 2.f, "%f", 1.f);
+	o2->SetRotation(Vector3F(pitch, yaw, roll));	
 	ImGui::End();
 }

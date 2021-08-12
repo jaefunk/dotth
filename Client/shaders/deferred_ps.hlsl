@@ -14,8 +14,8 @@ struct VertexOutputType
 struct PixelOutputType
 {
 	float4 Position				: SV_Target0;
-	float4 Diffuse				: SV_Target1;	// Color
-	float4 Normal				: SV_Target2;	// Normal
+	float4 Diffuse				: SV_Target1;
+	float4 Normal				: SV_Target2;
 };
 
 PixelOutputType main(VertexOutputType input)

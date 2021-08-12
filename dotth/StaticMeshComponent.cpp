@@ -10,13 +10,13 @@ void StaticMeshComponent::OnInit(void)
 void StaticMeshComponent::Load1(void)
 {
 	_StaticMesh = std::make_shared<D3D11StaticMesh>();
-	_StaticMesh->Load("ColorCalibrator");
+	_StaticMesh->Load("Sphere");
 
 	_Texture2D = std::make_shared<D3D11Texture2D>();
-	_Texture2D->Load("ColorGrid");
+	_Texture2D->Load("uv_checker");
 
-	_Shader = std::make_shared<D3D11Shader>();
-	_Shader->Load("Resource/Primitive2.hlsl");
+	//_Shader = std::make_shared<D3D11Shader>();
+	//_Shader->Load("Resource/Primitive2.hlsl");
 
 	_DeferredVertexShader = std::make_shared<SimpleVertexShader>(D3D11RHI::Device(), D3D11RHI::Context());
 	_DeferredVertexShader->LoadShaderFile(L"../Output/Client/x64/Debug/deferred_vs.cso");
@@ -33,8 +33,8 @@ void StaticMeshComponent::Load2(void)
 	_Texture2D = std::make_shared<D3D11Texture2D>();
 	_Texture2D->Load("uv_checker");
 
-	_Shader = std::make_shared<D3D11Shader>();
-	_Shader->Load("Resource/Primitive2.hlsl");
+	//_Shader = std::make_shared<D3D11Shader>();
+	//_Shader->Load("Resource/Primitive2.hlsl");
 
 	_DeferredVertexShader = std::make_shared<SimpleVertexShader>(D3D11RHI::Device(), D3D11RHI::Context());
 	_DeferredVertexShader->LoadShaderFile(L"../Output/Client/x64/Debug/deferred_vs.cso");
@@ -51,8 +51,8 @@ void StaticMeshComponent::Load3(void)
 	_Texture2D = std::make_shared<D3D11Texture2D>();
 	_Texture2D->Load("uv_checker");
 
-	_Shader = std::make_shared<D3D11Shader>();
-	_Shader->Load("Resource/Primitive2.hlsl");
+	//_Shader = std::make_shared<D3D11Shader>();
+	//_Shader->Load("Resource/Primitive2.hlsl");
 
 	_DeferredVertexShader = std::make_shared<SimpleVertexShader>(D3D11RHI::Device(), D3D11RHI::Context());
 	_DeferredVertexShader->LoadShaderFile(L"../Output/Client/x64/Debug/deferred_vs.cso");

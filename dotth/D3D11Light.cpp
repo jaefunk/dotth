@@ -17,7 +17,7 @@ LightShaderClass::~LightShaderClass()
 bool LightShaderClass::Initialize(ID3D11Device* device, HWND hwnd)
 {
 	// 정점 및 픽셀 쉐이더를 초기화합니다.
-	return InitializeShader(device, hwnd, L"Resource/light_vs.hlsl", L"Resource/light_ps.hlsl");
+	return InitializeShader(device, hwnd, L"shaders/light_vs.hlsl", L"shaders/light_ps.hlsl");
 }
 
 
