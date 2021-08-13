@@ -10,6 +10,10 @@ private:
 	std::list<std::shared_ptr<Ty>> _Children;
 
 public:
+	int GetChildrenCount(void)
+	{
+		return static_cast<int>(_Children.size());
+	}
 	template <class target_type>
 	std::weak_ptr<target_type> Weak(void)
 	{

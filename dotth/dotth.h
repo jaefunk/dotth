@@ -42,7 +42,7 @@ to do list {
 	resource manager		- done
 	directional light		- done
 	imgui					- done
-	arrange					- on going
+	arrange					- on going...
 	user input	-
 	skeletal mesh
 }

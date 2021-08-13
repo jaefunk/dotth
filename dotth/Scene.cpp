@@ -63,10 +63,6 @@ void Scene::OnDraw(void)
 {
 }
 
-void Scene::OnDrawImGui(void)
-{
-}
-
 void Scene::OnDestroy(void) 
 {
 }
@@ -115,4 +111,14 @@ void Scene::SetCameraFrustumNearFieldDistance(const float& value)
 void Scene::SetCameraFrustumFarFieldDistance(const float& value)
 {
 	D3D11RHI::Camera()->SetFar(value);
+}
+
+void Scene::DrawImGuiHierarchy(void)
+{
+	ImGui::Begin("Hierarchy");
+	for (auto obj : _Objects)
+	{
+		obj->DrawImGuiHierarchy();
+	}
+	ImGui::End();
 }

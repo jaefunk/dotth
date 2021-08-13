@@ -58,13 +58,17 @@ void EntryPoint::OnDraw(void)
 
 void EntryPoint::OnDrawImGui(void)
 {
-	ImGui::Begin("test");
-	static float pitch = 0.f;
-	static float yaw = 0.f;
-	static float roll = 0.f;
-	ImGui::DragFloat("yaw", &yaw, 0.01f, 0.f, 3.14159f * 2.f, "%f", 1.f);
-	ImGui::DragFloat("pitch", &pitch, 0.01f, 0.f, 3.14159f * 2.f, "%f", 1.f);
-	ImGui::DragFloat("roll", &roll, 0.01f, 0.f, 3.14159f * 2.f, "%f", 1.f);
-	o2->SetRotation(Vector3F(pitch, yaw, roll));	
-	ImGui::End();
+	//bool show_demo_window = true;
+	//if (show_demo_window)
+	//	ImGui::ShowDemoWindow(&show_demo_window);
+
+	//ImGui::Begin("test");
+	//static float pitch = 0.f;
+	//static float yaw = 0.f;
+	//static float roll = 0.f;
+	//ImGui::DragFloat("yaw", &yaw, 0.01f, 0.f, 3.14159f * 2.f, "%f", 1.f);
+	//ImGui::DragFloat("pitch", &pitch, 0.01f, 0.f, 3.14159f * 2.f, "%f", 1.f);
+	//ImGui::DragFloat("roll", &roll, 0.01f, 0.f, 3.14159f * 2.f, "%f", 1.f);
+	//o2->SetRotation(Vector3F(pitch, yaw, roll));	
+	//ImGui::End();
 }

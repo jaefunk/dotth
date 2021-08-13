@@ -76,3 +76,44 @@ void Object::OnDraw(void)
 void Object::OnDestroy(void)
 {
 }
+
+void Object::DrawImGuiHierarchy(void) 
+{
+	if (ImGui::TreeNode(std::to_string(Serial()).c_str(), "%d, %s", Serial(), Name().c_str()))
+	{
+		Foreach<Object>(
+			[](std::shared_ptr<Object> child) {
+				child->DrawImGuiHierarchy();
+			}
+		);
+		ImGui::TreePop();
+	}
+	//static float value = 0.5f;
+	//if (ImGui::BeginPopupContextItem("item context menu"))
+	//{
+	//	if (ImGui::Selectable("Set to zero")) value = 0.0f;
+	//	if (ImGui::Selectable("Set to PI")) value = 3.1415f;
+	//	ImGui::SetNextItemWidth(-FLT_MIN);
+	//	ImGui::DragFloat("##Value", &value, 0.1f, 0.0f, 0.0f);
+	//	ImGui::EndPopup();
+	//}
+	//return;
+	//if (GetChildrenCount() != 0)
+	//{
+	//	if (ImGui::TreeNode(std::to_string(Serial()).c_str(), "%d, %s", Serial(), Name().c_str()))
+	//	{
+	//		Foreach<Object>(
+	//			[](std::shared_ptr<Object> child) {
+	//				child->DrawImGuiHierarchy();
+	//			}
+	//		);
+	//		ImGui::TreePop();
+	//	}
+	//}
+	//else
+	//{
+	//	ImGui::Indent();
+	//	ImGui::Text(std::to_string(Serial()).c_str(), "%d, %s", Serial(), Name().c_str());
+	//	ImGui::Unindent();
+	//}
+}

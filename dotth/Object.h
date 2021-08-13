@@ -102,4 +102,7 @@ public:
 	void TranslateY(const float& value) { _Transform.TranslateY(value); }
 	void TranslateZ(const float& value) { _Transform.TranslateZ(value); }
 	const Vector3F& GetLocalPosition(void) { return _Transform.GetPosition(); }
+
+public:
+	void DrawImGuiHierarchy(void);
 };

@@ -18,7 +18,6 @@ public:
 	virtual void OnInit(void);
 	virtual void OnUpdate(void);
 	virtual void OnDraw(void);
-	virtual void OnDrawImGui(void);
 	virtual void OnDestroy(void);
 
 private:
@@ -48,4 +47,8 @@ public:	// about camera...
 	void SetCameraFrustumFieldOfView(const float& radian);
 	void SetCameraFrustumNearFieldDistance(const float& value);
 	void SetCameraFrustumFarFieldDistance(const float& value);
+
+public:
+	virtual void OnDrawImGui(void) {};
+	void DrawImGuiHierarchy(void);
 };
