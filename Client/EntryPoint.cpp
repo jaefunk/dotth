@@ -18,21 +18,21 @@ void EntryPoint::OnInit(void)
 	smc1->Load2();
 	SpawnObject(o1);
 
-	o2 = std::make_shared<SampleObject>();
-	SpawnObject(o2);
-	for (auto i = 0; i < 4; ++i)
-	{
-		for (auto j = 0; j < 4; ++j)
-		{
-			auto o = std::make_shared<SampleObject>();
-			auto smc = o->AddComponent<StaticMeshComponent>();
-			smc->Load1();
-			o2->AddChild(o);
-			o->TranslateX(-150.f + (j * 100));
-			o->TranslateZ(-150.f + (i * 100));
-			o->TranslateY(40.f);
-		}
-	}
+	//o2 = std::make_shared<SampleObject>();
+	//SpawnObject(o2);
+	//for (auto i = 0; i < 4; ++i)
+	//{
+	//	for (auto j = 0; j < 4; ++j)
+	//	{
+	//		auto o = std::make_shared<SampleObject>();
+	//		auto smc = o->AddComponent<StaticMeshComponent>();
+	//		smc->Load1();
+	//		o2->AddChild(o);
+	//		o->TranslateX(-150.f + (j * 100));
+	//		o->TranslateZ(-150.f + (i * 100));
+	//		o->TranslateY(40.f);
+	//	}
+	//}
 }
 
 void EntryPoint::OnDestroy(void)
