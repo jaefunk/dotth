@@ -61,7 +61,6 @@ void EntryPoint::OnDrawImGui(void)
 	//bool show_demo_window = true;
 	//if (show_demo_window)
 	//	ImGui::ShowDemoWindow(&show_demo_window);
-
 	//ImGui::Begin("test");
 	//static float pitch = 0.f;
 	//static float yaw = 0.f;
