@@ -61,9 +61,9 @@ public:
 private:
 	std::shared_ptr<D3D11DeferredBuffer> _DeferredBuffer;
 	std::shared_ptr<D3D11OrthoRect> _OrthoRect;
+	std::shared_ptr<D3D11Light> _Light;
 	std::shared_ptr<class SimpleVertexShader> _DeferredLightVertexShader;
 	std::shared_ptr<class SimplePixelShader> _DeferredLightPixelShader;
-	std::shared_ptr<class LightShaderClass> _Light;
 public:
 	static std::shared_ptr<D3D11DeferredBuffer> DeferredBuffer(void);
 };

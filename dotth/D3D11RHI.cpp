@@ -154,7 +154,7 @@ bool D3D11RHI::Initialize(HWND hwnd, unsigned int width, unsigned int height)
 	D3D11RHI::Instance()->_OrthoRect->Initialize(D3D11RHI::Device(), RenderTargetWidth, RenderTargetHeight);
 
 
-	D3D11RHI::Instance()->_Light = std::make_shared<LightShaderClass>();
+	D3D11RHI::Instance()->_Light = std::make_shared<D3D11Light>();
 	D3D11RHI::Instance()->_Light->Initialize(D3D11RHI::Device(), hwnd);
 	//D3D11RHI::Instance()->_DeferredLightVertexShader = std::make_shared<SimpleVertexShader>(D3D11RHI::Device(), D3D11RHI::Context());
 	//D3D11RHI::Instance()->_DeferredLightVertexShader->LoadShaderFile(L"../Output/Client/x64/Debug/light_vs.cso");

@@ -4,7 +4,7 @@
 
 
 
-class LightShaderClass
+class D3D11Light
 {
 private:
 	struct MatrixBufferType
@@ -20,8 +20,8 @@ private:
 		float padding;
 	};
 public:
-	LightShaderClass();
-	~LightShaderClass();
+	D3D11Light();
+	~D3D11Light();
 	int index = 0;
 
 	bool Initialize(ID3D11Device*, HWND);
