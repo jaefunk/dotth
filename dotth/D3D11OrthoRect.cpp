@@ -6,56 +6,20 @@
 
 bool D3D11OrthoRect::Initialize(ID3D11Device* device, int windowWidth, int windowHeight)
 {
-	return InitializeBuffers(device, windowWidth, windowHeight);
-}
-
-
-void D3D11OrthoRect::Shutdown()
-{
-	ShutdownBuffers();
-}
-
-
-void D3D11OrthoRect::Render(ID3D11DeviceContext* deviceContext)
-{
-	unsigned int stride = sizeof(VertexType);
-	unsigned int offset = 0;
-
-	deviceContext->IASetVertexBuffers(0, 1, &m_vertexBuffer, &stride, &offset);
-
-	deviceContext->IASetIndexBuffer(m_indexBuffer, DXGI_FORMAT_R32_UINT, 0);
-
-	deviceContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
-}
-
-
-int D3D11OrthoRect::GetIndexCount()
-{
-	return m_indexCount;
-}
-
-
-bool D3D11OrthoRect::InitializeBuffers(ID3D11Device* device, int windowWidth, int windowHeight)
-{
 	float left = (float)((windowWidth / 2) * -1);
-
 	float right = left + (float)windowWidth;
-
 	float top = (float)(windowHeight / 2);
-
 	float bottom = top - (float)windowHeight;
 
-	m_vertexCount = 4;
-
-	m_indexCount = 6;
-
-	VertexType* vertices = new VertexType[m_vertexCount];
+	_VertexCount = 4;
+	VertexType* vertices = new VertexType[_VertexCount];
 	if (!vertices)
 	{
 		return false;
 	}
-
-	unsigned long* indices = new unsigned long[m_indexCount];
+	
+	_IndexCount = 6;
+	unsigned long* indices = new unsigned long[_IndexCount];
 	if (!indices)
 	{
 		return false;
@@ -82,7 +46,7 @@ bool D3D11OrthoRect::InitializeBuffers(ID3D11Device* device, int windowWidth, in
 
 	D3D11_BUFFER_DESC vertexBufferDesc;
 	vertexBufferDesc.Usage = D3D11_USAGE_DEFAULT;
-	vertexBufferDesc.ByteWidth = sizeof(VertexType) * m_vertexCount;
+	vertexBufferDesc.ByteWidth = sizeof(VertexType) * _VertexCount;
 	vertexBufferDesc.BindFlags = D3D11_BIND_VERTEX_BUFFER;
 	vertexBufferDesc.CPUAccessFlags = 0;
 	vertexBufferDesc.MiscFlags = 0;
@@ -93,14 +57,14 @@ bool D3D11OrthoRect::InitializeBuffers(ID3D11Device* device, int windowWidth, in
 	vertexData.SysMemPitch = 0;
 	vertexData.SysMemSlicePitch = 0;
 
-	if (FAILED(device->CreateBuffer(&vertexBufferDesc, &vertexData, &m_vertexBuffer)))
+	if (FAILED(device->CreateBuffer(&vertexBufferDesc, &vertexData, &_VertexBuffer)))
 	{
 		return false;
 	}
 
 	D3D11_BUFFER_DESC indexBufferDesc;
 	indexBufferDesc.Usage = D3D11_USAGE_DEFAULT;
-	indexBufferDesc.ByteWidth = sizeof(unsigned long) * m_indexCount;
+	indexBufferDesc.ByteWidth = sizeof(unsigned long) * _IndexCount;
 	indexBufferDesc.BindFlags = D3D11_BIND_INDEX_BUFFER;
 	indexBufferDesc.CPUAccessFlags = 0;
 	indexBufferDesc.MiscFlags = 0;
@@ -111,7 +75,7 @@ bool D3D11OrthoRect::InitializeBuffers(ID3D11Device* device, int windowWidth, in
 	indexData.SysMemPitch = 0;
 	indexData.SysMemSlicePitch = 0;
 
-	if (FAILED(device->CreateBuffer(&indexBufferDesc, &indexData, &m_indexBuffer)))
+	if (FAILED(device->CreateBuffer(&indexBufferDesc, &indexData, &_IndexBuffer)))
 	{
 		return false;
 	}
@@ -126,23 +90,33 @@ bool D3D11OrthoRect::InitializeBuffers(ID3D11Device* device, int windowWidth, in
 }
 
 
-void D3D11OrthoRect::ShutdownBuffers()
+void D3D11OrthoRect::Shutdown()
 {
-	if (m_indexBuffer)
+	if (_IndexBuffer)
 	{
-		m_indexBuffer->Release();
-		m_indexBuffer = 0;
+		_IndexBuffer->Release();
+		_IndexBuffer = 0;
 	}
 
-	if (m_vertexBuffer)
+	if (_VertexBuffer)
 	{
-		m_vertexBuffer->Release();
-		m_vertexBuffer = 0;
+		_VertexBuffer->Release();
+		_VertexBuffer = 0;
 	}
 }
 
 
-void D3D11OrthoRect::RenderBuffers(ID3D11DeviceContext* deviceContext)
+void D3D11OrthoRect::Render(ID3D11DeviceContext* context)
 {
+	unsigned int stride = sizeof(VertexType);
+	unsigned int offset = 0;
+	context->IASetVertexBuffers(0, 1, &_VertexBuffer, &stride, &offset);
+	context->IASetIndexBuffer(_IndexBuffer, DXGI_FORMAT_R32_UINT, 0);
+	context->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+}
 
+
+int D3D11OrthoRect::GetIndexCount()
+{
+	return _IndexCount;
 }
