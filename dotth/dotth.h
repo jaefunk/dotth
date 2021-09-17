@@ -25,6 +25,7 @@
 #include <functional>
 #include <iostream>
 #include <filesystem>
+#include <limits>
 
 #include "imgui/imgui.h"
 #include "imgui/backends/imgui_impl_win32.h"

@@ -8,7 +8,7 @@
 
 struct Transform 
 {
-private:
+public:
 	Vector3F Scale{ 1.f, 1.f, 1.f };
 	Vector3F WorldScale{ 1.f, 1.f, 1.f };
 	Vector3F Rotation{ 0.f, 0.f, 0.f };
@@ -16,7 +16,6 @@ private:
 	Matrix WorldMatrix;
 	Matrix WorldMatrixNoScale;
 
-public:
 	void SetScale(const Vector3F& value) { Scale = value; }
 	void Scaling(const Vector3F& value) { Vector3F::Multiply(Scale, value, Scale); }
 	void Scaling(const float& value) { Vector3F::Multiply(Scale, value, Scale); }

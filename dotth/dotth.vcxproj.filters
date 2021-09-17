@@ -74,6 +74,8 @@
     <ClCompile Include="External\imgui\imgui_widgets.cpp" />
     <ClCompile Include="D3D11OrthoRect.cpp" />
     <ClCompile Include="D3D11Material.cpp" />
+    <ClCompile Include="CameraComponent.cpp" />
+    <ClCompile Include="TransformComponent.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.h">
@@ -286,6 +288,8 @@
     <ClInclude Include="External\imgui\imstb_truetype.h" />
     <ClInclude Include="D3D11OrthoRect.h" />
     <ClInclude Include="D3D11Material.h" />
+    <ClInclude Include="CameraComponent.h" />
+    <ClInclude Include="TransformComponent.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Framework">
