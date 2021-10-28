@@ -12,8 +12,9 @@ void EntryPoint::OnInit(void)
 	SetCameraFrustumFarFieldDistance(100000.f);
 	
 	o1 = std::make_shared<SampleObject>();
+	//auto smc2 = o1->AddComponent<StaticMeshComponent>();
 	auto smc1 = o1->AddComponent<StaticMeshComponent>();
-	o1->SetScale(Vector3F(10.f, 1.f, 10.f));
+	//o1->SetScale(Vector3F(10.f, 1.f, 10.f));
 	smc1->Load2();
 	SpawnObject(o1);
 }
