@@ -76,6 +76,7 @@
     <ClCompile Include="D3D11Material.cpp" />
     <ClCompile Include="CameraComponent.cpp" />
     <ClCompile Include="TransformComponent.cpp" />
+    <ClCompile Include="ObjectBase.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.h">
@@ -290,6 +291,7 @@
     <ClInclude Include="D3D11Material.h" />
     <ClInclude Include="CameraComponent.h" />
     <ClInclude Include="TransformComponent.h" />
+    <ClInclude Include="ObjectBase.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Framework">

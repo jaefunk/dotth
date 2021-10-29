@@ -2,6 +2,8 @@
 #include "SampleObject.h"
 #include "staticMeshComponent.h"
 
+
+
 void EntryPoint::OnInit(void)
 {
 	SetCameraPosition(Float3(000.f, 500.f, -500.f));

@@ -6,20 +6,18 @@ class Object;
 class Component : public Base
 {
 private:
-	mutable std::weak_ptr<Object> _Owner;
+	std::weak_ptr<Base> Owner;
 
 public:
-	void SetOwner(const std::shared_ptr<Object> Owner)
+	void SetOwner(std::weak_ptr<Base> owner)
 	{
-		_Owner = Owner;
+		Owner = owner;
 	}
 	
 	template <typename CastTy = Object>
 	std::shared_ptr<CastTy> GetOwner(void)
 	{
-		if (_Owner.expired())
-			return nullptr;
-		return std::dynamic_pointer_cast<CastTy>(_Owner.lock());
+		return std::dynamic_pointer_cast<CastTy>(Owner.lock());
 	}
 
 public:

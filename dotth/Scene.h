@@ -7,29 +7,44 @@ class Scene : public Base
 {
 	friend class Scenario;
 
-private:
-	virtual void Init(void);
-	virtual void Update(void);
-	virtual void Draw(void);
-	virtual void DrawImGui(void);
-	virtual void Destroy(void);
+public:
+	void Init(void);
+	void Update(void);
+	void Draw(void);
+	void Destroy(void);
 
 public:
-	virtual void OnInit(void);
-	virtual void OnUpdate(void);
-	virtual void OnDraw(void);
-	virtual void OnDestroy(void);
+	virtual void OnInit(void) {}
+	virtual void OnUpdate(void) {}
+	virtual void OnDraw(void) {}
+	virtual void OnDestroy(void) {}
 
 private:
-	std::list<std::shared_ptr<Object>> _Objects;
+	std::list<std::shared_ptr<Object>> Objects;
 
 public:
-	void SpawnObject(std::shared_ptr<Object> object);
-	void RemoveObject(std::shared_ptr<Object> object);
+	template <class Ty, class... Args>
+	std::shared_ptr<Ty> SpawnObject(Args... args)
+	{
+		std::shared_ptr<Ty> object = std::make_shared<Ty>(args...);
+		SpawnObject(object);
+		return object;
+	}
+
+	void SpawnObject(std::shared_ptr<Object> object)
+	{
+		Objects.push_back(object);
+	}
+
+	void RemoveObject(std::shared_ptr<Object> object)
+	{
+		Objects.remove(object);
+	}
+
 	template <typename CastTy = Object>
 	std::shared_ptr<Object> FindObject(std::string name)
 	{
-		for (std::shared_ptr<Object> Obj : _Objects)
+		for (std::shared_ptr<Object> Obj : Objects)
 		{
 			if (Obj->Name() == name)
 			{
@@ -49,6 +64,7 @@ public:	// about camera...
 	void SetCameraFrustumFarFieldDistance(const float& value);
 
 public:
+	virtual void DrawImGui(void);
 	virtual void OnDrawImGui(void) {};
 	void DrawImGuiHierarchy(void);
 };

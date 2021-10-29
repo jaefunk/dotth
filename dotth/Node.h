@@ -5,68 +5,75 @@
 template <class Ty>
 class Node : public Base, public std::enable_shared_from_this<Ty>
 {
-private:
-	std::weak_ptr<Ty> _Parent;
-	std::list<std::shared_ptr<Ty>> _Children;
+protected:
+	std::weak_ptr<Ty> Parent;
+	std::list<std::shared_ptr<Ty>> Children;
 
 public:
-	int GetChildrenCount(void)
+	bool IsRoot(void)
 	{
-		return static_cast<int>(_Children.size());
-	}
-	template <class target_type>
-	std::weak_ptr<target_type> Weak(void)
-	{
-		return std::dynamic_pointer_cast<target_type>(this->shared_from_this());
+		return Parent.expired();
 	}
 
-	template <class parent_type = Ty>
-	std::shared_ptr<parent_type> Parent(void)
+	template <class CastTy = Ty>
+	std::shared_ptr<CastTy> GetRoot(void)
 	{
-		if (std::shared_ptr<Ty> sp = _Parent.lock())
-			return std::dynamic_pointer_cast<parent_type>(sp);
+		return IsRoot() ? 
+			std::dynamic_pointer_cast<CastTy>(this->shared_from_this()) : 
+			GetParent<CastTy>();
+	}
+
+	template <class CastTy = Ty>
+	std::shared_ptr<CastTy> GetParent(void)
+	{
+		if (std::shared_ptr<CastTy> sp = std::dynamic_pointer_cast<CastTy>(Parent.lock()))
+			return std::dynamic_pointer_cast<CastTy>(sp);
 		return nullptr;
 	}
 
-	template <class target_type = Ty, class predicate>
-	void Foreach(predicate func)
+	unsigned int GetChildrenCount(void)
 	{
-		for (std::shared_ptr<Ty> elm : _Children)
-		{
-			if (std::shared_ptr<target_type> casted = std::dynamic_pointer_cast<target_type>(elm))
-			{
-				func(casted);
-			}
-		}
+		return static_cast<unsigned int>(Children.size());
 	}
 
-	bool Detach(std::shared_ptr<Ty> target)
+	std::list<std::shared_ptr<Ty>>& GetChildren(void)
 	{
-		if (std::find(std::begin(_Children), std::end(_Children), target) != std::end(_Children))
-		{
-			_Children.remove(target);
-			target->_Parent.reset();
-			return true;
-		}
-
-		for (std::shared_ptr<Ty>& child : _Children)
-		{
-			if (child->Detach(target) == true)
-				return true;
-		}
-		return false;
+		return Children;
 	}
 
-	void AddChild(std::shared_ptr<Ty> target)
+	void Attach(std::shared_ptr<Ty> target)
 	{
 		target->Leave();
-		_Children.push_back(target);
-		target->_Parent = this->shared_from_this();
-	}
+		Children.push_back(target);
+		target->Parent = this->shared_from_this();
+	}	
 
 	void Leave(void)
 	{
-		if (auto parent = Parent())
-			parent->Detach(this->shared_from_this());
+		if (std::shared_ptr<Ty> parent = GetParent())
+		{
+			parent->GetChildren().remove(this->shared_from_this());
+		}
+		Parent.reset();
+	}
+
+	template <class CastTy>
+	std::weak_ptr<CastTy> GetWeak(void)
+	{
+		return std::dynamic_pointer_cast<CastTy>(this->shared_from_this());
+	}
+
+	template <class CastTy = Ty, class Pred>
+	void Foreach(Pred pred, bool recursive = true)
+	{
+		for (std::shared_ptr<Ty> Child : Children)
+		{
+			if (std::shared_ptr<CastTy> Cast = std::dynamic_pointer_cast<CastTy>(Child))
+				pred(Cast);
+			if (recursive == true)
+			{
+				Child->Foreach<CastTy>(pred, recursive);
+			}
+		}
 	}
 };

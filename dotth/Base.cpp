@@ -3,21 +3,26 @@
 Base::Base(void)
 {
 	static std::atomic<unsigned int> s;
-	_Serial = s.fetch_add(1);
-	_Name = std::to_string(_Serial);
+	Serial = s.fetch_add(1);
+	Name = std::to_string(Serial);
 }
 
-const unsigned int & Base::Serial(void) const
+Base::~Base(void)
 {
-	return _Serial;
 }
 
-void Base::Rename(const std::string & Name)
+unsigned int Base::GetSerial(void) const
 {
-	_Name = Name;
+	return Serial;
 }
 
-const std::string & Base::Name(void)
+std::string Base::GetName(void) const
 {
-	return _Name;
+	return Name;
 }
+
+void Base::Rename(const std::string& name)
+{
+	Name = name;
+}
+

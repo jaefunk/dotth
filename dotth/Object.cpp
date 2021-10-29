@@ -4,11 +4,11 @@
 void Object::Init(void)
 {
 	OnInit();
-	for (std::shared_ptr<Component> Comp : _Components)
+	for (std::shared_ptr<Component> Comp : Components)
 	{
 		Comp->OnInit();
 	}
-	Foreach([](std::shared_ptr<Object> child) {
+	Foreach<Object>([](std::shared_ptr<Object> child) {
 		child->Init();
 		});
 }
@@ -16,11 +16,11 @@ void Object::Init(void)
 void Object::Destroy(void)
 {
 	OnDestroy();
-	for (std::shared_ptr<Component> Comp : _Components)
+	for (std::shared_ptr<Component> Comp : Components)
 	{
 		Comp->OnDestroy();
 	}
-	Foreach([](std::shared_ptr<Object> child) {
+	Foreach<Object>([](std::shared_ptr<Object> child) {
 		child->Destroy();
 		});
 }
@@ -28,58 +28,32 @@ void Object::Destroy(void)
 void Object::Update(void)
 {
 	OnUpdate();
-	for (std::shared_ptr<Component> Comp : _Components)
+	for (std::shared_ptr<Component> Comp : Components)
 	{
 		Comp->OnUpdate();
 	}
-	Foreach([](std::shared_ptr<Object> child) {
+	Foreach<Object>([](std::shared_ptr<Object> child) {
 		child->Update();
-		});
-}
-
-void Object::LateUpdate(void)
-{
-	OnLateUpdate();
-	for (std::shared_ptr<Component> Comp : _Components)
-	{
-		Comp->OnLateUpdate();
-	}
-	Foreach([](std::shared_ptr<Object> child) {
-		child->LateUpdate();
 		});
 }
 
 void Object::Draw(void)
 {
 	OnDraw();
-	for (std::shared_ptr<Component> Comp : _Components)
+	for (std::shared_ptr<Component> Comp : Components)
 	{
 		Comp->OnDraw();
 	}
-	Foreach([](std::shared_ptr<Object> child) {
+	Foreach<Object>([](std::shared_ptr<Object> child) {
 		child->Draw();
 		});
 }
 
-void Object::OnInit(void)
-{
-}
 
-void Object::OnUpdate(void)
-{
-}
-
-void Object::OnDraw(void)
-{
-}
-
-void Object::OnDestroy(void)
-{
-}
 
 void Object::DrawImGuiHierarchy(void) 
 {
-	if (ImGui::TreeNode(std::to_string(Serial()).c_str(), "%d, %s", Serial(), Name().c_str()))
+	if (ImGui::TreeNode(std::to_string(GetSerial()).c_str(), "%d, %s", GetSerial(), GetName().c_str()))
 	{
 		Foreach<Object>(
 			[](std::shared_ptr<Object> child) {

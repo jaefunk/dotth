@@ -15,12 +15,13 @@ private:
 class Base : private NonCopyable
 {
 private:
-	unsigned int _Serial;
-	std::string _Name;
+	unsigned int Serial;
+	std::string Name;
 	
 public:
 	Base(void);
-	const unsigned int& Serial(void) const;
+	virtual ~Base(void);
+	unsigned int GetSerial(void) const;
+	std::string GetName(void) const;
 	void Rename(const std::string& name);
-	const std::string& Name(void);
 };

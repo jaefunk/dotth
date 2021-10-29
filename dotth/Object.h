@@ -1,83 +1,81 @@
 #pragma once
 
-#include "Node.h"
+#include "ObjectBase.h"
 #include "Component.h"
 #include "Math/Transform.h"
 
-class Object : public Node<Object>
+class Object : public ObjectBase
 {
 public:
 	void Init(void);
 	void Update(void);
-	void LateUpdate(void);
 	void Draw(void);
 	void Destroy(void);
 
-protected:
-	virtual void OnInit(void);
-	virtual void OnDestroy(void);
-	virtual void OnUpdate(void);
-	virtual void OnLateUpdate(void) {}
-	virtual void OnDraw(void);
+public:
+	virtual void OnInit(void) {}
+	virtual void OnDestroy(void) {}
+	virtual void OnUpdate(void) {}
+	virtual void OnDraw(void) {}
 
 private:
-	Transform _Transform;
-	std::list<std::shared_ptr<Component>> _Components;
+	std::list<std::shared_ptr<Component>> Components;
 
 public:
-	void UpdateTransform(void)
+	template <class Ty, class... Args>
+	std::shared_ptr<Ty> AddComponent(Args... args)
 	{
-		Transform* ParentTransform = nullptr;
-		std::shared_ptr<Object> Prt = Parent<Object>();
-		if (Prt != nullptr)
-			ParentTransform = &Prt->_Transform;
-		_Transform.Update(ParentTransform);
-
-		Foreach([](std::shared_ptr<Object> child) {
-			child->UpdateTransform();
-			});
-	}
-	const Transform& GetTransform(void) { return _Transform; }
-
-public:
-	template <typename ty>
-	std::shared_ptr<ty> AddComponent(void)
-	{
-		std::shared_ptr<ty> value = std::make_shared<ty>();
-		value->SetOwner(this->shared_from_this());
-		_Components.push_back(value);
-		return value;
+		std::shared_ptr<Ty> Comp = std::make_shared<Ty>(args...);
+		Comp->SetOwner(this->weak_from_this());
+		Components.push_back(Comp);
+		return Comp;
 	}
 
-	void AddComponent(std::shared_ptr<Component> component)
+	bool AddComponent(std::shared_ptr<Component> component)
 	{
-		for (std::shared_ptr<Component> Comp : _Components)
-		{
-			if (Comp->Serial() == component->Serial())
-			{
-				return;
-			}
-		}
-		_Components.push_back(component);
+		if (auto Owner = component->GetOwner())
+			return false;
+
+		Components.push_back(component);
+		return true;
 	}
 
 	void RemoveComponent(std::shared_ptr<Component> component)
 	{
-		_Components.remove(component);
+		Components.remove(component);
 	}
 
 	template <typename CastTy = Component>
 	std::shared_ptr<CastTy> FindComponent(std::string name)
 	{
-		for (std::shared_ptr<Component> Comp : _Components)
+		for (std::shared_ptr<Component> Comp : Components)
 		{
-			if (Comp->Name() == name)
+			if (Comp->GetName() == name)
 			{
 				return std::dynamic_pointer_cast<CastTy>(Comp);
 			}
 		}
 		return nullptr;
 	}
+
+private:
+	Transform _Transform;
+
+public:
+	void UpdateTransform(void)
+	{
+		Transform* ParentTransform = nullptr;
+		std::shared_ptr<Object> Prt = GetParent<Object>();
+		if (Prt != nullptr)
+			ParentTransform = &Prt->_Transform;
+		_Transform.Update(ParentTransform);
+
+		Foreach<Object>([](std::shared_ptr<Object> child) {
+			child->UpdateTransform();
+		});
+	}
+	const Transform& GetTransform(void) { return _Transform; }
+
 
 
 public:
