@@ -22,27 +22,53 @@ private:
 	std::list<std::shared_ptr<Component>> Components;
 
 public:
-	template <class Ty, class... Args>
-	std::shared_ptr<Ty> AddComponent(Args... args)
-	{
-		std::shared_ptr<Ty> Comp = std::make_shared<Ty>(args...);
-		Comp->SetOwner(this->weak_from_this());
-		Components.push_back(Comp);
-		return Comp;
-	}
-
 	bool AddComponent(std::shared_ptr<Component> component)
 	{
 		if (auto Owner = component->GetOwner())
 			return false;
-
+		component->SetOwner(this->weak_from_this());
 		Components.push_back(component);
 		return true;
+	}
+
+	template <class Ty, class... Args>
+	std::shared_ptr<Ty> AddComponent(Args... args)
+	{
+		std::shared_ptr<Ty> Comp = std::make_shared<Ty>(args...);
+		AddComponent(Comp);
+		return Comp;
 	}
 
 	void RemoveComponent(std::shared_ptr<Component> component)
 	{
 		Components.remove(component);
+	}
+	
+	template <class Ty>
+	bool RemoveComponent(void)
+	{
+		for (auto Component : Components)
+		{
+			if (auto Cast = std::dynamic_pointer_cast<Ty>(Component))
+			{
+				RemoveComponent(Cast);
+				return true;
+			}
+		}
+		return false;
+	}
+
+	template <typename CastTy = Component>
+	std::shared_ptr<CastTy> FindComponent(void)
+	{
+		for (std::shared_ptr<Component> Component : Components)
+		{
+			if (auto Cast = std::dynamic_pointer_cast<CastTy>(Component))
+			{
+				return Cast;
+			}
+		}
+		return nullptr;
 	}
 
 	template <typename CastTy = Component>
@@ -69,7 +95,6 @@ public:
 		if (Prt != nullptr)
 			ParentTransform = &Prt->_Transform;
 		_Transform.Update(ParentTransform);
-
 		Foreach<Object>([](std::shared_ptr<Object> child) {
 			child->UpdateTransform();
 		});
