@@ -105,9 +105,6 @@ public:
 	void SetScale(const Vector3& value) { _Transform.SetScale(value); }
 	void Scaling(const Vector3& value) { _Transform.Scaling(value); }
 	void Scaling(float value) { _Transform.Scaling(value); }
-	void ScalingX(float value) { _Transform.ScalingX(value); }
-	void ScalingY(float value) { _Transform.ScalingY(value); }
-	void ScalingZ(float value) { _Transform.ScalingZ(value); }
 	const Vector3& GetLocalScale(void) { return _Transform.GetScale(); }
 
 	void SetRotation(const Vector3& value) { _Transform.SetRotation(value); }
@@ -119,9 +116,6 @@ public:
 
 	void SetPosition(const Vector3& value) { _Transform.SetPosition(value); }
 	void Translate(const Vector3& value) { _Transform.Translate(value); }
-	void TranslateX(float value) { _Transform.TranslateX(value); }
-	void TranslateY(float value) { _Transform.TranslateY(value); }
-	void TranslateZ(float value) { _Transform.TranslateZ(value); }
 	const Vector3& GetLocalPosition(void) { return _Transform.GetPosition(); }
 
 public:

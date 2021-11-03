@@ -13,11 +13,8 @@ public:
 
 	void SetScale(float x, float y, float z) { Scale.x = x; Scale.y = y; Scale.z = z; }
 	void SetScale(const Vector3& value) { Scale = value; }
-	void Scaling(const Vector3& value) { Vector3::Multiply(Scale, value, Scale); }
 	void Scaling(float value) { Vector3::Multiply(Scale, value, Scale); }
-	void ScalingX(float value) { Scale.x *= value; }
-	void ScalingY(float value) { Scale.y *= value; }
-	void ScalingZ(float value) { Scale.z *= value; }
+	void Scaling(const Vector3& value) { Vector3::Multiply(Scale, value, Scale); }
 	const Vector3& GetScale(void) { return Scale; }
 	const Vector3& GetWorldScale(void) { return WorldScale; }
 
@@ -30,9 +27,6 @@ public:
 
 	void SetPosition(const Vector3& value) { Position = value; }
 	void Translate(const Vector3& value) { Vector3::Add(Position, value, Position); }
-	void TranslateX(float value) { Position.x += value; }
-	void TranslateY(float value) { Position.y += value; }
-	void TranslateZ(float value) { Position.z += value; }
 	const Vector3& GetPosition(void) { return Position; }
 
 	void Update(const Transform* Parent = nullptr)
