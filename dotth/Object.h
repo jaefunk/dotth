@@ -101,30 +101,28 @@ public:
 	}
 	const Transform& GetTransform(void) { return _Transform; }
 
-
-
 public:
-	void SetScale(const Vector3F& value) { _Transform.SetScale(value); }
-	void Scaling(const Vector3F& value) { _Transform.Scaling(value); }
-	void Scaling(const float& value) { _Transform.Scaling(value); }
-	void ScalingX(const float& value) { _Transform.ScalingX(value); }
-	void ScalingY(const float& value) { _Transform.ScalingY(value); }
-	void ScalingZ(const float& value) { _Transform.ScalingZ(value); }
-	const Vector3F& GetLocalScale(void) { return _Transform.GetScale(); }
+	void SetScale(const Vector3& value) { _Transform.SetScale(value); }
+	void Scaling(const Vector3& value) { _Transform.Scaling(value); }
+	void Scaling(float value) { _Transform.Scaling(value); }
+	void ScalingX(float value) { _Transform.ScalingX(value); }
+	void ScalingY(float value) { _Transform.ScalingY(value); }
+	void ScalingZ(float value) { _Transform.ScalingZ(value); }
+	const Vector3& GetLocalScale(void) { return _Transform.GetScale(); }
 
-	void SetRotation(const Vector3F& value) { _Transform.SetRotation(value); }
-	void Rotate(const Vector3F& value) { _Transform.Rotate(value); }
-	void RotatePitch(const float& value) { _Transform.RotatePitch(value); }
-	void RotateYaw(const float& value) { _Transform.RotateYaw(value); }
-	void RotateRoll(const float& value) { _Transform.RotateRoll(value); }
-	const Vector3F& GetLocalRotation(void) { return _Transform.GetRotation(); }
+	void SetRotation(const Vector3& value) { _Transform.SetRotation(value); }
+	void Rotate(const Vector3& value) { _Transform.Rotate(value); }
+	void RotatePitch(float value) { _Transform.RotatePitch(value); }
+	void RotateYaw(float value) { _Transform.RotateYaw(value); }
+	void RotateRoll(float value) { _Transform.RotateRoll(value); }
+	const Vector3& GetLocalRotation(void) { return _Transform.GetRotation(); }
 
-	void SetPosition(const Vector3F& value) { _Transform.SetPosition(value); }
-	void Translate(const Vector3F& value) { _Transform.Translate(value); }
-	void TranslateX(const float& value) { _Transform.TranslateX(value); }
-	void TranslateY(const float& value) { _Transform.TranslateY(value); }
-	void TranslateZ(const float& value) { _Transform.TranslateZ(value); }
-	const Vector3F& GetLocalPosition(void) { return _Transform.GetPosition(); }
+	void SetPosition(const Vector3& value) { _Transform.SetPosition(value); }
+	void Translate(const Vector3& value) { _Transform.Translate(value); }
+	void TranslateX(float value) { _Transform.TranslateX(value); }
+	void TranslateY(float value) { _Transform.TranslateY(value); }
+	void TranslateZ(float value) { _Transform.TranslateZ(value); }
+	const Vector3& GetLocalPosition(void) { return _Transform.GetPosition(); }
 
 public:
 	void DrawImGuiHierarchy(void);

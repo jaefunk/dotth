@@ -190,9 +190,9 @@
     <ClInclude Include="Math\MathUtility.h" />
     <ClInclude Include="Math\Matrix.h" />
     <ClInclude Include="Math\Transform.h" />
-    <ClInclude Include="Math\Float2.h" />
-    <ClInclude Include="Math\Float3.h" />
-    <ClInclude Include="Math\Float4.h" />
+    <ClInclude Include="Math\Vector2.h" />
+    <ClInclude Include="Math\Vector3.h" />
+    <ClInclude Include="Math\Vector4.h" />
     <ClInclude Include="MeshComponent.h" />
     <ClInclude Include="Node.h" />
     <ClInclude Include="Object.h" />

@@ -42,31 +42,31 @@ void Scene::Destroy(void)
 	}
 }
 
-void Scene::SetCameraPosition(const Float3& value)
+void Scene::SetCameraPosition(const Vector3& value)
 {
 	D3D11RHI::Camera()->SetEye(value);
 }
-void Scene::SetCameraUp(const Float3& value)
+void Scene::SetCameraUp(const Vector3& value)
 {
 	D3D11RHI::Camera()->SetUp(value);
 }
-void Scene::SetCameraLookAt(const Float3& value)
+void Scene::SetCameraLookAt(const Vector3& value)
 {
 	D3D11RHI::Camera()->SetAt(value);
 }
-void Scene::SetCameraViewportSize(const int& width, const int& height)
+void Scene::SetCameraViewportSize(int width, int height)
 {
 	D3D11RHI::Camera()->SetViewportSize(width, height);
 }
-void Scene::SetCameraFrustumFieldOfView(const float& radian)
+void Scene::SetCameraFrustumFieldOfView(float radian)
 {
 	D3D11RHI::Camera()->SetFieldOfView(radian);
 }
-void Scene::SetCameraFrustumNearFieldDistance(const float& value)
+void Scene::SetCameraFrustumNearFieldDistance(float value)
 {
 	D3D11RHI::Camera()->SetNear(value);
 }
-void Scene::SetCameraFrustumFarFieldDistance(const float& value)
+void Scene::SetCameraFrustumFarFieldDistance(float value)
 {
 	D3D11RHI::Camera()->SetFar(value);
 }

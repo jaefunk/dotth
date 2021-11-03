@@ -1,6 +1,13 @@
 #pragma once
 
-#include "D3D11.h"
+#include "dotth.h"
+
+enum DEFERRED_RENDER_TARGET_TYPE {
+	POSITION,
+	DIFFUSE,
+	NORMAL,
+	DEFERRED_RENDER_TARGET_TYPE_MAX,
+};
 
 class D3D11DeferredBuffer
 {

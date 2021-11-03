@@ -55,13 +55,13 @@ public:
 	}
 
 public:	// about camera...
-	void SetCameraPosition(const Float3& value);
-	void SetCameraUp(const Float3& value);
-	void SetCameraLookAt(const Float3& value);
-	void SetCameraViewportSize(const int& width, const int& height);
-	void SetCameraFrustumFieldOfView(const float& radian);
-	void SetCameraFrustumNearFieldDistance(const float& value);
-	void SetCameraFrustumFarFieldDistance(const float& value);
+	void SetCameraPosition(const Vector3& value);
+	void SetCameraUp(const Vector3& value);
+	void SetCameraLookAt(const Vector3& value);
+	void SetCameraViewportSize(int width, int height);
+	void SetCameraFrustumFieldOfView(float radian);
+	void SetCameraFrustumNearFieldDistance(float value);
+	void SetCameraFrustumFarFieldDistance(float value);
 
 public:
 	virtual void DrawImGui(void);

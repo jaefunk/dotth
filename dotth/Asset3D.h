@@ -3,12 +3,12 @@
 #include "AssetBase.h"
 
 struct Vertice {
-	Float3 position;
-	Float3 normal;
-	Float2 textureCoord;
-	Float3 tangent;
-	Float3 bitangent;
-	Float4 color;
+	Vector3 position;
+	Vector3 normal;
+	Vector2 textureCoord;
+	Vector3 tangent;
+	Vector3 bitangent;
+	Vector4 color;
 };
 
 struct Section {

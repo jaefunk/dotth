@@ -2,11 +2,13 @@
 #include "SampleObject.h"
 #include "staticMeshComponent.h"
 
+
+
 void EntryPoint::OnInit(void)
 {
-	SetCameraPosition(Float3(000.f, 500.f, -500.f));
-	SetCameraLookAt(Float3(0.f, 0.f, 0.f));
-	SetCameraUp(Float3(0.f, 1.f, 0.f));
+	SetCameraPosition(Vector3(000.f, 500.f, -500.f));
+	SetCameraLookAt(Vector3(0.f, 0.f, 0.f));
+	SetCameraUp(Vector3(0.f, 1.f, 0.f));
 	SetCameraFrustumFieldOfView(3.141592f * 0.3f);
 	SetCameraFrustumNearFieldDistance(0.1f);
 	SetCameraFrustumFarFieldDistance(100000.f);

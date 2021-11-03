@@ -20,8 +20,8 @@ public:
 		Transform NewTransform(WorldTransform);
 		if (InParent != nullptr)
 		{
-			Vector3F::Multiply(NewTransform.Scale, InParent->WorldTransform.WorldScale, WorldTransform.Scale);
-			Vector3F::Multiply(NewTransform.Position, InParent->WorldTransform.WorldScale, WorldTransform.Position);
+			Vector3::Multiply(NewTransform.Scale, InParent->WorldTransform.WorldScale, WorldTransform.Scale);
+			Vector3::Multiply(NewTransform.Position, InParent->WorldTransform.WorldScale, WorldTransform.Position);
 		}
 
 		Matrix scl = Matrix::Scaling(NewTransform.Scale);
@@ -57,11 +57,11 @@ public:
 	{
 		return WorldTransform;
 	}
-	Vector3F GetScale(void);
-	Vector3F GetRotation(void);
-	Vector3F GetPosition(void);
+	Vector3 GetScale(void);
+	Vector3 GetRotation(void);
+	Vector3 GetPosition(void);
 	void SetTransform(const Transform& InTransform);
-	void SetScale(const Vector3F& InVector);
-	void SetRotation(const Vector3F& InVector);
-	void SetPosition(const Vector3F& InVector);
+	void SetScale(const Vector3& InVector);
+	void SetRotation(const Vector3& InVector);
+	void SetPosition(const Vector3& InVector);
 };

@@ -72,10 +72,10 @@ bool ModelBase::LoadWithAssimp(const std::string& path)
 
 			if (mesh->HasVertexColors(0))
 			{
-				sections[index].vertices[i].color.r = mesh->mColors[0][i].r;
-				sections[index].vertices[i].color.g = mesh->mColors[0][i].g;
-				sections[index].vertices[i].color.b = mesh->mColors[0][i].b;
-				sections[index].vertices[i].color.a = mesh->mColors[0][i].a;
+				//sections[index].vertices[i].color.r = mesh->mColors[0][i].r;
+				//sections[index].vertices[i].color.g = mesh->mColors[0][i].g;
+				//sections[index].vertices[i].color.b = mesh->mColors[0][i].b;
+				//sections[index].vertices[i].color.a = mesh->mColors[0][i].a;
 			}
 		}
 

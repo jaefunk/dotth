@@ -8,10 +8,7 @@ struct Matrix
 		float rc[4][4];
 	};
 	
-	Matrix(void)
-	{
-
-	}
+	Matrix(void) = default;
 	
 	void SetZero(void)
 	{
@@ -23,14 +20,6 @@ struct Matrix
 		rc[0][0] = 1.f; rc[1][1] = 1.f; rc[2][2] = 1.f; rc[3][3] = 1.f;
 	}
 
-	operator DirectX::XMMATRIX()
-	{
-		return DirectX::XMMATRIX(f);
-	}
-	operator DirectX::XMMATRIX() const
-	{
-		return DirectX::XMMATRIX(f);
-	}
 	Matrix operator*(const Matrix& right)
 	{
 		Matrix Result;
@@ -38,8 +27,7 @@ struct Matrix
 		return Result;
 	}
 
-	using ThisType = Matrix;
-	static void Row(const ThisType& target, unsigned int index, Float4& result)
+	static void GetRow(const Matrix& target, unsigned int index, Vector4& result)
 	{
 		unsigned int offset = 4 * index;
 		result.x = target.f[0 + offset]; 
@@ -47,7 +35,7 @@ struct Matrix
 		result.z = target.f[2 + offset];
 		result.w = target.f[3 + offset];
 	}
-	static void Column(const ThisType& target, unsigned int index, Float4& result)
+	static void GetColumn(const Matrix& target, unsigned int index, Vector4& result)
 	{
 		result.x = target.f[0 + index];
 		result.y = target.f[4 + index];
@@ -55,34 +43,34 @@ struct Matrix
 		result.w = target.f[12 + index];
 	}
 
-	static void Multiply(const ThisType& left, const Float4& right, Float4& result)
+	static void Multiply(const Matrix& left, const Vector4& right, Vector4& result)
 	{
+		Vector4 Row, Last;
 		for (int r = 0; r < 4; r++)
 		{
-			Float4 Row, Last;
-			Matrix::Row(left, r, Row);
-			Float4::Multiply(Row, right.f[r], Last);
+			Matrix::GetRow(left, r, Row);
+			Vector4::Multiply(Row, right.f[r], Last);
 			result.f[r] = Last.f[0] + Last.f[1] + Last.f[2] + Last.f[3];
 		}
 	}
 
-	static void Multiply(const ThisType left, const ThisType right, ThisType& result)
+	static void Multiply(const Matrix left, const Matrix right, Matrix& result)
 	{
 		result.SetZero();
+		Vector4 Row, Col, Last;
 		for (int r = 0; r < 4; r++)
 		{
 			for (int c = 0; c < 4; c++)
-			{
-				Float4 Row, Col, Last;
-				Matrix::Row(right, r, Row);
-				Matrix::Column(left, c, Col);
-				Float4::Multiply(Row, Col, Last);
+			{				
+				Matrix::GetRow(right, r, Row);
+				Matrix::GetColumn(left, c, Col);
+				Vector4::Multiply(Row, Col, Last);
 				result.rc[r][c] = Last.f[0] + Last.f[1] + Last.f[2] + Last.f[3];
 			}
 		}
 	}
 
-	static Matrix Scaling(const float& target)
+	static Matrix Scaling(float target)
 	{
 		Matrix Result;
 		Result.SetIdentity();
@@ -91,7 +79,7 @@ struct Matrix
 		Result.rc[2][2] = target;
 		return Result;
 	}
-	static Matrix Scaling(const Float3& target)
+	static Matrix Scaling(const Vector3& target)
 	{
 		Matrix Result;
 		Result.SetIdentity();
@@ -100,7 +88,7 @@ struct Matrix
 		Result.rc[2][2] = target.z;
 		return Result;
 	}
-	static Matrix RotatePitch(const float& radian)
+	static Matrix RotatePitch(float radian)
 	{
 		Matrix Result;
 		Result.SetIdentity();
@@ -112,7 +100,7 @@ struct Matrix
 		Result.rc[2][2] = cos;
 		return Result;
 	}
-	static Matrix RotateYaw(const float& radian)
+	static Matrix RotateYaw(float radian)
 	{
 		Matrix Result;
 		Result.SetIdentity();
@@ -124,7 +112,7 @@ struct Matrix
 		Result.rc[2][2] = cos;
 		return Result;
 	}
-	static Matrix RotateRoll(const float& radian)
+	static Matrix RotateRoll(float radian)
 	{
 		Matrix Result;
 		Result.SetIdentity();
@@ -134,7 +122,7 @@ struct Matrix
 		Result.rc[1][0] = sin; Result.rc[1][1] = cos; 
 		return Result;
 	}
-	static Matrix Translate(const Float3& target)
+	static Matrix Translate(const Vector3& target)
 	{
 		Matrix Result;
 		Result.SetIdentity();
@@ -145,5 +133,20 @@ struct Matrix
 		return Result;
 	}
 
-	
+	float& operator[](int index)
+	{
+		return f[index];
+	}
+	float operator[](int index) const
+	{
+		return f[index];
+	}
+	operator DirectX::XMMATRIX()
+	{
+		return DirectX::XMMATRIX(f);
+	}
+	operator DirectX::XMMATRIX() const
+	{
+		return DirectX::XMMATRIX(f);
+	}
 };

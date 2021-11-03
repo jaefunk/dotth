@@ -1,52 +1,48 @@
 
 #pragma once
 
-#include "Float2.h"
-#include "Float3.h"
-#include "Float4.h"
-#include "Matrix.h"
-
 struct Transform 
 {
 public:
-	Vector3F Scale{ 1.f, 1.f, 1.f };
-	Vector3F WorldScale{ 1.f, 1.f, 1.f };
-	Vector3F Rotation{ 0.f, 0.f, 0.f };
-	Vector3F Position{ 0.f, 0.f, 0.f };	
+	Vector3 Scale{ 1.f, 1.f, 1.f };
+	Vector3 WorldScale{ 1.f, 1.f, 1.f };
+	Vector3 Rotation{ 0.f, 0.f, 0.f };
+	Vector3 Position{ 0.f, 0.f, 0.f };	
 	Matrix WorldMatrix;
 	Matrix WorldMatrixNoScale;
 
-	void SetScale(const Vector3F& value) { Scale = value; }
-	void Scaling(const Vector3F& value) { Vector3F::Multiply(Scale, value, Scale); }
-	void Scaling(const float& value) { Vector3F::Multiply(Scale, value, Scale); }
-	void ScalingX(const float& value) { Scale.x *= value; }
-	void ScalingY(const float& value) { Scale.y *= value; }
-	void ScalingZ(const float& value) { Scale.z *= value; }
-	const Vector3F& GetScale(void) { return Scale; }
-	const Vector3F& GetWorldScale(void) { return WorldScale; }
+	void SetScale(float x, float y, float z) { Scale.x = x; Scale.y = y; Scale.z = z; }
+	void SetScale(const Vector3& value) { Scale = value; }
+	void Scaling(const Vector3& value) { Vector3::Multiply(Scale, value, Scale); }
+	void Scaling(float value) { Vector3::Multiply(Scale, value, Scale); }
+	void ScalingX(float value) { Scale.x *= value; }
+	void ScalingY(float value) { Scale.y *= value; }
+	void ScalingZ(float value) { Scale.z *= value; }
+	const Vector3& GetScale(void) { return Scale; }
+	const Vector3& GetWorldScale(void) { return WorldScale; }
 
-	void SetRotation(const Vector3F& value) { Rotation = value; }
-	void Rotate(const Vector3F& value) { Vector3F::Add(Rotation, value, Rotation); }
-	void RotatePitch(const float& value) { Rotation.x += value; }
-	void RotateYaw(const float& value) { Rotation.y += value; }
-	void RotateRoll(const float& value) { Rotation.z += value; }
-	const Vector3F& GetRotation(void) { return Rotation; }
+	void SetRotation(const Vector3& value) { Rotation = value; }
+	void Rotate(const Vector3& value) { Vector3::Add(Rotation, value, Rotation); }
+	void RotatePitch(float value) { Rotation.x += value; }
+	void RotateYaw(float value) { Rotation.y += value; }
+	void RotateRoll(float value) { Rotation.z += value; }
+	const Vector3& GetRotation(void) { return Rotation; }
 
-	void SetPosition(const Vector3F& value) { Position = value; }
-	void Translate(const Vector3F& value) { Vector3F::Add(Position, value, Position); }
-	void TranslateX(const float& value) { Position.x += value; }
-	void TranslateY(const float& value) { Position.y += value; }
-	void TranslateZ(const float& value) { Position.z += value; }
-	const Vector3F& GetPosition(void) { return Position; }
+	void SetPosition(const Vector3& value) { Position = value; }
+	void Translate(const Vector3& value) { Vector3::Add(Position, value, Position); }
+	void TranslateX(float value) { Position.x += value; }
+	void TranslateY(float value) { Position.y += value; }
+	void TranslateZ(float value) { Position.z += value; }
+	const Vector3& GetPosition(void) { return Position; }
 
 	void Update(const Transform* Parent = nullptr)
 	{
 		WorldScale = Scale;
-		Float3 TmpPosition = Position;
+		Vector3 TmpPosition = Position;
 		if (Parent != nullptr)
 		{
-			Vector3F::Multiply(Scale, Parent->WorldScale, WorldScale);
-			Vector3F::Multiply(Position, Parent->WorldScale, TmpPosition);
+			Vector3::Multiply(Scale, Parent->WorldScale, WorldScale);
+			Vector3::Multiply(Position, Parent->WorldScale, TmpPosition);
 		}
 		Matrix scl = Matrix::Scaling(WorldScale);
 		Matrix pitch = Matrix::RotatePitch(Rotation.x);

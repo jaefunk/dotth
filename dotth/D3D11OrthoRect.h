@@ -1,6 +1,6 @@
 #pragma once
 
-#include "D3D11.h"
+#include "dotth.h"
 
 class D3D11OrthoRect
 {
