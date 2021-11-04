@@ -12,7 +12,7 @@ void Scene::Init(void)
 
 void Scene::Update(void)
 {
-	static std::chrono::system_clock::time_point BeforeFrameTimeStamp;
+	static std::chrono::system_clock::time_point BeforeFrameTimeStamp = std::chrono::system_clock::now();
 	static std::chrono::system_clock::time_point CurrentFrameTimeStamp;
 	CurrentFrameTimeStamp = std::chrono::system_clock::now();
 	std::chrono::duration<float> TimeDiff = CurrentFrameTimeStamp - BeforeFrameTimeStamp;

@@ -9,7 +9,10 @@ class Scene : public Base
 private:
 	float DeltaSeconds = 0.f;
 public:
-	float GetDeltaTime(void);
+	float GetDeltaSeconds(void)
+	{
+		return DeltaSeconds;
+	}
 
 public:
 	void Init(void);
@@ -62,7 +65,7 @@ std::shared_ptr<Object> Scene::FindObject(std::string name)
 {
 	for (std::shared_ptr<Object> Obj : Objects)
 	{
-		if (Obj->Name() == name)
+		if (Obj->GetName() == name)
 		{
 			return std::dynamic_pointer_cast<CastTy>(Obj);
 		}

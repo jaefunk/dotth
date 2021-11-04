@@ -27,7 +27,7 @@ void Object::Destroy(void)
 
 void Object::Update(float InDeltaSeconds)
 {
-	this->DeltaSeconds = InDeltaSeconds;
+	DeltaSeconds = InDeltaSeconds;
 	OnUpdate();
 	for (std::shared_ptr<Component> Comp : Components)
 	{
