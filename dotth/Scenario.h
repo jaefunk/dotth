@@ -2,7 +2,6 @@
 
 #include "Scene.h"
 #include "SingleInstance.h"
-#include "D3D11RHI.h"
 
 class Scenario : public SingleInstance<Scenario>
 {

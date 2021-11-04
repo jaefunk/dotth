@@ -1,7 +1,6 @@
 #pragma once
 
 #include "Object.h"
-#include "Math/Math.h"
 
 class Scene : public Base
 {
