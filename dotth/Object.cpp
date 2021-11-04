@@ -10,7 +10,7 @@ void Object::Init(void)
 	}
 	Foreach<Object>([](std::shared_ptr<Object> child) {
 		child->Init();
-		});
+	});
 }
 
 void Object::Destroy(void)
@@ -22,19 +22,20 @@ void Object::Destroy(void)
 	}
 	Foreach<Object>([](std::shared_ptr<Object> child) {
 		child->Destroy();
-		});
+	});
 }
 
-void Object::Update(void)
+void Object::Update(float InDeltaSeconds)
 {
+	this->DeltaSeconds = InDeltaSeconds;
 	OnUpdate();
 	for (std::shared_ptr<Component> Comp : Components)
 	{
 		Comp->OnUpdate();
 	}
-	Foreach<Object>([](std::shared_ptr<Object> child) {
-		child->Update();
-		});
+	Foreach<Object>([InDeltaSeconds](std::shared_ptr<Object> child) {
+		child->Update(InDeltaSeconds);
+	});
 }
 
 void Object::Draw(void)
@@ -46,12 +47,41 @@ void Object::Draw(void)
 	}
 	Foreach<Object>([](std::shared_ptr<Object> child) {
 		child->Draw();
+	});
+}
+
+bool Object::AddComponent(std::shared_ptr<Component> component)
+{
+	if (auto Owner = component->GetOwner())
+		return false;
+	component->SetOwner(this->weak_from_this());
+	Components.push_back(component);
+	return true;
+}
+
+void Object::RemoveComponent(std::shared_ptr<Component> component)
+{
+	Components.remove(component);
+}
+
+float Object::GetDeltaSeconds(void)
+{
+	return DeltaSeconds;
+}
+
+void Object::UpdateTransform(void)
+{
+	Transform* ParentTransform = nullptr;
+	std::shared_ptr<Object> Prt = GetParent<Object>();
+	if (Prt != nullptr)
+		ParentTransform = &Prt->_Transform;
+	_Transform.Update(ParentTransform);
+	Foreach<Object>([](std::shared_ptr<Object> child) {
+		child->UpdateTransform();
 		});
 }
 
-
-
-void Object::DrawImGuiHierarchy(void) 
+void Object::DrawImGuiHierarchy(void)
 {
 	if (ImGui::TreeNode(std::to_string(GetSerial()).c_str(), "%d, %s", GetSerial(), GetName().c_str()))
 	{

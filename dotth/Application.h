@@ -29,8 +29,7 @@ public:
 template<typename SceneTy>
 void Application::Initialize(const Configuration & config)
 {
-	
-        assert(config.Validation());
+	assert(config.Validation());
 	ResourceManager::Instance()->Initialize();
 	ResourceManager::Instance()->Load("reserved.json");
 	D3D11RHI::Initialize(config.Hwnd, config.Width, config.Height);

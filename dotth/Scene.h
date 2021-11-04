@@ -6,6 +6,11 @@ class Scene : public Base
 {
 	friend class Scenario;
 
+private:
+	float DeltaSeconds = 0.f;
+public:
+	float GetDeltaTime(void);
+
 public:
 	void Init(void);
 	void Update(void);
@@ -23,35 +28,11 @@ private:
 
 public:
 	template <class Ty, class... Args>
-	std::shared_ptr<Ty> SpawnObject(Args... args)
-	{
-		std::shared_ptr<Ty> object = std::make_shared<Ty>(args...);
-		SpawnObject(object);
-		return object;
-	}
-
-	void SpawnObject(std::shared_ptr<Object> object)
-	{
-		Objects.push_back(object);
-	}
-
-	void RemoveObject(std::shared_ptr<Object> object)
-	{
-		Objects.remove(object);
-	}
-
+	std::shared_ptr<Ty> SpawnObject(Args... args);
 	template <typename CastTy = Object>
-	std::shared_ptr<Object> FindObject(std::string name)
-	{
-		for (std::shared_ptr<Object> Obj : Objects)
-		{
-			if (Obj->Name() == name)
-			{
-				return std::dynamic_pointer_cast<CastTy>(Obj);
-			}
-		}
-		return nullptr;
-	}
+	std::shared_ptr<Object> FindObject(std::string name);
+	void SpawnObject(std::shared_ptr<Object> object);
+	void RemoveObject(std::shared_ptr<Object> object);
 
 public:	// about camera...
 	void SetCameraPosition(const Vector3& value);
@@ -67,3 +48,24 @@ public:
 	virtual void OnDrawImGui(void) {};
 	void DrawImGuiHierarchy(void);
 };
+
+template<class Ty, class ...Args>
+std::shared_ptr<Ty> Scene::SpawnObject(Args ...args)
+{
+	std::shared_ptr<Ty> object = std::make_shared<Ty>(args...);
+	SpawnObject(object);
+	return object;
+}
+
+template<typename CastTy>
+std::shared_ptr<Object> Scene::FindObject(std::string name)
+{
+	for (std::shared_ptr<Object> Obj : Objects)
+	{
+		if (Obj->Name() == name)
+		{
+			return std::dynamic_pointer_cast<CastTy>(Obj);
+		}
+	}
+	return nullptr;
+}

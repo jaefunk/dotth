@@ -1,14 +1,14 @@
 #pragma once
 
-#include "ObjectBase.h"
+#include "Node.h"
 #include "Component.h"
 #include "Math/Transform.h"
 
-class Object : public ObjectBase
+class Object : public Node<Object>
 {
 public:
 	void Init(void);
-	void Update(void);
+	void Update(float InDeltaSeconds);
 	void Draw(void);
 	void Destroy(void);
 
@@ -22,83 +22,27 @@ private:
 	std::list<std::shared_ptr<Component>> Components;
 
 public:
-	bool AddComponent(std::shared_ptr<Component> component)
-	{
-		if (auto Owner = component->GetOwner())
-			return false;
-		component->SetOwner(this->weak_from_this());
-		Components.push_back(component);
-		return true;
-	}
-
 	template <class Ty, class... Args>
-	std::shared_ptr<Ty> AddComponent(Args... args)
-	{
-		std::shared_ptr<Ty> Comp = std::make_shared<Ty>(args...);
-		AddComponent(Comp);
-		return Comp;
-	}
-
-	void RemoveComponent(std::shared_ptr<Component> component)
-	{
-		Components.remove(component);
-	}
-	
+	std::shared_ptr<Ty> AddComponent(Args... args);
+	template <typename CastTy = Component>
+	std::shared_ptr<CastTy> FindComponent(void);
+	template <typename CastTy = Component>
+	std::shared_ptr<CastTy> FindComponent(std::string name);
 	template <class Ty>
-	bool RemoveComponent(void)
-	{
-		for (auto Component : Components)
-		{
-			if (auto Cast = std::dynamic_pointer_cast<Ty>(Component))
-			{
-				RemoveComponent(Cast);
-				return true;
-			}
-		}
-		return false;
-	}
+	bool RemoveComponent(void);
+	bool AddComponent(std::shared_ptr<Component> component);
+	void RemoveComponent(std::shared_ptr<Component> component);
 
-	template <typename CastTy = Component>
-	std::shared_ptr<CastTy> FindComponent(void)
-	{
-		for (std::shared_ptr<Component> Component : Components)
-		{
-			if (auto Cast = std::dynamic_pointer_cast<CastTy>(Component))
-			{
-				return Cast;
-			}
-		}
-		return nullptr;
-	}
-
-	template <typename CastTy = Component>
-	std::shared_ptr<CastTy> FindComponent(std::string name)
-	{
-		for (std::shared_ptr<Component> Comp : Components)
-		{
-			if (Comp->GetName() == name)
-			{
-				return std::dynamic_pointer_cast<CastTy>(Comp);
-			}
-		}
-		return nullptr;
-	}
+private:
+	float DeltaSeconds = 0.f;
+public:
+	float GetDeltaSeconds(void);
 
 private:
 	Transform _Transform;
 
 public:
-	void UpdateTransform(void)
-	{
-		Transform* ParentTransform = nullptr;
-		std::shared_ptr<Object> Prt = GetParent<Object>();
-		if (Prt != nullptr)
-			ParentTransform = &Prt->_Transform;
-		_Transform.Update(ParentTransform);
-		Foreach<Object>([](std::shared_ptr<Object> child) {
-			child->UpdateTransform();
-		});
-	}
+	void UpdateTransform(void);
 	const Transform& GetTransform(void) { return _Transform; }
 
 public:
@@ -121,3 +65,51 @@ public:
 public:
 	void DrawImGuiHierarchy(void);
 };
+
+template<class Ty, class ...Args>
+std::shared_ptr<Ty> Object::AddComponent(Args ...args)
+{
+	std::shared_ptr<Ty> Comp = std::make_shared<Ty>(args...);
+	AddComponent(Comp);
+	return Comp;
+}
+
+template<class Ty>
+bool Object::RemoveComponent(void)
+{
+	for (auto Component : Components)
+	{
+		if (auto Cast = std::dynamic_pointer_cast<Ty>(Component))
+		{
+			RemoveComponent(Cast);
+			return true;
+		}
+	}
+	return false;
+}
+
+template<typename CastTy>
+std::shared_ptr<CastTy> Object::FindComponent(void)
+{
+	for (std::shared_ptr<Component> Component : Components)
+	{
+		if (auto Cast = std::dynamic_pointer_cast<CastTy>(Component))
+		{
+			return Cast;
+		}
+	}
+	return nullptr;
+}
+
+template<typename CastTy>
+std::shared_ptr<CastTy> Object::FindComponent(std::string name)
+{
+	for (std::shared_ptr<Component> Comp : Components)
+	{
+		if (Comp->GetName() == name)
+		{
+			return std::dynamic_pointer_cast<CastTy>(Comp);
+		}
+	}
+	return nullptr;
+}

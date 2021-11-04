@@ -12,10 +12,17 @@ void Scene::Init(void)
 
 void Scene::Update(void)
 {
+	static std::chrono::system_clock::time_point BeforeFrameTimeStamp;
+	static std::chrono::system_clock::time_point CurrentFrameTimeStamp;
+	CurrentFrameTimeStamp = std::chrono::system_clock::now();
+	std::chrono::duration<float> TimeDiff = CurrentFrameTimeStamp - BeforeFrameTimeStamp;
+	DeltaSeconds = TimeDiff.count();
+	BeforeFrameTimeStamp = CurrentFrameTimeStamp;
+
 	OnUpdate();
 	for (std::shared_ptr<Object> Obj : Objects)
 	{
-		Obj->Update();
+		Obj->Update(DeltaSeconds);
 	}
 	D3D11RHI::Camera()->Sync();
 	for (std::shared_ptr<Object> Obj : Objects)
@@ -40,6 +47,26 @@ void Scene::Destroy(void)
 	{
 		Obj->Destroy();
 	}
+}
+
+void Scene::SpawnObject(std::shared_ptr<Object> object)
+{
+	// verify unique...
+	for (std::shared_ptr<Object> Obj : Objects)
+	{
+		if (Obj->GetSerial() == object->GetSerial())
+		{
+			return;
+		}
+	}
+
+	Objects.push_back(object);
+}
+
+void Scene::RemoveObject(std::shared_ptr<Object> object)
+{
+	object->Destroy();
+	Objects.remove(object);
 }
 
 void Scene::SetCameraPosition(const Vector3& value)

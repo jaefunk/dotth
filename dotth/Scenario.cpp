@@ -16,9 +16,9 @@ void Scenario::Pop(void)
 
 void Scenario::ApplyNewScene(void)
 {
-	if (_SceneStack.empty() == true)
-		return;
 	if (_SceneChanged == false)
+		return;
+	if (_SceneStack.empty() == true)
 		return;
 	_SceneChanged = false;
 	auto iterator = _SignedScene.find(_SceneStack.top());
