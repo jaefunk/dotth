@@ -1,17 +1,24 @@
 #pragma once
 
 #include "Component.h"
-#include "Object.h"
 
 enum class ProjectMode {
 	Perspective,
 	OrthoGraphic,
 };
 
+enum CAMERA_TRANFSFORM_DIRTY_FLAG {
+	NONE = 0x0000,
+	VIEW = 0x0001,
+	PERSPECTIVE = 0x0010,
+	ORTHO = 0x0100,
+	ALL = VIEW | PERSPECTIVE | ORTHO
+};
+
 class CameraComponent : public Component
 {
 public:
-	CameraComponent(void);
+	CameraComponent(int ViewportWidth, int ViewportHeight);
 
 public:
 	virtual void OnInit(void) override;
@@ -20,28 +27,31 @@ public:
 	virtual void OnDestroy(void) override;
 
 private:
-	// horizontal field of view in degrees...
-	float FieldOfView;
-	float OrthoWidth;
-	float OrthoNearClipPlane;
-	float OrthoFarClipPlane;
-	// width / height
-	float AspectRatio;
+	int DirtyFlags = CAMERA_TRANFSFORM_DIRTY_FLAG::NONE;
+	Matrix View;
+	Matrix Perspective;
+	Matrix Ortho;
+	Vector3 Eye;
+	Vector3 Up;
+	Vector3 At;
+	float Near;
+	float Far;
+	float Fov;
+	int Width;
+	int Height;
 
 public:
-	void SetFieldOfView(float InFieldOfView) {
-		FieldOfView = InFieldOfView;
-	};
-	void SetOrthoWidth(float InOrthoWidth) {
-		OrthoWidth = InOrthoWidth;
-	};
-	void SetOrthoNearClipPlane(float InOrthoNearClipPlane) {
-		OrthoNearClipPlane = InOrthoNearClipPlane;
-	};
-	void SetOrthoFarClipPlane(float InOrthoFarClipPlane) {
-		OrthoFarClipPlane = InOrthoFarClipPlane;
-	};
-	void SetAspectRatio(float InAspectRatio) {
-		AspectRatio = InAspectRatio;
-	};
+	const Matrix& GetView(void);
+	const Matrix& GetPerspective(void);
+	const Matrix& GetOrtho(void);
+	void SetEye(const Vector3& value);
+	void SetUp(const Vector3& value);
+	void SetAt(const Vector3& value);
+	void SetFieldOfView(float value);
+	void SetViewportSize(int width, int height);
+	void SetNear(float value);
+	void SetFar(float value);
+
+public:
+	void Sync(void);
 };

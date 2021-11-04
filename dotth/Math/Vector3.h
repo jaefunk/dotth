@@ -91,4 +91,38 @@ struct Vector3 {
 	{
 		return DirectX::XMFLOAT3(f);
 	}
+
+	static Vector3 Zero(void) {
+		return Vector3(0.f, 0.f, 0.f);
+	}
+	static Vector3 One(void) {
+		return Vector3(1.f, 1.f, 1.f);
+	}
+	static Vector3 Forward(void) {
+		return Vector3(0.f, 0.f, 1.f);
+	}
+	static Vector3 Backward(void) {
+		return Vector3(0.f, 0.f, -1.f);
+	}
+	static Vector3 Up(void) {
+		return Vector3(0.f, 1.f, 0.f);
+	}
+	static Vector3 Down(void) {
+		return Vector3(0.f, -1.f, 0.f);
+	}
+	static Vector3 Left(void) {
+		return Vector3(-1.f, 0.f, 0.f);
+	}
+	static Vector3 Right(void) {
+		return Vector3(1.f, 0.f, 0.f);
+	}
+	static Vector3 AxisX(void) {
+		return Vector3(1.f, 0.f, 0.f);
+	}
+	static Vector3 AxisY(void) {
+		return Vector3(0.f, 1.f, 0.f);
+	}
+	static Vector3 AxisZ(void) {
+		return Vector3(0.f, 0.f, 1.f);
+	}
 };

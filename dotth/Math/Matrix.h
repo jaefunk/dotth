@@ -149,4 +149,8 @@ struct Matrix
 	{
 		return DirectX::XMMATRIX(f);
 	}
+	void operator=(XMMATRIX value)
+	{
+		memcpy(f, value.r, sizeof(float) * 16);
+	}
 };
