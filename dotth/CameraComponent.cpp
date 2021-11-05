@@ -1,14 +1,14 @@
 
 #include "CameraComponent.h"
 
-CameraComponent::CameraComponent(int ViewportWidth, int ViewportHeight)
+CameraComponent::CameraComponent(unsigned int ViewportWidth, unsigned int ViewportHeight)
 {
 	Eye = Vector3(0.f, 500.f, -500.f);
 	Up = Vector3::Up();
 	At = Vector3::Zero();
 	Near = 0.1f;
 	Far = 100000.f;
-	Fov = 3.141592f * 0.5f;
+	Fov = 3.141592f * 0.3f;
 	Width = ViewportWidth;
 	Height = ViewportHeight;
 	DirtyFlags = CAMERA_TRANFSFORM_DIRTY_FLAG::ALL;

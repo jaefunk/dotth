@@ -14,6 +14,8 @@ D3D11RHI::~D3D11RHI()
 
 bool D3D11RHI::Initialize(HWND hwnd, unsigned int width, unsigned int height)
 {
+	D3D11RHI::Instance()->_Width = width;
+	D3D11RHI::Instance()->_Height = height;
 	D3D11RHI::Instance()->_Camera.SetViewportSize(width, height);
 	D3D11RHI::Instance()->_FeatureLevel = D3D_FEATURE_LEVEL_11_1;
 	UINT createDeviceFlags = 0;
@@ -157,6 +159,8 @@ bool D3D11RHI::Initialize(HWND hwnd, unsigned int width, unsigned int height)
 	D3D11RHI::Instance()->_Light = std::make_shared<D3D11Light>();
 	D3D11RHI::Instance()->_Light->Initialize(D3D11RHI::Device(), hwnd);
 
+	D3D11RHI::Instance()->_OrthoMatrix = XMMatrixOrthographicLH(static_cast<float>(D3D11RHI::Instance()->_Width), static_cast<float>(D3D11RHI::Instance()->_Height), 0.f, 1000.f);
+
 	return true;
 }
 
@@ -194,7 +198,7 @@ void D3D11RHI::Draw(void)
 		D3D11RHI::Context(), 6,
 		XMMatrixIdentity(),
 		XMMatrixIdentity(),
-		camera.Ortho(),
+		D3D11RHI::Instance()->_OrthoMatrix,
 		D3D11RHI::DeferredBuffer()->GetShaderResourceView(0),
 		D3D11RHI::DeferredBuffer()->GetShaderResourceView(1),
 		XMFLOAT3(-1.f, -1.f, 1.f));
@@ -297,4 +301,10 @@ ID3D11SamplerState* D3D11RHI::Sampler()
 std::shared_ptr<D3D11DeferredBuffer> D3D11RHI::DeferredBuffer(void)
 {
 	return D3D11RHI::Instance()->_DeferredBuffer;
+}
+
+void D3D11RHI::GetViewportSize(unsigned int& width, unsigned int& height)
+{
+	width = D3D11RHI::Instance()->_Width;
+	height = D3D11RHI::Instance()->_Height;
 }

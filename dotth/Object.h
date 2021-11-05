@@ -19,6 +19,12 @@ public:
 	virtual void OnDraw(void) {}
 
 private:
+	std::shared_ptr<class Camera> ActiveCamera;
+public:
+	void SetActiveCamera(std::shared_ptr<class Camera> camera);
+	std::shared_ptr<class Camera> GetActiveCamera(void);
+
+private:
 	std::list<std::shared_ptr<Component>> Components;
 
 public:

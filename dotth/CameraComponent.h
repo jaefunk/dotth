@@ -18,7 +18,7 @@ enum CAMERA_TRANFSFORM_DIRTY_FLAG {
 class CameraComponent : public Component
 {
 public:
-	CameraComponent(int ViewportWidth, int ViewportHeight);
+	CameraComponent(unsigned int ViewportWidth, unsigned int ViewportHeight);
 
 public:
 	virtual void OnInit(void) override;

@@ -6,13 +6,8 @@ class Scene : public Base
 {
 	friend class Scenario;
 
-private:
-	float DeltaSeconds = 0.f;
 public:
-	float GetDeltaSeconds(void)
-	{
-		return DeltaSeconds;
-	}
+	Scene(void);
 
 public:
 	void Init(void);
@@ -37,14 +32,16 @@ public:
 	void SpawnObject(std::shared_ptr<Object> object);
 	void RemoveObject(std::shared_ptr<Object> object);
 
-public:	// about camera...
-	void SetCameraPosition(const Vector3& value);
-	void SetCameraUp(const Vector3& value);
-	void SetCameraLookAt(const Vector3& value);
-	void SetCameraViewportSize(int width, int height);
-	void SetCameraFrustumFieldOfView(float radian);
-	void SetCameraFrustumNearFieldDistance(float value);
-	void SetCameraFrustumFarFieldDistance(float value);
+
+private:
+	std::shared_ptr<class Camera> ActiveCamera;
+public:
+	std::shared_ptr<class Camera> GetActiveCamera(void);
+
+private:
+	float DeltaSeconds = 0.f;
+public:
+	float GetDeltaSeconds(void);
 
 public:
 	virtual void DrawImGui(void);

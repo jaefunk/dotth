@@ -1,6 +1,7 @@
 #include "StaticMeshComponent.h"
 #include "D3D11StaticMesh.h"
 #include "D3D11Texture2D.h"
+#include "Camera.h"
 
 void StaticMeshComponent::OnInit(void)
 {	
@@ -69,8 +70,8 @@ void StaticMeshComponent::OnDraw(void)
 {
 	XMFLOAT4X4 world, view, proj;
 	XMStoreFloat4x4(&world, GetOwner()->GetTransform().GetWorldMatrix());
-	XMStoreFloat4x4(&view, XMMatrixTranspose(D3D11RHI::Camera()->View()));
-	XMStoreFloat4x4(&proj, XMMatrixTranspose(D3D11RHI::Camera()->Perspective()));
+	XMStoreFloat4x4(&view, XMMatrixTranspose(GetOwner()->GetActiveCamera()->GetView()));
+	XMStoreFloat4x4(&proj, XMMatrixTranspose(GetOwner()->GetActiveCamera()->GetPerspective()));
 	
 	for (unsigned int i = 0; i < _StaticMesh->GetSectionSize(); ++i)
 	{

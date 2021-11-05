@@ -1,5 +1,14 @@
 #include "Scene.h"
 #include "D3D11RHI.h"
+#include "Camera.h"
+
+Scene::Scene(void)
+{
+	unsigned int width, height;
+	D3D11RHI::GetViewportSize(width, height);
+	ActiveCamera = SpawnObject<Camera>(width, height);
+	ActiveCamera->Rename("MainCamera");
+}
 
 void Scene::Init(void)
 {
@@ -22,13 +31,14 @@ void Scene::Update(void)
 	OnUpdate();
 	for (std::shared_ptr<Object> Obj : Objects)
 	{
+		Obj->SetActiveCamera(ActiveCamera);
 		Obj->Update(DeltaSeconds);
 	}
-	D3D11RHI::Camera()->Sync();
 	for (std::shared_ptr<Object> Obj : Objects)
 	{
 		Obj->UpdateTransform();
 	}
+	ActiveCamera->GetCameraComponent()->Sync();
 }
 
 void Scene::Draw(void)
@@ -69,33 +79,14 @@ void Scene::RemoveObject(std::shared_ptr<Object> object)
 	Objects.remove(object);
 }
 
-void Scene::SetCameraPosition(const Vector3& value)
+std::shared_ptr<class Camera> Scene::GetActiveCamera(void)
 {
-	D3D11RHI::Camera()->SetEye(value);
+	return ActiveCamera;
 }
-void Scene::SetCameraUp(const Vector3& value)
+
+float Scene::GetDeltaSeconds(void)
 {
-	D3D11RHI::Camera()->SetUp(value);
-}
-void Scene::SetCameraLookAt(const Vector3& value)
-{
-	D3D11RHI::Camera()->SetAt(value);
-}
-void Scene::SetCameraViewportSize(int width, int height)
-{
-	D3D11RHI::Camera()->SetViewportSize(width, height);
-}
-void Scene::SetCameraFrustumFieldOfView(float radian)
-{
-	D3D11RHI::Camera()->SetFieldOfView(radian);
-}
-void Scene::SetCameraFrustumNearFieldDistance(float value)
-{
-	D3D11RHI::Camera()->SetNear(value);
-}
-void Scene::SetCameraFrustumFarFieldDistance(float value)
-{
-	D3D11RHI::Camera()->SetFar(value);
+	return DeltaSeconds;
 }
 
 void Scene::DrawImGui(void)

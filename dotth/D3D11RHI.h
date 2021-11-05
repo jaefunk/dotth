@@ -28,7 +28,8 @@ private:
 	ID3D11DepthStencilState* _DepthDisableStencilState;
 	D3D_FEATURE_LEVEL _FeatureLevel;
 	D3D11Camera _Camera;
-	
+	XMMATRIX _OrthoMatrix;
+		
 public:
 	static bool Initialize(HWND hwnd, unsigned int width, unsigned int height);
 	static void InitializeImGui(HWND hwnd, unsigned int width, unsigned int height);
@@ -63,5 +64,7 @@ private:
 	std::shared_ptr<D3D11Light> _Light;
 public:
 	static std::shared_ptr<D3D11DeferredBuffer> DeferredBuffer(void);
+
+	static void GetViewportSize(unsigned int& width, unsigned int& height);
 };
 

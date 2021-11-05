@@ -1,5 +1,6 @@
 
 #include "Object.h"
+#include "Camera.h"
 
 void Object::Init(void)
 {
@@ -50,6 +51,16 @@ void Object::Draw(void)
 	});
 }
 
+void Object::SetActiveCamera(std::shared_ptr<class Camera> camera)
+{
+	ActiveCamera = camera;
+}
+
+std::shared_ptr<class Camera> Object::GetActiveCamera(void)
+{
+	return ActiveCamera;
+}
+
 bool Object::AddComponent(std::shared_ptr<Component> component)
 {
 	if (auto Owner = component->GetOwner())
@@ -83,7 +94,7 @@ void Object::UpdateTransform(void)
 
 void Object::DrawImGuiHierarchy(void)
 {
-	if (ImGui::TreeNode(std::to_string(GetSerial()).c_str(), "%d, %s", GetSerial(), GetName().c_str()))
+	if (ImGui::TreeNode(std::to_string(GetSerial()).c_str(), "%s", GetName().c_str()))
 	{
 		Foreach<Object>(
 			[](std::shared_ptr<Object> child) {

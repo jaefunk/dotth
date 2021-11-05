@@ -25,6 +25,7 @@
     <ClCompile Include="AssetBase.cpp" />
     <ClCompile Include="Base.cpp" />
     <ClCompile Include="CameraComponent.cpp" />
+    <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Component.cpp" />
     <ClCompile Include="D3D11DeferredBuffer.cpp" />
     <ClCompile Include="D3D11Light.cpp" />
@@ -63,6 +64,7 @@
     <ClInclude Include="AssetBase.h" />
     <ClInclude Include="Base.h" />
     <ClInclude Include="CameraComponent.h" />
+    <ClInclude Include="Camera.h" />
     <ClInclude Include="Component.h" />
     <ClInclude Include="D3D11.h" />
     <ClInclude Include="D3D11DeferredBuffer.h" />
