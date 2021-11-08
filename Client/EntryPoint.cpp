@@ -5,17 +5,8 @@
 
 void EntryPoint::OnInit(void)
 {
-	//SetCameraPosition(Vector3(000.f, 500.f, -500.f));
-	//SetCameraLookAt(Vector3(0.f, 0.f, 0.f));
-	//SetCameraUp(Vector3(0.f, 1.f, 0.f));
-	//SetCameraFrustumFieldOfView(3.141592f * 0.3f);
-	//SetCameraFrustumNearFieldDistance(0.1f);
-	//SetCameraFrustumFarFieldDistance(100000.f);
-
-	
-
 	{
-		auto so2 = std::make_shared<SampleObject>();
+		auto so2 = std::make_shared<Object>();
 		so2->Rename("so2");
 		auto smc2 = so2->AddComponent<StaticMeshComponent>();
 		smc2->Load2();
@@ -23,7 +14,7 @@ void EntryPoint::OnInit(void)
 		SpawnObject(so2);
 	}
 	
-	auto so1 = std::make_shared<SampleObject>();
+	auto so1 = std::make_shared<Object>();
 	so1->Rename("so1");
 	auto smc1 = so1->AddComponent<StaticMeshComponent>();
 	smc1->Load1();

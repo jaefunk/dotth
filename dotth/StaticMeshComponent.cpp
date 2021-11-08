@@ -69,7 +69,7 @@ void StaticMeshComponent::OnUpdate(void)
 void StaticMeshComponent::OnDraw(void)
 {
 	XMFLOAT4X4 world, view, proj;
-	XMStoreFloat4x4(&world, GetOwner()->GetTransform().GetWorldMatrix());
+	XMStoreFloat4x4(&world, GetOwner()->GetWorldMatrix());
 	XMStoreFloat4x4(&view, XMMatrixTranspose(GetOwner()->GetActiveCamera()->GetView()));
 	XMStoreFloat4x4(&proj, XMMatrixTranspose(GetOwner()->GetActiveCamera()->GetPerspective()));
 	

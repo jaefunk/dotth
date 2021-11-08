@@ -22,4 +22,30 @@ private:
 	//	o1->AddComponent(Value);
 	//	return Value;
 	//}
+	Vector4 v4f;
+	void test0(Vector4 v)
+	{
+		v4f.x += v.x;
+		v4f.y += v.y;
+		v4f.z += v.z;
+		v4f.w += v.w;
+	}
+
+	void test1(const Vector4& v)
+	{
+		v4f.x += v.x;
+		v4f.y += v.y;
+		v4f.z += v.z;
+		v4f.w += v.w;
+	}
+
+	float f;
+	void test2(float _)
+	{
+		f += _;
+	}
+	void test3(const float& _)
+	{
+		f += _;
+	}
 };

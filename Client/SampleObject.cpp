@@ -19,5 +19,5 @@ void SampleObject::OnUpdate(void)
 }
 
 void SampleObject::OnDraw(void)
-{
+{	
 }

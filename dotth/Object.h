@@ -50,6 +50,7 @@ private:
 public:
 	void UpdateTransform(void);
 	const Transform& GetTransform(void) { return _Transform; }
+	const Matrix& GetWorldMatrix(void) { return _Transform.WorldMatrix; }
 
 public:
 	void SetScale(const Vector3& value) { _Transform.SetScale(value); }
