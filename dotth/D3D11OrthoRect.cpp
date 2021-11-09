@@ -1,9 +1,5 @@
 ﻿#include "D3D11OrthoRect.h"
 
-
-
-
-
 bool D3D11OrthoRect::Initialize(ID3D11Device* device, int windowWidth, int windowHeight)
 {
 	float left = (float)((windowWidth / 2) * -1);

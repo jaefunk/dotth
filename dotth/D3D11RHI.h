@@ -25,9 +25,7 @@ private:
 	ID3D11SamplerState* _SamplerState;
 	ID3D11DepthStencilView* _DepthStencilView;	
 	ID3D11DepthStencilState* _DepthStencilState;
-	ID3D11DepthStencilState* _DepthDisableStencilState;
 	D3D_FEATURE_LEVEL _FeatureLevel;
-	D3D11Camera _Camera;
 	XMMATRIX _OrthoMatrix;
 		
 public:
@@ -49,8 +47,9 @@ public:
 	static IDXGISwapChain* SwapChain();
 	static ID3D11RenderTargetView* BackBuffer();
 	static ID3D11DepthStencilView* DepthStencilView();
-	static D3D11Camera* Camera();
 	static ID3D11SamplerState* Sampler();
+	static ID3D11DepthStencilState* DepthStencilState();
+	//static ID3D11RasterizerState Raster
 	//static ID3D11Buffer* CreateBuffer(const D3D11_BUFFER_DESC* desc, const D3D11_SUBRESOURCE_DATA* data);
 	//static ID3D11VertexShader* CreateVertexShader(ID3DBlob* blob);
 	//static ID3D11PixelShader* CreatePixelShader(ID3DBlob* blob);

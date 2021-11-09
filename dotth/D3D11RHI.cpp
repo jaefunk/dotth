@@ -16,7 +16,6 @@ bool D3D11RHI::Initialize(HWND hwnd, unsigned int width, unsigned int height)
 {
 	D3D11RHI::Instance()->_Width = width;
 	D3D11RHI::Instance()->_Height = height;
-	D3D11RHI::Instance()->_Camera.SetViewportSize(width, height);
 	D3D11RHI::Instance()->_FeatureLevel = D3D_FEATURE_LEVEL_11_1;
 	UINT createDeviceFlags = 0;
 #if defined(DEBUG) || defined(_DEBUG)
@@ -97,8 +96,6 @@ bool D3D11RHI::Initialize(HWND hwnd, unsigned int width, unsigned int height)
 	depthStencilDesc.BackFace.StencilPassOp = D3D11_STENCIL_OP_KEEP;
 	depthStencilDesc.BackFace.StencilFunc = D3D11_COMPARISON_ALWAYS;
 	D3D11RHI::Device()->CreateDepthStencilState(&depthStencilDesc, &D3D11RHI::Instance()->_DepthStencilState);
-	depthStencilDesc.DepthEnable = false;
-	D3D11RHI::Device()->CreateDepthStencilState(&depthStencilDesc, &D3D11RHI::Instance()->_DepthDisableStencilState);
 	D3D11RHI::Context()->OMSetDepthStencilState(D3D11RHI::Instance()->_DepthStencilState, 1);
 
 	D3D11_DEPTH_STENCIL_VIEW_DESC dsvd;
@@ -184,16 +181,13 @@ void D3D11RHI::StandbyDeferred(void)
 void D3D11RHI::Draw(void)
 {
 	float clear_color_with_alpha[4] = { 0.f, 0.f, 0.f, 0.f };
-	D3D11RHI::Context()->OMSetRenderTargets(1, &D3D11RHI::Instance()->_BackBufferRTV, D3D11RHI::DepthStencilView());
+	D3D11RHI::Context()->OMSetRenderTargets(1, &D3D11RHI::Instance()->_BackBufferRTV, D3D11RHI::DepthStencilView());	
 	D3D11RHI::Context()->ClearRenderTargetView(D3D11RHI::BackBuffer(), clear_color_with_alpha);
 	D3D11RHI::Context()->ClearDepthStencilView(D3D11RHI::DepthStencilView(), D3D11_CLEAR_DEPTH, 1.0f, 0);
-
-	D3D11RHI::Context()->RSSetState(D3D11RHI::Instance()->_RasterizerStateSolid);
-	D3D11RHI::Context()->OMSetDepthStencilState(D3D11RHI::Instance()->_DepthStencilState, 0);
+	D3D11RHI::Context()->OMSetDepthStencilState(D3D11RHI::DepthStencilState(), 0);
 
 	D3D11RHI::Instance()->_OrthoRect->Render(D3D11RHI::Context());
 
-	auto camera = D3D11RHI::Instance()->_Camera;
 	D3D11RHI::Instance()->_Light->Render(
 		D3D11RHI::Context(), 6,
 		XMMatrixIdentity(),
@@ -248,14 +242,14 @@ ID3D11DepthStencilView* D3D11RHI::DepthStencilView()
 	return D3D11RHI::Instance()->_DepthStencilView;
 }
 
-D3D11Camera* D3D11RHI::Camera()
-{
-	return &D3D11RHI::Instance()->_Camera;
-}
-
 ID3D11SamplerState* D3D11RHI::Sampler()
 {
 	return D3D11RHI::Instance()->_SamplerState;
+}
+
+ID3D11DepthStencilState* D3D11RHI::DepthStencilState()
+{
+	return D3D11RHI::Instance()->_DepthStencilState;
 }
 
 //

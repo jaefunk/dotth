@@ -5,9 +5,6 @@
 
 class SampleObject : public Object
 {
-public:
-	SampleObject(void);
-
 protected:
 	virtual void OnInit(void) override;
 	virtual void OnDestroy(void) override;

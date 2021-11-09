@@ -1000,12 +1000,12 @@ bool D3D11Shader::Load(const char * file_name)
 
 void D3D11Shader::Draw(const Matrix& matrix, unsigned int size)
 {
-	auto wv = XMMatrixMultiply(XMMatrixTranspose(D3D11RHI::Camera()->View()), matrix);
-	auto result = XMMatrixMultiply(XMMatrixTranspose(D3D11RHI::Camera()->Perspective()), wv);
-	D3D11RHI::Context()->UpdateSubresource(_ConstantBuffer, 0, nullptr, &result, 0, 0);
-	D3D11RHI::Context()->VSSetConstantBuffers(0, 1, &_ConstantBuffer);
-	D3D11RHI::Context()->IASetInputLayout(_InputLayout);
-	D3D11RHI::Context()->VSSetShader(_VertexShader, nullptr, 0);
-	D3D11RHI::Context()->PSSetShader(_PixelShader, nullptr, 0);
-	D3D11RHI::Context()->DrawIndexed(size, 0, 0);
+	//auto wv = XMMatrixMultiply(XMMatrixTranspose(D3D11RHI::Camera()->View()), matrix);
+	//auto result = XMMatrixMultiply(XMMatrixTranspose(D3D11RHI::Camera()->Perspective()), wv);
+	//D3D11RHI::Context()->UpdateSubresource(_ConstantBuffer, 0, nullptr, &result, 0, 0);
+	//D3D11RHI::Context()->VSSetConstantBuffers(0, 1, &_ConstantBuffer);
+	//D3D11RHI::Context()->IASetInputLayout(_InputLayout);
+	//D3D11RHI::Context()->VSSetShader(_VertexShader, nullptr, 0);
+	//D3D11RHI::Context()->PSSetShader(_PixelShader, nullptr, 0);
+	//D3D11RHI::Context()->DrawIndexed(size, 0, 0);
 }

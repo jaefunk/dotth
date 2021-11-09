@@ -1,10 +1,5 @@
 #include "SampleObject.h"
-
 #include "StaticMeshComponent.h"
-
-SampleObject::SampleObject(void)
-{
-}
 
 void SampleObject::OnInit(void)
 {
