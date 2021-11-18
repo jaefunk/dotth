@@ -49,12 +49,6 @@
     <ClCompile Include="Texture2D.cpp">
       <Filter>Framework</Filter>
     </ClCompile>
-    <ClCompile Include="Asset2D.cpp">
-      <Filter>Framework</Filter>
-    </ClCompile>
-    <ClCompile Include="Asset3D.cpp">
-      <Filter>Framework</Filter>
-    </ClCompile>
     <ClCompile Include="ResourceManager.cpp" />
     <ClCompile Include="AssetBase.cpp" />
     <ClCompile Include="D3D11DeferredBuffer.cpp" />
@@ -256,12 +250,6 @@
     <ClInclude Include="External\libpng\include\pngpriv.h" />
     <ClInclude Include="External\libpng\include\pngstruct.h" />
     <ClInclude Include="Texture2D.h">
-      <Filter>Framework</Filter>
-    </ClInclude>
-    <ClInclude Include="Asset2D.h">
-      <Filter>Framework</Filter>
-    </ClInclude>
-    <ClInclude Include="Asset3D.h">
       <Filter>Framework</Filter>
     </ClInclude>
     <ClInclude Include="ResourceManager.h" />

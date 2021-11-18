@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Asset2d.h"
+#include "AssetBase.h"
 
 class Texture2D : public Texture
 {

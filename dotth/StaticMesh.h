@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Asset3d.h"
+#include "AssetBase.h"
 
 class StaticMesh : public Mesh
 {

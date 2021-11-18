@@ -8,12 +8,12 @@
 class StaticMeshComponent : public MeshComponent
 {
 public:
-	std::shared_ptr<StaticMesh> _StaticMesh;
-	std::shared_ptr<Texture2D> _Texture2D;
-	std::shared_ptr<Shader> _Shader;
+	std::shared_ptr<StaticMesh> staticMesh;
+	std::shared_ptr<Texture2D> texture2D;
+	std::shared_ptr<Shader> shader;
 
-	std::shared_ptr<SimpleVertexShader> _DeferredVertexShader;
-	std::shared_ptr<SimplePixelShader> _DeferredPixelShader;
+	std::shared_ptr<SimpleVertexShader> deferredVertexShader;
+	std::shared_ptr<SimplePixelShader> deferredPixelShader;
 
 public:
 	void Load1(void);

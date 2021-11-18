@@ -20,8 +20,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Application.cpp" />
-    <ClCompile Include="Asset2D.cpp" />
-    <ClCompile Include="Asset3D.cpp" />
     <ClCompile Include="AssetBase.cpp" />
     <ClCompile Include="Base.cpp" />
     <ClCompile Include="CameraComponent.cpp" />
@@ -57,8 +55,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.h" />
-    <ClInclude Include="Asset2D.h" />
-    <ClInclude Include="Asset3D.h" />
     <ClInclude Include="AssetBase.h" />
     <ClInclude Include="Base.h" />
     <ClInclude Include="CameraComponent.h" />
