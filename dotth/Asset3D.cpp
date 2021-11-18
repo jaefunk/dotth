@@ -3,92 +3,76 @@
 #include "assimp/scene.h"
 #include "assimp/postprocess.h"
 
-
-unsigned int Section::GetVerticeByteWidth(void) const
+std::unique_ptr<Mesh> FBXLoader::Load(const std::string& filePath)
 {
-	return static_cast<unsigned int>(sizeof(decltype(vertices)::value_type) * vertices.size());
-}
-unsigned int Section::GetIndiceByteWidth(void) const
-{
-	return static_cast<unsigned int>(sizeof(decltype(indices)::value_type) * indices.size());
-}
-
-bool ModelBase::Load(const std::string& path)
-{
-	std::filesystem::path fs(path);
-	std::string extension = fs.extension().u8string();
-	if (extension == ".fbx" || extension == ".FBX")
-		return LoadWithAssimp(path);
-	return false;
-}
-
-bool ModelBase::LoadWithAssimp(const std::string& path)
-{
+	std::unique_ptr<Mesh> mesh = std::make_unique<Mesh>();
 	Assimp::Importer importer;
-	auto scene = importer.ReadFile(path, aiProcess_ConvertToLeftHanded | aiProcess_Triangulate | aiProcess_OptimizeMeshes);
+	unsigned int flags = aiProcess_ConvertToLeftHanded | aiProcess_Triangulate | aiProcess_OptimizeMeshes;
+	auto scene = importer.ReadFile(filePath, flags);
 	if (scene == nullptr)
-		return false;
-
-	sections.resize(scene->mNumMeshes);
+		return mesh;
+	mesh->primitiveNodes.resize(scene->mNumMeshes);
 	for (unsigned int index = 0; index < scene->mNumMeshes; ++index)
 	{
-		auto mesh = scene->mMeshes[index];
-		sections[index].vertices.resize(mesh->mNumVertices);
-		for (unsigned int i = 0; i < mesh->mNumVertices; ++i)
+		auto sceneMesh = scene->mMeshes[index];
+		PrimitiveNode& node = mesh->primitiveNodes[index];
+		node.vertices.resize(sceneMesh->mNumVertices);
+		for (unsigned int i = 0; i < sceneMesh->mNumVertices; ++i)
 		{
-			if (mesh->HasPositions())
+			if (sceneMesh->HasPositions())
 			{
-				sections[index].vertices[i].position.x = mesh->mVertices[i].x;
-				sections[index].vertices[i].position.y = -mesh->mVertices[i].z;
-				sections[index].vertices[i].position.z = mesh->mVertices[i].y;
+				node.vertices[i].position.x = sceneMesh->mVertices[i].x;
+				node.vertices[i].position.y = -sceneMesh->mVertices[i].z;
+				node.vertices[i].position.z = sceneMesh->mVertices[i].y;
 			}
 
-			if (mesh->HasNormals())
+			if (sceneMesh->HasNormals())
 			{
-				sections[index].vertices[i].normal.x = mesh->mNormals[i].x;
-				sections[index].vertices[i].normal.y = -mesh->mNormals[i].z;
-				sections[index].vertices[i].normal.z = mesh->mNormals[i].y;
+				node.vertices[i].normal.x = sceneMesh->mNormals[i].x;
+				node.vertices[i].normal.y = -sceneMesh->mNormals[i].z;
+				node.vertices[i].normal.z = sceneMesh->mNormals[i].y;
 			}
 
-			if (mesh->HasTangentsAndBitangents())
+			if (sceneMesh->HasTangentsAndBitangents())
 			{
-				sections[index].vertices[i].tangent.x = mesh->mTangents[i].x;
-				sections[index].vertices[i].tangent.y = mesh->mTangents[i].y;
-				sections[index].vertices[i].tangent.z = mesh->mTangents[i].z;
+				node.vertices[i].tangent.x = sceneMesh->mTangents[i].x;
+				node.vertices[i].tangent.y = sceneMesh->mTangents[i].y;
+				node.vertices[i].tangent.z = sceneMesh->mTangents[i].z;
 			}
 
-			if (mesh->HasTangentsAndBitangents())
+			if (sceneMesh->HasTangentsAndBitangents())
 			{
-				sections[index].vertices[i].bitangent.x = mesh->mBitangents[i].x;
-				sections[index].vertices[i].bitangent.y = mesh->mBitangents[i].y;
-				sections[index].vertices[i].bitangent.z = mesh->mBitangents[i].z;
+				node.vertices[i].bitangent.x = sceneMesh->mBitangents[i].x;
+				node.vertices[i].bitangent.y = sceneMesh->mBitangents[i].y;
+				node.vertices[i].bitangent.z = sceneMesh->mBitangents[i].z;
 			}
 
-			if (mesh->HasTextureCoords(0))
+			if (sceneMesh->HasTextureCoords(0))
 			{
-				sections[index].vertices[i].textureCoord.x = mesh->mTextureCoords[0][i].x;
-				sections[index].vertices[i].textureCoord.y = mesh->mTextureCoords[0][i].y;
+				node.vertices[i].textureCoord.x = sceneMesh->mTextureCoords[0][i].x;
+				node.vertices[i].textureCoord.y = sceneMesh->mTextureCoords[0][i].y;
 			}
 
-			if (mesh->HasVertexColors(0))
+			if (sceneMesh->HasVertexColors(0))
 			{
-				//sections[index].vertices[i].color.r = mesh->mColors[0][i].r;
-				//sections[index].vertices[i].color.g = mesh->mColors[0][i].g;
-				//sections[index].vertices[i].color.b = mesh->mColors[0][i].b;
-				//sections[index].vertices[i].color.a = mesh->mColors[0][i].a;
+				node.vertices[i].color.x = sceneMesh->mColors[0][i].r;
+				node.vertices[i].color.y = sceneMesh->mColors[0][i].g;
+				node.vertices[i].color.z = sceneMesh->mColors[0][i].b;
+				node.vertices[i].color.w = sceneMesh->mColors[0][i].a;
 			}
 		}
 
-		if (mesh->HasFaces())
-			sections[index].indices.resize(mesh->mNumFaces * 3);
-		for (unsigned int i = 0; i < mesh->mNumFaces; ++i)
+		if (sceneMesh->HasFaces())
 		{
-			unsigned int current = i * 3;
-			sections[index].indices[current + 0] = mesh->mFaces[i].mIndices[0];
-			sections[index].indices[current + 1] = mesh->mFaces[i].mIndices[1];
-			sections[index].indices[current + 2] = mesh->mFaces[i].mIndices[2];
+			node.indices.resize(static_cast<size_t>(sceneMesh->mNumFaces) * 3);
+			for (unsigned int i = 0; i < sceneMesh->mNumFaces; ++i)
+			{
+				unsigned int current = i * 3;
+				node.indices[current++] = sceneMesh->mFaces[i].mIndices[0];
+				node.indices[current++] = sceneMesh->mFaces[i].mIndices[1];
+				node.indices[current] = sceneMesh->mFaces[i].mIndices[2];
+			}
 		}
 	}
-
-	return true;
+	return mesh;
 }

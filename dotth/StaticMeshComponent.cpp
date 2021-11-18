@@ -1,6 +1,4 @@
 #include "StaticMeshComponent.h"
-#include "D3D11StaticMesh.h"
-#include "D3D11Texture2D.h"
 #include "Camera.h"
 
 void StaticMeshComponent::OnInit(void)
@@ -10,10 +8,10 @@ void StaticMeshComponent::OnInit(void)
 
 void StaticMeshComponent::Load1(void)
 {
-	_StaticMesh = std::make_shared<D3D11StaticMesh>();
+	_StaticMesh = std::make_shared<StaticMesh>();
 	_StaticMesh->Load("Sphere");
 
-	_Texture2D = std::make_shared<D3D11Texture2D>();
+	_Texture2D = std::make_shared<Texture2D>();
 	_Texture2D->Load("uv_checker");
 
 	//_Shader = std::make_shared<D3D11Shader>();
@@ -28,10 +26,10 @@ void StaticMeshComponent::Load1(void)
 
 void StaticMeshComponent::Load2(void)
 {
-	_StaticMesh = std::make_shared<D3D11StaticMesh>();
+	_StaticMesh = std::make_shared<StaticMesh>();
 	_StaticMesh->Load("Plane");
 
-	_Texture2D = std::make_shared<D3D11Texture2D>();
+	_Texture2D = std::make_shared<Texture2D>();
 	_Texture2D->Load("uv_checker");
 
 	//_Shader = std::make_shared<D3D11Shader>();
@@ -46,10 +44,10 @@ void StaticMeshComponent::Load2(void)
 
 void StaticMeshComponent::Load3(void)
 {
-	_StaticMesh = std::make_shared<D3D11StaticMesh>();
+	_StaticMesh = std::make_shared<StaticMesh>();
 	_StaticMesh->Load("Plane");
 
-	_Texture2D = std::make_shared<D3D11Texture2D>();
+	_Texture2D = std::make_shared<Texture2D>();
 	_Texture2D->Load("uv_checker");
 
 	//_Shader = std::make_shared<D3D11Shader>();

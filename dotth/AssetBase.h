@@ -7,8 +7,8 @@ enum class EXTENSION_TYPE {
 	FBX,
 };
 
-struct AssetBase
+class Resource 
 {
 public:
-	virtual bool Load(const std::string& path) = 0;
+	virtual std::shared_ptr<Resource> Clone(void) = 0;
 };

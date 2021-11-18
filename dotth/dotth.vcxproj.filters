@@ -43,12 +43,6 @@
     <ClCompile Include="D3D11Shader.cpp">
       <Filter>D3D11</Filter>
     </ClCompile>
-    <ClCompile Include="D3D11StaticMesh.cpp">
-      <Filter>D3D11</Filter>
-    </ClCompile>
-    <ClCompile Include="D3D11Texture2D.cpp">
-      <Filter>D3D11</Filter>
-    </ClCompile>
     <ClCompile Include="StaticMesh.cpp">
       <Filter>Framework</Filter>
     </ClCompile>
@@ -156,12 +150,6 @@
       <Filter>Framework</Filter>
     </ClInclude>
     <ClInclude Include="D3D11Shader.h">
-      <Filter>D3D11</Filter>
-    </ClInclude>
-    <ClInclude Include="D3D11StaticMesh.h">
-      <Filter>D3D11</Filter>
-    </ClInclude>
-    <ClInclude Include="D3D11Texture2D.h">
       <Filter>D3D11</Filter>
     </ClInclude>
     <ClInclude Include="External\assimp\Compiler\poppack1.h" />

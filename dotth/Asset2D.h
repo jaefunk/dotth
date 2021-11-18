@@ -23,8 +23,19 @@ struct R8G8B8A8 {
 	}
 };
 
-class TextureBase : public AssetBase 
+class Texture : public Resource
 {
+public:
+	virtual std::shared_ptr<Resource> Clone(void) override
+	{
+		auto p = std::make_shared<Texture>();
+		p->ComponentCount = this->ComponentCount;
+		p->Width = this->Width;
+		p->Height = this->Height;
+		p->Texels = this->Texels;
+		return p;
+	}
+
 public:
 	unsigned int ComponentCount;
 	unsigned int Width;
@@ -32,12 +43,18 @@ public:
 	std::vector<R8G8B8A8> Texels;
 
 public:
-	virtual bool Load(const std::string& path) override;	
+	void* GetSysMem(void)
+	{
+		return static_cast<void*>(Texels.data());
+	}
+	unsigned int GetSysMemPitch(void)
+	{
+		return Width * static_cast<unsigned int>(sizeof(R8G8B8A8));
+	}
+};
 
+class JPEGLoader
+{
 public:
-	void* GetSysMem(void);
-	unsigned int GetSysMemPitch(void);
-
-private:
-	bool LoadJpeg(const std::string& path);
+	static std::unique_ptr<Texture> Load(const std::string& filePath);
 };
