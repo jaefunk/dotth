@@ -40,6 +40,7 @@
     <ClCompile Include="External\imgui\imgui_draw.cpp" />
     <ClCompile Include="External\imgui\imgui_tables.cpp" />
     <ClCompile Include="External\imgui\imgui_widgets.cpp" />
+    <ClCompile Include="Material.cpp" />
     <ClCompile Include="MeshComponent.cpp" />
     <ClCompile Include="Object.cpp" />
     <ClCompile Include="ObjectBase.cpp" />
@@ -180,6 +181,7 @@
     <ClInclude Include="External\zlib\zlib_include\zconf.h" />
     <ClInclude Include="External\zlib\zlib_include\zlib.h" />
     <ClInclude Include="External\zlib\zlib_include\zutil.h" />
+    <ClInclude Include="Material.h" />
     <ClInclude Include="Math\Math.h" />
     <ClInclude Include="Math\MathUtility.h" />
     <ClInclude Include="Math\Matrix.h" />

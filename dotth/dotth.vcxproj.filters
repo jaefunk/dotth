@@ -66,6 +66,7 @@
     <ClCompile Include="TransformComponent.cpp" />
     <ClCompile Include="ObjectBase.cpp" />
     <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="Material.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.h">
@@ -270,6 +271,7 @@
     <ClInclude Include="TransformComponent.h" />
     <ClInclude Include="ObjectBase.h" />
     <ClInclude Include="Camera.h" />
+    <ClInclude Include="Material.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Framework">

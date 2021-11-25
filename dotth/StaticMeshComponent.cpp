@@ -6,6 +6,17 @@ void StaticMeshComponent::OnInit(void)
 	
 }
 
+bool StaticMeshComponent::SetStaticMesh(std::shared_ptr<StaticMesh> NewMesh)
+{
+	if (NewMesh == staticMesh)
+	{
+		return false;
+	}
+
+	staticMesh = NewMesh;
+	return true;
+}
+
 void StaticMeshComponent::Load1(void)
 {
 	staticMesh = std::make_shared<StaticMesh>();
@@ -14,13 +25,10 @@ void StaticMeshComponent::Load1(void)
 	texture2D = std::make_shared<Texture2D>();
 	texture2D->Load("uv_checker");
 
-	//_Shader = std::make_shared<D3D11Shader>();
-	//_Shader->Load("Resource/Primitive2.hlsl");
-
-	deferredVertexShader = std::make_shared<SimpleVertexShader>(D3D11RHI::Device(), D3D11RHI::Context());
+	deferredVertexShader = std::make_shared<VertexShader>(D3D11RHI::Device(), D3D11RHI::Context());
 	deferredVertexShader->LoadShaderFile(L"../Output/Client/x64/Debug/deferred_vs.cso");
 
-	deferredPixelShader = std::make_shared<SimplePixelShader>(D3D11RHI::Device(), D3D11RHI::Context());
+	deferredPixelShader = std::make_shared<PixelShader>(D3D11RHI::Device(), D3D11RHI::Context());
 	deferredPixelShader->LoadShaderFile(L"../Output/Client/x64/Debug/deferred_ps.cso");
 }
 
@@ -35,10 +43,10 @@ void StaticMeshComponent::Load2(void)
 	//_Shader = std::make_shared<D3D11Shader>();
 	//_Shader->Load("Resource/Primitive2.hlsl");
 
-	deferredVertexShader = std::make_shared<SimpleVertexShader>(D3D11RHI::Device(), D3D11RHI::Context());
+	deferredVertexShader = std::make_shared<VertexShader>(D3D11RHI::Device(), D3D11RHI::Context());
 	deferredVertexShader->LoadShaderFile(L"../Output/Client/x64/Debug/deferred_vs.cso");
 
-	deferredPixelShader = std::make_shared<SimplePixelShader>(D3D11RHI::Device(), D3D11RHI::Context());
+	deferredPixelShader = std::make_shared<PixelShader>(D3D11RHI::Device(), D3D11RHI::Context());
 	deferredPixelShader->LoadShaderFile(L"../Output/Client/x64/Debug/deferred_ps.cso");
 }
 
@@ -50,13 +58,10 @@ void StaticMeshComponent::Load3(void)
 	texture2D = std::make_shared<Texture2D>();
 	texture2D->Load("uv_checker");
 
-	//_Shader = std::make_shared<D3D11Shader>();
-	//_Shader->Load("Resource/Primitive2.hlsl");
-
-	deferredVertexShader = std::make_shared<SimpleVertexShader>(D3D11RHI::Device(), D3D11RHI::Context());
+	deferredVertexShader = std::make_shared<VertexShader>(D3D11RHI::Device(), D3D11RHI::Context());
 	deferredVertexShader->LoadShaderFile(L"../Output/Client/x64/Debug/deferred_vs.cso");
 
-	deferredPixelShader = std::make_shared<SimplePixelShader>(D3D11RHI::Device(), D3D11RHI::Context());
+	deferredPixelShader = std::make_shared<PixelShader>(D3D11RHI::Device(), D3D11RHI::Context());
 	deferredPixelShader->LoadShaderFile(L"../Output/Client/x64/Debug/deferred_ps.cso");
 }
 

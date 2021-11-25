@@ -1,72 +1,52 @@
 #pragma once
 
-
-#include "Shader.h"
 #include "D3D11RHI.h"
 
-// --------------------------------------------------------
-// Used by simple shaders to store information about
-// specific variables in constant buffers
-// --------------------------------------------------------
-struct SimpleShaderVariable
+struct ShaderVariable
 {
 	unsigned int ByteOffset;
 	unsigned int Size;
 	unsigned int ConstantBufferIndex;
 };
 
-// --------------------------------------------------------
-// Contains information about a specific
-// constant buffer in a shader, as well as
-// the local data buffer for it
-// --------------------------------------------------------
-struct SimpleConstantBuffer
+struct ConstantBuffer
 {
 	std::string Name;
 	unsigned int Size;
 	unsigned int BindIndex;
 	ID3D11Buffer* ConstantBuffer;
 	unsigned char* LocalDataBuffer;
-	std::vector<SimpleShaderVariable> Variables;
+	std::vector<ShaderVariable> Variables;
 };
 
-// --------------------------------------------------------
-// Contains info about a single SRV in a shader
-// --------------------------------------------------------
-struct SimpleSRV
+struct ShaderResourceView
 {
-	unsigned int Index;		// The raw index of the SRV
-	unsigned int BindIndex; // The register of the SRV
+	unsigned int Index;		
+	unsigned int BindIndex;
 };
 
-// --------------------------------------------------------
-// Contains info about a single Sampler in a shader
-// --------------------------------------------------------
-struct SimpleSampler
+struct Sampler
 {
-	unsigned int Index;		// The raw index of the Sampler
-	unsigned int BindIndex; // The register of the Sampler
+	unsigned int Index;		
+	unsigned int BindIndex; 
 };
 
-// --------------------------------------------------------
-// Base abstract class for simplifying shader handling
-// --------------------------------------------------------
-class ISimpleShader
+class IShader
 {
 public:
-	ISimpleShader(ID3D11Device* device, ID3D11DeviceContext* context);
-	virtual ~ISimpleShader();
+	IShader(ID3D11Device* device, ID3D11DeviceContext* context);
+	virtual ~IShader(void);
 
 	// Initialization method (since we can't invoke derived class
 	// overrides in the base class constructor)
 	bool LoadShaderFile(LPCWSTR shaderFile);
 
 	// Simple helpers
-	bool IsShaderValid() { return shaderValid; }
+	bool IsShaderValid(void) { return shaderValid; }
 
 	// Activating the shader and copying data
-	void SetShader();
-	void CopyAllBufferData();
+	void SetShader(void);
+	void CopyAllBufferData(void);
 	void CopyBufferData(unsigned int index);
 	void CopyBufferData(std::string bufferName);
 
@@ -89,21 +69,21 @@ public:
 	virtual bool SetSamplerState(std::string name, ID3D11SamplerState* samplerState) = 0;
 
 	// Getting data about variables and resources
-	const SimpleShaderVariable* GetVariableInfo(std::string name);
+	const ShaderVariable* GetVariableInfo(std::string name);
 
-	const SimpleSRV* GetShaderResourceViewInfo(std::string name);
-	const SimpleSRV* GetShaderResourceViewInfo(unsigned int index);
-	unsigned int GetShaderResourceViewCount() { return static_cast<unsigned int>(textureTable.size()); }
+	const ShaderResourceView* GetShaderResourceViewInfo(std::string name);
+	const ShaderResourceView* GetShaderResourceViewInfo(unsigned int index);
+	unsigned int GetShaderResourceViewCount(void) { return static_cast<unsigned int>(textureTable.size()); }
 
-	const SimpleSampler* GetSamplerInfo(std::string name);
-	const SimpleSampler* GetSamplerInfo(unsigned int index);
-	unsigned int GetSamplerCount() { return static_cast<unsigned int>(samplerTable.size()); }
+	const Sampler* GetSamplerInfo(std::string name);
+	const Sampler* GetSamplerInfo(unsigned int index);
+	unsigned int GetSamplerCount(void) { return static_cast<unsigned int>(samplerTable.size()); }
 
 	// Get data about constant buffers
-	unsigned int GetBufferCount();
+	unsigned int GetBufferCount(void);
 	unsigned int GetBufferSize(unsigned int index);
-	const SimpleConstantBuffer* GetBufferInfo(std::string name);
-	const SimpleConstantBuffer* GetBufferInfo(unsigned int index);
+	const ConstantBuffer* GetBufferInfo(std::string name);
+	const ConstantBuffer* GetBufferInfo(unsigned int index);
 
 	// Misc getters
 	ID3DBlob* GetShaderBlob() { return shaderBlob; }
@@ -118,38 +98,32 @@ protected:
 	// Resource counts
 	unsigned int constantBufferCount;
 
-	// Maps for variables and buffers
-	SimpleConstantBuffer* constantBuffers; // For index-based lookup
-	std::vector<SimpleSRV*>		shaderResourceViews;
-	std::vector<SimpleSampler*>	samplerStates;
-	std::unordered_map<std::string, SimpleConstantBuffer*> cbTable;
-	std::unordered_map<std::string, SimpleShaderVariable> varTable;
-	std::unordered_map<std::string, SimpleSRV*> textureTable;
-	std::unordered_map<std::string, SimpleSampler*> samplerTable;
+	ConstantBuffer* constantBuffers;
+	std::vector<ShaderResourceView*> shaderResourceViews;
+	std::vector<Sampler*> samplerStates;
+	std::unordered_map<std::string, ConstantBuffer*> cbTable;
+	std::unordered_map<std::string, ShaderVariable> varTable;
+	std::unordered_map<std::string, ShaderResourceView*> textureTable;
+	std::unordered_map<std::string, Sampler*> samplerTable;
 
-	// Pure virtual functions for dealing with shader types
 	virtual bool CreateShader(ID3DBlob* shaderBlob) = 0;
-	virtual void SetShaderAndCBs() = 0;
+	virtual void SetShaderAndConstantsBuffers() = 0;
 
-	virtual void CleanUp();
+	virtual void CleanUp(void);
 
-	// Helpers for finding data by name
-	SimpleShaderVariable* FindVariable(std::string name, int size);
-	SimpleConstantBuffer* FindConstantBuffer(std::string name);
+	ShaderVariable* FindVariable(std::string name, int size);
+	ConstantBuffer* FindConstantBuffer(std::string name);
 };
 
-// --------------------------------------------------------
-// Derived class for VERTEX shaders ///////////////////////
-// --------------------------------------------------------
-class SimpleVertexShader : public ISimpleShader
+class VertexShader : public IShader
 {
 public:
-	SimpleVertexShader(ID3D11Device* device, ID3D11DeviceContext* context);
-	SimpleVertexShader(ID3D11Device* device, ID3D11DeviceContext* context, ID3D11InputLayout* inputLayout, bool perInstanceCompatible);
-	~SimpleVertexShader();
-	ID3D11VertexShader* GetDirectXShader() { return shader; }
-	ID3D11InputLayout* GetInputLayout() { return inputLayout; }
-	bool GetPerInstanceCompatible() { return perInstanceCompatible; }
+	VertexShader(ID3D11Device* device, ID3D11DeviceContext* context);
+	VertexShader(ID3D11Device* device, ID3D11DeviceContext* context, ID3D11InputLayout* inputLayout, bool perInstanceCompatible);
+	virtual ~VertexShader(void);
+	ID3D11VertexShader* GetShader(void);
+	ID3D11InputLayout* GetInputLayout(void);
+	bool GetPerInstanceCompatible(void);
 
 	bool SetShaderResourceView(std::string name, ID3D11ShaderResourceView* srv);
 	bool SetSamplerState(std::string name, ID3D11SamplerState* samplerState);
@@ -159,20 +133,16 @@ protected:
 	ID3D11InputLayout* inputLayout;
 	ID3D11VertexShader* shader;
 	bool CreateShader(ID3DBlob* shaderBlob);
-	void SetShaderAndCBs();
-	void CleanUp();
+	void SetShaderAndConstantsBuffers(void);
+	void CleanUp(void);
 };
 
-
-// --------------------------------------------------------
-// Derived class for PIXEL shaders ////////////////////////
-// --------------------------------------------------------
-class SimplePixelShader : public ISimpleShader
+class PixelShader : public IShader
 {
 public:
-	SimplePixelShader(ID3D11Device* device, ID3D11DeviceContext* context);
-	~SimplePixelShader();
-	ID3D11PixelShader* GetDirectXShader() { return shader; }
+	PixelShader(ID3D11Device* device, ID3D11DeviceContext* context);
+	virtual ~PixelShader(void);
+	ID3D11PixelShader* GetShader(void);
 
 	bool SetShaderResourceView(std::string name, ID3D11ShaderResourceView* srv);
 	bool SetSamplerState(std::string name, ID3D11SamplerState* samplerState);
@@ -180,22 +150,6 @@ public:
 protected:
 	ID3D11PixelShader* shader;
 	bool CreateShader(ID3DBlob* shaderBlob);
-	void SetShaderAndCBs();
-	void CleanUp();
-};
-
-class D3D11Shader : public Shader
-{
-private:
-	ID3D11Buffer* _ConstantBuffer = nullptr;
-	ID3D11VertexShader* _VertexShader = nullptr;
-	ID3D11PixelShader* _PixelShader = nullptr;
-	ID3D11InputLayout* _InputLayout = nullptr;
-
-
-	ID3D11ShaderResourceView* _SRV = nullptr;
-
-public:
-	virtual bool Load(const char* FileName) override;
-	virtual void Draw(const Matrix& matrix, unsigned int size) override;
+	void SetShaderAndConstantsBuffers(void);
+	void CleanUp(void);
 };
