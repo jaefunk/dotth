@@ -37,20 +37,15 @@ public:
 	IShader(ID3D11Device* device, ID3D11DeviceContext* context);
 	virtual ~IShader(void);
 
-	// Initialization method (since we can't invoke derived class
-	// overrides in the base class constructor)
 	bool LoadShaderFile(LPCWSTR shaderFile);
 
-	// Simple helpers
-	bool IsShaderValid(void) { return shaderValid; }
+	bool IsShaderValid(void);
 
-	// Activating the shader and copying data
 	void SetShader(void);
 	void CopyAllBufferData(void);
 	void CopyBufferData(unsigned int index);
 	void CopyBufferData(std::string bufferName);
 
-	// Sets arbitrary shader data
 	bool SetData(std::string name, const void* data, unsigned int size);
 
 	bool SetInt(std::string name, int data);
@@ -64,11 +59,9 @@ public:
 	bool SetMatrix4x4(std::string name, const float data[16]);
 	bool SetMatrix4x4(std::string name, const DirectX::XMFLOAT4X4 data);
 
-	// Setting shader resources
 	virtual bool SetShaderResourceView(std::string name, ID3D11ShaderResourceView* srv) = 0;
 	virtual bool SetSamplerState(std::string name, ID3D11SamplerState* samplerState) = 0;
 
-	// Getting data about variables and resources
 	const ShaderVariable* GetVariableInfo(std::string name);
 
 	const ShaderResourceView* GetShaderResourceViewInfo(std::string name);
@@ -79,23 +72,19 @@ public:
 	const Sampler* GetSamplerInfo(unsigned int index);
 	unsigned int GetSamplerCount(void) { return static_cast<unsigned int>(samplerTable.size()); }
 
-	// Get data about constant buffers
 	unsigned int GetBufferCount(void);
 	unsigned int GetBufferSize(unsigned int index);
 	const ConstantBuffer* GetBufferInfo(std::string name);
 	const ConstantBuffer* GetBufferInfo(unsigned int index);
 
-	// Misc getters
 	ID3DBlob* GetShaderBlob() { return shaderBlob; }
 
 protected:
-
 	bool shaderValid;
 	ID3DBlob* shaderBlob;
 	ID3D11Device* device;
 	ID3D11DeviceContext* deviceContext;
 
-	// Resource counts
 	unsigned int constantBufferCount;
 
 	ConstantBuffer* constantBuffers;
@@ -108,7 +97,6 @@ protected:
 
 	virtual bool CreateShader(ID3DBlob* shaderBlob) = 0;
 	virtual void SetShaderAndConstantsBuffers() = 0;
-
 	virtual void CleanUp(void);
 
 	ShaderVariable* FindVariable(std::string name, int size);
