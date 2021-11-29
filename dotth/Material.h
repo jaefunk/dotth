@@ -1,7 +1,7 @@
 #pragma once
 
 #include "Texture2D.h"
-#include "D3D11Shader.h"
+#include "Shader.h"
 
 class Material
 {

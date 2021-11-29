@@ -19,6 +19,10 @@ void EntryPoint::OnInit(void)
 	auto smc1 = so1->AddComponent<StaticMeshComponent>();
 	smc1->Load1();
 	SpawnObject(so1);
+	
+	GetActiveCamera()->GetCameraComponent()->SetEye(Vector3(0.f, 1000.f, -1000.f));
+	GetActiveCamera()->GetCameraComponent()->SetUp(Vector3::Up());
+	/*GetActiveCamera()->GetCameraComponent()->SetAt(Vector3::Zero());*/
 }
 
 void EntryPoint::OnUpdate(void)
@@ -28,7 +32,9 @@ void EntryPoint::OnUpdate(void)
 	float s = sin(f) * 300.f;
 	float w = cos(f) * 300.f;
 	FindObject("so1")->SetPosition(Vector3(s, 100.f, w));
-	GetActiveCamera()->GetCameraComponent()->SetAt(FindObject("so1")->GetLocalPosition());
+	FindObject("so1")->RotateYaw(GetDeltaSeconds() * 5.f);
+	//GetActiveCamera()->GetCameraComponent()->SetAt(FindObject("so1")->GetLocalPosition());
+	
 }
 
 //void EntryPoint::OnDraw(void)

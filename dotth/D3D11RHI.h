@@ -2,7 +2,6 @@
 
 #include "dotth.h"
 #include "SingleInstance.h"
-#include "D3D11Camera.h"
 #include "D3D11DeferredBuffer.h"
 #include "D3D11OrthoRect.h"
 #include "D3D11Light.h"

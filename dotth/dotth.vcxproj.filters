@@ -25,12 +25,6 @@
     <ClCompile Include="D3D11RHI.cpp">
       <Filter>D3D11</Filter>
     </ClCompile>
-    <ClCompile Include="D3D11Camera.cpp">
-      <Filter>D3D11</Filter>
-    </ClCompile>
-    <ClCompile Include="D3D11Primitive.cpp">
-      <Filter>D3D11</Filter>
-    </ClCompile>
     <ClCompile Include="PrimitiveComponent.cpp">
       <Filter>Framework</Filter>
     </ClCompile>
@@ -40,7 +34,7 @@
     <ClCompile Include="MeshComponent.cpp">
       <Filter>Framework</Filter>
     </ClCompile>
-    <ClCompile Include="D3D11Shader.cpp">
+    <ClCompile Include="Shader.cpp">
       <Filter>D3D11</Filter>
     </ClCompile>
     <ClCompile Include="StaticMesh.cpp">
@@ -61,7 +55,6 @@
     <ClCompile Include="External\imgui\imgui_tables.cpp" />
     <ClCompile Include="External\imgui\imgui_widgets.cpp" />
     <ClCompile Include="D3D11OrthoRect.cpp" />
-    <ClCompile Include="D3D11Material.cpp" />
     <ClCompile Include="CameraComponent.cpp" />
     <ClCompile Include="TransformComponent.cpp" />
     <ClCompile Include="ObjectBase.cpp" />
@@ -102,13 +95,7 @@
     <ClInclude Include="D3D11RHI.h">
       <Filter>D3D11</Filter>
     </ClInclude>
-    <ClInclude Include="D3D11Camera.h">
-      <Filter>D3D11</Filter>
-    </ClInclude>
     <ClInclude Include="D3D11.h">
-      <Filter>D3D11</Filter>
-    </ClInclude>
-    <ClInclude Include="D3D11Primitive.h">
       <Filter>D3D11</Filter>
     </ClInclude>
     <ClInclude Include="PrimitiveComponent.h">
@@ -143,9 +130,6 @@
     </ClInclude>
     <ClInclude Include="StaticMesh.h">
       <Filter>Framework</Filter>
-    </ClInclude>
-    <ClInclude Include="D3D11Shader.h">
-      <Filter>D3D11</Filter>
     </ClInclude>
     <ClInclude Include="External\assimp\Compiler\poppack1.h" />
     <ClInclude Include="External\assimp\Compiler\pstdint.h" />
@@ -266,7 +250,6 @@
     <ClInclude Include="External\imgui\imstb_textedit.h" />
     <ClInclude Include="External\imgui\imstb_truetype.h" />
     <ClInclude Include="D3D11OrthoRect.h" />
-    <ClInclude Include="D3D11Material.h" />
     <ClInclude Include="CameraComponent.h" />
     <ClInclude Include="TransformComponent.h" />
     <ClInclude Include="ObjectBase.h" />

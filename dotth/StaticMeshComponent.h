@@ -2,7 +2,7 @@
 
 #include "MeshComponent.h"
 #include "ResourceManager.h"
-#include "D3D11Shader.h"
+#include "Shader.h"
 #include "Texture2D.h"
 
 class StaticMeshComponent : public MeshComponent
