@@ -37,7 +37,7 @@ bool Texture2D::Load(const std::string& key)
 	return true;
 }
 
-void Texture2D::Draw(unsigned int index)
+void Texture2D::Draw(void)
 {
 	D3D11RHI::Context()->PSSetShaderResources(0, 1, &shaderResourceView);
 }

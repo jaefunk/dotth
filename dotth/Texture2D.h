@@ -12,5 +12,5 @@ private:
 public:
 	ID3D11ShaderResourceView* GetShaderResourceView(void);
 	bool Load(const std::string& key);
-	void Draw(unsigned int index);
+	void Draw(void);
 };

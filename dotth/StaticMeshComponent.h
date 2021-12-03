@@ -4,14 +4,13 @@
 #include "ResourceManager.h"
 #include "Shader.h"
 #include "Texture2D.h"
+#include "Material.h"
 
 class StaticMeshComponent : public MeshComponent
 {
 public:
-	std::shared_ptr<StaticMesh> staticMesh;
-	std::shared_ptr<Texture2D> texture2D;
-	std::shared_ptr<VertexShader> deferredVertexShader;
-	std::shared_ptr<PixelShader> deferredPixelShader;
+	std::shared_ptr<Material> material{ new Material };
+	std::shared_ptr<StaticMesh> staticMesh{ new StaticMesh };
 
 public:
 	bool SetStaticMesh(std::shared_ptr<StaticMesh> NewMesh);

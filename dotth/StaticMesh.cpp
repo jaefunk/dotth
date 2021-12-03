@@ -59,4 +59,5 @@ void StaticMesh::Draw(unsigned int index)
 	D3D11RHI::Context()->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 	D3D11RHI::Context()->IASetVertexBuffers(0, 1, &vertexBuffers[index], &vertex_type_size, &offset);
 	D3D11RHI::Context()->IASetIndexBuffer(indexBuffers[index], DXGI_FORMAT_R32_UINT, 0);
+	D3D11RHI::Context()->DrawIndexed(GetIndicesSize(index), 0, 0);
 }
