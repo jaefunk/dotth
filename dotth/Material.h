@@ -3,8 +3,12 @@
 #include "Texture2D.h"
 #include "Shader.h"
 
-class Material
+class Material : public Base
 {
+public:
+	Material(void) = default;
+	void Load(std::string texture, std::string vShader, std::string pShader);
+
 private:
 	std::shared_ptr<Texture2D> texture2D;
 	std::shared_ptr<VertexShader> vertexShader;
