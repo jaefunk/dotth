@@ -1,26 +1,35 @@
 
 #include "AssetBase.h"
-#include "assimp/Importer.hpp"
-#include "assimp/scene.h"
-#include "assimp/postprocess.h"
 #include "libjpeg/include/jpeglib.h"
 #include <setjmp.h>
 #pragma comment(lib, "libjpeg/lib/libjpeg_a.lib")
 
+std::shared_ptr<dotth::model> FBXLoader2::Load(const std::string& filePath)
+{
+	std::shared_ptr<dotth::model> mesh;
+	Assimp::Importer importer;
+	unsigned int flags = aiProcess_ConvertToLeftHanded | aiProcess_Triangulate | aiProcess_OptimizeMeshes | aiProcess_PopulateArmatureData | aiProcess_LimitBoneWeights;
+	auto scene = importer.ReadFile(filePath, flags);
+	if (scene == nullptr)
+		return mesh;
+	mesh = std::make_shared<dotth::model>(scene);
+	return mesh;
+}
 
 std::unique_ptr<Mesh> FBXLoader::Load(const std::string& filePath)
 {
 	std::unique_ptr<Mesh> mesh = std::make_unique<Mesh>();
 	Assimp::Importer importer;
-	unsigned int flags = aiProcess_ConvertToLeftHanded | aiProcess_Triangulate | aiProcess_OptimizeMeshes;
+	unsigned int flags = aiProcess_ConvertToLeftHanded | aiProcess_Triangulate | aiProcess_OptimizeMeshes | aiProcess_PopulateArmatureData | aiProcess_LimitBoneWeights;
 	auto scene = importer.ReadFile(filePath, flags);
 	if (scene == nullptr)
 		return mesh;
+
 	mesh->primitiveNodes.resize(scene->mNumMeshes);
 	for (unsigned int index = 0; index < scene->mNumMeshes; ++index)
 	{
 		auto sceneMesh = scene->mMeshes[index];
-		Mesh::PrimitiveNode& node = mesh->primitiveNodes[index];
+		Mesh::PrimitiveNode& node = mesh->primitiveNodes[index];		
 		node.vertices.resize(sceneMesh->mNumVertices);
 		for (unsigned int i = 0; i < sceneMesh->mNumVertices; ++i)
 		{
@@ -77,6 +86,28 @@ std::unique_ptr<Mesh> FBXLoader::Load(const std::string& filePath)
 				node.indices[current++] = sceneMesh->mFaces[i].mIndices[1];
 				node.indices[current] = sceneMesh->mFaces[i].mIndices[2];
 			}
+		}
+
+		if (sceneMesh->HasBones())
+		{
+			for (unsigned int i = 0; i < sceneMesh->mNumBones; ++i)
+			{
+				sceneMesh->mBones[i]->mArmature;
+				sceneMesh->mBones[i]->mName;
+				sceneMesh->mBones[i]->mNode;
+				sceneMesh->mBones[i]->mNumWeights;
+				sceneMesh->mBones[i]->mOffsetMatrix;
+				sceneMesh->mBones[i]->mWeights;
+			}
+		}
+	}
+
+	if (scene->HasAnimations())
+	{		
+		for (unsigned int i = 0; i < scene->mNumAnimations; ++i)
+		{
+			auto animation = scene->mAnimations[i];
+			
 		}
 	}
 	return mesh;
