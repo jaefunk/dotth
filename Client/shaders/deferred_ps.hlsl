@@ -6,9 +6,9 @@ struct VertexOutputType
 {
 	float4 position		: SV_POSITION;
 	float3 normal		: NORMALWS;
-	float3 tangent		: TANGENTWS;
-	float3 worldPos		: POSITIONWS;
 	float2 coord		: TEXCOORD;
+	float3 worldPos		: POSITIONWS;
+	//float3 tangent		: TANGENTWS;
 };
 
 struct PixelOutputType

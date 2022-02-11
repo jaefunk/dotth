@@ -19,8 +19,8 @@ bool StaticMeshComponent::SetStaticMesh(std::shared_ptr<StaticMesh> NewMesh)
 
 void StaticMeshComponent::Load1(void)
 {
-	staticMesh->Load("Sphere");
-	material->Load("uv_checker", "../Output/Client/x64/Debug/deferred_vs.cso", "../Output/Client/x64/Debug/deferred_ps.cso");
+	staticMesh->Load2("viking_C");
+	material->Load("viking_blue_C_texture", "../Output/Client/x64/Debug/deferred_vs.cso", "../Output/Client/x64/Debug/deferred_ps.cso");
 }
 
 void StaticMeshComponent::Load2(void)

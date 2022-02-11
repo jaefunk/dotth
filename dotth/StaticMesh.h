@@ -14,4 +14,6 @@ public:
 	virtual unsigned int GetIndicesSize(int index);
 	virtual bool Load(const std::string& key);
 	virtual void Draw(unsigned int index);
+
+	bool Load2(const std::string& key);
 };

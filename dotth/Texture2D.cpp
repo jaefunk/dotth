@@ -7,7 +7,8 @@
 bool Texture2D::Load(const std::string& key)
 {
 	std::shared_ptr<Texture> base = ResourceManager2::Find<Texture>(key);
-
+	if (base == nullptr)
+		return false;
 	D3D11_TEXTURE2D_DESC desc;
 	ZeroMemory(&desc, sizeof(desc));
 	desc.Width = base->Width;
