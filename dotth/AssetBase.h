@@ -354,6 +354,11 @@ namespace dotth
 			result.w = left.w * right.w;
 		}
 
+		static bool equal(const vector4& left, const vector4& right, float tolerance = std::numeric_limits<float>::epsilon())
+		{
+			return abs(left.x - right.x) <= tolerance && abs(left.y - right.y) <= tolerance && abs(left.z - right.z) <= tolerance && abs(left.w - right.w) <= tolerance;
+		}
+
 		float& operator[](int index)
 		{
 			return f[index];
@@ -514,6 +519,7 @@ namespace dotth
 		}
 	};
 
+	
 	struct node
 	{
 		std::string name;
@@ -526,31 +532,63 @@ namespace dotth
 		node** children = nullptr;
 
 		unsigned int numMeshes = 0;
-		unsigned int** meshes = nullptr;
+		unsigned int* meshes = nullptr;
 
-		node(const aiNode* raw)
+		node(const aiNode* raw, node* inParent = nullptr)
 		{
-			name = raw->mName.C_Str();
-			
+			name = raw->mName.C_Str();			
 			for (unsigned int i = 0; i < 16; ++i)
-				transformation[i] = raw->mTransformation[i/4][i%4];
+				transformation[i] = raw->mTransformation[i / 4][i % 4];
 		
-			parent = nullptr;
+			parent = inParent;
 			numChildren = raw->mNumChildren;
-			children = new node * [numChildren];
-			for (unsigned int i = 0; i < numChildren; ++i)
+			if (numChildren != 0)
 			{
-				children[i] = new node(raw->mChildren[i]);
-				children[i]->parent = this;
+				children = new node * [numChildren];
+				for (unsigned int i = 0; i < numChildren; ++i)
+				{
+					children[i] = new node(raw->mChildren[i], this);
+				}
 			}
 			
-			
-
-			raw->mNumMeshes;
-			raw->mMeshes;
+			numMeshes = raw->mNumMeshes;
+			if (numMeshes != 0)
+			{
+				meshes = new unsigned int[numMeshes];
+				for (unsigned int i = 0; i < numChildren; ++i)
+					meshes[i] = raw->mMeshes[i];
+			}
 		}
+
 		~node(void)
 		{
+			if (numChildren && children)
+				for (unsigned int i = 0; i < numChildren; ++i)
+					delete children[i];
+			delete[] children;
+			delete[] meshes;
+		}
+
+		node* find(const std::string& inName)
+		{
+			if (inName.empty())
+				return nullptr;
+			if (!strcmp(name.c_str(), inName.c_str()))
+				return this;
+			for (unsigned int i = 0; i < numChildren; ++i) 
+			{
+				node* p = children[i]->find(inName);
+				if (p)
+					return p;
+			}
+			return nullptr;
+		}
+
+		void foreach_all(std::function<void(node* one)> func)
+		{
+			func(this);
+			for (unsigned int i = 0; i < numChildren; ++i)
+				children[i]->foreach_all(func);
 		}
 	};
 
@@ -579,20 +617,36 @@ namespace dotth
 
 		matrix offset;
 
-		bone(const aiBone* raw)
+		bone(const aiBone* raw, node* root = nullptr)
 		{
 			name = raw->mName.C_Str();
 
 			numWeights = raw->mNumWeights;
-			weights = new weight[raw->mNumWeights];
-			for (unsigned int i = 0; i < numWeights; ++i)
+			if (numWeights != 0)
 			{
-				weights[i].vertexID = raw->mWeights[i].mVertexId;
-				weights[i].value = raw->mWeights[i].mWeight;
+				weights = new weight[raw->mNumWeights];
+				for (unsigned int i = 0; i < numWeights; ++i)
+				{
+					weights[i].vertexID = raw->mWeights[i].mVertexId;
+					weights[i].value = raw->mWeights[i].mWeight;
+				}
 			}
 
-			raw->mArmature;
-			raw->mNode;
+			for (unsigned int i = 0; i < 16; ++i)
+				offset[i] = raw->mOffsetMatrix[i / 4][i % 4];
+
+			if (root != nullptr)
+			{
+				if (raw->mArmature)
+					armature = root->find(raw->mArmature->mName.C_Str());
+				if (raw->mNode)
+					targetNode = root->find(raw->mNode->mName.C_Str());
+			}
+		}
+		~bone(void)
+		{
+			if (weights && numWeights)
+				delete[] weights;
 		}
 	};
 
@@ -611,36 +665,47 @@ namespace dotth
 
 		unsigned int mateiralIndex = 0;
 
-		mesh(const aiMesh* raw)
+		mesh(const aiMesh* raw, node* root = nullptr)
 		{
 			name = raw->mName.C_Str();
 
 			numVertices = raw->mNumVertices;
-			vertices = new vertice[numVertices];
-			for (unsigned int i = 0; i < numVertices; ++i)
+			if (numVertices != 0)
 			{
-				if (raw->HasPositions())
-					vertices[i].position = vector3(raw->mVertices[i].x, -raw->mVertices[i].z, raw->mVertices[i].y);
-				if (raw->HasNormals())
-					vertices[i].normal = vector3(raw->mNormals[i].x, -raw->mNormals[i].z, raw->mNormals[i].y);
-				if (raw->HasTextureCoords(0))
-					vertices[i].textureCoord = vector2(raw->mTextureCoords[0][i].x, raw->mTextureCoords[0][i].y);
+				vertices = new vertice[numVertices];
+				for (unsigned int i = 0; i < numVertices; ++i)
+				{
+					if (raw->HasPositions())
+						//vertices[i].position = vector3(raw->mVertices[i].x, -raw->mVertices[i].z, raw->mVertices[i].y);
+						vertices[i].position = vector3(raw->mVertices[i].x, raw->mVertices[i].y, raw->mVertices[i].z);
+					if (raw->HasNormals())
+						//vertices[i].normal = vector3(raw->mNormals[i].x, -raw->mNormals[i].z, raw->mNormals[i].y);
+						vertices[i].normal = vector3(raw->mNormals[i].x, raw->mNormals[i].y, raw->mNormals[i].z);
+					if (raw->HasTextureCoords(0))
+						vertices[i].textureCoord = vector2(raw->mTextureCoords[0][i].x, raw->mTextureCoords[0][i].y);
+				}
 			}
 
 			numIndices = raw->mNumFaces * 3;
-			indices = new unsigned int[numIndices];
-			for (unsigned int i = 0; i < raw->mNumFaces; ++i)
+			if (numIndices != 0)
 			{
-				unsigned int current = i * 3;
-				indices[current + 0] = raw->mFaces[i].mIndices[0];
-				indices[current + 1] = raw->mFaces[i].mIndices[1];
-				indices[current + 2] = raw->mFaces[i].mIndices[2];
+				indices = new unsigned int[numIndices];
+				for (unsigned int i = 0; i < raw->mNumFaces; ++i)
+				{
+					unsigned int current = i * 3;
+					indices[current + 0] = raw->mFaces[i].mIndices[0];
+					indices[current + 1] = raw->mFaces[i].mIndices[1];
+					indices[current + 2] = raw->mFaces[i].mIndices[2];
+				}
 			}
 
 			numBones = raw->mNumBones;
-			bones = new bone*[numBones];
-			for (unsigned int i = 0; i < numBones; ++i)
-				bones[i] = new bone(raw->mBones[i]);
+			if (numBones != 0)
+			{
+				bones = new bone*[numBones];
+				for (unsigned int i = 0; i < numBones; ++i)
+					bones[i] = new bone(raw->mBones[i], root);
+			}
 		}
 		~mesh(void)
 		{
@@ -655,6 +720,15 @@ namespace dotth
 					delete bones[i];
 			delete[] bones;
 		}
+
+		unsigned int GetVerticeByteWidth(void) const
+		{
+			return static_cast<unsigned int>(sizeof(vertice) * numVertices);
+		}
+		unsigned int GetIndiceByteWidth(void) const
+		{
+			return static_cast<unsigned int>(sizeof(unsigned int) * numIndices);
+		}
 	};
 
 	struct material
@@ -665,83 +739,242 @@ namespace dotth
 		}
 	};
 
-	template <class ty>
-	struct keyframe
+	namespace keyframe
 	{
-		float time;
-		ty value;
-		bool operator==(const ty& rhs) const {
-			return rhs.value == this->value;
-		}
-		bool operator!=(const ty& rhs) const {
-			return value != this->value;
-		}
-		bool operator<(const ty& rhs) const {
-			return time < rhs.time;
-		}
-		bool operator>(const ty& rhs) const {
-			return time > rhs.time;
-		}
-	};
+		struct vector
+		{
+			float time;
+			vector3 value;
+			bool operator==(const vector& rhs) const {
+				return vector3::equal(rhs.value, this->value);
+			}
+			bool operator!=(const vector& rhs) const {
+				return !vector3::equal(rhs.value, this->value);
+			}
+			bool operator<(const vector& rhs) const {
+				return time < rhs.time;
+			}
+			bool operator>(const vector& rhs) const {
+				return time > rhs.time;
+			}
 
-	struct morph
-	{
-	};
+			vector(void)
+			{
 
-	template <>
-	struct keyframe<morph>
-	{
-		float time;
-		unsigned int* values;
-		float* weights;
-	};
+			}
+			~vector(void)
+			{
 
-	struct node_animation
-	{
-		std::string name;
-		keyframe<vector3>* positionKeys;
-		keyframe<vector4>* rotationKeys;
-		keyframe<vector3>* scalingKeys;
-	};
+			}
+		};
 
-	struct morph_animation
+		struct quaternion
+		{
+			float time;
+			vector4 value;
+			bool operator==(const quaternion& rhs) const {
+				return vector4::equal(rhs.value, this->value);
+			}
+			bool operator!=(const quaternion& rhs) const {
+				return !vector4::equal(rhs.value, this->value);
+			}
+			bool operator<(const quaternion& rhs) const {
+				return time < rhs.time;
+			}
+			bool operator>(const quaternion& rhs) const {
+				return time > rhs.time;
+			}
+
+			~quaternion(void)
+			{
+
+			}
+		};
+
+		struct mesh
+		{
+			float time;
+			unsigned int value;
+			bool operator==(const mesh& rhs) const {
+				return rhs.value == this->value;
+			}
+			bool operator!=(const mesh& rhs) const {
+				return rhs.value != this->value;
+			}
+			bool operator<(const mesh& rhs) const {
+				return time < rhs.time;
+			}
+			bool operator>(const mesh& rhs) const {
+				return time > rhs.time;
+			}
+
+			~mesh(void)
+			{
+
+			}
+		};
+
+		struct morph
+		{
+			float time = 0.f;
+			unsigned int numValuesAndWeights = 0;
+			unsigned int* values = nullptr;
+			float* weights = nullptr;
+
+			morph(void)
+			{
+
+			}
+			morph(aiMeshMorphKey* raw)
+			{
+
+			}
+			~morph(void)
+			{
+
+			}
+		};
+	}
+	namespace anim
 	{
-		std::string name;
-		keyframe<morph>* morphKeys;
-	};
+		struct node
+		{
+			std::string name;
+			unsigned int numPositionKeys = 0;
+			keyframe::vector* positionKeys = nullptr;
+			unsigned int numRotationKeys = 0;
+			keyframe::quaternion* rotationKeys = nullptr;
+			unsigned int numScalingKeys = 0;
+			keyframe::vector* scalingKeys = nullptr;
+
+			node(aiNodeAnim* raw)
+			{
+				name = raw->mNodeName.C_Str();
+
+				numPositionKeys = raw->mNumPositionKeys;
+				if (numPositionKeys != 0)
+				{
+					positionKeys = new keyframe::vector[numPositionKeys];
+					for (unsigned int i = 0; i < numPositionKeys; ++i)
+					{
+						positionKeys[i].time = raw->mPositionKeys[i].mTime;
+						aiVector3D value = raw->mPositionKeys[i].mValue;
+						positionKeys[i].value = vector3(value.x, value.y, value.z);
+					}
+				}
+
+				numRotationKeys = raw->mNumRotationKeys;
+				if (numRotationKeys != 0)
+				{
+					rotationKeys= new keyframe::quaternion[numRotationKeys];
+					for (unsigned int i = 0; i < numRotationKeys; ++i)
+					{
+						rotationKeys[i].time = raw->mRotationKeys[i].mTime;
+						aiQuaternion value = raw->mRotationKeys[i].mValue;
+						rotationKeys[i].value = vector4(value.x, value.y, value.z, value.w);
+					}
+				}
+
+				numScalingKeys = raw->mNumScalingKeys;
+				if (numScalingKeys != 0)
+				{
+					scalingKeys = new keyframe::vector[numScalingKeys];
+					for (unsigned int i = 0; i < numScalingKeys; ++i)
+					{
+						scalingKeys[i].time = raw->mScalingKeys[i].mTime;
+						aiVector3D value = raw->mScalingKeys[i].mValue;
+						scalingKeys[i].value = vector3(value.x, value.y, value.z);
+					}
+				}
+			}
+			~node(void)
+			{
+				if (numPositionKeys && positionKeys)
+					delete[] positionKeys;
+				if (numRotationKeys && rotationKeys)
+					delete[] rotationKeys;
+				if (numScalingKeys && scalingKeys)
+					delete[] scalingKeys;
+			}
+		};
+
+		struct mesh
+		{
+			std::string name;
+			unsigned int numMeshKeys = 0;
+			keyframe::mesh* meshKeys = nullptr;
+
+			mesh(aiMeshAnim* raw)
+			{
+				name = raw->mName.C_Str();
+
+				numMeshKeys = raw->mNumKeys;
+				if (numMeshKeys != 0)
+				{
+					meshKeys = new keyframe::mesh[numMeshKeys];
+					for (unsigned int i = 0; i < numMeshKeys; ++i)
+					{
+						meshKeys[i].time = raw->mKeys[i].mTime;
+						meshKeys[i].value = raw->mKeys[i].mValue;
+					}
+				}
+			}
+			~mesh(void)
+			{
+
+			}
+		};
+	}
 
 	struct animation
 	{
 		std::string name;
-		float duration;
-		float tickPerSecond;
-		node_animation** nodeChannels;
-		morph_animation** morphChannels;
+		float duration = 0.f;
+		float tickPerSecond = 0.f;
+
+		unsigned int numNodeChannels = 0;
+		anim::node** nodeChannels = nullptr;
+
+		unsigned int numMeshChannels = 0;
+		anim::mesh** meshChannels = nullptr;
 
 		animation(const aiAnimation* raw)
 		{
+			name = raw->mName.C_Str();
+			duration = raw->mDuration;
+			tickPerSecond = raw->mTicksPerSecond;
 
+			numNodeChannels = raw->mNumChannels;
+			if (numNodeChannels)
+			{
+				nodeChannels = new anim::node*[numNodeChannels];
+				for (unsigned int i = 0; i < numNodeChannels; ++i)
+				{
+					nodeChannels[i] = new anim::node(raw->mChannels[i]);
+				}
+			}
+
+			numMeshChannels = raw->mNumMeshChannels;
+			if (numMeshChannels)
+			{
+				meshChannels = new anim::mesh*[numMeshChannels];
+				for (unsigned int i = 0; i < numMeshChannels; ++i)
+				{
+					meshChannels[i] = new anim::mesh(raw->mMeshChannels[i]);
+				}
+			}
 		}
 		~animation(void)
 		{
 		}
 	};
 
-	struct texture
+	struct model : public Resource
 	{
-		std::string name;
-		unsigned int width;
-		unsigned int height;
-		vector4* data;
-		
-		texture(const aiTexture* raw)
-		{
-
-		}
-	};
-
-	struct model
-	{
+	private:
+		const aiScene* scene;
+		std::map<std::string, node*> nodes;
+	public:
 		std::string name;
 
 		node* root = nullptr;
@@ -749,40 +982,51 @@ namespace dotth
 		unsigned int numMeshes = 0;
 		mesh** meshes = nullptr;
 
-		unsigned int numMaterials = 0;
-		material** materials = nullptr;
-
 		unsigned int numAnimations = 0;
 		animation** animations = nullptr;
 
-		unsigned int numTextures = 0;
-		texture** textures = nullptr;
-
 		model(const aiScene* raw)
+			: scene(raw)
 		{
 			name = raw->mName.C_Str();
 
 			root = new node(raw->mRootNode);
+			root->foreach_all(
+				[this](node* one) {
+					nodes.insert({ one->name, one });
+				}
+			);
 
 			numMeshes = raw->mNumMeshes;
-			meshes = new mesh*[numMeshes];
-			for (unsigned int i = 0; i < numMeshes; ++i)
-				meshes[i] = new mesh(raw->mMeshes[i]);
-
-			numMaterials = raw->mNumMaterials;
-			materials = new material*[numMaterials];
-			for (unsigned int i = 0; i < numMaterials; ++i)
-				materials[i] = new material(raw->mMaterials[i]);
-
-			numTextures = raw->mNumTextures;
-			textures = new texture*[numTextures];
-			for (unsigned int i = 0; i < numTextures; ++i)
-				textures[i] = new texture(raw->mTextures[i]);
+			if (numMeshes != 0)
+			{
+				meshes = new mesh*[numMeshes];
+				for (unsigned int i = 0; i < numMeshes; ++i)
+				{
+					meshes[i] = new mesh(raw->mMeshes[i], root);
+					for (unsigned int j = 0; j < meshes[i]->numBones; ++j)
+					{
+						{
+							auto finded = nodes.find(raw->mMeshes[i]->mBones[j]->mArmature->mName.C_Str());
+							if (finded != nodes.end())
+								meshes[i]->bones[j]->armature = finded->second;
+						}
+						{
+							auto finded = nodes.find(raw->mMeshes[i]->mBones[j]->mNode->mName.C_Str());
+							if (finded != nodes.end())
+								meshes[i]->bones[j]->targetNode = finded->second;
+						}
+					}
+				}
+			}
 
 			numAnimations = raw->mNumAnimations;
-			animations = new animation*[numAnimations];
-			for (unsigned int i = 0; i < numAnimations; ++i)
-				animations[i] = new animation(raw->mAnimations[i]);
+			if (numAnimations != 0)
+			{
+				animations = new animation * [numAnimations];
+				for (unsigned int i = 0; i < numAnimations; ++i)
+					animations[i] = new animation(raw->mAnimations[i]);
+			}
 		}
 
 		~model(void)
@@ -794,25 +1038,25 @@ namespace dotth
 					delete meshes[i];
 			delete[] meshes;
 
-			if (numMaterials && materials)
-				for (unsigned int i = 0; i < numMaterials; i++)
-					delete materials[i];
-			delete[] materials;
-
-			if (numTextures && textures)
-				for (unsigned int i = 0; i < numTextures; i++)
-					delete textures[i];
-			delete[] textures;
-
 			if (numAnimations && animations)
 				for (unsigned int i = 0; i < numAnimations; i++)
 					delete animations[i];
 			delete[] animations;
 		}
+
+		std::shared_ptr<Resource> Clone(void)
+		{
+			auto p = std::make_shared<model>(scene);
+			return p;
+		}
 	};
 }
 
-
+class FBXLoader2
+{
+public:
+	static std::shared_ptr<dotth::model> Load(const std::string& filePath);
+};
 
 
 
