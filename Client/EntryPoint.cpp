@@ -47,7 +47,7 @@ void EntryPoint::OnInit(void)
 	//	SpawnObject(so1);
 	//}
 	
-	GetActiveCamera()->GetCameraComponent()->SetEye(Vector3(0.f, 200.f, -200.f));
+	GetActiveCamera()->GetCameraComponent()->SetEye(Vector3(0.f, 100.f, -400.f));
 	GetActiveCamera()->GetCameraComponent()->SetUp(Vector3::Up());
 	/*GetActiveCamera()->GetCameraComponent()->SetAt(Vector3::Zero());*/
 }

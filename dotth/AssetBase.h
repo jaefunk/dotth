@@ -857,7 +857,7 @@ namespace dotth
 					positionKeys = new keyframe::vector[numPositionKeys];
 					for (unsigned int i = 0; i < numPositionKeys; ++i)
 					{
-						positionKeys[i].time = raw->mPositionKeys[i].mTime;
+						positionKeys[i].time = static_cast<float>(raw->mPositionKeys[i].mTime);
 						aiVector3D value = raw->mPositionKeys[i].mValue;
 						positionKeys[i].value = vector3(value.x, value.y, value.z);
 					}
@@ -869,7 +869,7 @@ namespace dotth
 					rotationKeys= new keyframe::quaternion[numRotationKeys];
 					for (unsigned int i = 0; i < numRotationKeys; ++i)
 					{
-						rotationKeys[i].time = raw->mRotationKeys[i].mTime;
+						rotationKeys[i].time = static_cast<float>(raw->mRotationKeys[i].mTime);
 						aiQuaternion value = raw->mRotationKeys[i].mValue;
 						rotationKeys[i].value = vector4(value.x, value.y, value.z, value.w);
 					}
@@ -881,7 +881,7 @@ namespace dotth
 					scalingKeys = new keyframe::vector[numScalingKeys];
 					for (unsigned int i = 0; i < numScalingKeys; ++i)
 					{
-						scalingKeys[i].time = raw->mScalingKeys[i].mTime;
+						scalingKeys[i].time = static_cast<float>(raw->mScalingKeys[i].mTime);
 						aiVector3D value = raw->mScalingKeys[i].mValue;
 						scalingKeys[i].value = vector3(value.x, value.y, value.z);
 					}
@@ -914,7 +914,7 @@ namespace dotth
 					meshKeys = new keyframe::mesh[numMeshKeys];
 					for (unsigned int i = 0; i < numMeshKeys; ++i)
 					{
-						meshKeys[i].time = raw->mKeys[i].mTime;
+						meshKeys[i].time = static_cast<float>(raw->mKeys[i].mTime);
 						meshKeys[i].value = raw->mKeys[i].mValue;
 					}
 				}
@@ -941,8 +941,8 @@ namespace dotth
 		animation(const aiAnimation* raw)
 		{
 			name = raw->mName.C_Str();
-			duration = raw->mDuration;
-			tickPerSecond = raw->mTicksPerSecond;
+			duration = static_cast<float>(raw->mDuration);
+			tickPerSecond = static_cast<float>(raw->mTicksPerSecond);
 
 			numNodeChannels = raw->mNumChannels;
 			if (numNodeChannels)
