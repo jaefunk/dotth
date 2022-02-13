@@ -117,9 +117,9 @@ public:
 	}
 
 public:
-	unsigned int ComponentCount;
-	unsigned int Width;
-	unsigned int Height;
+	unsigned int ComponentCount = 0;
+	unsigned int Width = 0;
+	unsigned int Height = 0;
 	std::vector<R8G8B8A8> Texels;
 
 public:
@@ -743,7 +743,7 @@ namespace dotth
 	{
 		struct vector
 		{
-			float time;
+			float time = 0.f;
 			vector3 value;
 			bool operator==(const vector& rhs) const {
 				return vector3::equal(rhs.value, this->value);
@@ -770,7 +770,7 @@ namespace dotth
 
 		struct quaternion
 		{
-			float time;
+			float time = 0.f;
 			vector4 value;
 			bool operator==(const quaternion& rhs) const {
 				return vector4::equal(rhs.value, this->value);
@@ -793,8 +793,8 @@ namespace dotth
 
 		struct mesh
 		{
-			float time;
-			unsigned int value;
+			float time = 0.f;
+			unsigned int value = 0;
 			bool operator==(const mesh& rhs) const {
 				return rhs.value == this->value;
 			}

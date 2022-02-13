@@ -16,11 +16,23 @@ void EntryPoint::OnInit(void)
 	}
 	
 	{
-		auto so1 = std::make_shared<Object>();
-		so1->Rename("linear");
-		auto smc1 = so1->AddComponent<StaticMeshComponent>();
-		smc1->Load1();
-		SpawnObject(so1);
+		//{
+		//	auto so1 = std::make_shared<Object>();
+		//	so1->Rename("linear");
+		//	auto smc1 = so1->AddComponent<StaticMeshComponent>();
+		//	smc1->Load1();
+		//	SpawnObject(so1);
+		//	so1->Translate(Vector3(-100.f, 0.f, 0.f));
+		//}
+
+		{
+			auto so1 = std::make_shared<Object>();
+			so1->Rename("linear");
+			auto smc1 = so1->AddComponent<SkeletalMeshComponent>();
+			smc1->Load();
+			SpawnObject(so1);
+			so1->Translate(Vector3(100.f, 0.f, 0.f));
+		}
 	}
 
 	//{

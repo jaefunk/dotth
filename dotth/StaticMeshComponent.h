@@ -24,3 +24,19 @@ public:
 	virtual void OnDraw(void) override;
 	virtual void OnDestroy(void) override;
 };
+
+class SkeletalMeshComponent : public MeshComponent
+{
+public:
+	std::shared_ptr<Material> material{ new Material };
+	std::shared_ptr<SkeletalMesh> skeletalMesh{ new SkeletalMesh };
+
+public:
+	void Load(void);
+
+public:
+	virtual void OnInit(void) override;
+	virtual void OnUpdate(void) override;
+	virtual void OnDraw(void) override;
+	virtual void OnDestroy(void) override;
+};
