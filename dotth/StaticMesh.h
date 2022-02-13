@@ -4,7 +4,7 @@
 
 class StaticMesh : public Mesh
 {
-private:
+protected:
 	std::vector<ID3D11Buffer*> vertexBuffers;
 	std::vector<ID3D11Buffer*> indexBuffers;
 
@@ -14,6 +14,22 @@ public:
 	virtual unsigned int GetIndicesSize(int index);
 	virtual bool Load(const std::string& key);
 	virtual void Draw(unsigned int index);
+};
 
-	bool Load2(const std::string& key);
+class SkeletalMesh : public StaticMesh
+{
+protected:
+	struct bone {
+		XMUINT4 boneID;
+		XMFLOAT4 weight;
+	};
+	std::vector<ID3D11Buffer*> animationBuffers;
+public:
+public:
+	std::vector<XMMATRIX*> calcBoneList;
+	virtual void Initialize(void) {}
+	virtual unsigned int GetSectionSize(void);
+	virtual unsigned int GetIndicesSize(int index);
+	virtual bool Load(const std::string& key);
+	virtual void Draw(unsigned int index);
 };
