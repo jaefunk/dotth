@@ -650,6 +650,13 @@ namespace dotth
 		}
 	};
 
+	struct uint4 {
+		unsigned int x = 0;
+		unsigned int y = 0;
+		unsigned int z = 0;
+		unsigned int w = 0;
+	};
+
 	struct mesh
 	{
 		std::string name;
@@ -657,32 +664,46 @@ namespace dotth
 		unsigned int numVertices = 0;
 		vertice* vertices = nullptr;
 
+		unsigned int numPositions = 0;
+		vector3* positions;
+		unsigned int numNormals = 0;
+		vector3* normals;
+		unsigned int numTextureCoords = 0;
+		vector2* textureCoords;
+
 		unsigned int numIndices = 0;
 		unsigned int* indices = nullptr;
 
 		unsigned int numBones = 0;
 		bone** bones = nullptr;
 
+		unsigned int numBoneIds = 0;
+		uint4* boneids = nullptr;
+		vector4* weights = nullptr;
+
 		unsigned int mateiralIndex = 0;
 
-		mesh(const aiMesh* raw, node* root = nullptr)
+		unsigned int startIndex = 0;
+
+		mesh(const aiMesh* raw, node* root = nullptr, unsigned int startIndex = 0)
 		{
 			name = raw->mName.C_Str();
 
-			numVertices = raw->mNumVertices;
-			if (numVertices != 0)
+			numPositions = numNormals = numTextureCoords = raw->mNumVertices;
+			if (numPositions != 0)
 			{
-				vertices = new vertice[numVertices];
-				for (unsigned int i = 0; i < numVertices; ++i)
+				if (numPositions != 0)
+					positions = new vector3[numPositions];
+				if (numNormals != 0)
+					normals = new vector3[numNormals];
+				if (numTextureCoords != 0)
+					textureCoords = new vector2[numTextureCoords];
+
+				for (unsigned int i = 0; i < numPositions; ++i)
 				{
-					if (raw->HasPositions())
-						//vertices[i].position = vector3(raw->mVertices[i].x, -raw->mVertices[i].z, raw->mVertices[i].y);
-						vertices[i].position = vector3(raw->mVertices[i].x, raw->mVertices[i].y, raw->mVertices[i].z);
-					if (raw->HasNormals())
-						//vertices[i].normal = vector3(raw->mNormals[i].x, -raw->mNormals[i].z, raw->mNormals[i].y);
-						vertices[i].normal = vector3(raw->mNormals[i].x, raw->mNormals[i].y, raw->mNormals[i].z);
-					if (raw->HasTextureCoords(0))
-						vertices[i].textureCoord = vector2(raw->mTextureCoords[0][i].x, raw->mTextureCoords[0][i].y);
+					positions[i] = vector3(raw->mVertices[i].x, raw->mVertices[i].y, raw->mVertices[i].z);
+					normals[i] = vector3(raw->mNormals[i].x, raw->mNormals[i].y, raw->mNormals[i].z);
+					textureCoords[i] = vector2(raw->mTextureCoords[0][i].x, raw->mTextureCoords[0][i].y);
 				}
 			}
 
@@ -706,11 +727,53 @@ namespace dotth
 				for (unsigned int i = 0; i < numBones; ++i)
 					bones[i] = new bone(raw->mBones[i], root);
 			}
+
+			if (numBones > 0)
+			{
+				numBoneIds = max(numPositions, numBones);
+				boneids = new uint4[numBoneIds];
+				weights = new vector4[numBoneIds];
+				for (unsigned int k = 0; k < numBones; ++k)
+				{
+					auto bone = bones[k];
+					for (unsigned int l = 0; l < bone->numWeights; ++l)
+					{
+						unsigned int vertId = bone->weights[l].vertexID + startIndex;
+
+						if (weights[vertId].x == 0)
+						{
+							boneids[vertId].x = k;
+							weights[vertId].x = bone->weights[l].value;
+						}
+						else if (weights[vertId].y == 0)
+						{
+							boneids[vertId].y = k;
+							weights[vertId].y = bone->weights[l].value;
+						}
+						else if (weights[vertId].z == 0)
+						{
+							boneids[vertId].z = k;
+							weights[vertId].z = bone->weights[l].value;
+						}
+						else if (weights[vertId].w == 0)
+						{
+							boneids[vertId].w = k;
+							weights[vertId].w = bone->weights[l].value;
+						}
+					}
+				}
+			}
 		}
 		~mesh(void)
 		{
 			if (numVertices && vertices)
 				delete[] vertices;
+			if (numPositions && positions)
+				delete[] positions;
+			if (numNormals && normals)
+				delete[] normals;
+			if (numTextureCoords && textureCoords)
+				delete[] textureCoords;
 			
 			if (numIndices && indices)
 				delete[] indices;
@@ -719,6 +782,12 @@ namespace dotth
 				for (unsigned int i = 0; i < numBones; i++)
 					delete bones[i];
 			delete[] bones;
+
+			if (numBoneIds && boneids && weights)
+			{
+				delete[] boneids;
+				delete[] weights;
+			}
 		}
 
 		unsigned int GetVerticeByteWidth(void) const
@@ -1001,9 +1070,11 @@ namespace dotth
 			if (numMeshes != 0)
 			{
 				meshes = new mesh*[numMeshes];
+				unsigned int totalVertice = 0;
 				for (unsigned int i = 0; i < numMeshes; ++i)
 				{
-					meshes[i] = new mesh(raw->mMeshes[i], root);
+					meshes[i] = new mesh(raw->mMeshes[i], root, totalVertice);
+					totalVertice += raw->mMeshes[i]->mNumVertices;
 					for (unsigned int j = 0; j < meshes[i]->numBones; ++j)
 					{
 						{
@@ -1043,7 +1114,7 @@ namespace dotth
 					delete animations[i];
 			delete[] animations;
 		}
-
+			
 		std::shared_ptr<Resource> Clone(void)
 		{
 			auto p = std::make_shared<model>(scene);
