@@ -10,7 +10,7 @@ class StaticMeshComponent : public MeshComponent
 {
 public:
 	std::shared_ptr<Material> material{ new Material };
-	std::shared_ptr<StaticMesh> staticMesh{ new StaticMesh };
+	std::shared_ptr<StaticMesh2> staticMesh{ new StaticMesh2 };
 
 public:
 	bool SetStaticMesh(std::shared_ptr<StaticMesh> NewMesh);

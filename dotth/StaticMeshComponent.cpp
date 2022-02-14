@@ -8,20 +8,20 @@ void StaticMeshComponent::OnInit(void)
 
 bool StaticMeshComponent::SetStaticMesh(std::shared_ptr<StaticMesh> NewMesh)
 {
-	if (NewMesh == staticMesh)
-	{
-		return false;
-	}
+	//if (NewMesh == staticMesh)
+	//{
+	//	return false;
+	//}
 
-	staticMesh = NewMesh;
+	//staticMesh = NewMesh;
 	return true;
 }
 
 void StaticMeshComponent::Load1(void)
 {
 	staticMesh->Load("viking_C");
-	material->Load("viking_blue_C_texture", "../Output/Client/x64/Debug/deferred_vs.cso", "../Output/Client/x64/Debug/deferred_ps.cso");
-	//material->Load("viking_blue_C_texture", "../Output/Client/x64/Debug/skin_vs.cso", "../Output/Client/x64/Debug/skin_ps.cso");
+	//material->Load("viking_blue_C_texture", "../Output/Client/x64/Debug/deferred_vs.cso", "../Output/Client/x64/Debug/deferred_ps.cso");
+	material->Load("viking_blue_C_texture", "../Output/Client/x64/Debug/skin_vs.cso", "../Output/Client/x64/Debug/skin_ps.cso");
 }
 
 void StaticMeshComponent::Load2(void)
@@ -47,10 +47,16 @@ void StaticMeshComponent::OnDraw(void)
 	XMStoreFloat4x4(&view, XMMatrixTranspose(GetOwner()->GetActiveCamera()->GetView()));
 	XMStoreFloat4x4(&proj, XMMatrixTranspose(GetOwner()->GetActiveCamera()->GetPerspective()));
 
+	//for (unsigned int i = 0; i < staticMesh->GetSectionSize(); ++i)
+	// {
+	//	material->Bind(world, view, proj);
+	//	staticMesh->Draw(i);
+	// }
+
 	for (unsigned int i = 0; i < staticMesh->GetSectionSize(); ++i)
 	{
 		material->Bind(world, view, proj);
-		staticMesh->Draw(i);		
+		staticMesh->Draw(i);
 	}
 }
 
@@ -80,11 +86,10 @@ void SkeletalMeshComponent::OnDraw(void)
 	XMStoreFloat4x4(&view, XMMatrixTranspose(GetOwner()->GetActiveCamera()->GetView()));
 	XMStoreFloat4x4(&proj, XMMatrixTranspose(GetOwner()->GetActiveCamera()->GetPerspective()));
 
-	//for (unsigned int i = 0; i < skeletalMesh->GetSectionSize(); ++i)
-	for (unsigned int i = 0; i < 1; ++i)
+	for (unsigned int i = 0; i < skeletalMesh->GetSectionSize(); ++i)
 	{
 		auto jj = skeletalMesh->calcBoneList[i];
-		material->Bind(world, view, proj, jj);
+		material->Bind(world, view, proj);
 		skeletalMesh->Draw(i);
 	}
 }
