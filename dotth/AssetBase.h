@@ -6,7 +6,7 @@
 #include "assimp/scene.h"
 #include "assimp/postprocess.h"
 
-enum class EXTENSION_TYPE {	
+enum class EXTENSION_TYPE {
 	JPEG,
 	FBX,
 };
@@ -32,75 +32,10 @@ struct R8G8B8A8 {
 	}
 };
 
-struct Vertice {
-	Vector3 position;
-	Vector3 normal;
-	Vector2 textureCoord;
-	Vector3 tangent;
-	Vector3 bitangent;
-	Vector4 color;
-};
-
 class Resource
 {
 public:
 	virtual std::shared_ptr<Resource> Clone(void) = 0;
-};
-
-class Mesh : public Resource
-{
-public:
-	struct PrimitiveNode
-	{
-		unsigned int materialID;
-		std::vector<Vertice> vertices;
-		std::vector<unsigned int> indices;
-		unsigned int GetVerticeByteWidth(void) const
-		{
-			return static_cast<unsigned int>(sizeof(Vertice) * vertices.size());
-		}
-		unsigned int GetIndiceByteWidth(void) const
-		{
-			return static_cast<unsigned int>(sizeof(unsigned int) * indices.size());
-		}
-	};
-	std::vector<PrimitiveNode> primitiveNodes;
-
-public:
-	virtual std::shared_ptr<Resource> Clone(void) override
-	{
-		auto p = std::make_shared<Mesh>();
-		p->primitiveNodes = this->primitiveNodes;
-		return p;
-	}
-};
-
-class SkinnedMesh : public Mesh
-{
-public:
-	struct Weight
-	{
-		unsigned int vertexID = 0;
-		float weight = 0.f;
-	};
-	struct Bone
-	{
-		std::string name;
-		PrimitiveNode* primitiveNode;
-		PrimitiveNode* armature;
-		std::vector<Weight> weights;
-		Matrix offsetMatrix;
-	};
-	std::vector<Bone> bones;
-
-public:
-	virtual std::shared_ptr<Resource> Clone(void) override
-	{
-		auto p = std::make_shared<SkinnedMesh>();
-		p->primitiveNodes = this->primitiveNodes;
-		p->bones = this->bones;
-		return p;
-	}
 };
 
 class Texture : public Resource
@@ -131,18 +66,6 @@ public:
 	{
 		return Width * static_cast<unsigned int>(sizeof(R8G8B8A8));
 	}
-};
-
-class FBXLoader
-{
-public:
-	static std::unique_ptr<Mesh> Load(const std::string& filePath);
-};
-
-class JPEGLoader
-{
-public:
-	static std::unique_ptr<Texture> Load(const std::string& filePath);
 };
 
 namespace dotth
@@ -519,7 +442,7 @@ namespace dotth
 		}
 	};
 
-	
+
 	struct node
 	{
 		std::string name;
@@ -527,7 +450,7 @@ namespace dotth
 		matrix transformation;
 
 		node* parent = nullptr;
-		
+
 		unsigned int numChildren = 0;
 		node** children = nullptr;
 
@@ -536,10 +459,10 @@ namespace dotth
 
 		node(const aiNode* raw, node* inParent = nullptr)
 		{
-			name = raw->mName.C_Str();			
+			name = raw->mName.C_Str();
 			for (unsigned int i = 0; i < 16; ++i)
 				transformation[i] = raw->mTransformation[i / 4][i % 4];
-		
+
 			parent = inParent;
 			numChildren = raw->mNumChildren;
 			if (numChildren != 0)
@@ -550,7 +473,7 @@ namespace dotth
 					children[i] = new node(raw->mChildren[i], this);
 				}
 			}
-			
+
 			numMeshes = raw->mNumMeshes;
 			if (numMeshes != 0)
 			{
@@ -575,7 +498,7 @@ namespace dotth
 				return nullptr;
 			if (!strcmp(name.c_str(), inName.c_str()))
 				return this;
-			for (unsigned int i = 0; i < numChildren; ++i) 
+			for (unsigned int i = 0; i < numChildren; ++i)
 			{
 				node* p = children[i]->find(inName);
 				if (p)
@@ -608,7 +531,7 @@ namespace dotth
 	struct bone
 	{
 		std::string name;
-		
+
 		unsigned int numWeights;
 		weight* weights;
 
@@ -660,7 +583,7 @@ namespace dotth
 	struct mesh
 	{
 		std::string name;
-		
+
 		unsigned int numVertices = 0;
 		vertice* vertices = nullptr;
 
@@ -720,10 +643,12 @@ namespace dotth
 				}
 			}
 
+			mateiralIndex = raw->mMaterialIndex;
+
 			numBones = raw->mNumBones;
 			if (numBones != 0)
 			{
-				bones = new bone*[numBones];
+				bones = new bone * [numBones];
 				for (unsigned int i = 0; i < numBones; ++i)
 					bones[i] = new bone(raw->mBones[i], root);
 			}
@@ -774,7 +699,7 @@ namespace dotth
 				delete[] normals;
 			if (numTextureCoords && textureCoords)
 				delete[] textureCoords;
-			
+
 			if (numIndices && indices)
 				delete[] indices;
 
@@ -935,7 +860,7 @@ namespace dotth
 				numRotationKeys = raw->mNumRotationKeys;
 				if (numRotationKeys != 0)
 				{
-					rotationKeys= new keyframe::quaternion[numRotationKeys];
+					rotationKeys = new keyframe::quaternion[numRotationKeys];
 					for (unsigned int i = 0; i < numRotationKeys; ++i)
 					{
 						rotationKeys[i].time = static_cast<float>(raw->mRotationKeys[i].mTime);
@@ -1016,7 +941,7 @@ namespace dotth
 			numNodeChannels = raw->mNumChannels;
 			if (numNodeChannels)
 			{
-				nodeChannels = new anim::node*[numNodeChannels];
+				nodeChannels = new anim::node * [numNodeChannels];
 				for (unsigned int i = 0; i < numNodeChannels; ++i)
 				{
 					nodeChannels[i] = new anim::node(raw->mChannels[i]);
@@ -1026,7 +951,7 @@ namespace dotth
 			numMeshChannels = raw->mNumMeshChannels;
 			if (numMeshChannels)
 			{
-				meshChannels = new anim::mesh*[numMeshChannels];
+				meshChannels = new anim::mesh * [numMeshChannels];
 				for (unsigned int i = 0; i < numMeshChannels; ++i)
 				{
 					meshChannels[i] = new anim::mesh(raw->mMeshChannels[i]);
@@ -1047,7 +972,7 @@ namespace dotth
 		std::string name;
 
 		node* root = nullptr;
-		
+
 		unsigned int numMeshes = 0;
 		mesh** meshes = nullptr;
 
@@ -1069,7 +994,7 @@ namespace dotth
 			numMeshes = raw->mNumMeshes;
 			if (numMeshes != 0)
 			{
-				meshes = new mesh*[numMeshes];
+				meshes = new mesh * [numMeshes];
 				unsigned int totalVertice = 0;
 				for (unsigned int i = 0; i < numMeshes; ++i)
 				{
@@ -1114,7 +1039,7 @@ namespace dotth
 					delete animations[i];
 			delete[] animations;
 		}
-			
+
 		std::shared_ptr<Resource> Clone(void)
 		{
 			auto p = std::make_shared<model>(scene);
@@ -1123,11 +1048,15 @@ namespace dotth
 	};
 }
 
-class FBXLoader2
+class FBXLoader
 {
 public:
-	static std::shared_ptr<dotth::model> Load(const std::string& filePath);
+	static std::unique_ptr<dotth::model> Load(const std::string& filePath);
 };
 
-
+class JPEGLoader
+{
+public:
+	static std::unique_ptr<Texture> Load(const std::string& filePath);
+};
 

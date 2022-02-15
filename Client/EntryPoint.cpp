@@ -1,67 +1,26 @@
 #include "EntryPoint.h"
 #include "SampleObject.h"
-#include "staticMeshComponent.h"
+#include "StaticMeshComponent.h"
+#include "SkeletalMeshComponent.h"
 #include "Camera.h"
 #include "../dotth/Math/Easing.h"
 
 void EntryPoint::OnInit(void)
 {
-	{
-		//auto so2 = std::make_shared<Object>();
-		//so2->Rename("so2");
-		//auto smc2 = so2->AddComponent<StaticMeshComponent>();
-		//smc2->Load2();
-		//so2->SetScale(Vector3(10.f));
-		//SpawnObject(so2);
-	}
+	auto StaticMeshObject = std::make_shared<Object>();
+	StaticMeshObject->AddComponent<StaticMeshComponent>();
+	StaticMeshObject->Translate(Vector3(-100.f, 0.f, 0.f));
+	SpawnObject(StaticMeshObject);
+
+	auto SkeletalMeshObject = std::make_shared<Object>();
+	SkeletalMeshObject->AddComponent<SkeletalMeshComponent>();
+	SkeletalMeshObject->Translate(Vector3(100.f, 0.f, 0.f));
+	SpawnObject(SkeletalMeshObject);
+
 	
-	{
-		{
-			auto so1 = std::make_shared<Object>();
-			so1->Rename("linear");
-			auto smc1 = so1->AddComponent<StaticMeshComponent>();
-			smc1->Load1();
-			SpawnObject(so1);
-			//so1->Translate(Vector3(0.f, 0.f, 0.f));
-		}
-
-		//{
-		//	auto so1 = std::make_shared<Object>();
-		//	so1->Rename("linear");
-		//	auto smc1 = so1->AddComponent<SkeletalMeshComponent>();
-		//	smc1->Load();
-		//	SpawnObject(so1);
-		//	so1->Translate(Vector3(100.f, 0.f, 0.f));
-		//}
-	}
-
-	//{
-	//	auto so1 = std::make_shared<Object>();
-	//	so1->Rename("in");
-	//	auto smc1 = so1->AddComponent<StaticMeshComponent>();
-	//	smc1->Load1();
-	//	SpawnObject(so1);
-	//}
-
-	//{
-	//	auto so1 = std::make_shared<Object>();
-	//	so1->Rename("out");
-	//	auto smc1 = so1->AddComponent<StaticMeshComponent>();
-	//	smc1->Load1();
-	//	SpawnObject(so1);
-	//}
-
-	//{
-	//	auto so1 = std::make_shared<Object>();
-	//	so1->Rename("in_out");
-	//	auto smc1 = so1->AddComponent<StaticMeshComponent>();
-	//	smc1->Load1();
-	//	SpawnObject(so1);
-	//}
-	
-	GetActiveCamera()->GetCameraComponent()->SetEye(Vector3(0.f, 0.f, -300.f));
+	GetActiveCamera()->GetCameraComponent()->SetEye(Vector3(0.f, 50.f, -300.f));
 	GetActiveCamera()->GetCameraComponent()->SetUp(Vector3::Up());
-	GetActiveCamera()->GetCameraComponent()->SetAt(Vector3(0.f, 0.f, 0.f));
+	GetActiveCamera()->GetCameraComponent()->SetAt(Vector3(0.f, 50.f, 0.f));
 }
 
 void EntryPoint::OnUpdate(void)

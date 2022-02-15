@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Animation.cpp" />
     <ClCompile Include="Application.cpp" />
     <ClCompile Include="AssetBase.cpp" />
     <ClCompile Include="Base.cpp" />
@@ -29,6 +30,7 @@
     <ClCompile Include="D3D11Light.cpp" />
     <ClCompile Include="D3D11OrthoRect.cpp" />
     <ClCompile Include="D3D11RHI.cpp" />
+    <ClCompile Include="Renderable.cpp" />
     <ClCompile Include="Shader.cpp" />
     <ClCompile Include="External\imgui\backends\imgui_impl_dx11.cpp" />
     <ClCompile Include="External\imgui\backends\imgui_impl_win32.cpp" />
@@ -45,6 +47,8 @@
     <ClCompile Include="ResourceManager.cpp" />
     <ClCompile Include="Scenario.cpp" />
     <ClCompile Include="Scene.cpp" />
+    <ClCompile Include="SkeletalMesh.cpp" />
+    <ClCompile Include="SkeletalMeshComponent.cpp" />
     <ClCompile Include="StaticMesh.cpp" />
     <ClCompile Include="StaticMeshComponent.cpp" />
     <ClCompile Include="Texture2D.cpp" />
@@ -52,6 +56,7 @@
     <ClCompile Include="Utility.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Animation.h" />
     <ClInclude Include="Application.h" />
     <ClInclude Include="AssetBase.h" />
     <ClInclude Include="Base.h" />
@@ -187,11 +192,14 @@
     <ClInclude Include="Object.h" />
     <ClInclude Include="ObjectBase.h" />
     <ClInclude Include="PrimitiveComponent.h" />
+    <ClInclude Include="Renderable.h" />
     <ClInclude Include="ResourceManager.h" />
     <ClInclude Include="Scenario.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="Shader.h" />
     <ClInclude Include="SingleInstance.h" />
+    <ClInclude Include="SkeletalMesh.h" />
+    <ClInclude Include="SkeletalMeshComponent.h" />
     <ClInclude Include="StaticMesh.h" />
     <ClInclude Include="StaticMeshComponent.h" />
     <ClInclude Include="Texture2D.h" />

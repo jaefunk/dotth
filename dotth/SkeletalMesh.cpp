@@ -1,8 +1,8 @@
 
-#include "StaticMesh.h"
+#include "SkeletalMesh.h"
 #include "ResourceManager.h"
 
-bool StaticMesh::Load(const std::string& key)
+bool SkeletalMesh::Load(const std::string& key)
 {
 	Raw = ResourceManager2::Find<dotth::model>(key);
 	if (Raw == nullptr)
@@ -15,7 +15,7 @@ bool StaticMesh::Load(const std::string& key)
 	return true;
 }
 
-void StaticMesh::Draw(unsigned int index)
+void SkeletalMesh::Draw(unsigned int index)
 {
 	Renderables[index]->Draw();
 }
