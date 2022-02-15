@@ -152,7 +152,6 @@ bool D3D11RHI::Initialize(HWND hwnd, unsigned int width, unsigned int height)
 	D3D11RHI::Instance()->_OrthoRect = std::make_shared<D3D11OrthoRect>();
 	D3D11RHI::Instance()->_OrthoRect->Initialize(D3D11RHI::Device(), RenderTargetWidth, RenderTargetHeight);
 
-
 	D3D11RHI::Instance()->_Light = std::make_shared<D3D11Light>();
 	D3D11RHI::Instance()->_Light->Initialize(D3D11RHI::Device(), hwnd);
 

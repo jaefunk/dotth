@@ -1,14 +1,14 @@
 #pragma once
 
 #include "MeshComponent.h"
-#include "StaticMesh.h"
+#include "SkeletalMesh.h"
 #include "Material.h"
 
-class StaticMeshComponent : public MeshComponent
+class SkeletalMeshComponent : public MeshComponent
 {
 public:
 	std::shared_ptr<Material> material{ new Material };
-	std::shared_ptr<StaticMesh> mesh{ new StaticMesh };
+	std::shared_ptr<SkeletalMesh> mesh{ new SkeletalMesh };
 
 public:
 	virtual void OnInit(void) override;

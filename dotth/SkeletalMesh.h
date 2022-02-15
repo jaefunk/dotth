@@ -2,7 +2,7 @@
 
 #include "Renderable.h"
 
-class StaticMesh
+class SkeletalMesh
 {
 private:
 	std::shared_ptr<dotth::model> Raw;

@@ -60,6 +60,10 @@
     <ClCompile Include="ObjectBase.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Material.cpp" />
+    <ClCompile Include="Animation.cpp" />
+    <ClCompile Include="Renderable.cpp" />
+    <ClCompile Include="SkeletalMeshComponent.cpp" />
+    <ClCompile Include="SkeletalMesh.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.h">
@@ -255,6 +259,10 @@
     <ClInclude Include="ObjectBase.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Material.h" />
+    <ClInclude Include="Animation.h" />
+    <ClInclude Include="Renderable.h" />
+    <ClInclude Include="SkeletalMesh.h" />
+    <ClInclude Include="SkeletalMeshComponent.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Framework">

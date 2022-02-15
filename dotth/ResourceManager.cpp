@@ -49,10 +49,10 @@ bool ResourceManager2::Load(const std::string& reserved)
 std::shared_ptr<Resource> ResourceManager2::LoadAsset(const std::string& path)
 {
 	if (path.find(".fbx") != std::string::npos)
-		return FBXLoader2::Load(path);
+		return FBXLoader::Load(path);
 
 	if (path.find(".FBX") != std::string::npos)
-		return FBXLoader2::Load(path);
+		return FBXLoader::Load(path);
 
 	if (path.find(".jpg") != std::string::npos)
 		return JPEGLoader::Load(path);

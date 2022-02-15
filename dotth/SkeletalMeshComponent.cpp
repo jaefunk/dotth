@@ -1,17 +1,17 @@
-#include "StaticMeshComponent.h"
+#include "SkeletalMeshComponent.h"
 #include "Camera.h"
 
-void StaticMeshComponent::OnInit(void)
+void SkeletalMeshComponent::OnInit(void)
 {	
 	mesh->Load("viking_C");
-	material->Load("viking_blue_C_texture", "../Output/Client/x64/Debug/deferred_vs.cso", "../Output/Client/x64/Debug/deferred_ps.cso");
+	material->Load("viking_blue_C_texture", "../Output/Client/x64/Debug/skin_vs.cso", "../Output/Client/x64/Debug/skin_ps.cso");
 }
 
-void StaticMeshComponent::OnUpdate(void)
+void SkeletalMeshComponent::OnUpdate(void)
 {
 }
 
-void StaticMeshComponent::OnDraw(void)
+void SkeletalMeshComponent::OnDraw(void)
 {
 	XMFLOAT4X4 world, view, proj;
 	XMStoreFloat4x4(&world, GetOwner()->GetWorldMatrix());
@@ -25,7 +25,7 @@ void StaticMeshComponent::OnDraw(void)
 	}
 }
 
-void StaticMeshComponent::OnDestroy(void)
+void SkeletalMeshComponent::OnDestroy(void)
 {
 }
 
