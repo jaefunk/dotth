@@ -1,12 +1,11 @@
 
 #include "AssetBase.h"
-#include "libjpeg/include/jpeglib.h"
 #include <setjmp.h>
 #pragma comment(lib, "libjpeg/lib/libjpeg_a.lib")
 
-std::unique_ptr<dotth::model> FBXLoader::Load(const std::string& filePath)
+std::shared_ptr<dotth::model> FBXLoader::Load(const std::string& filePath)
 {
-	std::unique_ptr<dotth::model> mesh;
+	std::shared_ptr<dotth::model> mesh;
 	Assimp::Importer importer;
 	unsigned int flags = aiProcess_ConvertToLeftHanded | aiProcess_Triangulate | aiProcess_OptimizeMeshes | aiProcess_PopulateArmatureData | aiProcess_LimitBoneWeights;
 	auto scene = importer.ReadFile(filePath, flags);
@@ -16,9 +15,9 @@ std::unique_ptr<dotth::model> FBXLoader::Load(const std::string& filePath)
 	return mesh;
 }
 
-std::unique_ptr<Texture> JPEGLoader::Load(const std::string& filePath)
+std::shared_ptr<Texture> JPEGLoader::Load(const std::string& filePath)
 {
-	std::unique_ptr<Texture> texture = std::make_unique<Texture>();
+	std::shared_ptr<Texture> texture = std::make_shared<Texture>();
 
 	jpeg_error_mgr error_msg;
 	error_msg.error_exit = [](j_common_ptr cinfo) {};
@@ -65,10 +64,10 @@ std::unique_ptr<Texture> JPEGLoader::Load(const std::string& filePath)
 	texture->Texels.resize(Area);
 	for (unsigned int index = 0; index < texture->Width * texture->Height; ++index)
 	{
-		texture->Texels[index].R = pData[distance + 0];
-		texture->Texels[index].G = pData[distance + 1];
-		texture->Texels[index].B = pData[distance + 2];
-		texture->Texels[index].A = 255;
+		texture->Texels[index].r = pData[distance + 0];
+		texture->Texels[index].g = pData[distance + 1];
+		texture->Texels[index].b = pData[distance + 2];
+		texture->Texels[index].a = 255;
 		distance += cinfo.output_components;
 	}
 

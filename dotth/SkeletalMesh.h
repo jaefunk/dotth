@@ -4,7 +4,7 @@
 
 class SkeletalMesh
 {
-private:
+public:
 	std::shared_ptr<dotth::model> Raw;
 	std::vector<Renderable*> Renderables;
 

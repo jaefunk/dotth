@@ -164,8 +164,8 @@ ShaderVariable* IShader::FindVariable(std::string name, int size)
 
 	ShaderVariable* var = &(result->second);
 
-	if (size > 0 && var->size != size)
-		return 0;
+	//if (size > 0 && var->size != size)
+	//	return 0;
 
 	return var;
 }

@@ -6,32 +6,91 @@
 #include "assimp/scene.h"
 #include "assimp/postprocess.h"
 
+#include "libjpeg/include/jpeglib.h"
+
 enum class EXTENSION_TYPE {
 	JPEG,
 	FBX,
 };
 
-struct R8G8B8A8 {
+struct texel {
 	union {
 		struct {
-			unsigned char R, G, B, A;
+			unsigned char r, g, b, a;
 		};
 		struct {
-			unsigned int Alignment;
+			unsigned int alignment;
 		};
 	};
 
-	R8G8B8A8(void) : Alignment(0)
+	texel(void) : alignment(0)
 	{
 
 	}
 
-	R8G8B8A8(unsigned char red, unsigned char green, unsigned char blue, unsigned char alpha)
-		: R(red), G(green), B(blue), A(alpha)
+	texel(unsigned char red, unsigned char green, unsigned char blue, unsigned char alpha = 255)
+		: r(red), g(green), b(blue), a(alpha)
 	{
 	}
 };
 
+namespace dotth {
+	struct asset {
+		virtual std::shared_ptr<dotth::asset> clone(void) = 0;
+	};
+	struct texture : public asset {
+		unsigned int width = 0;
+		unsigned int height = 0;
+		texel* texels = nullptr;
+
+		texture(jpeg_decompress_struct* raw)
+		{
+			width = raw->image_width;
+			height = raw->image_height;
+
+
+			unsigned int byteSize = raw->output_width * raw->output_height * raw->num_components;
+			unsigned char* buffer = new unsigned char[byteSize];
+			unsigned char* position = buffer;
+			while (raw->output_scanline < raw->image_height)
+			{
+				jpeg_read_scanlines(raw, &position, 1);
+				int address = raw->output_width * raw->output_components;
+				position += address;
+			}
+
+			unsigned int num = width * height;
+			texels = new texel[num];
+			int distance = 0;
+			position = buffer;
+			for (unsigned int i = 0; i < num; ++i)
+			{
+				texels[i].r = *(position++);
+				texels[i].g = *(position++);
+				texels[i].b = *(position++);
+				texels[i].a = 255;
+				position += raw->output_components;
+			}
+
+			delete[] buffer;
+		}
+
+		~texture(void)
+		{
+			if (width != 0 && height != 0 && texels != nullptr)
+				delete[] texels;
+		}
+
+		void* data(void)
+		{
+			return static_cast<void*>(texels);
+		}
+		unsigned int pitch(void)
+		{
+			return width * static_cast<unsigned int>(sizeof(texel));
+		}
+	};
+}
 class Resource
 {
 public:
@@ -55,7 +114,7 @@ public:
 	unsigned int ComponentCount = 0;
 	unsigned int Width = 0;
 	unsigned int Height = 0;
-	std::vector<R8G8B8A8> Texels;
+	std::vector<texel> Texels;
 
 public:
 	void* GetSysMem(void)
@@ -64,7 +123,7 @@ public:
 	}
 	unsigned int GetSysMemPitch(void)
 	{
-		return Width * static_cast<unsigned int>(sizeof(R8G8B8A8));
+		return Width * static_cast<unsigned int>(sizeof(texel));
 	}
 };
 
@@ -222,6 +281,15 @@ namespace dotth
 		{
 			return f[index];
 		}
+
+		operator DirectX::XMFLOAT3()
+		{
+			return DirectX::XMFLOAT3(f);
+		}
+		operator DirectX::XMFLOAT3() const
+		{
+			return DirectX::XMFLOAT3(f);
+		}
 	};
 
 
@@ -289,6 +357,15 @@ namespace dotth
 		float operator[](int index) const
 		{
 			return f[index];
+		}
+
+		operator DirectX::XMFLOAT4()
+		{
+			return DirectX::XMFLOAT4(f);
+		}
+		operator DirectX::XMFLOAT4() const
+		{
+			return DirectX::XMFLOAT4(f);
 		}
 	};
 
@@ -440,6 +517,11 @@ namespace dotth
 		{
 			return f[index];
 		}
+
+		void operator=(XMMATRIX value)
+		{
+			memcpy(f, value.r, sizeof(float) * 16);
+		}
 	};
 
 
@@ -447,13 +529,15 @@ namespace dotth
 	{
 		std::string name;
 
-		matrix transformation;
+		matrix local;
+		matrix world;
 
 		node* parent = nullptr;
 
 		unsigned int numChildren = 0;
 		node** children = nullptr;
 
+		unsigned int depth = 0;
 		unsigned int numMeshes = 0;
 		unsigned int* meshes = nullptr;
 
@@ -461,7 +545,7 @@ namespace dotth
 		{
 			name = raw->mName.C_Str();
 			for (unsigned int i = 0; i < 16; ++i)
-				transformation[i] = raw->mTransformation[i / 4][i % 4];
+				local[i] = raw->mTransformation[i / 4][i % 4];
 
 			parent = inParent;
 			numChildren = raw->mNumChildren;
@@ -480,6 +564,13 @@ namespace dotth
 				meshes = new unsigned int[numMeshes];
 				for (unsigned int i = 0; i < numChildren; ++i)
 					meshes[i] = raw->mMeshes[i];
+			}
+
+			node* p = parent;
+			while (p != nullptr)
+			{
+				depth++;
+				p = p->parent;
 			}
 		}
 
@@ -733,189 +824,47 @@ namespace dotth
 		}
 	};
 
-	namespace keyframe
+	struct keyframe
 	{
-		struct vector
-		{
-			float time = 0.f;
-			vector3 value;
-			bool operator==(const vector& rhs) const {
-				return vector3::equal(rhs.value, this->value);
-			}
-			bool operator!=(const vector& rhs) const {
-				return !vector3::equal(rhs.value, this->value);
-			}
-			bool operator<(const vector& rhs) const {
-				return time < rhs.time;
-			}
-			bool operator>(const vector& rhs) const {
-				return time > rhs.time;
-			}
+		float time;
+		vector3 position;
+		vector4 rotation;
+		vector3 scale;
+	};
 
-			vector(void)
-			{
-
-			}
-			~vector(void)
-			{
-
-			}
-		};
-
-		struct quaternion
-		{
-			float time = 0.f;
-			vector4 value;
-			bool operator==(const quaternion& rhs) const {
-				return vector4::equal(rhs.value, this->value);
-			}
-			bool operator!=(const quaternion& rhs) const {
-				return !vector4::equal(rhs.value, this->value);
-			}
-			bool operator<(const quaternion& rhs) const {
-				return time < rhs.time;
-			}
-			bool operator>(const quaternion& rhs) const {
-				return time > rhs.time;
-			}
-
-			~quaternion(void)
-			{
-
-			}
-		};
-
-		struct mesh
-		{
-			float time = 0.f;
-			unsigned int value = 0;
-			bool operator==(const mesh& rhs) const {
-				return rhs.value == this->value;
-			}
-			bool operator!=(const mesh& rhs) const {
-				return rhs.value != this->value;
-			}
-			bool operator<(const mesh& rhs) const {
-				return time < rhs.time;
-			}
-			bool operator>(const mesh& rhs) const {
-				return time > rhs.time;
-			}
-
-			~mesh(void)
-			{
-
-			}
-		};
-
-		struct morph
-		{
-			float time = 0.f;
-			unsigned int numValuesAndWeights = 0;
-			unsigned int* values = nullptr;
-			float* weights = nullptr;
-
-			morph(void)
-			{
-
-			}
-			morph(aiMeshMorphKey* raw)
-			{
-
-			}
-			~morph(void)
-			{
-
-			}
-		};
-	}
 	namespace anim
 	{
 		struct node
 		{
 			std::string name;
-			unsigned int numPositionKeys = 0;
-			keyframe::vector* positionKeys = nullptr;
-			unsigned int numRotationKeys = 0;
-			keyframe::quaternion* rotationKeys = nullptr;
-			unsigned int numScalingKeys = 0;
-			keyframe::vector* scalingKeys = nullptr;
+			unsigned int numKeys = 0;
+			keyframe* keyframes = nullptr;
 
 			node(aiNodeAnim* raw)
 			{
 				name = raw->mNodeName.C_Str();
 
-				numPositionKeys = raw->mNumPositionKeys;
-				if (numPositionKeys != 0)
+				numKeys = raw->mNumPositionKeys;
+				if (numKeys != 0)
 				{
-					positionKeys = new keyframe::vector[numPositionKeys];
-					for (unsigned int i = 0; i < numPositionKeys; ++i)
+					keyframes = new keyframe[numKeys];
+					for (unsigned int i = 0; i < numKeys; ++i)
 					{
-						positionKeys[i].time = static_cast<float>(raw->mPositionKeys[i].mTime);
-						aiVector3D value = raw->mPositionKeys[i].mValue;
-						positionKeys[i].value = vector3(value.x, value.y, value.z);
-					}
-				}
+						keyframes[i].time = static_cast<float>(raw->mPositionKeys[i].mTime);
 
-				numRotationKeys = raw->mNumRotationKeys;
-				if (numRotationKeys != 0)
-				{
-					rotationKeys = new keyframe::quaternion[numRotationKeys];
-					for (unsigned int i = 0; i < numRotationKeys; ++i)
-					{
-						rotationKeys[i].time = static_cast<float>(raw->mRotationKeys[i].mTime);
-						aiQuaternion value = raw->mRotationKeys[i].mValue;
-						rotationKeys[i].value = vector4(value.x, value.y, value.z, value.w);
-					}
-				}
-
-				numScalingKeys = raw->mNumScalingKeys;
-				if (numScalingKeys != 0)
-				{
-					scalingKeys = new keyframe::vector[numScalingKeys];
-					for (unsigned int i = 0; i < numScalingKeys; ++i)
-					{
-						scalingKeys[i].time = static_cast<float>(raw->mScalingKeys[i].mTime);
-						aiVector3D value = raw->mScalingKeys[i].mValue;
-						scalingKeys[i].value = vector3(value.x, value.y, value.z);
+						aiVector3D position = raw->mPositionKeys[i].mValue;
+						keyframes[i].position = vector3(position.x, position.y, position.z);
+						aiQuaternion rotation = raw->mRotationKeys[i].mValue;
+						keyframes[i].rotation = vector4(rotation.x, rotation.y, rotation.z, rotation.w);
+						aiVector3D scale = raw->mScalingKeys[i].mValue;
+						keyframes[i].scale = vector3(scale.x, scale.y, scale.z);
 					}
 				}
 			}
 			~node(void)
 			{
-				if (numPositionKeys && positionKeys)
-					delete[] positionKeys;
-				if (numRotationKeys && rotationKeys)
-					delete[] rotationKeys;
-				if (numScalingKeys && scalingKeys)
-					delete[] scalingKeys;
-			}
-		};
-
-		struct mesh
-		{
-			std::string name;
-			unsigned int numMeshKeys = 0;
-			keyframe::mesh* meshKeys = nullptr;
-
-			mesh(aiMeshAnim* raw)
-			{
-				name = raw->mName.C_Str();
-
-				numMeshKeys = raw->mNumKeys;
-				if (numMeshKeys != 0)
-				{
-					meshKeys = new keyframe::mesh[numMeshKeys];
-					for (unsigned int i = 0; i < numMeshKeys; ++i)
-					{
-						meshKeys[i].time = static_cast<float>(raw->mKeys[i].mTime);
-						meshKeys[i].value = raw->mKeys[i].mValue;
-					}
-				}
-			}
-			~mesh(void)
-			{
-
+				if (numKeys && keyframes)
+					delete[] keyframes;
 			}
 		};
 	}
@@ -928,9 +877,6 @@ namespace dotth
 
 		unsigned int numNodeChannels = 0;
 		anim::node** nodeChannels = nullptr;
-
-		unsigned int numMeshChannels = 0;
-		anim::mesh** meshChannels = nullptr;
 
 		animation(const aiAnimation* raw)
 		{
@@ -945,16 +891,6 @@ namespace dotth
 				for (unsigned int i = 0; i < numNodeChannels; ++i)
 				{
 					nodeChannels[i] = new anim::node(raw->mChannels[i]);
-				}
-			}
-
-			numMeshChannels = raw->mNumMeshChannels;
-			if (numMeshChannels)
-			{
-				meshChannels = new anim::mesh * [numMeshChannels];
-				for (unsigned int i = 0; i < numMeshChannels; ++i)
-				{
-					meshChannels[i] = new anim::mesh(raw->mMeshChannels[i]);
 				}
 			}
 		}
@@ -991,7 +927,7 @@ namespace dotth
 				}
 			);
 
-			numMeshes = raw->mNumMeshes;
+			numMeshes = 1;// raw->mNumMeshes;
 			if (numMeshes != 0)
 			{
 				meshes = new mesh * [numMeshes];
@@ -1051,12 +987,12 @@ namespace dotth
 class FBXLoader
 {
 public:
-	static std::unique_ptr<dotth::model> Load(const std::string& filePath);
+	static std::shared_ptr<dotth::model> Load(const std::string& filePath);
 };
 
 class JPEGLoader
 {
 public:
-	static std::unique_ptr<Texture> Load(const std::string& filePath);
+	static std::shared_ptr<Texture> Load(const std::string& filePath);
 };
 

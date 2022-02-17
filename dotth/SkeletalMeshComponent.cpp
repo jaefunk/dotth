@@ -1,14 +1,17 @@
 #include "SkeletalMeshComponent.h"
 #include "Camera.h"
 
+
 void SkeletalMeshComponent::OnInit(void)
 {	
 	mesh->Load("viking_C");
 	material->Load("viking_blue_C_texture", "../Output/Client/x64/Debug/skin_vs.cso", "../Output/Client/x64/Debug/skin_ps.cso");
+	animation->Load(mesh->Raw);
 }
 
 void SkeletalMeshComponent::OnUpdate(void)
 {
+	animation->Update(0.1f);
 }
 
 void SkeletalMeshComponent::OnDraw(void)
@@ -20,7 +23,14 @@ void SkeletalMeshComponent::OnDraw(void)
 
 	for (unsigned int i = 0; i < mesh->GetSectionSize(); ++i)
 	{
-		material->Bind(world, view, proj);
+		std::vector<XMMATRIX> calcBoneList;
+		for (unsigned int j = 0; j < mesh->Raw->meshes[i]->numBones; ++j)
+		{
+			auto bone = mesh->Raw->meshes[i]->bones[j];
+			calcBoneList.push_back(XMMatrixTranspose(XMMATRIX(bone->offset.f) * XMMATRIX(bone->targetNode->world.f)));
+			//calcBoneList.push_back(XMMatrixIdentity());
+		}
+		material->Bind(world, view, proj, calcBoneList.data(), calcBoneList.size() * sizeof(XMMATRIX));
 		mesh->Draw(i);
 	}
 }

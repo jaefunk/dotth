@@ -3,12 +3,14 @@
 #include "MeshComponent.h"
 #include "SkeletalMesh.h"
 #include "Material.h"
+#include "Animation.h"
 
 class SkeletalMeshComponent : public MeshComponent
 {
 public:
 	std::shared_ptr<Material> material{ new Material };
 	std::shared_ptr<SkeletalMesh> mesh{ new SkeletalMesh };
+	std::shared_ptr<Animation2> animation{ new Animation2 };
 
 public:
 	virtual void OnInit(void) override;

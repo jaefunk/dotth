@@ -20,7 +20,7 @@ void StaticMeshComponent::OnDraw(void)
 
 	for (unsigned int i = 0; i < mesh->GetSectionSize(); ++i)
 	{
-		material->Bind(world, view, proj);
+		material->Bind(world, view, proj, nullptr, 0);
 		mesh->Draw(i);
 	}
 }
