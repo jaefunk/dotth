@@ -3,10 +3,6 @@ cbuffer MatrixBuffer : register(b0)
 	matrix world;
 	matrix view;
 	matrix projection;
-};
-
-cbuffer BoneBuffer : register(b1)
-{
 	matrix bones[128];
 };
 
@@ -34,19 +30,19 @@ struct VertexOutputType
 VertexOutputType main(VertexInputType input)
 {
 	VertexOutputType output;
-
+	output.position = float4(input.position, 1.f);
 
 	matrix worldViewProj = mul(mul(world, view), projection);
 
-	//float finalWeight = 1.0f - (input.weight[0] + input.weight[1] + input.weight[2]);
-	//float4x4 boneTransform = bones[input.boneIdx[0]] * input.weight[0];
-	//boneTransform += bones[input.boneIdx[1]] * input.weight[1];
-	//boneTransform += bones[input.boneIdx[2]] * input.weight[2];
-	//boneTransform += bones[input.boneIdx[3]] * finalWeight;
-	//output.position = mul(float4(input.position, 1.0f), boneTransform);
-	output.position = float4(input.position, 1.0f);
+	float finalWeight = 1 - (input.weight[0] + input.weight[1] + input.weight[2]);
 
 
+	float4x4 boneTransform = bones[input.boneIdx[0]] * input.weight[0];
+	boneTransform += bones[input.boneIdx[1]] * input.weight[1];
+	boneTransform += bones[input.boneIdx[2]] * input.weight[2];
+	boneTransform += bones[input.boneIdx[3]] * finalWeight;
+
+	output.position = mul(output.position, boneTransform);
 	output.position = mul(output.position, worldViewProj);
 	output.normal = normalize(mul(input.normal, (float3x3)world));
 	output.coord = input.coord;

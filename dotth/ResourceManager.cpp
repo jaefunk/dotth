@@ -3,6 +3,8 @@
 #include "json/json.hpp"
 #include "Utility.h"
 
+using namespace std::literals;
+
 bool ResourceManager2::Load(const std::string& reserved)
 {
 	std::ifstream file;
@@ -15,31 +17,31 @@ bool ResourceManager2::Load(const std::string& reserved)
 	}
 	file.close();
 
-	for (auto& p : std::filesystem::recursive_directory_iterator("Resource/"))
+	for (auto& iterator : std::filesystem::recursive_directory_iterator("Resource/"))
 	{
-		if (!p.is_directory())
+		if (!iterator.is_directory())
 		{
-			auto j = p.path();
-			auto path = j.u8string();
-			path = Utility::Str::Replace(path, "\\", "/");
-			auto filesystem = std::filesystem::path(path);
+			auto path = iterator.path();
+			auto pathString = path.u8string();
+			pathString = Utility::Str::Replace(pathString, "\\", "/");
+			auto filesystem = std::filesystem::path(pathString);
 			auto filename = filesystem.filename().u8string();
 			auto extension = filesystem.extension().u8string();
 			auto key = Utility::Str::Replace(filename, extension, "");
-			auto asset = LoadAsset(path);
-			if (asset == nullptr)
+			auto loaded = LoadAsset(pathString);
+			if (loaded == nullptr)
 			{
 				std::cout << " ### " << path << " load failed!" << std::endl;
 				continue;
 			}
-			decltype(resources)::iterator iterator = resources.find(key);
-			if (iterator != resources.end())
+			decltype(resources)::iterator find = resources.find(key);
+			if (find != resources.end())
 			{
 				std::cout << " ### " << path << " duplicate file name!" << std::endl;
 				continue;
 			}
-			std::cout << path << std::endl;
-			resources.emplace(std::make_pair(key, std::move(asset)));
+			std::cout << " ### " << path << " was loaded!" << std::endl;
+			resources.emplace(std::make_pair(key, loaded));
 		}
 	}
 

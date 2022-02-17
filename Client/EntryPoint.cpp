@@ -7,10 +7,10 @@
 
 void EntryPoint::OnInit(void)
 {
-	auto StaticMeshObject = std::make_shared<Object>();
-	StaticMeshObject->AddComponent<StaticMeshComponent>();
-	StaticMeshObject->Translate(Vector3(-100.f, 0.f, 0.f));
-	SpawnObject(StaticMeshObject);
+	//auto StaticMeshObject = std::make_shared<Object>();
+	//StaticMeshObject->AddComponent<StaticMeshComponent>();
+	//StaticMeshObject->Translate(Vector3(-100.f, 0.f, 0.f));
+	//SpawnObject(StaticMeshObject);
 
 	auto SkeletalMeshObject = std::make_shared<Object>();
 	SkeletalMeshObject->AddComponent<SkeletalMeshComponent>();
@@ -18,9 +18,9 @@ void EntryPoint::OnInit(void)
 	SpawnObject(SkeletalMeshObject);
 
 	
-	GetActiveCamera()->GetCameraComponent()->SetEye(Vector3(0.f, 50.f, -300.f));
+	//GetActiveCamera()->GetCameraComponent()->SetEye(Vector3(0.f, 50.f, -1200.f));
 	GetActiveCamera()->GetCameraComponent()->SetUp(Vector3::Up());
-	GetActiveCamera()->GetCameraComponent()->SetAt(Vector3(0.f, 50.f, 0.f));
+	//GetActiveCamera()->GetCameraComponent()->SetAt(Vector3(0.f, 50.f, 0.f));
 }
 
 void EntryPoint::OnUpdate(void)
