@@ -15,4 +15,7 @@ public:
 	}
 	bool Load(const std::string& key);
 	void Draw(unsigned int index);
+
+private:
+	std::unordered_map<std::string, dotth::BoneInfo> boneInfos;
 };

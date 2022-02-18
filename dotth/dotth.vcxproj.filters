@@ -263,6 +263,7 @@
     <ClInclude Include="Renderable.h" />
     <ClInclude Include="SkeletalMesh.h" />
     <ClInclude Include="SkeletalMeshComponent.h" />
+    <ClInclude Include="Bone.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Framework">

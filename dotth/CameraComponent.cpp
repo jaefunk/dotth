@@ -3,7 +3,7 @@
 
 CameraComponent::CameraComponent(unsigned int ViewportWidth, unsigned int ViewportHeight)
 {
-	Eye = Vector3(0.f, 1000.f, -1000.f);
+	Eye = Vector3(0.f, 250, -500.f);
 	Up = Vector3::Up();
 	At = Vector3::Zero();
 	Near = 0.1f;

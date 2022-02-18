@@ -329,6 +329,14 @@ namespace dotth
 		{
 		}
 
+		static void add(const vector4& left, const vector4& right, vector4& result)
+		{
+			result.x = left.x + right.x;
+			result.y = left.y + right.y;
+			result.z = left.z + right.z;
+			result.w = left.w + right.w;
+		}
+
 		static void multiply(const vector4& left, float right, vector4& result)
 		{
 			result.x = left.x * right;
@@ -664,6 +672,15 @@ namespace dotth
 		}
 	};
 
+	template<typename ty>
+	struct value4 {
+		ty x, y, z, w;
+		value4(void) = default;
+		value4(ty _x, ty _y, ty _z, ty _w)
+			: x(_x), y(_y), z(_z), w(_w)
+		{
+		}
+	};
 	struct uint4 {
 		unsigned int x = 0;
 		unsigned int y = 0;
@@ -671,6 +688,12 @@ namespace dotth
 		unsigned int w = 0;
 	};
 
+	struct BoneInfo {
+		int id;
+		dotth::matrix offset;
+	};
+	
+	
 	struct mesh
 	{
 		std::string name;
@@ -692,14 +715,12 @@ namespace dotth
 		bone** bones = nullptr;
 
 		unsigned int numBoneIds = 0;
-		uint4* boneids = nullptr;
+		value4<int>* boneids = nullptr;
 		vector4* weights = nullptr;
 
 		unsigned int mateiralIndex = 0;
 
-		unsigned int startIndex = 0;
-
-		mesh(const aiMesh* raw, node* root = nullptr, unsigned int startIndex = 0)
+		mesh(std::map<std::string, BoneInfo>& boneInfos, const aiMesh* raw, node* root = nullptr)
 		{
 			name = raw->mName.C_Str();
 
@@ -741,40 +762,50 @@ namespace dotth
 			{
 				bones = new bone * [numBones];
 				for (unsigned int i = 0; i < numBones; ++i)
-					bones[i] = new bone(raw->mBones[i], root);
-			}
-
-			if (numBones > 0)
-			{
-				numBoneIds = max(numPositions, numBones);
-				boneids = new uint4[numBoneIds];
-				weights = new vector4[numBoneIds];
-				for (unsigned int k = 0; k < numBones; ++k)
 				{
-					auto bone = bones[k];
-					for (unsigned int l = 0; l < bone->numWeights; ++l)
-					{
-						unsigned int vertId = bone->weights[l].vertexID + startIndex;
+					bones[i] = new bone(raw->mBones[i], root);
+				}
 
-						if (weights[vertId].x == 0)
+				numBoneIds = numPositions;
+				boneids = new value4<int>[numBoneIds];
+				weights = new vector4[numBoneIds];
+				for (unsigned int i = 0; i < numBoneIds; ++i)
+				{
+					boneids[i] = value4<int>(-1, -1, -1, -1);
+					weights[i] = vector4(0.f, 0.f, 0.f, 0.f);
+				}
+				for (unsigned int i = 0; i < numBones; ++i)
+				{
+					int boneID = -1;
+					std::string boneName = bones[i]->name;
+					if (boneInfos.find(boneName) == boneInfos.end())
+					{
+						BoneInfo boneInfo;
+						boneInfo.id = boneInfos.size();
+						boneInfo.offset = bones[i]->offset;
+						boneInfos[boneName] = boneInfo;
+						boneID = boneInfos.size();
+					}
+					else
+					{
+						boneID = boneInfos[boneName].id;
+					}
+					assert(boneID != -1);
+					unsigned int numWeights = bones[i]->numWeights;
+					for (unsigned int weightIndex = 0; weightIndex < numWeights; ++weightIndex)
+					{
+						unsigned int vertexId = bones[i]->weights[weightIndex].vertexID;
+						float weight = bones[i]->weights[weightIndex].value;
+						
+						assert(vertexId <= numBoneIds);
+						
+						for (unsigned int j = 0; j < 4; ++j)
 						{
-							boneids[vertId].x = k;
-							weights[vertId].x = bone->weights[l].value;
-						}
-						else if (weights[vertId].y == 0)
-						{
-							boneids[vertId].y = k;
-							weights[vertId].y = bone->weights[l].value;
-						}
-						else if (weights[vertId].z == 0)
-						{
-							boneids[vertId].z = k;
-							weights[vertId].z = bone->weights[l].value;
-						}
-						else if (weights[vertId].w == 0)
-						{
-							boneids[vertId].w = k;
-							weights[vertId].w = bone->weights[l].value;
+							if (boneids[vertexId].x < 0)
+							{
+								boneids[vertexId].x = boneID;
+								weights[vertexId].x = weight;
+							}
 						}
 					}
 				}
@@ -915,6 +946,9 @@ namespace dotth
 		unsigned int numAnimations = 0;
 		animation** animations = nullptr;
 
+		std::map<std::string, BoneInfo> boneInfos;
+		int boneCount = 0;
+
 		model(const aiScene* raw)
 			: scene(raw)
 		{
@@ -927,15 +961,13 @@ namespace dotth
 				}
 			);
 
-			numMeshes = 1;// raw->mNumMeshes;
+			numMeshes = raw->mNumMeshes;
 			if (numMeshes != 0)
 			{
 				meshes = new mesh * [numMeshes];
-				unsigned int totalVertice = 0;
 				for (unsigned int i = 0; i < numMeshes; ++i)
 				{
-					meshes[i] = new mesh(raw->mMeshes[i], root, totalVertice);
-					totalVertice += raw->mMeshes[i]->mNumVertices;
+					meshes[i] = new mesh(boneInfos, raw->mMeshes[i], root);
 					for (unsigned int j = 0; j < meshes[i]->numBones; ++j)
 					{
 						{
