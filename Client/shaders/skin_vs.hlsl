@@ -42,7 +42,7 @@ VertexOutputType main(VertexInputType input)
 	boneTransform += bones[input.boneIdx[2]] * input.weight[2];
 	boneTransform += bones[input.boneIdx[3]] * finalWeight;
 
-	output.position = mul(output.position, boneTransform);
+	//output.position = mul(output.position, boneTransform);
 	output.position = mul(output.position, worldViewProj);
 	output.normal = normalize(mul(input.normal, (float3x3)world));
 	output.coord = input.coord;
