@@ -10,7 +10,7 @@ class SkeletalMeshComponent : public MeshComponent
 public:
 	std::shared_ptr<Material> material{ new Material };
 	std::shared_ptr<SkeletalMesh> mesh{ new SkeletalMesh };
-	std::shared_ptr<Animation2> animation{ new Animation2 };
+	std::shared_ptr<Animation> animation{ new Animation };
 
 public:
 	virtual void OnInit(void) override;

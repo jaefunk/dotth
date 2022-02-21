@@ -4,9 +4,9 @@
 
 void SkeletalMeshComponent::OnInit(void)
 {	
-	mesh->Load("viking_C");
+	mesh->Load("Resource/Breathing Idle.fbx");
 	material->Load("viking_blue_C_texture", "../Output/Client/x64/Debug/skin_vs.cso", "../Output/Client/x64/Debug/skin_ps.cso");
-	animation->Load(mesh->Raw);
+	animation->Load("Resource/Breathing Idle.fbx", mesh);
 }
 
 void SkeletalMeshComponent::OnUpdate(void)
@@ -24,12 +24,19 @@ void SkeletalMeshComponent::OnDraw(void)
 	for (unsigned int i = 0; i < mesh->GetSectionSize(); ++i)
 	{
 		std::vector<XMMATRIX> calcBoneList;
-		for (unsigned int j = 0; j < mesh->Raw->meshes[i]->numBones; ++j)
+		if (!mesh->Raw->meshes[i]->boneIds.empty())
 		{
-			auto bone = mesh->Raw->meshes[i]->bones[j];
-			calcBoneList.push_back(XMMatrixTranspose(XMMATRIX(bone->offset.f) * XMMATRIX(bone->targetNode->world.f)));
-			//calcBoneList.push_back(XMMatrixIdentity());
+			for (auto matrix : animation->finalMatrixes)
+			{
+				calcBoneList.push_back(XMMATRIX(matrix.f));				
+			}
 		}
+		//for (unsigned int j = 0; j < mesh->Raw->meshes.size(); ++j)
+		//{
+		//	auto bone = mesh->Raw->meshes[i]->bones[j];
+		//	calcBoneList.push_back(XMMatrixTranspose(XMMATRIX(bone->offset.f) * XMMATRIX(bone->targetNode->world.f)));
+		//	//calcBoneList.push_back(XMMatrixIdentity());
+		//}
 		material->Bind(world, view, proj, calcBoneList.data(), calcBoneList.size() * sizeof(XMMATRIX));
 		mesh->Draw(i);
 	}

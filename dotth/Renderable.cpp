@@ -46,6 +46,50 @@ Renderable::Renderable(dotth::mesh* raw)
 	//printf("%s %d\n", raw->name.c_str(), raw->mateiralIndex);
 }
 
+Renderable::Renderable(dotth2::mesh* raw)
+{
+	if (raw->positions.size() > 0)
+	{
+		CreateVertexBuffer(&PositionBuffer, raw->positions.data(), static_cast<unsigned int>(sizeof(dotth::vector3) * raw->positions.size()));
+		VertexBuffers.push_back(&PositionBuffer);
+		BufferStrides.push_back(sizeof(dotth::vector3));
+	}
+
+	if (raw->normals.size() > 0)
+	{
+		CreateVertexBuffer(&NormalBuffer, raw->normals.data(), static_cast<unsigned int>(sizeof(dotth::vector3) * raw->normals.size()));
+		VertexBuffers.push_back(&NormalBuffer);
+		BufferStrides.push_back(sizeof(dotth::vector3));
+	}
+
+	if (raw->textureCoords.size() > 0)
+	{
+		CreateVertexBuffer(&TextureCoordBuffer, raw->textureCoords.data(), static_cast<unsigned int>(sizeof(dotth::vector2) * raw->textureCoords.size()));
+		VertexBuffers.push_back(&TextureCoordBuffer);
+		BufferStrides.push_back(sizeof(dotth::vector2));
+	}
+
+	if (raw->boneIds.size() > 0)
+	{
+		CreateVertexBuffer(&BoneIdBuffer, raw->boneIds.data(), static_cast<unsigned int>(sizeof(dotth::uint4) * raw->boneIds.size()));
+		VertexBuffers.push_back(&BoneIdBuffer);
+		BufferStrides.push_back(sizeof(dotth::uint4));
+	}
+
+	if (raw->weights.size() > 0)
+	{
+		CreateVertexBuffer(&WeightBuffer, raw->weights.data(), static_cast<unsigned int>(sizeof(dotth::vector4) * raw->boneIds.size()));
+		VertexBuffers.push_back(&WeightBuffer);
+		BufferStrides.push_back(sizeof(dotth::vector4));
+	}
+
+	if (raw->indices.size() > 0)
+	{
+		CreateIndexBuffer(&IndexBuffer, raw->indices.data(), static_cast<unsigned int>(sizeof(unsigned int) * raw->indices.size()));
+		IndexSize = raw->indices.size();
+	}
+}
+
 void Renderable::Draw(void)
 {
 	unsigned int offset = 0;

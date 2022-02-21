@@ -4,13 +4,13 @@
 
 bool SkeletalMesh::Load(const std::string& key)
 {
-	Raw = ResourceManager2::Find<dotth::model>(key);
+	Raw = FBXLoader::Load2(key);
 	if (Raw == nullptr)
 		return false;
 
-	for (auto index = 0; index < Raw->numMeshes; ++index)
+	for (auto mesh : Raw->meshes)
 	{
-		Renderables.push_back(new Renderable(Raw->meshes[index]));
+		Renderables.push_back(new Renderable(mesh));
 	}
 	return true;
 }

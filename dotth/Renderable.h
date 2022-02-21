@@ -6,6 +6,7 @@ class Renderable
 {
 public:
 	Renderable(dotth::mesh* raw);
+	Renderable(dotth2::mesh* raw);
 public:
 	void Draw(void);
 

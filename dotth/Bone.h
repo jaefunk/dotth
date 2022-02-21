@@ -11,24 +11,40 @@ struct keyframe {
 class Bone
 {
 public:
-	Bone(unsigned int boneID, dotth::anim::node* channel)
+	Bone(unsigned int boneID, aiNodeAnim* channel)
 	{
 		id = boneID;
-		name = channel->name;
+		name = channel->mNodeName.C_Str();
 
-		positionKeys.resize(channel->numKeys);
-		rotationKeys.resize(channel->numKeys);
-		scaleKeys.resize(channel->numKeys);
-		for (unsigned int i = 0; i < channel->numKeys; ++i)
+		positionKeys.resize(channel->mNumPositionKeys);
+		for (int i = 0; i < channel->mNumPositionKeys; ++i)
 		{
-			const dotth::keyframe& key = channel->keyframes[i];
-			positionKeys[i].time = key.time;
-			positionKeys[i].value = key.position;
-			rotationKeys[i].time = key.time;
-			rotationKeys[i].value = key.rotation;
-			scaleKeys[i].time = key.time;
-			scaleKeys[i].value = key.scale;
+			positionKeys[i].time = channel->mPositionKeys[i].mTime;
+			positionKeys[i].value.x = channel->mPositionKeys[i].mValue.x;
+			positionKeys[i].value.y = channel->mPositionKeys[i].mValue.y;
+			positionKeys[i].value.z = channel->mPositionKeys[i].mValue.z;
 		}
+
+		rotationKeys.resize(channel->mNumRotationKeys);
+		for (int i = 0; i < channel->mNumRotationKeys; ++i)
+		{
+			rotationKeys[i].time = channel->mRotationKeys[i].mTime;
+			rotationKeys[i].value.x = channel->mRotationKeys[i].mValue.x;
+			rotationKeys[i].value.y = channel->mRotationKeys[i].mValue.y;
+			rotationKeys[i].value.z = channel->mRotationKeys[i].mValue.z;
+			rotationKeys[i].value.w = channel->mRotationKeys[i].mValue.w;
+		}
+
+		scaleKeys.resize(channel->mNumScalingKeys);
+		for (int i = 0; i < channel->mNumScalingKeys; ++i)
+		{
+			scaleKeys[i].time = channel->mScalingKeys[i].mTime;
+			scaleKeys[i].value.x = channel->mScalingKeys[i].mValue.x;
+			scaleKeys[i].value.y = channel->mScalingKeys[i].mValue.y;
+			scaleKeys[i].value.z = channel->mScalingKeys[i].mValue.z;
+		}
+
+		localTransform.set_identity();
 	}
 
 public:
@@ -67,35 +83,35 @@ public:
 	}
 	XMMATRIX InterpolatePosition(float time)
 	{
-		keyframe<dotth::vector3> prev = positionKeys[GetPositionIndex(time)];
-		keyframe<dotth::vector3> next = positionKeys[GetPositionIndex(time) + 1];
+		keyframe<dotth2::vector3> prev = positionKeys[GetPositionIndex(time)];
+		keyframe<dotth2::vector3> next = positionKeys[GetPositionIndex(time) + 1];
 		float factor = GetFactor(prev.time, next.time, time);
-		dotth::vector3 finalPosition;
-		dotth::vector3::multiply(next.value, factor, finalPosition);
-		dotth::vector3::add(prev.value, finalPosition, finalPosition);
+		dotth2::vector3 finalPosition;
+		dotth2::vector3::multiply(next.value, factor, finalPosition);
+		dotth2::vector3::add(prev.value, finalPosition, finalPosition);
 		XMFLOAT3 float3 = finalPosition;
 		return XMMatrixTranslationFromVector(XMLoadFloat3(&float3));
 	}
 	XMMATRIX InterpolateRotation(float time)
 	{
-		keyframe<dotth::vector4> prev = rotationKeys[GetRotationIndex(time)];
-		keyframe<dotth::vector4> next = rotationKeys[GetRotationIndex(time) + 1];
+		keyframe<dotth2::vector4> prev = rotationKeys[GetRotationIndex(time)];
+		keyframe<dotth2::vector4> next = rotationKeys[GetRotationIndex(time) + 1];
 		float factor = GetFactor(prev.time, next.time, time);
-		dotth::vector4 finalRotation;
-		dotth::vector4::multiply(next.value, factor, finalRotation);
-		dotth::vector4::add(prev.value, finalRotation, finalRotation);
+		dotth2::vector4 finalRotation;
+		dotth2::vector4::multiply(next.value, factor, finalRotation);
+		dotth2::vector4::add(prev.value, finalRotation, finalRotation);
 		XMFLOAT4 float4 = XMFLOAT4(finalRotation);
 		XMLoadFloat4(&float4);
 		return XMMatrixRotationQuaternion(XMLoadFloat4(&float4));;
 	}
 	XMMATRIX InterpolateScale(float time)
 	{
-		keyframe<dotth::vector3> prev = scaleKeys[GetScaleIndex(time)];
-		keyframe<dotth::vector3> next = scaleKeys[GetScaleIndex(time) + 1];
+		keyframe<dotth2::vector3> prev = scaleKeys[GetScaleIndex(time)];
+		keyframe<dotth2::vector3> next = scaleKeys[GetScaleIndex(time) + 1];
 		float factor = GetFactor(prev.time, next.time, time);
-		dotth::vector3 finalScale;
-		dotth::vector3::multiply(next.value, factor, finalScale);
-		dotth::vector3::add(prev.value, finalScale, finalScale);
+		dotth2::vector3 finalScale;
+		dotth2::vector3::multiply(next.value, factor, finalScale);
+		dotth2::vector3::add(prev.value, finalScale, finalScale);
 		XMFLOAT3 float3 = finalScale;
 		return XMMatrixScalingFromVector(XMLoadFloat3(&float3));
 	}
@@ -109,11 +125,11 @@ public:
 		localTransform = p * r * s;
 	}
 
-private:
+public:
 	unsigned int id = 0;
 	std::string name;
-	dotth::matrix localTransform;
-	std::vector<keyframe<dotth::vector3>> positionKeys;
-	std::vector<keyframe<dotth::vector4>> rotationKeys;
-	std::vector<keyframe<dotth::vector3>> scaleKeys;
+	dotth2::matrix localTransform;
+	std::vector<keyframe<dotth2::vector3>> positionKeys;
+	std::vector<keyframe<dotth2::vector4>> rotationKeys;
+	std::vector<keyframe<dotth2::vector3>> scaleKeys;
 };
