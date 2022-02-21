@@ -3,6 +3,7 @@
 #include <setjmp.h>
 #pragma comment(lib, "libjpeg/lib/libjpeg_a.lib")
 
+
 std::shared_ptr<dotth::model> FBXLoader::Load(const std::string& filePath)
 {
 	std::shared_ptr<dotth::model> mesh;
@@ -12,6 +13,20 @@ std::shared_ptr<dotth::model> FBXLoader::Load(const std::string& filePath)
 	if (scene == nullptr)
 		return mesh;
 	mesh = std::make_unique<dotth::model>(scene);
+
+	auto m = new dotth2::model(scene);
+	return mesh;
+}
+
+std::shared_ptr<dotth2::model> FBXLoader::Load2(const std::string& filePath)
+{
+	std::shared_ptr<dotth2::model> mesh;
+	Assimp::Importer importer;
+	unsigned int flags = aiProcess_ConvertToLeftHanded | aiProcess_Triangulate | aiProcess_OptimizeMeshes | aiProcess_PopulateArmatureData | aiProcess_LimitBoneWeights;
+	auto scene = importer.ReadFile(filePath, flags);
+	if (scene == nullptr)
+		return mesh;
+	mesh = std::make_shared<dotth2::model>(scene);
 	return mesh;
 }
 

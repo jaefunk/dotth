@@ -8,6 +8,8 @@
 
 #include "libjpeg/include/jpeglib.h"
 
+
+
 enum class EXTENSION_TYPE {
 	JPEG,
 	FBX,
@@ -1016,10 +1018,13 @@ namespace dotth
 	};
 }
 
+#include "new/Asset.h"
+
 class FBXLoader
 {
 public:
 	static std::shared_ptr<dotth::model> Load(const std::string& filePath);
+	static std::shared_ptr<dotth2::model> Load2(const std::string& filePath);
 };
 
 class JPEGLoader

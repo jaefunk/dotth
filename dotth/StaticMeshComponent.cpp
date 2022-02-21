@@ -3,7 +3,7 @@
 
 void StaticMeshComponent::OnInit(void)
 {	
-	mesh->Load("Breathing Idle");
+	mesh->Load("Resource/Breathing Idle.fbx");
 	material->Load("viking_blue_C_texture", "../Output/Client/x64/Debug/deferred_vs.cso", "../Output/Client/x64/Debug/deferred_ps.cso");
 }
 
