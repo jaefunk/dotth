@@ -43,7 +43,7 @@ namespace dotth2 {
 			name = raw->mName.C_Str();
 			
 			for (unsigned int i = 0; i < 16; ++i)
-				local[i] = raw->mTransformation[i / 4][i % 4];
+				local[i] = raw->mTransformation[i % 4][i / 4];
 			
 			
 			if (raw->mNumChildren != 0)
@@ -135,17 +135,15 @@ namespace dotth2 {
 				for (unsigned int i = 0; i < raw->mNumBones; ++i)
 				{
 					aiBone* Bone = raw->mBones[i];
-
 					for (unsigned int j = 0; j < Bone->mNumWeights; ++j)
 					{
-						aiVertexWeight vw = Bone->mWeights[j];
-						unsigned int vid = vw.mVertexId;
-						unsigned int wei = vw.mWeight;
+						unsigned int vid = Bone->mWeights[j].mVertexId;
+						float wei = Bone->mWeights[j].mWeight;
 						for (unsigned int k = 0; k < 4; ++k)
 						{
 							if (boneIds[vid].v[k] < 0)
 							{
-								boneIds[vid].v[k] = vid;
+								boneIds[vid].v[k] = i;
 								weights[vid].f[k] = wei;
 								break;
 							}
@@ -211,7 +209,7 @@ namespace dotth2 {
 						bone b;
 						b.id = mapBones.size();
 						for (unsigned int k = 0; k < 16; ++k)
-							b.offset[k] = Bone->mOffsetMatrix[k / 4][k % 4];
+							b.offset[k] = Bone->mOffsetMatrix[k % 4][k / 4];
 						mapBones.insert({ boneName, b });
 					}
 				}
