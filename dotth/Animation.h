@@ -48,35 +48,57 @@ public:
 
 	void CalculateBoneTransform(dotth2::node* target, dotth2::matrix parentTransform)
 	{
-		auto finalMatrix = target->local;
+		dotth2::matrix nodeLocalMatrix, boneMatrix, modelOffset;
+		nodeLocalMatrix.set_identity();
+		boneMatrix.set_identity();
+		modelOffset.set_identity();
+
+		dotth2::matrix global;
+		global.set_identity();
+
+		int boneID = -1;
 		auto iter = mapBones.find(target->name);
 		if (iter != mapBones.end())
 		{
-			iter->second.Update(current);
-			finalMatrix = iter->second.localTransform;
+			boneMatrix = iter->second.localTransform;
+			boneID = iter->second.id;
 		}
-		dotth2::matrix global;
-		dotth2::matrix::multiply(finalMatrix, parentTransform, global);
 
-		auto iter2 = ModelRaw->mapBones.find(target->name);
-		if (iter2 != ModelRaw->mapBones.end())
+		auto iter2 = ModelRaw->mapNodes.find(target->name);
+		if (iter2 != ModelRaw->mapNodes.end())
 		{
-			int index = iter2->second.id;
-			dotth2::matrix offset = iter2->second.offset;
-			dotth2::matrix& result = finalMatrixes[index];
-			dotth2::matrix::multiply(offset, global, result);
+			nodeLocalMatrix = iter2->second->local;
 		}
+
+		auto iter3 = ModelRaw->mapBones.find(target->name);
+		if (iter3 != ModelRaw->mapBones.end())
+		{
+			modelOffset = iter3->second.offset;
+			boneID = iter3->second.id;
+		}
+
+		dotth2::matrix finalMatrix = parentTransform * nodeLocalMatrix;// *boneMatrix* parentTransform;// parentTransform* nodeLocalMatrix;
 		
+		if (boneID != -1)
+			finalMatrixes[boneID] = finalMatrix;
+
+		//dotth2::matrix globalMatrix;
+		//dotth2::matrix::multiply(modelOffset, finalMatrix, globalMatrix);
+		//if (boneID != -1)
+		//{
+		//	
+		//}
+
 		for (auto child : target->children)
 		{
-			CalculateBoneTransform(child, global);
+			CalculateBoneTransform(child, finalMatrix);
 		}
 	}
 
 	void Update(float delta)
 	{
 		if (status == ANIMATION_STATUS::RUNNING)
-			current += tickPerSecond;
+			current += delta * tickPerSecond;
 		
 		if (current >= duration)
 		{
@@ -91,9 +113,15 @@ public:
 			}
 		}
 
+		for (auto& bone : mapBones)
+		{
+			bone.second.Update(current);
+		}
+
 		dotth2::matrix m;
 		m.set_identity();
 		CalculateBoneTransform(root, m);
+
 	}
 };
 

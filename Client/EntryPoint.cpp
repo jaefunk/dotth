@@ -12,19 +12,20 @@ void EntryPoint::OnInit(void)
 	//StaticMeshObject->Translate(Vector3(-100.f, 0.f, 0.f));
 	//SpawnObject(StaticMeshObject);
 
-	auto SkeletalMeshObject = std::make_shared<Object>();
-	SkeletalMeshObject->AddComponent<SkeletalMeshComponent>();
-	SkeletalMeshObject->Translate(Vector3(100.f, 0.f, 0.f));
-	SpawnObject(SkeletalMeshObject);
+	so1 = std::make_shared<Object>();
+	so1->AddComponent<SkeletalMeshComponent>();
+	so1->Translate(Vector3(0.f, 0.f, 0.f));
+	SpawnObject(so1);
 
 	
-	//GetActiveCamera()->GetCameraComponent()->SetEye(Vector3(0.f, 50.f, -1200.f));
+	GetActiveCamera()->GetCameraComponent()->SetEye(Vector3(0.f, 100.f, 400.f));
 	GetActiveCamera()->GetCameraComponent()->SetUp(Vector3::Up());
-	//GetActiveCamera()->GetCameraComponent()->SetAt(Vector3(0.f, 50.f, 0.f));
+	GetActiveCamera()->GetCameraComponent()->SetAt(Vector3(0.f, 100.f, 0.f));
 }
 
 void EntryPoint::OnUpdate(void)
 {
+	so1->RotateYaw(0.05f);
 	//static bool b = false;
 	//static float f = 0.f;
 	//if (f >= 1.f)

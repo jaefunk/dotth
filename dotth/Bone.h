@@ -87,21 +87,37 @@ public:
 		keyframe<dotth2::vector3> next = positionKeys[GetPositionIndex(time) + 1];
 		float factor = GetFactor(prev.time, next.time, time);
 		dotth2::vector3 finalPosition;
-		dotth2::vector3::multiply(next.value, factor, finalPosition);
+		dotth2::vector3::subtract(next.value, prev.value, finalPosition);
+		dotth2::vector3::multiply(finalPosition, factor, finalPosition);
 		dotth2::vector3::add(prev.value, finalPosition, finalPosition);
-		XMFLOAT3 float3 = finalPosition;
-		return XMMatrixTranslationFromVector(XMLoadFloat3(&float3));
+		XMFLOAT3 float3 = XMFLOAT3(finalPosition);
+		auto aa = XMMatrixTranslationFromVector(XMLoadFloat3(&float3));
+		return aa;
 	}
 	XMMATRIX InterpolateRotation(float time)
 	{
+		auto lerp = [](const dotth2::vector4& a, const dotth2::vector4& b, float f) {
+			dotth2::vector4 r;
+			float t_ = 1 - f;
+			r.x = t_ * a.x + f * b.x;
+			r.y = t_ * a.y + f * b.y;
+			r.z = t_ * a.z + f * b.z;
+			r.w = t_ * a.w + f * b.w;
+			dotth2::vector4::normalize(r, r);
+			return r;
+		};
 		keyframe<dotth2::vector4> prev = rotationKeys[GetRotationIndex(time)];
 		keyframe<dotth2::vector4> next = rotationKeys[GetRotationIndex(time) + 1];
 		float factor = GetFactor(prev.time, next.time, time);
-		dotth2::vector4 finalRotation;
-		dotth2::vector4::multiply(next.value, factor, finalRotation);
-		dotth2::vector4::add(prev.value, finalRotation, finalRotation);
+		dotth2::vector4 finalRotation = lerp(prev.value, prev.value, factor);
+		//dotth2::vector4::subtract(next.value, prev.value, finalRotation);
+		//dotth2::vector4::multiply(finalRotation, factor, finalRotation);
+		//dotth2::vector4::add(prev.value, finalRotation, finalRotation);
 		XMFLOAT4 float4 = XMFLOAT4(finalRotation);
 		XMLoadFloat4(&float4);
+
+		
+
 		return XMMatrixRotationQuaternion(XMLoadFloat4(&float4));;
 	}
 	XMMATRIX InterpolateScale(float time)
@@ -110,7 +126,8 @@ public:
 		keyframe<dotth2::vector3> next = scaleKeys[GetScaleIndex(time) + 1];
 		float factor = GetFactor(prev.time, next.time, time);
 		dotth2::vector3 finalScale;
-		dotth2::vector3::multiply(next.value, factor, finalScale);
+		dotth2::vector3::subtract(next.value, prev.value, finalScale);
+		dotth2::vector3::multiply(finalScale, factor, finalScale);
 		dotth2::vector3::add(prev.value, finalScale, finalScale);
 		XMFLOAT3 float3 = finalScale;
 		return XMMatrixScalingFromVector(XMLoadFloat3(&float3));

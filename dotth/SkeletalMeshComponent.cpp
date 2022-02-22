@@ -11,7 +11,7 @@ void SkeletalMeshComponent::OnInit(void)
 
 void SkeletalMeshComponent::OnUpdate(void)
 {
-	animation->Update(0.1f);
+	animation->Update(1.f);
 }
 
 void SkeletalMeshComponent::OnDraw(void)
@@ -21,22 +21,18 @@ void SkeletalMeshComponent::OnDraw(void)
 	XMStoreFloat4x4(&view, XMMatrixTranspose(GetOwner()->GetActiveCamera()->GetView()));
 	XMStoreFloat4x4(&proj, XMMatrixTranspose(GetOwner()->GetActiveCamera()->GetPerspective()));
 
-	for (unsigned int i = 0; i < mesh->GetSectionSize(); ++i)
+	//for (unsigned int i = 0; i < mesh->GetSectionSize(); ++i)
+		for (unsigned int i = 0; i < 1; ++i)
 	{
 		std::vector<XMMATRIX> calcBoneList;
+		calcBoneList.resize(128);
 		if (!mesh->Raw->meshes[i]->boneIds.empty())
 		{
-			for (auto matrix : animation->finalMatrixes)
+			for (int i = 0; i < 128; ++i)
 			{
-				calcBoneList.push_back(XMMATRIX(matrix.f));				
+				calcBoneList[i] = XMMatrixTranspose(XMMATRIX(animation->finalMatrixes[i].f));
 			}
 		}
-		//for (unsigned int j = 0; j < mesh->Raw->meshes.size(); ++j)
-		//{
-		//	auto bone = mesh->Raw->meshes[i]->bones[j];
-		//	calcBoneList.push_back(XMMatrixTranspose(XMMATRIX(bone->offset.f) * XMMATRIX(bone->targetNode->world.f)));
-		//	//calcBoneList.push_back(XMMatrixIdentity());
-		//}
 		material->Bind(world, view, proj, calcBoneList.data(), calcBoneList.size() * sizeof(XMMATRIX));
 		mesh->Draw(i);
 	}

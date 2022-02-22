@@ -26,23 +26,29 @@ struct VertexOutputType
 	//float3 tangent		: TANGENTWS;
 };
 
+#define IDENTITY_MATRIX float4x4(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1)
 
 VertexOutputType main(VertexInputType input)
 {
 	VertexOutputType output;
 	output.position = float4(input.position, 1.f);
 
+	float4x4 boneTransform = float4x4(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+	for (int i = 0; i < 1; ++i)
+	{
+		if (input.boneIdx[i] == -1)
+		{
+			break;
+		}
+		if (input.boneIdx[i] >= 128)
+		{
+			break;
+		}
+		boneTransform += bones[input.boneIdx[i]] * input.weight[i];
+	}
+
+	output.position = mul(output.position, boneTransform);
 	matrix worldViewProj = mul(mul(world, view), projection);
-
-	float finalWeight = 1 - (input.weight[0] + input.weight[1] + input.weight[2]);
-
-
-	float4x4 boneTransform = bones[input.boneIdx[0]] * input.weight[0];
-	boneTransform += bones[input.boneIdx[1]] * input.weight[1];
-	boneTransform += bones[input.boneIdx[2]] * input.weight[2];
-	boneTransform += bones[input.boneIdx[3]] * finalWeight;
-
-	//output.position = mul(output.position, boneTransform);
 	output.position = mul(output.position, worldViewProj);
 	output.normal = normalize(mul(input.normal, (float3x3)world));
 	output.coord = input.coord;

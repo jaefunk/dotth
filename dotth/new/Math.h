@@ -213,6 +213,14 @@ namespace dotth2
 			result.w = left.w + right.w;
 		}
 
+		static void subtract(const vector4& left, const vector4& right, vector4& result)
+		{
+			result.x = left.x - right.x;
+			result.y = left.y - right.y;
+			result.z = left.z - right.z;
+			result.w = left.w - right.w;
+		}
+
 		static void multiply(const vector4& left, float right, vector4& result)
 		{
 			result.x = left.x * right;
@@ -227,6 +235,12 @@ namespace dotth2
 			result.y = left.y * right.y;
 			result.z = left.z * right.z;
 			result.w = left.w * right.w;
+		}
+
+		static void normalize(const vector4& source, vector4& result)
+		{
+			float f = sqrt((source.x * source.x) + (source.y * source.y) + (source.z * source.z) + (source.w * source.w));
+			vector4::multiply(source, 1.f / f, result);
 		}
 
 		static bool equal(const vector4& left, const vector4& right, float tolerance = std::numeric_limits<float>::epsilon())
@@ -316,11 +330,27 @@ namespace dotth2
 			{
 				for (int c = 0; c < 4; c++)
 				{
-					matrix::get_row(right, r, row);
-					matrix::get_column(left, c, col);
+					matrix::get_row(left, r, row);
+					matrix::get_column(right, c, col);
 					vector4::multiply(row, col, last);
 					result.rc[r][c] = last.f[0] + last.f[1] + last.f[2] + last.f[3];
 				}
+			}
+		}
+
+		static void subtract(const matrix& left, const matrix& right, matrix& result)
+		{
+			vector4 row1, row2, last;
+			for (int r = 0; r < 4; r++)
+			{
+				matrix::get_row(left, r, row1);
+				matrix::get_row(right, r, row2);
+				vector4::subtract(row1, row2, last);
+
+				result.rc[r][0] = last.x;
+				result.rc[r][1] = last.y;
+				result.rc[r][2] = last.z;
+				result.rc[r][3] = last.w;
 			}
 		}
 
