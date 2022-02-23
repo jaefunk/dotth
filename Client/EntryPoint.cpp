@@ -18,14 +18,14 @@ void EntryPoint::OnInit(void)
 	SpawnObject(so1);
 
 	
-	GetActiveCamera()->GetCameraComponent()->SetEye(Vector3(0.f, 100.f, 400.f));
+	GetActiveCamera()->GetCameraComponent()->SetEye(Vector3(0.f, 100.f, -300.f));
 	GetActiveCamera()->GetCameraComponent()->SetUp(Vector3::Up());
 	GetActiveCamera()->GetCameraComponent()->SetAt(Vector3(0.f, 100.f, 0.f));
 }
 
 void EntryPoint::OnUpdate(void)
 {
-	so1->RotateYaw(0.05f);
+	so1->RotateYaw(0.01f);
 	//static bool b = false;
 	//static float f = 0.f;
 	//if (f >= 1.f)

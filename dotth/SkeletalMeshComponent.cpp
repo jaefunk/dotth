@@ -4,14 +4,19 @@
 
 void SkeletalMeshComponent::OnInit(void)
 {	
-	mesh->Load("Resource/Breathing Idle.fbx");
+	
+	mesh->Load("Resource/viking_C.fbx");	
+	animation->Load("Resource/viking_C.fbx", mesh);
+
 	material->Load("viking_blue_C_texture", "../Output/Client/x64/Debug/skin_vs.cso", "../Output/Client/x64/Debug/skin_ps.cso");
-	animation->Load("Resource/Breathing Idle.fbx", mesh);
+
+	//mesh->Load("Resource/Breathing Idle.fbx");
+	//animation->Load("Resource/Breathing Idle.fbx", mesh);
 }
 
 void SkeletalMeshComponent::OnUpdate(void)
 {
-	animation->Update(1.f);
+	animation->Update(0.16f);
 }
 
 void SkeletalMeshComponent::OnDraw(void)
@@ -21,8 +26,7 @@ void SkeletalMeshComponent::OnDraw(void)
 	XMStoreFloat4x4(&view, XMMatrixTranspose(GetOwner()->GetActiveCamera()->GetView()));
 	XMStoreFloat4x4(&proj, XMMatrixTranspose(GetOwner()->GetActiveCamera()->GetPerspective()));
 
-	//for (unsigned int i = 0; i < mesh->GetSectionSize(); ++i)
-		for (unsigned int i = 0; i < 1; ++i)
+	for (unsigned int i = 0; i < mesh->GetSectionSize(); ++i)
 	{
 		std::vector<XMMATRIX> calcBoneList;
 		calcBoneList.resize(128);
