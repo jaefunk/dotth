@@ -77,17 +77,11 @@ public:
 			boneID = iter3->second.id;
 		}
 
-		dotth2::matrix finalMatrix = parentTransform * nodeLocalMatrix;// *boneMatrix* parentTransform;// parentTransform* nodeLocalMatrix;
+
+		dotth2::matrix finalMatrix = boneMatrix * parentTransform;
 		
 		if (boneID != -1)
-			finalMatrixes[boneID] = finalMatrix;
-
-		//dotth2::matrix globalMatrix;
-		//dotth2::matrix::multiply(modelOffset, finalMatrix, globalMatrix);
-		//if (boneID != -1)
-		//{
-		//	
-		//}
+			finalMatrixes[boneID] = modelOffset * finalMatrix;
 
 		for (auto child : target->children)
 		{
@@ -120,8 +114,12 @@ public:
 
 		dotth2::matrix m;
 		m.set_identity();
-		CalculateBoneTransform(root, m);
 
+		for (auto child : root->children)
+		{
+			CalculateBoneTransform(child, m);
+		}
+		m.set_identity();
 	}
 };
 

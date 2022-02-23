@@ -13,6 +13,21 @@ class Bone
 public:
 	Bone(unsigned int boneID, aiNodeAnim* channel)
 	{
+		raw = new aiNodeAnim;
+		
+		raw->mNodeName.Set(channel->mNodeName.C_Str());
+		raw->mNumPositionKeys = channel->mNumPositionKeys;
+		raw->mNumScalingKeys = channel->mNumScalingKeys;
+		raw->mNumRotationKeys = channel->mNumRotationKeys;
+		raw->mPositionKeys = new aiVectorKey[raw->mNumPositionKeys];
+		raw->mRotationKeys = new aiQuatKey[raw->mNumRotationKeys];
+		raw->mScalingKeys = new aiVectorKey[raw->mNumScalingKeys];
+		memcpy((void*)raw->mPositionKeys, (void*)channel->mPositionKeys, sizeof(aiVectorKey) * channel->mNumPositionKeys);
+		memcpy((void*)raw->mRotationKeys, (void*)channel->mRotationKeys, sizeof(aiQuatKey) * channel->mNumRotationKeys);
+		memcpy((void*)raw->mScalingKeys, (void*)channel->mScalingKeys, sizeof(aiVectorKey) * channel->mNumScalingKeys);
+		
+
+
 		id = boneID;
 		name = channel->mNodeName.C_Str();
 
@@ -56,81 +71,95 @@ public:
 	}
 	unsigned int GetPositionIndex(float time)
 	{
-		for (unsigned int i = 0; i < positionKeys.size()-1; ++i)
+		for (int i = 0; i < raw->mNumPositionKeys-1; ++i)
 		{
-			if (time < positionKeys[i + 1].time)
+			if (time < raw->mPositionKeys[i + 1].mTime)
 				return i;
 		}
+		//for (unsigned int i = 0; i < positionKeys.size()-1; ++i)
+		//{
+		//	if (time < positionKeys[i + 1].time)
+		//		return i;
+		//}
 		return 0;
 	}
 	unsigned int GetRotationIndex(float time)
 	{
-		for (unsigned int i = 0; i < rotationKeys.size() - 1; ++i)
+		for (int i = 0; i < raw->mNumRotationKeys - 1; ++i)
 		{
-			if (time < rotationKeys[i + 1].time)
+			if (time < raw->mRotationKeys[i + 1].mTime)
 				return i;
 		}
+		//for (unsigned int i = 0; i < rotationKeys.size() - 1; ++i)
+		//{
+		//	if (time < rotationKeys[i + 1].time)
+		//		return i;
+		//}
 		return 0;
 	}
 	unsigned int GetScaleIndex(float time)
 	{
-		for (unsigned int i = 0; i < scaleKeys.size() - 1; ++i)
+		for (int i = 0; i < raw->mNumScalingKeys - 1; ++i)
 		{
-			if (time < scaleKeys[i + 1].time)
+			if (time < raw->mScalingKeys[i + 1].mTime)
 				return i;
 		}
+		//for (unsigned int i = 0; i < scaleKeys.size() - 1; ++i)
+		//{
+		//	if (time < scaleKeys[i + 1].time)
+		//		return i;
+		//}
 		return 0;
 	}
 	XMMATRIX InterpolatePosition(float time)
 	{
-		keyframe<dotth2::vector3> prev = positionKeys[GetPositionIndex(time)];
-		keyframe<dotth2::vector3> next = positionKeys[GetPositionIndex(time) + 1];
-		float factor = GetFactor(prev.time, next.time, time);
-		dotth2::vector3 finalPosition;
-		dotth2::vector3::subtract(next.value, prev.value, finalPosition);
-		dotth2::vector3::multiply(finalPosition, factor, finalPosition);
-		dotth2::vector3::add(prev.value, finalPosition, finalPosition);
-		XMFLOAT3 float3 = XMFLOAT3(finalPosition);
+		auto prev = raw->mPositionKeys[GetPositionIndex(time)];
+		auto next = raw->mPositionKeys[GetPositionIndex(time) + 1];
+		float factor = GetFactor(prev.mTime, next.mTime, time);
+
+		Assimp::Interpolator<aiVectorKey> interpolator;
+		aiVector3D finalPosition;
+		interpolator(finalPosition, prev, next, factor);
+
+		XMFLOAT3 float3;
+		float3.x = finalPosition.x;
+		float3.y = finalPosition.y;
+		float3.z = finalPosition.z;
 		auto aa = XMMatrixTranslationFromVector(XMLoadFloat3(&float3));
 		return aa;
 	}
 	XMMATRIX InterpolateRotation(float time)
 	{
-		auto lerp = [](const dotth2::vector4& a, const dotth2::vector4& b, float f) {
-			dotth2::vector4 r;
-			float t_ = 1 - f;
-			r.x = t_ * a.x + f * b.x;
-			r.y = t_ * a.y + f * b.y;
-			r.z = t_ * a.z + f * b.z;
-			r.w = t_ * a.w + f * b.w;
-			dotth2::vector4::normalize(r, r);
-			return r;
-		};
-		keyframe<dotth2::vector4> prev = rotationKeys[GetRotationIndex(time)];
-		keyframe<dotth2::vector4> next = rotationKeys[GetRotationIndex(time) + 1];
-		float factor = GetFactor(prev.time, next.time, time);
-		dotth2::vector4 finalRotation = lerp(prev.value, prev.value, factor);
-		//dotth2::vector4::subtract(next.value, prev.value, finalRotation);
-		//dotth2::vector4::multiply(finalRotation, factor, finalRotation);
-		//dotth2::vector4::add(prev.value, finalRotation, finalRotation);
-		XMFLOAT4 float4 = XMFLOAT4(finalRotation);
-		XMLoadFloat4(&float4);
+		auto prev = raw->mRotationKeys[GetRotationIndex(time)];
+		auto next = raw->mRotationKeys[GetRotationIndex(time) + 1];
+		float factor = GetFactor(prev.mTime, next.mTime, time);
 
-		
+		Assimp::Interpolator<aiQuatKey> interpolator;
+		aiQuaternion finalValue;
+		interpolator(finalValue, prev, next, factor);
 
-		return XMMatrixRotationQuaternion(XMLoadFloat4(&float4));;
+		XMFLOAT4 float4;
+		float4.x = finalValue.x;
+		float4.y = finalValue.y;
+		float4.z = finalValue.z;
+		float4.w = finalValue.w;
+		auto aa = XMMatrixRotationQuaternion(XMLoadFloat4(&float4));
+		return aa;
 	}
 	XMMATRIX InterpolateScale(float time)
 	{
-		keyframe<dotth2::vector3> prev = scaleKeys[GetScaleIndex(time)];
-		keyframe<dotth2::vector3> next = scaleKeys[GetScaleIndex(time) + 1];
-		float factor = GetFactor(prev.time, next.time, time);
-		dotth2::vector3 finalScale;
-		dotth2::vector3::subtract(next.value, prev.value, finalScale);
-		dotth2::vector3::multiply(finalScale, factor, finalScale);
-		dotth2::vector3::add(prev.value, finalScale, finalScale);
-		XMFLOAT3 float3 = finalScale;
-		return XMMatrixScalingFromVector(XMLoadFloat3(&float3));
+		auto prev = raw->mScalingKeys[GetScaleIndex(time)];
+		auto next = raw->mScalingKeys[GetScaleIndex(time) + 1];
+		float factor = GetFactor(prev.mTime, next.mTime, time);
+		Assimp::Interpolator<aiVectorKey> interpolator;
+		aiVector3D finalScale;
+		interpolator(finalScale, prev, next, factor);
+		XMFLOAT3 float3;
+		float3.x = finalScale.x;
+		float3.y = finalScale.y;
+		float3.z = finalScale.z;
+		auto aa = XMMatrixScalingFromVector(XMLoadFloat3(&float3));
+		return aa;
 	}
 
 	void Update(float time)
@@ -139,7 +168,7 @@ public:
 		p = InterpolatePosition(time);
 		r = InterpolateRotation(time);
 		s = InterpolateScale(time);
-		localTransform = p * r * s;
+		localTransform = s * r * p;
 	}
 
 public:
@@ -149,4 +178,5 @@ public:
 	std::vector<keyframe<dotth2::vector3>> positionKeys;
 	std::vector<keyframe<dotth2::vector4>> rotationKeys;
 	std::vector<keyframe<dotth2::vector3>> scaleKeys;
+	aiNodeAnim* raw;
 };
