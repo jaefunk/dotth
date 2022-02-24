@@ -31,8 +31,7 @@ namespace dotth2 {
 	{
 	public:
 		std::string name;
-		matrix local;
-		matrix world;
+		matrix transformation;
 		node* parent = nullptr;
 		std::vector<node*> children;
 		unsigned int depth = 0;
@@ -43,9 +42,9 @@ namespace dotth2 {
 			name = raw->mName.C_Str();
 			
 			for (unsigned int i = 0; i < 16; ++i)
-				local[i] = raw->mTransformation[i % 4][i / 4];
-			
-			
+				transformation[i] = raw->mTransformation[i % 4][i / 4];
+
+			parent = inParent;
 			if (raw->mNumChildren != 0)
 			{
 				children.resize(raw->mNumChildren);
@@ -55,8 +54,7 @@ namespace dotth2 {
 				}
 			}
 			
-			parent = inParent;
-			node* p = inParent;
+			node* p = parent;
 			while (p != nullptr)
 			{
 				depth++;
@@ -174,7 +172,7 @@ namespace dotth2 {
 		node* root = nullptr;
 		std::vector<mesh*> meshes;
 		std::vector<animation*> animations;
-
+		matrix globalInverse;
 
 	public:
 		model(const aiScene* raw)
@@ -191,6 +189,12 @@ namespace dotth2 {
 					}
 				);
 				assert(mapNodes.size() == vecNodes.size());
+				std::sort(vecNodes.begin(), vecNodes.end(), [](const node* l, const node* r) {
+					
+					return l->depth > r->depth;
+				});
+
+				globalInverse = root->transformation.inverse();
 			}
 
 			if (raw->mNumMeshes != 0)
@@ -214,6 +218,8 @@ namespace dotth2 {
 					}
 				}
 			}
+
+			
 		}	
 	};
 }

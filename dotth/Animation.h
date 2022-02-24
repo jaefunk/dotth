@@ -21,7 +21,7 @@ public:
 		root = mesh->Raw->root;
 		Assimp::Importer importer;
 		const aiScene* scene = importer.ReadFile(key, aiProcess_Triangulate);
-		if (scene->HasAnimations())
+		if (scene && scene->HasAnimations())
 		{
 			aiAnimation* Anim = scene->mAnimations[0];
 			tickPerSecond = Anim->mTicksPerSecond;
@@ -53,35 +53,45 @@ public:
 		boneMatrix.set_identity();
 		modelOffset.set_identity();
 
-		dotth2::matrix global;
-		global.set_identity();
 
 		int boneID = -1;
-		auto iter = mapBones.find(target->name);
-		if (iter != mapBones.end())
+
+		auto nodeIter = ModelRaw->mapNodes.find(target->name);
+		if (nodeIter != ModelRaw->mapNodes.end())
 		{
-			boneMatrix = iter->second.localTransform;
-			boneID = iter->second.id;
+			nodeLocalMatrix = nodeIter->second->transformation;
 		}
 
-		auto iter2 = ModelRaw->mapNodes.find(target->name);
-		if (iter2 != ModelRaw->mapNodes.end())
+		auto boneIter = mapBones.find(target->name);
+		if (boneIter != mapBones.end())
 		{
-			nodeLocalMatrix = iter2->second->local;
+			boneMatrix = boneIter->second.localTransform;
+			boneID = boneIter->second.id;
+		}
+		else
+		{
+			boneMatrix = nodeLocalMatrix;
 		}
 
-		auto iter3 = ModelRaw->mapBones.find(target->name);
-		if (iter3 != ModelRaw->mapBones.end())
+		auto offsetIter = ModelRaw->mapBones.find(target->name);
+		if (offsetIter != ModelRaw->mapBones.end())
 		{
-			modelOffset = iter3->second.offset;
-			boneID = iter3->second.id;
+			modelOffset = offsetIter->second.offset;
+			boneID = offsetIter->second.id;
+		}
+
+		if (boneIter == mapBones.end())
+		{
+
 		}
 
 
 		dotth2::matrix finalMatrix = boneMatrix * parentTransform;
-		
+
 		if (boneID != -1)
+		{
 			finalMatrixes[boneID] = modelOffset * finalMatrix;
+		}
 
 		for (auto child : target->children)
 		{
@@ -114,11 +124,11 @@ public:
 
 		dotth2::matrix m;
 		m.set_identity();
-
-		for (auto child : root->children)
-		{
-			CalculateBoneTransform(child, m);
-		}
+		CalculateBoneTransform(root, m);
+		//for (auto child : root->children)
+		//{
+		//	CalculateBoneTransform(root, m);
+		//}
 		m.set_identity();
 	}
 };
