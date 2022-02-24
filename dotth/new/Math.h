@@ -287,6 +287,75 @@ namespace dotth2
 			rc[0][0] = 1.f; rc[1][1] = 1.f; rc[2][2] = 1.f; rc[3][3] = 1.f;
 		}
 
+		float determinant(void) const
+		{
+			return f[0] * f[5] * f[10] * f[15] - f[0] * f[5] * f[11] * f[14] + f[0] * f[6] * f[11] * f[13] - f[0] * f[6] * f[9] * f[15]
+				+ f[0] * f[7] * f[9] * f[14] - f[0] * f[7] * f[10] * f[13] - f[1] * f[6] * f[11] * f[12] + f[1] * f[6] * f[8] * f[15]
+				- f[1] * f[7] * f[8] * f[14] + f[1] * f[7] * f[10] * f[12] - f[1] * f[4] * f[10] * f[15] + f[1] * f[4] * f[11] * f[14]
+				+ f[2] * f[7] * f[8] * f[13] - f[2] * f[7] * f[9] * f[12] + f[2] * f[4] * f[9] * f[15] - f[2] * f[4] * f[11] * f[13]
+				+ f[2] * f[5] * f[11] * f[12] - f[2] * f[5] * f[8] * f[15] - f[3] * f[4] * f[9] * f[14] + f[3] * f[4] * f[10] * f[13]
+				- f[3] * f[5] * f[10] * f[12] + f[3] * f[5] * f[8] * f[14] - f[3] * f[6] * f[8] * f[13] + f[3] * f[6] * f[9] * f[12];
+		}
+
+		matrix transpose(void)
+		{
+			matrix m = *this;
+			std::swap((float&)m.f[4], (float&)m.f[1]);
+			std::swap((float&)m.f[8], (float&)m.f[2]);
+			std::swap((float&)m.f[9], (float&)m.f[6]);
+			std::swap((float&)m.f[12], (float&)m.f[3]);
+			std::swap((float&)m.f[13], (float&)m.f[7]);
+			std::swap((float&)m.f[14], (float&)m.f[11]);
+			return m;
+		}
+
+		matrix inverse(void)
+		{
+			float det = determinant();
+			if (det == 0.f)
+			{
+				float nan = std::numeric_limits<float>::quiet_NaN();
+				
+				return *this;
+			}
+			const float invdet = 1.f / det;
+			matrix result;
+			float a1 = f[0];
+			float a2 = f[1];
+			float a3 = f[2];
+			float a4 = f[3];
+			float b1 = f[4];
+			float b2 = f[5];
+			float b3 = f[6];
+			float b4 = f[7];
+			float c1 = f[8];
+			float c2 = f[9];
+			float c3 = f[10];
+			float c4 = f[11];
+			float d1 = f[12];
+			float d2 = f[13];
+			float d3 = f[14];
+			float d4 = f[15];
+
+			result.f[0] = invdet * (b2 * (c3 * d4 - c4 * d3) + b3 * (c4 * d2 - c2 * d4) + b4 * (c2 * d3 - c3 * d2));
+			result.f[1] = -invdet * (a2 * (c3 * d4 - c4 * d3) + a3 * (c4 * d2 - c2 * d4) + a4 * (c2 * d3 - c3 * d2));
+			result.f[2] = invdet * (a2 * (b3 * d4 - b4 * d3) + a3 * (b4 * d2 - b2 * d4) + a4 * (b2 * d3 - b3 * d2));
+			result.f[3] = -invdet * (a2 * (b3 * c4 - b4 * c3) + a3 * (b4 * c2 - b2 * c4) + a4 * (b2 * c3 - b3 * c2));
+			result.f[4] = -invdet * (b1 * (c3 * d4 - c4 * d3) + b3 * (c4 * d1 - c1 * d4) + b4 * (c1 * d3 - c3 * d1));
+			result.f[5] = invdet * (a1 * (c3 * d4 - c4 * d3) + a3 * (c4 * d1 - c1 * d4) + a4 * (c1 * d3 - c3 * d1));
+			result.f[6] = -invdet * (a1 * (b3 * d4 - b4 * d3) + a3 * (b4 * d1 - b1 * d4) + a4 * (b1 * d3 - b3 * d1));
+			result.f[7] = invdet * (a1 * (b3 * c4 - b4 * c3) + a3 * (b4 * c1 - b1 * c4) + a4 * (b1 * c3 - b3 * c1));
+			result.f[8] = invdet * (b1 * (c2 * d4 - c4 * d2) + b2 * (c4 * d1 - c1 * d4) + b4 * (c1 * d2 - c2 * d1));
+			result.f[9] = -invdet * (a1 * (c2 * d4 - c4 * d2) + a2 * (c4 * d1 - c1 * d4) + a4 * (c1 * d2 - c2 * d1));
+			result.f[10] = invdet * (a1 * (b2 * d4 - b4 * d2) + a2 * (b4 * d1 - b1 * d4) + a4 * (b1 * d2 - b2 * d1));
+			result.f[11] = -invdet * (a1 * (b2 * c4 - b4 * c2) + a2 * (b4 * c1 - b1 * c4) + a4 * (b1 * c2 - b2 * c1));
+			result.f[12] = -invdet * (b1 * (c2 * d3 - c3 * d2) + b2 * (c3 * d1 - c1 * d3) + b3 * (c1 * d2 - c2 * d1));
+			result.f[13] = invdet * (a1 * (c2 * d3 - c3 * d2) + a2 * (c3 * d1 - c1 * d3) + a3 * (c1 * d2 - c2 * d1));
+			result.f[14] = -invdet * (a1 * (b2 * d3 - b3 * d2) + a2 * (b3 * d1 - b1 * d3) + a3 * (b1 * d2 - b2 * d1));
+			result.f[15] = invdet * (a1 * (b2 * c3 - b3 * c2) + a2 * (b3 * c1 - b1 * c3) + a3 * (b1 * c2 - b2 * c1));
+			return result;
+		}
+
 		matrix operator*(const matrix& right)
 		{
 			matrix result;

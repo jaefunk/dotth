@@ -5,18 +5,18 @@
 void SkeletalMeshComponent::OnInit(void)
 {	
 	
-	mesh->Load("Resource/viking_C.fbx");	
-	animation->Load("Resource/viking_C.fbx", mesh);
+	mesh->Load("Resource/Breathing Idle.fbx");	
+	animation->Load("Resource/Breathing Idle.fbx", mesh);
 
 	material->Load("viking_blue_C_texture", "../Output/Client/x64/Debug/skin_vs.cso", "../Output/Client/x64/Debug/skin_ps.cso");
 
-	//mesh->Load("Resource/Breathing Idle.fbx");
-	//animation->Load("Resource/Breathing Idle.fbx", mesh);
+	//mesh->Load("Resource/OrangeBOT_FBX.fbx");
+	//animation->Load("Resource/OrangeBOT_FBX", mesh);
 }
 
 void SkeletalMeshComponent::OnUpdate(void)
 {
-	animation->Update(0.16f);
+	animation->Update(1.f);
 }
 
 void SkeletalMeshComponent::OnDraw(void)
