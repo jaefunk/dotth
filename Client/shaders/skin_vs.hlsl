@@ -2,7 +2,7 @@ cbuffer MatrixBuffer : register(b0)
 {
 	matrix world;
 	matrix view;
-	matrix projection;
+	matrix proj;
 	matrix bones[128];
 };
 
@@ -46,7 +46,7 @@ VertexOutputType main(VertexInputType input)
 	}
 
 	matrix boneWorld = mul(boneTransform, world);
-	matrix worldViewProj = mul(mul(boneWorld, view), projection);
+	matrix worldViewProj = mul(mul(boneWorld, view), proj);
 
 	VertexOutputType output;
 	

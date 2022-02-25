@@ -16,7 +16,7 @@ public:
 	float current = 0.f;
 	float duration = 0.f;
 	float tickPerSecond = 0.f;
-	dotth2::matrix finalMatrixes[128];
+	std::vector<dotth2::matrix> finalMatrixes;
 	std::shared_ptr<dotth2::model> ModelRaw;
 	dotth2::node* root;
 	std::map<std::string, Bone> mapBones;

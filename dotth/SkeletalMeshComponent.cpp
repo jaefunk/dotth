@@ -25,16 +25,7 @@ void SkeletalMeshComponent::OnDraw(void)
 
 	for (unsigned int i = 0; i < mesh->GetSectionSize(); ++i)
 	{
-		std::vector<XMMATRIX> calcBoneList;
-		calcBoneList.resize(128);
-		if (!mesh->Raw->meshes[i]->boneIds.empty())
-		{
-			for (int i = 0; i < 128; ++i)
-			{
-				calcBoneList[i] = XMMatrixTranspose(XMMATRIX(animation->finalMatrixes[i].f));
-			}
-		}
-		material->Bind(world, view, proj, calcBoneList.data(), calcBoneList.size() * sizeof(XMMATRIX));
+		material->Bind(world, view, proj, animation->finalMatrixes.data(), animation->finalMatrixes.size() * sizeof(dotth2::matrix));
 		mesh->Draw(i);
 	}
 }

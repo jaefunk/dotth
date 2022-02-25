@@ -31,8 +31,37 @@ namespace dotth2
 		{
 		}
 
+		vector2 operator + (const vector2& o) const
+		{
+			return vector2(x + o.x, y + o.y);
+		}
+		vector2 operator - (const vector2& o) const
+		{
+			return vector2(x - o.x, y - o.y);
+		}
+		const vector2& operator += (const vector2& o)
+		{
+			x += o.x;
+			y += o.y;
+			return *this;
+		}
+		const vector2& operator -= (const vector2& o)
+		{
+			return *this;
+		}
+		const vector2& operator *= (float f)
+		{
+			return *this;
+		}
+		const vector2& operator /= (float f)
+		{
+			return *this;
+		}
+
+
 		static void add(const vector2& left, const vector2& right, vector2& result)
 		{
+			auto jj = left + right;
 			result.x = left.x + right.x;
 			result.y = left.y + right.y;
 		}
@@ -274,7 +303,10 @@ namespace dotth2
 			float rc[4][4];
 		};
 
-		matrix(void) = default;
+		matrix(void)
+		{
+			memset(this, 0, sizeof(matrix));
+		}
 
 		void set_zero(void)
 		{
@@ -504,6 +536,20 @@ namespace dotth2
 		void operator=(XMMATRIX value)
 		{
 			memcpy(f, value.r, sizeof(float) * 16);
+		}
+		void operator=(XMFLOAT4X4 value)
+		{
+			memcpy(f, value.m, sizeof(float) * 16);
+		}
+
+		operator DirectX::XMMATRIX() const
+		{
+			return DirectX::XMMATRIX(f);
+		}
+
+		operator DirectX::XMFLOAT4X4() const
+		{
+			return DirectX::XMFLOAT4X4(f);
 		}
 	};
 };
