@@ -25,7 +25,7 @@ void EntryPoint::OnInit(void)
 
 void EntryPoint::OnUpdate(void)
 {
-	so1->RotateYaw(0.01f);
+	//so1->RotateYaw(0.01f);
 	//static bool b = false;
 	//static float f = 0.f;
 	//if (f >= 1.f)

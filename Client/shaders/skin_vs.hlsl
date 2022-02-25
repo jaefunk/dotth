@@ -27,9 +27,6 @@ struct VertexOutputType
 
 VertexOutputType main(VertexInputType input)
 {
-	VertexOutputType output;
-	output.position = float4(input.position, 1.f);
-
 	float4x4 boneTransform = IDENTITY_MATRIX;
 	if (input.boneIdx[0] != -1)
 	{
@@ -48,10 +45,13 @@ VertexOutputType main(VertexInputType input)
 		boneTransform += bones[input.boneIdx[3]] * input.weight.w;
 	}
 
-	matrix worldViewProj = mul(mul(world, view), projection);
-	matrix boneWorldViewProj = mul(boneTransform, worldViewProj);
-	output.position = mul(output.position, boneWorldViewProj);
-	output.normal = normalize(mul(input.normal, (float3x3)world));
+	matrix boneWorld = mul(boneTransform, world);
+	matrix worldViewProj = mul(mul(boneWorld, view), projection);
+
+	VertexOutputType output;
+	
+	output.position = mul(float4(input.position, 1.f), worldViewProj);
+	output.normal = normalize(mul(input.normal, (float3x3)boneWorld));
 	output.coord = input.coord;
 	output.worldPos = mul(float4(input.position, 1.0f), world).xyz;
 	return output;
