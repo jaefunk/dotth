@@ -783,10 +783,10 @@ namespace dotth
 					if (boneInfos.find(boneName) == boneInfos.end())
 					{
 						BoneInfo boneInfo;
-						boneInfo.id = boneInfos.size();
+						boneInfo.id = static_cast<int>(boneInfos.size());
 						boneInfo.offset = bones[i]->offset;
 						boneInfos[boneName] = boneInfo;
-						boneID = boneInfos.size();
+						boneID = static_cast<int>(boneInfos.size());
 					}
 					else
 					{

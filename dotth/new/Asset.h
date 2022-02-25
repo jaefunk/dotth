@@ -211,7 +211,7 @@ namespace dotth2 {
 						
 						std::string boneName = Bone->mName.C_Str();
 						bone b;
-						b.id = mapBones.size();
+						b.id = static_cast<int>(mapBones.size());
 						for (unsigned int k = 0; k < 16; ++k)
 							b.offset[k] = Bone->mOffsetMatrix[k % 4][k / 4];
 						mapBones.insert({ boneName, b });

@@ -9,9 +9,6 @@ void SkeletalMeshComponent::OnInit(void)
 	animation->Load("Resource/Breathing Idle.fbx", mesh);
 
 	material->Load("viking_blue_C_texture", "../Output/Client/x64/Debug/skin_vs.cso", "../Output/Client/x64/Debug/skin_ps.cso");
-
-	//mesh->Load("Resource/OrangeBOT_FBX.fbx");
-	//animation->Load("Resource/OrangeBOT_FBX", mesh);
 }
 
 void SkeletalMeshComponent::OnUpdate(void)
