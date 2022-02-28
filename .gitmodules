@@ -1,0 +1,3 @@
+[submodule "dotth/External/tinygltf"]
+	path = dotth/External/tinygltf
+	url = https://github.com/syoyo/tinygltf.git
