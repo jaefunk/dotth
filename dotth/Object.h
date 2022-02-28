@@ -4,6 +4,7 @@
 #include "Component.h"
 #include "Math/Transform.h"
 
+using namespace dotth;
 class Object : public Node<Object>
 {
 public:
@@ -50,24 +51,24 @@ private:
 public:
 	void UpdateTransform(void);
 	const Transform& GetTransform(void) { return _Transform; }
-	const Matrix& GetWorldMatrix(void) { return _Transform.WorldMatrix; }
+	const matrix& GetWorldMatrix(void) { return _Transform.WorldMatrix; }
 
 public:
-	void SetScale(const Vector3& value) { _Transform.SetScale(value); }
-	void Scaling(const Vector3& value) { _Transform.Scaling(value); }
+	void SetScale(const vector3& value) { _Transform.SetScale(value); }
+	void Scaling(const vector3& value) { _Transform.Scaling(value); }
 	void Scaling(float value) { _Transform.Scaling(value); }
-	const Vector3& GetLocalScale(void) { return _Transform.GetScale(); }
+	const vector3& GetLocalScale(void) { return _Transform.GetScale(); }
 
-	void SetRotation(const Vector3& value) { _Transform.SetRotation(value); }
-	void Rotate(const Vector3& value) { _Transform.Rotate(value); }
+	void SetRotation(const vector3& value) { _Transform.SetRotation(value); }
+	void Rotate(const vector3& value) { _Transform.Rotate(value); }
 	void RotatePitch(float value) { _Transform.RotatePitch(value); }
 	void RotateYaw(float value) { _Transform.RotateYaw(value); }
 	void RotateRoll(float value) { _Transform.RotateRoll(value); }
-	const Vector3& GetLocalRotation(void) { return _Transform.GetRotation(); }
+	const vector3& GetLocalRotation(void) { return _Transform.GetRotation(); }
 
-	void SetPosition(const Vector3& value) { _Transform.SetPosition(value); }
-	void Translate(const Vector3& value) { _Transform.Translate(value); }
-	const Vector3& GetLocalPosition(void) { return _Transform.GetPosition(); }
+	void SetPosition(const vector3& value) { _Transform.SetPosition(value); }
+	void Translate(const vector3& value) { _Transform.Translate(value); }
+	const vector3& GetLocalPosition(void) { return _Transform.GetPosition(); }
 
 public:
 	void DrawImGuiHierarchy(void);
