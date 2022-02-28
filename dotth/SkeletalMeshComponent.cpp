@@ -23,7 +23,7 @@ void SkeletalMeshComponent::OnDraw(void)
 
 	for (unsigned int i = 0; i < mesh->GetSectionSize(); ++i)
 	{
-		material->Bind(world, view, proj, animation->finalMatrixes.data(), animation->finalMatrixes.size() * sizeof(dotth::matrix));
+		material->Bind(world, view, proj, animation->finalMatrixes.data(), static_cast<unsigned int>(animation->finalMatrixes.size() * sizeof(dotth::matrix)));
 		mesh->Draw(i);
 	}
 }

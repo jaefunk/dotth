@@ -64,6 +64,7 @@
     <ClCompile Include="Renderable.cpp" />
     <ClCompile Include="SkeletalMeshComponent.cpp" />
     <ClCompile Include="SkeletalMesh.cpp" />
+    <ClCompile Include="External\tinygltf\tiny_gltf.cc" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.h">
@@ -264,6 +265,9 @@
     <ClInclude Include="SkeletalMesh.h" />
     <ClInclude Include="SkeletalMeshComponent.h" />
     <ClInclude Include="Bone.h" />
+    <ClInclude Include="External\tinygltf\tiny_gltf.h" />
+    <ClInclude Include="External\tinygltf\stb_image_write.h" />
+    <ClInclude Include="External\tinygltf\stb_image.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Framework">

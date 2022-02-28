@@ -43,7 +43,7 @@ Renderable::Renderable(dotth::mesh* raw)
 	if (raw->indices.size() > 0)
 	{
 		CreateIndexBuffer(&IndexBuffer, raw->indices.data(), static_cast<unsigned int>(sizeof(unsigned int) * raw->indices.size()));
-		IndexSize = raw->indices.size();
+		IndexSize = static_cast<unsigned int>(raw->indices.size());
 	}
 }
 

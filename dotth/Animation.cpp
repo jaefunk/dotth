@@ -12,10 +12,10 @@ bool Animation::Load(const std::string& key, std::shared_ptr<SkeletalMesh> mesh)
 	if (scene && scene->HasAnimations())
 	{
 		aiAnimation* Anim = scene->mAnimations[0];
-		tickPerSecond = Anim->mTicksPerSecond;
-		duration = Anim->mDuration;
+		tickPerSecond = static_cast<float>(Anim->mTicksPerSecond);
+		duration = static_cast<float>(Anim->mDuration);
 
-		for (int i = 0; i < Anim->mNumChannels; ++i)
+		for (unsigned int i = 0; i < Anim->mNumChannels; ++i)
 		{
 			aiNodeAnim* channel = Anim->mChannels[i];
 			std::string nodeName = channel->mNodeName.C_Str();
