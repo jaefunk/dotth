@@ -1,8 +1,7 @@
 #pragma once
 
 #include "SingleInstance.h"
-#include "Texture2D.h"
-#include "StaticMesh.h"
+#include "AssetBase.h"
 
 class ResourceManager2 : public SingleInstance<ResourceManager2>
 {
@@ -10,7 +9,7 @@ private:
 	std::map<std::string, std::shared_ptr<Resource>> resources;
 
 public:
-	bool Load(const std::string& reserved);
+	bool Load(void);
 
 	template <typename ty>
 	static std::shared_ptr<ty> Find(const std::string& key);

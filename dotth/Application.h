@@ -30,7 +30,7 @@ template<typename SceneTy>
 void Application::Initialize(const Configuration & config)
 {
 	assert(config.Validation());
-	ResourceManager2::Instance()->Load("reserved.json");
+	ResourceManager2::Instance()->Load();
 	D3D11RHI::Initialize(config.Hwnd, config.Width, config.Height);
 	D3D11RHI::InitializeImGui(config.Hwnd, config.Width, config.Height);
 	Scenario::Instance()->Assign<SceneTy>("entrypoint");

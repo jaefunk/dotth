@@ -16,13 +16,13 @@ public:
 	float current = 0.f;
 	float duration = 0.f;
 	float tickPerSecond = 0.f;
-	std::vector<dotth2::matrix> finalMatrixes;
-	std::shared_ptr<dotth2::model> ModelRaw;
-	dotth2::node* root;
+	std::vector<dotth::matrix> finalMatrixes;
+	std::shared_ptr<dotth::model> ModelRaw;
+	dotth::node* root;
 	std::map<std::string, Bone> mapBones;
 
 public:
 	bool Load(const std::string& key, std::shared_ptr<SkeletalMesh> mesh);
 	void Update(float delta);
-	void CalculateBoneTransform(dotth2::node* target, const dotth2::matrix& parentTransform);
+	void CalculateBoneTransform(dotth::node* target, const dotth::matrix& parentTransform);
 };

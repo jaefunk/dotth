@@ -3,9 +3,9 @@
 
 CameraComponent::CameraComponent(unsigned int ViewportWidth, unsigned int ViewportHeight)
 {
-	Eye = Vector3(0.f, 250, -500.f);
-	Up = Vector3::Up();
-	At = Vector3::Zero();
+	Eye = vector3(0.f, 250, -500.f);
+	Up = vector3::up();
+	At = vector3::zero();
 	Near = 0.1f;
 	Far = 100000.f;
 	Fov = 3.141592f * 0.3f;
@@ -30,34 +30,34 @@ void CameraComponent::OnDestroy(void)
 {
 }
 
-const Matrix& CameraComponent::GetView(void)
+const matrix& CameraComponent::GetView(void)
 {
 	return View;
 }
 
-const Matrix& CameraComponent::GetPerspective(void)
+const matrix& CameraComponent::GetPerspective(void)
 {
 	return Perspective;
 }
 
-const Matrix& CameraComponent::GetOrtho(void)
+const matrix& CameraComponent::GetOrtho(void)
 {
 	return Ortho;
 }
 
-void CameraComponent::SetEye(const Vector3& value)
+void CameraComponent::SetEye(const vector3& value)
 {
 	DirtyFlags |= CAMERA_TRANFSFORM_DIRTY_FLAG::VIEW;
 	Eye = value;
 }
 
-void CameraComponent::SetUp(const Vector3& value)
+void CameraComponent::SetUp(const vector3& value)
 {
 	DirtyFlags |= CAMERA_TRANFSFORM_DIRTY_FLAG::VIEW;
 	Up = value;
 }
 
-void CameraComponent::SetAt(const Vector3& value)
+void CameraComponent::SetAt(const vector3& value)
 {
 	DirtyFlags |= CAMERA_TRANFSFORM_DIRTY_FLAG::VIEW;
 	At = value;
@@ -95,16 +95,16 @@ void CameraComponent::Sync(void)
 {
 	if (DirtyFlags & CAMERA_TRANFSFORM_DIRTY_FLAG::VIEW)
 	{
-		XMFLOAT3 e = XMFLOAT3(Eye);
-		XMFLOAT3 u = XMFLOAT3(Up);
-		XMFLOAT3 a = XMFLOAT3(At);
-		XMVECTOR EyeDirection = XMVectorSubtract(XMLoadFloat3(&a), XMLoadFloat3(&e));
-		View = XMMatrixLookToLH(XMLoadFloat3(&e), EyeDirection, XMLoadFloat3(&u));
+		XMFLOAT3 eye = XMFLOAT3(Eye);
+		XMFLOAT3 up = XMFLOAT3(Up);
+		XMFLOAT3 at = XMFLOAT3(At);
+		XMVECTOR EyeDirection = XMVectorSubtract(XMLoadFloat3(&at), XMLoadFloat3(&eye));
+		View = XMMatrixTranspose(XMMatrixLookToLH(XMLoadFloat3(&eye), EyeDirection, XMLoadFloat3(&up)));
 	}
 
 	if (DirtyFlags & CAMERA_TRANFSFORM_DIRTY_FLAG::PERSPECTIVE)
 	{
-		Perspective = XMMatrixPerspectiveFovLH(Fov, static_cast<float>(Width) / static_cast<float>(Height), Near, Far);
+		Perspective = XMMatrixTranspose(XMMatrixPerspectiveFovLH(Fov, static_cast<float>(Width) / static_cast<float>(Height), Near, Far));
 	}
 
 	if (DirtyFlags & CAMERA_TRANFSFORM_DIRTY_FLAG::ORTHO)

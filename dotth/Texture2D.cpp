@@ -1,18 +1,18 @@
 
+#include "AssetBase.h"
+#include "ResourceManager.h"
 
 #include "Texture2D.h"
-#include "D3D11RHI.h"
-#include "ResourceManager.h"
 
 bool Texture2D::Load(const std::string& key)
 {
-	std::shared_ptr<Texture> base = ResourceManager2::Find<Texture>(key);
+	std::shared_ptr<dotth::texture> base = ResourceManager2::Find<dotth::texture>(key);
 	if (base == nullptr)
 		return false;
 	D3D11_TEXTURE2D_DESC desc;
 	ZeroMemory(&desc, sizeof(desc));
-	desc.Width = base->Width;
-	desc.Height = base->Height;
+	desc.Width = base->width;
+	desc.Height = base->height;
 	desc.MipLevels = desc.ArraySize = 1;
 	desc.Format = DXGI_FORMAT_R8G8B8A8_UNORM;
 	desc.SampleDesc.Count = 1;
@@ -23,8 +23,8 @@ bool Texture2D::Load(const std::string& key)
 
 	D3D11_SUBRESOURCE_DATA initData;
 	ZeroMemory(&initData, sizeof(initData));
-	initData.pSysMem = base->GetSysMem();
-	initData.SysMemPitch = base->GetSysMemPitch();
+	initData.pSysMem = base->data();
+	initData.SysMemPitch = base->pitch();
 	initData.SysMemSlicePitch = 0;
 	D3D11RHI::Device()->CreateTexture2D(&desc, &initData, (ID3D11Texture2D**)&resource);
 

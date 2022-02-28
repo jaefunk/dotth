@@ -30,9 +30,9 @@ bool Animation::Load(const std::string& key, std::shared_ptr<SkeletalMesh> mesh)
 	return true;
 }
 
-void Animation::CalculateBoneTransform(dotth2::node* target, const dotth2::matrix& parentTransform)
+void Animation::CalculateBoneTransform(dotth::node* target, const dotth::matrix& parentTransform)
 {
-	dotth2::matrix boneMatrix, modelOffset;
+	dotth::matrix boneMatrix, modelOffset;
 	boneMatrix.set_identity();
 	modelOffset.set_identity();
 
@@ -52,7 +52,7 @@ void Animation::CalculateBoneTransform(dotth2::node* target, const dotth2::matri
 		boneID = offsetIter->second.id;
 	}
 
-	dotth2::matrix finalMatrix = boneMatrix * parentTransform;
+	dotth::matrix finalMatrix = boneMatrix * parentTransform;
 
 	if (boneID != -1)
 	{
@@ -88,7 +88,7 @@ void Animation::Update(float delta)
 		bone.second.Update(current);
 	}
 
-	dotth2::matrix m;
+	dotth::matrix m;
 	m.set_identity();
 	CalculateBoneTransform(root, m);
 }

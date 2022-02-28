@@ -5,7 +5,7 @@
 class SkeletalMesh
 {
 public:
-	std::shared_ptr<dotth2::model> Raw;
+	std::shared_ptr<dotth::model> Raw;
 	std::vector<Renderable*> Renderables;
 
 public:
@@ -15,7 +15,4 @@ public:
 	}
 	bool Load(const std::string& key);
 	void Draw(unsigned int index);
-
-private:
-	std::unordered_map<std::string, dotth::BoneInfo> boneInfos;
 };

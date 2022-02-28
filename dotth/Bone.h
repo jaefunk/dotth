@@ -183,9 +183,9 @@ public:
 public:
 	unsigned int id = 0;
 	std::string name;
-	dotth2::matrix localTransform;
-	std::vector<keyframe<dotth2::vector3>> positionKeys;
-	std::vector<keyframe<dotth2::vector4>> rotationKeys;
-	std::vector<keyframe<dotth2::vector3>> scaleKeys;
+	dotth::matrix localTransform;
+	std::vector<keyframe<dotth::vector3>> positionKeys;
+	std::vector<keyframe<dotth::vector4>> rotationKeys;
+	std::vector<keyframe<dotth::vector3>> scaleKeys;
 	aiNodeAnim* raw;
 };

@@ -3,6 +3,7 @@
 #include "Object.h"
 #include "CameraComponent.h"
 
+using namespace dotth;
 class Camera : public Object
 {
 public:
@@ -18,7 +19,7 @@ private:
 	std::shared_ptr<CameraComponent> Comp;
 public:
 	std::shared_ptr<CameraComponent> GetCameraComponent(void);
-	const Matrix& GetView(void);
-	const Matrix& GetPerspective(void);
-	const Matrix& GetOrtho(void);
+	const matrix& GetView(void);
+	const matrix& GetPerspective(void);
+	const matrix& GetOrtho(void);
 };

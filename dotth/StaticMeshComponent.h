@@ -6,9 +6,9 @@
 
 class StaticMeshComponent : public MeshComponent
 {
-public:
-	std::shared_ptr<Material> material{ new Material };
+private:
 	std::shared_ptr<StaticMesh> mesh{ new StaticMesh };
+	std::shared_ptr<Material> material{ new Material };
 
 public:
 	virtual void OnInit(void) override;

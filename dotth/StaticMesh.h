@@ -5,7 +5,7 @@
 class StaticMesh
 {
 private:
-	std::shared_ptr<dotth2::model> Raw;
+	std::shared_ptr<dotth::model> Raw;
 	std::vector<Renderable*> Renderables;
 
 public:

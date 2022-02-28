@@ -28,17 +28,17 @@ std::shared_ptr<CameraComponent> Camera::GetCameraComponent(void)
 	return Comp;
 }
 
-const Matrix& Camera::GetView(void)
+const matrix& Camera::GetView(void)
 {
 	return Comp->GetView();
 }
 
-const Matrix& Camera::GetPerspective(void)
+const matrix& Camera::GetPerspective(void)
 {
 	return Comp->GetPerspective();
 }
 
-const Matrix& Camera::GetOrtho(void)
+const matrix& Camera::GetOrtho(void)
 {
 	return Comp->GetOrtho();
 }

@@ -4,10 +4,8 @@
 
 void SkeletalMeshComponent::OnInit(void)
 {	
-	
 	mesh->Load("Resource/Breathing Idle.fbx");	
 	animation->Load("Resource/Breathing Idle.fbx", mesh);
-
 	material->Load("viking_blue_C_texture", "../Output/Client/x64/Debug/skin_vs.cso", "../Output/Client/x64/Debug/skin_ps.cso");
 }
 
@@ -19,13 +17,13 @@ void SkeletalMeshComponent::OnUpdate(void)
 void SkeletalMeshComponent::OnDraw(void)
 {
 	XMFLOAT4X4 world, view, proj;
-	XMStoreFloat4x4(&world, GetOwner()->GetWorldMatrix());
-	XMStoreFloat4x4(&view, XMMatrixTranspose(GetOwner()->GetActiveCamera()->GetView()));
-	XMStoreFloat4x4(&proj, XMMatrixTranspose(GetOwner()->GetActiveCamera()->GetPerspective()));
+	world = GetOwner()->GetWorldMatrix();
+	view = GetOwner()->GetActiveCamera()->GetView();
+	proj = GetOwner()->GetActiveCamera()->GetPerspective();
 
 	for (unsigned int i = 0; i < mesh->GetSectionSize(); ++i)
 	{
-		material->Bind(world, view, proj, animation->finalMatrixes.data(), animation->finalMatrixes.size() * sizeof(dotth2::matrix));
+		material->Bind(world, view, proj, animation->finalMatrixes.data(), animation->finalMatrixes.size() * sizeof(dotth::matrix));
 		mesh->Draw(i);
 	}
 }

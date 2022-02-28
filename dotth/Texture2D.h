@@ -1,8 +1,8 @@
 #pragma once
 
-#include "AssetBase.h"
+#include "D3D11RHI.h"
 
-class Texture2D : public Texture
+class Texture2D
 {
 private:
 	ID3D11SamplerState* samplerState = nullptr;
