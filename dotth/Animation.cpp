@@ -22,7 +22,7 @@ bool Animation::Load(const std::string& key, std::shared_ptr<SkeletalMesh> mesh)
 			mapBones.insert({ nodeName , Bone(ModelRaw->mapBones[nodeName].id, channel) });
 		}
 		
-		finalMatrixes.resize(mapBones.size());
+		finalMatrixes.resize(ModelRaw->mapBones.size());
 		for (auto& matrix : finalMatrixes)
 			matrix.set_identity();
 	}
