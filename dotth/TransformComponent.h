@@ -20,15 +20,15 @@ public:
 		Transform NewTransform(WorldTransform);
 		if (InParent != nullptr)
 		{
-			Vector3::Multiply(NewTransform.Scale, InParent->WorldTransform.WorldScale, WorldTransform.Scale);
-			Vector3::Multiply(NewTransform.Position, InParent->WorldTransform.WorldScale, WorldTransform.Position);
+			vector3::multiply(NewTransform.Scale, InParent->WorldTransform.WorldScale, WorldTransform.Scale);
+			vector3::multiply(NewTransform.Position, InParent->WorldTransform.WorldScale, WorldTransform.Position);
 		}
 
-		Matrix scl = Matrix::Scaling(NewTransform.Scale);
-		Matrix pitch = Matrix::RotatePitch(NewTransform.Rotation.x);
-		Matrix yaw = Matrix::RotateYaw(NewTransform.Rotation.y);
-		Matrix roll = Matrix::RotateRoll(NewTransform.Rotation.z);
-		Matrix pos = Matrix::Translate(NewTransform.Position);
+		matrix scl = matrix::scaling(NewTransform.Scale);
+		matrix pitch = matrix::rotate_pitch(NewTransform.Rotation.x);
+		matrix yaw = matrix::rotate_yaw(NewTransform.Rotation.y);
+		matrix roll = matrix::rotate_roll(NewTransform.Rotation.z);
+		matrix pos = matrix::translate(NewTransform.Position);
 
 		if (InParent != nullptr)
 			NewTransform.WorldMatrixNoScale = pitch * yaw * roll * pos * InParent->WorldTransform.WorldMatrixNoScale;
@@ -57,11 +57,11 @@ public:
 	{
 		return WorldTransform;
 	}
-	Vector3 GetScale(void);
-	Vector3 GetRotation(void);
-	Vector3 GetPosition(void);
+	vector3 GetScale(void);
+	vector3 GetRotation(void);
+	vector3 GetPosition(void);
 	void SetTransform(const Transform& InTransform);
-	void SetScale(const Vector3& InVector);
-	void SetRotation(const Vector3& InVector);
-	void SetPosition(const Vector3& InVector);
+	void SetScale(const vector3& InVector);
+	void SetRotation(const vector3& InVector);
+	void SetPosition(const vector3& InVector);
 };

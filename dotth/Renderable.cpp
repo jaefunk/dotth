@@ -5,49 +5,6 @@
 
 Renderable::Renderable(dotth::mesh* raw)
 {
-	if (raw->numPositions > 0 && raw->positions != nullptr)
-	{
-		CreateVertexBuffer(&PositionBuffer, raw->positions, static_cast<unsigned int>(sizeof(dotth::vector3) * raw->numPositions));
-		VertexBuffers.push_back(&PositionBuffer);
-		BufferStrides.push_back(sizeof(dotth::vector3));
-	}
-
-	if (raw->numNormals > 0 && raw->normals != nullptr)
-	{
-		CreateVertexBuffer(&NormalBuffer, raw->normals, static_cast<unsigned int>(sizeof(dotth::vector3) * raw->numNormals));
-		VertexBuffers.push_back(&NormalBuffer);
-		BufferStrides.push_back(sizeof(dotth::vector3));
-	}
-
-	if (raw->numTextureCoords > 0 && raw->textureCoords != nullptr)
-	{
-		CreateVertexBuffer(&TextureCoordBuffer, raw->textureCoords, static_cast<unsigned int>(sizeof(dotth::vector2) * raw->numTextureCoords));
-		VertexBuffers.push_back(&TextureCoordBuffer);
-		BufferStrides.push_back(sizeof(dotth::vector2));
-	}
-
-	if (raw->numBones > 0 && raw->bones != nullptr)
-	{
-		CreateVertexBuffer(&BoneIdBuffer, raw->boneids, static_cast<unsigned int>(sizeof(dotth::uint4) * raw->numBoneIds));
-		VertexBuffers.push_back(&BoneIdBuffer);
-		BufferStrides.push_back(sizeof(dotth::uint4));
-
-		CreateVertexBuffer(&WeightBuffer, raw->weights, static_cast<unsigned int>(sizeof(dotth::vector4) * raw->numBoneIds));
-		VertexBuffers.push_back(&WeightBuffer);
-		BufferStrides.push_back(sizeof(dotth::vector4));
-	}
-
-	if (raw->numIndices > 0 && raw->indices != nullptr)
-	{
-		CreateIndexBuffer(&IndexBuffer, raw->indices, static_cast<unsigned int>(sizeof(unsigned int) * raw->numIndices));
-		IndexSize = raw->numIndices;
-	}
-
-	//printf("%s %d\n", raw->name.c_str(), raw->mateiralIndex);
-}
-
-Renderable::Renderable(dotth2::mesh* raw)
-{
 	if (raw->positions.size() > 0)
 	{
 		CreateVertexBuffer(&PositionBuffer, raw->positions.data(), static_cast<unsigned int>(sizeof(dotth::vector3) * raw->positions.size()));
@@ -71,9 +28,9 @@ Renderable::Renderable(dotth2::mesh* raw)
 
 	if (raw->boneIds.size() > 0)
 	{
-		CreateVertexBuffer(&BoneIdBuffer, raw->boneIds.data(), static_cast<unsigned int>(sizeof(dotth::uint4) * raw->boneIds.size()));
+		CreateVertexBuffer(&BoneIdBuffer, raw->boneIds.data(), static_cast<unsigned int>(sizeof(dotth::value4<unsigned int>) * raw->boneIds.size()));
 		VertexBuffers.push_back(&BoneIdBuffer);
-		BufferStrides.push_back(sizeof(dotth::uint4));
+		BufferStrides.push_back(sizeof(dotth::value4<unsigned int>));
 	}
 
 	if (raw->weights.size() > 0)

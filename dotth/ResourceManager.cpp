@@ -3,20 +3,11 @@
 #include "json/json.hpp"
 #include "Utility.h"
 
-using namespace std::literals;
+#include "Texture2D.h"
+#include "StaticMesh.h"
 
-bool ResourceManager2::Load(const std::string& reserved)
+bool ResourceManager2::Load(void)
 {
-	std::ifstream file;
-	file.open(reserved, std::ios_base::binary);
-	std::string read;
-	while (file) {
-		std::string s;
-		getline(file, s);
-		read.append(s);
-	}
-	file.close();
-
 	for (auto& iterator : std::filesystem::recursive_directory_iterator("Resource/"))
 	{
 		if (!iterator.is_directory())

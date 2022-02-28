@@ -15,6 +15,7 @@ enum CAMERA_TRANFSFORM_DIRTY_FLAG {
 	ALL = VIEW | PERSPECTIVE | ORTHO
 };
 
+using namespace dotth;
 class CameraComponent : public Component
 {
 public:
@@ -28,12 +29,12 @@ public:
 
 private:
 	int DirtyFlags = CAMERA_TRANFSFORM_DIRTY_FLAG::NONE;
-	Matrix View;
-	Matrix Perspective;
-	Matrix Ortho;
-	Vector3 Eye;
-	Vector3 Up;
-	Vector3 At;
+	matrix View;
+	matrix Perspective;
+	matrix Ortho;
+	vector3 Eye;
+	vector3 Up;
+	vector3 At;
 	float Near;
 	float Far;
 	float Fov;
@@ -41,12 +42,12 @@ private:
 	int Height;
 
 public:
-	const Matrix& GetView(void);
-	const Matrix& GetPerspective(void);
-	const Matrix& GetOrtho(void);
-	void SetEye(const Vector3& value);
-	void SetUp(const Vector3& value);
-	void SetAt(const Vector3& value);
+	const matrix& GetView(void);
+	const matrix& GetPerspective(void);
+	const matrix& GetOrtho(void);
+	void SetEye(const vector3& value);
+	void SetUp(const vector3& value);
+	void SetAt(const vector3& value);
 	void SetFieldOfView(float value);
 	void SetViewportSize(int width, int height);
 	void SetNear(float value);

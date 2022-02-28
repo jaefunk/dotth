@@ -1,7 +1,9 @@
 #pragma once
 
+#include "AssetBase.h"
 #include "Texture2D.h"
 #include "Shader.h"
+
 
 class Material : public Base
 {
@@ -42,13 +44,13 @@ public:
 	}
 
 public:
-	void Bind(const XMFLOAT4X4& world, const XMFLOAT4X4& view, const XMFLOAT4X4& proj, XMMATRIX* bonelist, unsigned int size)
+	void Bind(const XMFLOAT4X4& world, const XMFLOAT4X4& view, const XMFLOAT4X4& proj, dotth::matrix* bonelist, unsigned int size)
 	{
 		texture2D->Draw();
 
-		vertexShader->SetMatrix4x4("world", world);
-		vertexShader->SetMatrix4x4("view", view);
-		vertexShader->SetMatrix4x4("projection", proj);
+		vertexShader->SetData("world", &world, sizeof(decltype(world)));
+		vertexShader->SetData("view", &view, sizeof(decltype(view)));
+		vertexShader->SetData("proj", &proj, sizeof(decltype(proj)));
 		if (size != 0)
 			vertexShader->SetData("bones", bonelist, size);
 		vertexShader->CopyAllBufferData();

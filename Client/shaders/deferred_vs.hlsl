@@ -2,7 +2,7 @@ cbuffer MatrixBuffer : register(b0)
 {
     matrix world;
 	matrix view;
-	matrix projection;
+	matrix proj;
 };
 
 struct VertexInputType
@@ -27,7 +27,7 @@ struct VertexOutputType
 VertexOutputType main(VertexInputType input)
 {
 	VertexOutputType output;
-	matrix worldViewProj = mul(mul(world, view), projection);
+	matrix worldViewProj = mul(mul(world, view), proj);
 	output.position = mul(float4(input.position, 1.0f), worldViewProj);
 	output.normal = normalize(mul(input.normal, (float3x3)world));
 	output.coord = input.coord;

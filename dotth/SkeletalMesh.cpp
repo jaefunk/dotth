@@ -4,7 +4,7 @@
 
 bool SkeletalMesh::Load(const std::string& key)
 {
-	Raw = FBXLoader::Load2(key);
+	Raw = FBXLoader::Load(key);
 	if (Raw == nullptr)
 		return false;
 

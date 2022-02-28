@@ -6,7 +6,9 @@ bool Animation::Load(const std::string& key, std::shared_ptr<SkeletalMesh> mesh)
 	ModelRaw = mesh->Raw;
 	root = mesh->Raw->root;
 	Assimp::Importer importer;
-	const aiScene* scene = importer.ReadFile(key, aiProcess_ConvertToLeftHanded | aiProcess_Triangulate);
+	const aiScene* scene = importer.ReadFile(key, aiProcess_ConvertToLeftHanded | aiProcess_Triangulate | aiProcess_OptimizeMeshes | aiProcess_PopulateArmatureData | aiProcess_LimitBoneWeights);
+	if (scene == nullptr)
+		return false;
 	if (scene && scene->HasAnimations())
 	{
 		aiAnimation* Anim = scene->mAnimations[0];
@@ -19,14 +21,18 @@ bool Animation::Load(const std::string& key, std::shared_ptr<SkeletalMesh> mesh)
 			std::string nodeName = channel->mNodeName.C_Str();
 			mapBones.insert({ nodeName , Bone(ModelRaw->mapBones[nodeName].id, channel) });
 		}
+		
+		finalMatrixes.resize(mapBones.size());
+		for (auto& matrix : finalMatrixes)
+			matrix.set_identity();
 	}
 
 	return true;
 }
 
-void Animation::CalculateBoneTransform(dotth2::node* target, const dotth2::matrix& parentTransform)
+void Animation::CalculateBoneTransform(dotth::node* target, const dotth::matrix& parentTransform)
 {
-	dotth2::matrix boneMatrix, modelOffset;
+	dotth::matrix boneMatrix, modelOffset;
 	boneMatrix.set_identity();
 	modelOffset.set_identity();
 
@@ -46,11 +52,11 @@ void Animation::CalculateBoneTransform(dotth2::node* target, const dotth2::matri
 		boneID = offsetIter->second.id;
 	}
 
-	dotth2::matrix finalMatrix = boneMatrix * parentTransform;
+	dotth::matrix finalMatrix = boneMatrix * parentTransform;
 
 	if (boneID != -1)
 	{
-		finalMatrixes[boneID] = modelOffset * finalMatrix;;
+		finalMatrixes[boneID] = (modelOffset * finalMatrix).transpose();		
 	}
 
 	for (auto child : target->children)
@@ -82,7 +88,7 @@ void Animation::Update(float delta)
 		bone.second.Update(current);
 	}
 
-	dotth2::matrix m;
+	dotth::matrix m;
 	m.set_identity();
 	CalculateBoneTransform(root, m);
 }

@@ -1,9 +1,11 @@
 #include "StaticMeshComponent.h"
 #include "Camera.h"
 
+#include "ResourceManager.h"
+
 void StaticMeshComponent::OnInit(void)
 {	
-	mesh->Load("Resource/Breathing Idle.fbx");
+	mesh->Load("Resource/blue/skin0.gltf");
 	material->Load("viking_blue_C_texture", "../Output/Client/x64/Debug/deferred_vs.cso", "../Output/Client/x64/Debug/deferred_ps.cso");
 }
 
