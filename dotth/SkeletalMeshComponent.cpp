@@ -5,9 +5,9 @@
 void SkeletalMeshComponent::OnInit(void)
 {	
 	//mesh->Load("Resource/aa/Walk.fbx");
-	mesh->Load("Resource/aa/Idle.fbx");
+	mesh->Load("Resource/Idle.fbx");
 	//animation->Load("Resource/aa/Idle.fbx", mesh);
-	animation->Load("Resource/aa/Run.fbx", mesh);
+	animation->Load("Resource/Run.fbx", mesh);
 	material->Load("viking_blue_C_texture", "../Output/Client/x64/Debug/skin_vs.cso", "../Output/Client/x64/Debug/skin_ps.cso");
 }
 
