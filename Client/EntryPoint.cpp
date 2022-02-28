@@ -7,21 +7,21 @@
 
 void EntryPoint::OnInit(void)
 {
-	auto obj = std::make_shared<Object>();
+	obj = std::make_shared<Object>();
 	//auto comp = obj->AddComponent<StaticMeshComponent>();
 	auto comp = obj->AddComponent<SkeletalMeshComponent>();
 	obj->Translate(vector3(0.f, 0.f, 0.f));
 	SpawnObject(obj);
 
 	
-	GetActiveCamera()->GetCameraComponent()->SetEye(vector3(0.f, 100.f, -300.f));
+	GetActiveCamera()->GetCameraComponent()->SetEye(vector3(0.f, 100.f, -500.f));
 	GetActiveCamera()->GetCameraComponent()->SetUp(vector3::up());
 	GetActiveCamera()->GetCameraComponent()->SetAt(vector3(0.f, 100.f, 0.f));
 }
 
 void EntryPoint::OnUpdate(void)
 {
-	//so1->RotateYaw(0.01f);
+	obj->RotateYaw(0.05f);
 	//static bool b = false;
 	//static float f = 0.f;
 	//if (f >= 1.f)

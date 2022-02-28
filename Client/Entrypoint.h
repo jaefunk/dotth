@@ -12,5 +12,5 @@ public:
 	//virtual void OnDrawImGui(void) override;
 
 private:
-	std::shared_ptr<Object> so1;
+	std::shared_ptr<Object> obj;
 };
