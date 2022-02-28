@@ -855,8 +855,6 @@ namespace dotth
 	};
 }
 
-#include "new/Asset.h"
-
 class FBXLoader
 {
 public:

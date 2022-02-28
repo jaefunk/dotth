@@ -264,9 +264,6 @@
     <ClInclude Include="SkeletalMesh.h" />
     <ClInclude Include="SkeletalMeshComponent.h" />
     <ClInclude Include="Bone.h" />
-    <ClInclude Include="new\Asset.h" />
-    <ClInclude Include="new\Math.h" />
-    <ClInclude Include="new\SkeletalMesh.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Framework">
