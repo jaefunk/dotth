@@ -65,6 +65,14 @@ void Animation::CalculateBoneTransform(dotth::node* target, const dotth::matrix&
 	}
 }
 
+void Animation::BoneUpdate(void)
+{
+	for (auto& bone : mapBones)
+	{
+		bone.second.Update(current);
+	}
+}
+
 void Animation::Update(float delta)
 {
 	if (status == ANIMATION_STATUS::RUNNING)
@@ -88,7 +96,7 @@ void Animation::Update(float delta)
 		bone.second.Update(current);
 	}
 
-	dotth::matrix m;
-	m.set_identity();
-	CalculateBoneTransform(root, m);
+	//dotth::matrix m;
+	//m.set_identity();
+	//CalculateBoneTransform(root, m);
 }

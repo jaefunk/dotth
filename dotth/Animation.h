@@ -23,6 +23,7 @@ public:
 
 public:
 	bool Load(const std::string& key, std::shared_ptr<SkeletalMesh> mesh);
+	void BoneUpdate(void);
 	void Update(float delta);
 	void CalculateBoneTransform(dotth::node* target, const dotth::matrix& parentTransform);
 };

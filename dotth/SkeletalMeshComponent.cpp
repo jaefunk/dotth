@@ -6,8 +6,23 @@ void SkeletalMeshComponent::OnInit(void)
 {	
 	//mesh->Load("Resource/aa/Walk.fbx");
 	mesh->Load("Resource/Idle.fbx");
-	//animation->Load("Resource/aa/Idle.fbx", mesh);
-	animation->Load("Resource/Run.fbx", mesh);
+	animation->Load("Resource/Idle.fbx", mesh);
+
+	Animation* anim0 = new Animation();
+	anim0->Load("Resource/Idle.fbx", mesh);
+	animationController->AddClip("idle", anim0);
+	
+	Animation* anim1 = new Animation();
+	anim1->Load("Resource/Walk.fbx", mesh);
+	animationController->AddClip("walk", anim1);
+
+	Animation* anim2 = new Animation();
+	anim2->Load("Resource/Run.fbx", mesh);
+	animationController->AddClip("run", anim2);
+
+	animationController->SetClip("idle");
+	
+
 	material->Load("tex0", "../Output/Client/x64/Debug/skin_vs.cso", "../Output/Client/x64/Debug/skin_ps.cso");
 	material2->Load("tex1", "../Output/Client/x64/Debug/skin_vs.cso", "../Output/Client/x64/Debug/skin_ps.cso");
 
@@ -15,7 +30,21 @@ void SkeletalMeshComponent::OnInit(void)
 
 void SkeletalMeshComponent::OnUpdate(void)
 {
-	animation->Update(0.5f);
+	animationController->Update(0.1f);
+
+	static float f = 0.f;
+	static bool b = false;
+	f += 0.005f;
+	if (f >= 3.f)
+	{
+		f = 0.f;
+		b = !b;
+		if (b)
+			animationController->SetClip("run", 0.5f);
+		else
+			animationController->SetClip("walk", 0.5f);
+	}
+	//animation->Update(0.5f);
 }
 
 void SkeletalMeshComponent::OnDraw(void)
@@ -28,9 +57,9 @@ void SkeletalMeshComponent::OnDraw(void)
 	for (unsigned int i = 0; i < mesh->GetSectionSize(); ++i)
 	{
 		if (i == 0)
-			material->Bind(world, view, proj, animation->finalMatrixes.data(), static_cast<unsigned int>(animation->finalMatrixes.size() * sizeof(dotth::matrix)));
+			material->Bind(world, view, proj, animationController->finalMatrixes.data(), static_cast<unsigned int>(animationController->finalMatrixes.size() * sizeof(dotth::matrix)));
 		if (i == 1)
-			material2->Bind(world, view, proj, animation->finalMatrixes.data(), static_cast<unsigned int>(animation->finalMatrixes.size() * sizeof(dotth::matrix)));
+			material2->Bind(world, view, proj, animationController->finalMatrixes.data(), static_cast<unsigned int>(animationController->finalMatrixes.size() * sizeof(dotth::matrix)));
 		mesh->Draw(i);
 	}
 }

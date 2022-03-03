@@ -17,11 +17,13 @@ void EntryPoint::OnInit(void)
 	GetActiveCamera()->GetCameraComponent()->SetEye(vector3(0.f, 100.f, -500.f));
 	GetActiveCamera()->GetCameraComponent()->SetUp(vector3::up());
 	GetActiveCamera()->GetCameraComponent()->SetAt(vector3(0.f, 100.f, 0.f));
+
+	//obj->RotateYaw(3.14f * 0.5f);
 }
 
 void EntryPoint::OnUpdate(void)
 {
-	obj->RotateYaw(0.05f);
+	
 	//static bool b = false;
 	//static float f = 0.f;
 	//if (f >= 1.f)

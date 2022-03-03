@@ -111,14 +111,13 @@ public:
 		float factor = GetFactor(static_cast<float>(prev.mTime), static_cast<float>(nexttime.mTime), time);
 
 		Assimp::Interpolator<aiVectorKey> interpolator;
-		aiVector3D finalPosition;
 		interpolator(finalPosition, prev, next, factor);
 
-		XMFLOAT3 float3;
-		float3.x = finalPosition.x;
-		float3.y = finalPosition.y;
-		float3.z = finalPosition.z;
-		return XMMatrixTranslationFromVector(XMLoadFloat3(&float3));
+		XMFLOAT3 value;
+		value.x = finalPosition.x;
+		value.y = finalPosition.y;
+		value.z = finalPosition.z;
+		return XMMatrixTranslationFromVector(XMLoadFloat3(&value));
 	}
 	XMMATRIX InterpolateRotation(float time)
 	{
@@ -136,15 +135,14 @@ public:
 		float factor = GetFactor(static_cast<float>(prev.mTime), static_cast<float>(nexttime.mTime), time);
 
 		Assimp::Interpolator<aiQuatKey> interpolator;
-		aiQuaternion finalValue;
-		interpolator(finalValue, prev, next, factor);
+		interpolator(finalQuaternion, prev, next, factor);
 
-		XMFLOAT4 float4;
-		float4.x = finalValue.x;
-		float4.y = finalValue.y;
-		float4.z = finalValue.z;
-		float4.w = finalValue.w;
-		return XMMatrixRotationQuaternion(XMLoadFloat4(&float4));
+		XMFLOAT4 value;
+		value.x = finalQuaternion.x;
+		value.y = finalQuaternion.y;
+		value.z = finalQuaternion.z;
+		value.w = finalQuaternion.w;
+		return XMMatrixRotationQuaternion(XMLoadFloat4(&value));
 	}
 	XMMATRIX InterpolateScale(float time)
 	{
@@ -162,28 +160,34 @@ public:
 		float factor = GetFactor(static_cast<float>(prev.mTime), static_cast<float>(nexttime.mTime), time);
 
 		Assimp::Interpolator<aiVectorKey> interpolator;
-		aiVector3D finalScale;
 		interpolator(finalScale, prev, next, factor);
-		XMFLOAT3 float3;
-		float3.x = finalScale.x;
-		float3.y = finalScale.y;
-		float3.z = finalScale.z;
-		return XMMatrixScalingFromVector(XMLoadFloat3(&float3));
+
+		XMFLOAT3 value;
+		value.x = finalScale.x;
+		value.y = finalScale.y;
+		value.z = finalScale.z;
+		return XMMatrixScalingFromVector(XMLoadFloat3(&value));
 	}
 
 	void Update(float time)
 	{
-		XMMATRIX p, r, s;
-		p = InterpolatePosition(time);
-		r = InterpolateRotation(time);
-		s = InterpolateScale(time);
+		XMMATRIX p = InterpolatePosition(time);
+		XMMATRIX r = InterpolateRotation(time);
+		XMMATRIX s = InterpolateScale(time);
 		localTransform = s * r * p;
 	}
 
 public:
 	unsigned int id = 0;
 	std::string name;
+	aiVector3D finalScale;
+	aiQuaternion finalQuaternion;
+	aiVector3D finalPosition;
+
 	dotth::matrix localTransform;
+	dotth::matrix scaleTransform;
+	dotth::matrix rotateTransform;
+	dotth::matrix positionTransform;
 	std::vector<keyframe<dotth::vector3>> positionKeys;
 	std::vector<keyframe<dotth::vector4>> rotationKeys;
 	std::vector<keyframe<dotth::vector3>> scaleKeys;
