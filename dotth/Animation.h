@@ -16,6 +16,7 @@ public:
 	float current = 0.f;
 	float duration = 0.f;
 	float tickPerSecond = 0.f;
+
 	std::vector<dotth::matrix> finalMatrixes;
 	std::shared_ptr<dotth::model> ModelRaw;
 	dotth::node* root;

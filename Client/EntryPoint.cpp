@@ -3,7 +3,6 @@
 #include "StaticMeshComponent.h"
 #include "SkeletalMeshComponent.h"
 #include "Camera.h"
-#include "../dotth/Math/Easing.h"
 
 void EntryPoint::OnInit(void)
 {
@@ -18,12 +17,12 @@ void EntryPoint::OnInit(void)
 	GetActiveCamera()->GetCameraComponent()->SetUp(vector3::up());
 	GetActiveCamera()->GetCameraComponent()->SetAt(vector3(0.f, 100.f, 0.f));
 
-	//obj->RotateYaw(3.14f * 0.5f);
+	
 }
 
 void EntryPoint::OnUpdate(void)
 {
-	
+	obj->RotateYaw(obj->GetDeltaSeconds());
 	//static bool b = false;
 	//static float f = 0.f;
 	//if (f >= 1.f)

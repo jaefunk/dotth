@@ -15,6 +15,11 @@ public:
 
 	std::shared_ptr<AnimationController> animationController{ new AnimationController };
 
+	// origin animation update
+	// [?] blend animation update
+	// calc final animation
+	// calc final bone matrix
+
 public:
 	virtual void OnInit(void) override;
 	virtual void OnUpdate(void) override;

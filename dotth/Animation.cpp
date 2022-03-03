@@ -75,21 +75,22 @@ void Animation::BoneUpdate(void)
 
 void Animation::Update(float delta)
 {
-	if (status == ANIMATION_STATUS::RUNNING)
-		current += delta * tickPerSecond;
+	current = delta * duration;
+	//if (status == ANIMATION_STATUS::RUNNING)
+	//	current += delta * tickPerSecond;
 
-	if (current >= duration)
-	{
-		if (loop == true)
-		{
-			current = fmod(current, duration);
-		}
-		else
-		{
-			current = duration;
-			status = ANIMATION_STATUS::PAUSE;
-		}
-	}
+	//if (current >= duration)
+	//{
+	//	if (loop == true)
+	//	{
+	//		current = fmod(current, duration);
+	//	}
+	//	else
+	//	{
+	//		current = duration;
+	//		status = ANIMATION_STATUS::PAUSE;
+	//	}
+	//}
 
 	for (auto& bone : mapBones)
 	{

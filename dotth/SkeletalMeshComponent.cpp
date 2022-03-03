@@ -30,19 +30,21 @@ void SkeletalMeshComponent::OnInit(void)
 
 void SkeletalMeshComponent::OnUpdate(void)
 {
-	animationController->Update(0.1f);
+	float deltaSeconds = GetOwner()->GetDeltaSeconds();
+
+	animationController->Update(0.016f);
 
 	static float f = 0.f;
 	static bool b = false;
-	f += 0.005f;
+	f += deltaSeconds;
 	if (f >= 3.f)
 	{
 		f = 0.f;
 		b = !b;
 		if (b)
-			animationController->SetClip("run", 0.5f);
+			animationController->SetClip("run", 0.1f);
 		else
-			animationController->SetClip("walk", 0.5f);
+			animationController->SetClip("walk", 0.1f);
 	}
 	//animation->Update(0.5f);
 }

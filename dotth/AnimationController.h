@@ -2,12 +2,30 @@
 
 #include "Animation.h"
 
+class AnimationBlendLink
+{
+public:
+	float factor;
+	Animation* from;
+	Animation* to;
+
+public:
+	void update(float delta)
+	{
+		factor += delta;
+		//factor = clamp(0.f, 1.f, factor);
+	}
+
+};
+
 class AnimationController
 {
 private:
 	std::unordered_map<std::string, Animation*> Animations;
 	
 private:
+	float accTime = 0.f;
+	float clampFactor = 0.f;
 	float blendFactor = 0.f;
 	float blendDuration = 0.f;
 	Animation* activeClip = nullptr;
@@ -31,21 +49,26 @@ public:
 		blendDuration = blending;
 		
 		if (activeClip == nullptr)
+		{
 			activeClip = Animations[key];
+			finalMatrixes.resize(activeClip->ModelRaw->mapBones.size());
+			for (auto& matrix : finalMatrixes)
+				matrix.set_identity();
+		}
 		else
 			blendClip = Animations[key];
-		
-		finalMatrixes.resize(activeClip->ModelRaw->mapBones.size());
-		for (auto& matrix : finalMatrixes)
-			matrix.set_identity();
 	}
 
 public:
 	void Update(float delta)
 	{
+		accTime += delta;
+		clampFactor = fmod(accTime, 1.f);
+
+		printf("%f\n", accTime);
 		result.clear();
 		
-		activeClip->Update(delta);
+		activeClip->Update(clampFactor);
 		for (const auto& activeIter : activeClip->mapBones)
 		{
 			result[activeIter.first] = activeIter.second.localTransform;
@@ -56,8 +79,8 @@ public:
 		{
 			if (blendFactor <= blendDuration)
 			{
-				blendFactor += delta * 0.1f;
-				blendClip->Update(delta);
+				blendFactor += delta;
+				blendClip->Update(clampFactor);
 
 				/////////////////////////////
 				float factor = blendFactor / blendDuration;
