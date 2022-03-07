@@ -19,3 +19,7 @@ void Component::OnDraw(void)
 void Component::OnDestroy(void)
 {
 }
+
+void Component::OnDrawImGui(void)
+{
+}

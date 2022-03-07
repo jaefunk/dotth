@@ -18,6 +18,7 @@ public:
 	virtual void OnDestroy(void) {}
 	virtual void OnUpdate(void) {}
 	virtual void OnDraw(void) {}
+	virtual void OnDrawImGui(void) {}
 
 private:
 	std::shared_ptr<class Camera> ActiveCamera;
@@ -71,6 +72,7 @@ public:
 	const vector3& GetLocalPosition(void) { return _Transform.GetPosition(); }
 
 public:
+	void DrawImGui(void);
 	void DrawImGuiHierarchy(void);
 };
 

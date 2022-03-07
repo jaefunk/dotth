@@ -92,10 +92,23 @@ void Object::UpdateTransform(void)
 		});
 }
 
+void Object::DrawImGui(void)
+{
+	OnDrawImGui();
+	for (auto comp : Components)
+	{
+		comp->OnDrawImGui();
+	}
+}
+
 void Object::DrawImGuiHierarchy(void)
 {
 	if (ImGui::TreeNode(std::to_string(GetSerial()).c_str(), "%s", GetName().c_str()))
 	{
+		if (ImGui::IsItemFocused())
+		{
+			DrawImGui();
+		}
 		Foreach<Object>(
 			[](std::shared_ptr<Object> child) {
 				child->DrawImGuiHierarchy();

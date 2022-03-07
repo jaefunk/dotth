@@ -23,7 +23,7 @@ class AnimationController
 private:
 	std::unordered_map<std::string, Animation*> Animations;
 	
-private:
+public:
 	float accTime = 0.f;
 	float clampFactor = 0.f;
 	float blendFactor = 0.f;
@@ -63,7 +63,7 @@ public:
 	void Update(float delta)
 	{
 		accTime += delta;
-		clampFactor = fmod(accTime, 1.f);
+		//clampFactor = fmod(accTime, 1.f);
 
 		printf("%f\n", accTime);
 		result.clear();

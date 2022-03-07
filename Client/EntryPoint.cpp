@@ -6,10 +6,10 @@
 
 void EntryPoint::OnInit(void)
 {
-	obj = std::make_shared<Object>();
+	obj = std::make_shared<SampleObject>();
 	//auto comp = obj->AddComponent<StaticMeshComponent>();
-	auto comp = obj->AddComponent<SkeletalMeshComponent>();
-	obj->Translate(vector3(0.f, 0.f, 0.f));
+	
+	//obj->Translate(vector3(0.f, 0.f, 0.f));
 	SpawnObject(obj);
 
 	
@@ -49,6 +49,6 @@ void EntryPoint::OnUpdate(void)
 //{
 //}
 //
-//void EntryPoint::OnDrawImGui(void)
-//{
-//}
+void EntryPoint::OnDrawImGui(void)
+{
+}

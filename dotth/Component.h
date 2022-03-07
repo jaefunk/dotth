@@ -26,4 +26,5 @@ public:
 	virtual void OnLateUpdate(void);
 	virtual void OnDraw(void);
 	virtual void OnDestroy(void);
+	virtual void OnDrawImGui(void);
 };
