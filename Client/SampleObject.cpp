@@ -19,8 +19,8 @@ void SampleObject::OnDraw(void)
 
 void SampleObject::OnDrawImGui(void)
 {
-	auto aa = &(skeletalMeshComponent->animationController->clampFactor);
-	ImGui::Begin("aa");
+	auto aa = &(skeletalMeshComponent->animationController->blendFactor);
+	//ImGui::Begin("aa");
 	ImGui::SliderFloat("aa", aa, 0.f, 1.f, "%f");
-	ImGui::End();
+	//ImGui::End();
 }

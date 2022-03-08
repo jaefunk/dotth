@@ -105,9 +105,13 @@ void Object::DrawImGuiHierarchy(void)
 {
 	if (ImGui::TreeNode(std::to_string(GetSerial()).c_str(), "%s", GetName().c_str()))
 	{
-		if (ImGui::IsItemFocused())
+		if (ImGui::IsItemActivated())
 		{
-			DrawImGui();
+			if (!ImGui::Begin("aa"))
+			{
+				ImGui::Text("asdf");
+				ImGui::End();
+			}
 		}
 		Foreach<Object>(
 			[](std::shared_ptr<Object> child) {

@@ -63,9 +63,7 @@ public:
 	void Update(float delta)
 	{
 		accTime += delta;
-		//clampFactor = fmod(accTime, 1.f);
-
-		printf("%f\n", accTime);
+		clampFactor = fmod(accTime, 1.f);
 		result.clear();
 		
 		activeClip->Update(clampFactor);
@@ -77,13 +75,13 @@ public:
 		
 		if (blendClip != nullptr)
 		{
-			if (blendFactor <= blendDuration)
+			//if (blendFactor <= blendDuration)
 			{
-				blendFactor += delta;
+				//blendFactor += delta;
 				blendClip->Update(clampFactor);
 
 				/////////////////////////////
-				float factor = blendFactor / blendDuration;
+				float factor = blendFactor;// / blendDuration;
 				for (const auto blendPair : blendClip->mapBones)
 				{
 					auto key = blendPair.first;
@@ -133,14 +131,14 @@ public:
 					}
 				}
 
-				if (blendFactor >= blendDuration)
-				{
-					printf(" update blend done");
-					blendDuration = 0.f;
-					blendFactor = 0.f;
-					activeClip = blendClip;
-					blendClip = nullptr;
-				}
+				//if (blendFactor >= blendDuration)
+				//{
+				//	printf(" update blend done");
+				//	blendDuration = 0.f;
+				//	blendFactor = 0.f;
+				//	activeClip = blendClip;
+				//	blendClip = nullptr;
+				//}
 			}
 		}	
 

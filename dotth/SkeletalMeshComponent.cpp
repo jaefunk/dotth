@@ -20,7 +20,8 @@ void SkeletalMeshComponent::OnInit(void)
 	anim2->Load("Resource/Run.fbx", mesh);
 	animationController->AddClip("run", anim2);
 
-	animationController->SetClip("idle");
+	animationController->SetClip("walk");
+	animationController->SetClip("run");
 	
 
 	material->Load("tex0", "../Output/Client/x64/Debug/skin_vs.cso", "../Output/Client/x64/Debug/skin_ps.cso");
@@ -34,18 +35,18 @@ void SkeletalMeshComponent::OnUpdate(void)
 
 	animationController->Update(0.016f);
 
-	static float f = 0.f;
-	static bool b = false;
-	f += deltaSeconds;
-	if (f >= 3.f)
-	{
-		f = 0.f;
-		b = !b;
-		if (b)
-			animationController->SetClip("run", 0.1f);
-		else
-			animationController->SetClip("walk", 0.1f);
-	}
+	//static float f = 0.f;
+	//static bool b = false;
+	//f += deltaSeconds;
+	//if (f >= 3.f)
+	//{
+	//	f = 0.f;
+	//	b = !b;
+	//	if (b)
+	//		animationController->SetClip("run", 0.1f);
+	//	else
+	//		animationController->SetClip("walk", 0.1f);
+	//}
 	//animation->Update(0.5f);
 }
 
