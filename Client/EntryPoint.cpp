@@ -59,7 +59,7 @@ void EntryPoint::OnUpdate(void)
 	//if (f <= 0.f)
 	//	b = true;
 	//if (b == true)
-		f += GetDeltaSeconds();
+		//f += GetDeltaSeconds();
 	//else 
 	//	f -= GetDeltaSeconds();
 	//f = clamp(0.f, 1.f, f);
