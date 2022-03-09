@@ -1,10 +1,10 @@
 
 #include "Animation.h"
 
-bool Animation::Load(const std::string& key, std::shared_ptr<SkeletalMesh> mesh)
+bool Animation::Load(const std::string& key, SkeletalMesh* skeletalMesh)
 {
-	ModelRaw = mesh->Raw;
-	root = mesh->Raw->root;
+	ModelRaw = skeletalMesh->raw;
+	root = ModelRaw->root;
 	Assimp::Importer importer;
 	const aiScene* scene = importer.ReadFile(key, aiProcess_ConvertToLeftHanded | aiProcess_Triangulate | aiProcess_OptimizeMeshes | aiProcess_PopulateArmatureData | aiProcess_LimitBoneWeights);
 	if (scene == nullptr)

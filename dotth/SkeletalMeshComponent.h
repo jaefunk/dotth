@@ -7,18 +7,20 @@
 
 class SkeletalMeshComponent : public MeshComponent
 {
+private:
+	SkeletalMesh* skeletalMesh;
 public:
-	std::shared_ptr<Material> material{ new Material };
-	std::shared_ptr<Material> material2{ new Material };
-	std::shared_ptr<SkeletalMesh> mesh{ new SkeletalMesh };
-	std::shared_ptr<Animation> animation{ new Animation };
+	void SetSkeletalMesh(SkeletalMesh* inSkeletalMesh)
+	{
+		if (skeletalMesh != inSkeletalMesh)
+			skeletalMesh = inSkeletalMesh;
+	}
 
-	std::shared_ptr<AnimationController> animationController{ new AnimationController };
+private:
+	std::vector<Material*> materials;
 
-	// origin animation update
-	// [?] blend animation update
-	// calc final animation
-	// calc final bone matrix
+public:
+	std::vector<dotth::matrix> finalMatrixes;
 
 public:
 	virtual void OnInit(void) override;

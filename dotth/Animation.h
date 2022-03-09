@@ -23,7 +23,7 @@ public:
 	std::map<std::string, Bone> mapBones;
 
 public:
-	bool Load(const std::string& key, std::shared_ptr<SkeletalMesh> mesh);
+	bool Load(const std::string& key, SkeletalMesh* skeletalMesh);
 	void BoneUpdate(void);
 	void Update(float delta);
 	void CalculateBoneTransform(dotth::node* target, const dotth::matrix& parentTransform);

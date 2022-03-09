@@ -1,36 +1,65 @@
+
 #include "EntryPoint.h"
-#include "SampleObject.h"
-#include "StaticMeshComponent.h"
-#include "SkeletalMeshComponent.h"
+#include "SkeletalMeshObject.h"
 #include "Camera.h"
 
 void EntryPoint::OnInit(void)
 {
-	obj = std::make_shared<SampleObject>();
-	//auto comp = obj->AddComponent<StaticMeshComponent>();
-	
-	//obj->Translate(vector3(0.f, 0.f, 0.f));
-	SpawnObject(obj);
-
-	
 	GetActiveCamera()->GetCameraComponent()->SetEye(vector3(0.f, 100.f, -500.f));
 	GetActiveCamera()->GetCameraComponent()->SetUp(vector3::up());
 	GetActiveCamera()->GetCameraComponent()->SetAt(vector3(0.f, 100.f, 0.f));
 
-	
+	// create
+	auto skeltalMeshObject = std::make_shared<SkeletalMeshObject>();
+
+	// set skeletal mesh
+	SkeletalMesh* skeletalMesh = new SkeletalMesh;
+	skeletalMesh->Load("Resource/Idle.fbx");
+	skeltalMeshObject->SetSkeletalMesh(skeletalMesh);
+
+	// set animation control
+	AnimationController* animationController = new AnimationController;
+
+	// set animation
+	AnimationControllerAdapter* adapter = nullptr;
+	skeltalMeshObject->SetAnimationController(animationController, &adapter);
+	Animation* anim0 = new Animation();
+	anim0->Load("Resource/Idle.fbx", skeletalMesh);
+	animationController->AddClip("idle", anim0);
+
+	Animation* anim1 = new Animation();
+	anim1->Load("Resource/Walk.fbx", skeletalMesh);
+	animationController->AddClip("walk", anim1);
+
+	Animation* anim2 = new Animation();
+	anim2->Load("Resource/Run.fbx", skeletalMesh);
+	animationController->AddClip("run", anim2);
+
+	animationController->SetClip("walk");
+	animationController->SetClip("run");
+			
+	SpawnObject(skeltalMeshObject);
 }
 
 void EntryPoint::OnUpdate(void)
 {
-	obj->RotateYaw(obj->GetDeltaSeconds());
+	//obj->RotateYaw(obj->GetDeltaSeconds());
 	//static bool b = false;
 	//static float f = 0.f;
 	//if (f >= 1.f)
-	//	b = false;
+	//{
+	//	if (b == false)
+	//	{
+	//		printf("asdf\n");
+	//		animationController->SetClip("run");
+	//	}
+	//	b = true;
+	//}
+	
 	//if (f <= 0.f)
 	//	b = true;
 	//if (b == true)
-	//	f += GetDeltaSeconds();
+		f += GetDeltaSeconds();
 	//else 
 	//	f -= GetDeltaSeconds();
 	//f = clamp(0.f, 1.f, f);

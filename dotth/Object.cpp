@@ -65,7 +65,7 @@ bool Object::AddComponent(std::shared_ptr<Component> component)
 {
 	if (auto Owner = component->GetOwner())
 		return false;
-	component->SetOwner(this->weak_from_this());
+	component->SetOwner(this);
 	Components.push_back(component);
 	return true;
 }

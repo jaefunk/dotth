@@ -10,7 +10,4 @@ public:
 	virtual void OnUpdate(void) override;
 	//virtual void OnDraw(void) override;
 	virtual void OnDrawImGui(void) override;
-
-private:
-	std::shared_ptr<Object> obj;
 };

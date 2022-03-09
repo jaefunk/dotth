@@ -6,18 +6,18 @@ class Object;
 class Component : public Base
 {
 private:
-	std::weak_ptr<Base> Owner;
+	Base* Owner = nullptr;
 
 public:
-	void SetOwner(std::weak_ptr<Base> owner)
+	void SetOwner(Base* inOwner)
 	{
-		Owner = owner;
+		Owner = inOwner;
 	}
 	
 	template <typename CastTy = Object>
-	std::shared_ptr<CastTy> GetOwner(void)
+	CastTy* GetOwner(void)
 	{
-		return std::dynamic_pointer_cast<CastTy>(Owner.lock());
+		return (CastTy*)Owner;
 	}
 
 public:

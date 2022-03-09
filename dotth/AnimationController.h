@@ -13,9 +13,11 @@ public:
 	void update(float delta)
 	{
 		factor += delta;
-		//factor = clamp(0.f, 1.f, factor);
-	}
+		factor = fmod(factor, 1.f);
 
+		from->Update(factor);
+		to->Update(factor);
+	}
 };
 
 class AnimationController
@@ -75,9 +77,9 @@ public:
 		
 		if (blendClip != nullptr)
 		{
-			//if (blendFactor <= blendDuration)
+			if (blendFactor <= blendDuration)
 			{
-				//blendFactor += delta;
+				blendFactor += delta;
 				blendClip->Update(clampFactor);
 
 				/////////////////////////////
@@ -131,14 +133,14 @@ public:
 					}
 				}
 
-				//if (blendFactor >= blendDuration)
-				//{
-				//	printf(" update blend done");
-				//	blendDuration = 0.f;
-				//	blendFactor = 0.f;
-				//	activeClip = blendClip;
-				//	blendClip = nullptr;
-				//}
+				if (blendFactor >= blendDuration)
+				{
+					printf(" update blend done");
+					blendDuration = 0.f;
+					blendFactor = 0.f;
+					activeClip = blendClip;
+					blendClip = nullptr;
+				}
 			}
 		}	
 
@@ -181,4 +183,23 @@ public:
 			CalculateBoneTransform(child, finalMatrix);
 		}
 	}
+
+	public:
+		class Adapter
+		{
+		private:
+			AnimationController* controller;
+
+		public:
+			std::vector<std::string> GetAnimationKeys(void)
+			{
+				return {};
+			}
+			void AddAnimation(const std::string key, const Animation* animation)
+			{
+
+			}
+		};
 };
+
+using AnimationControllerAdapter = AnimationController::Adapter;
