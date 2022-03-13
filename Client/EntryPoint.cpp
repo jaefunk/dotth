@@ -11,6 +11,7 @@ void EntryPoint::OnInit(void)
 
 	// create
 	auto skeltalMeshObject = std::make_shared<SkeletalMeshObject>();
+	SpawnObject(skeltalMeshObject);
 
 	// set skeletal mesh
 	SkeletalMesh* skeletalMesh = new SkeletalMesh;
@@ -19,26 +20,23 @@ void EntryPoint::OnInit(void)
 
 	// set animation control
 	AnimationController* animationController = new AnimationController;
-
-	// set animation
-	AnimationControllerAdapter* adapter = nullptr;
-	skeltalMeshObject->SetAnimationController(animationController, &adapter);
+	animationController->Load("Resource/AnimControlHuman");
+	skeltalMeshObject->SetAnimationController(animationController);
 	Animation* anim0 = new Animation();
 	anim0->Load("Resource/Idle.fbx", skeletalMesh);
-	animationController->AddClip("idle", anim0);
-
+	animationController->SetAnimation("idle", anim0);
 	Animation* anim1 = new Animation();
 	anim1->Load("Resource/Walk.fbx", skeletalMesh);
-	animationController->AddClip("walk", anim1);
-
+	animationController->SetAnimation("walk", anim1);
 	Animation* anim2 = new Animation();
 	anim2->Load("Resource/Run.fbx", skeletalMesh);
-	animationController->AddClip("run", anim2);
+	animationController->SetAnimation("run", anim2);
+	Animation* anim3 = new Animation();
+	anim3->Load("Resource/Jump.fbx", skeletalMesh);
+	animationController->SetAnimation("jump", anim3);
 
-	animationController->SetClip("walk");
-	animationController->SetClip("run");
-			
-	SpawnObject(skeltalMeshObject);
+	//animationController->BlendTo("walk");
+	animationController->BlendTo("jump");
 }
 
 void EntryPoint::OnUpdate(void)

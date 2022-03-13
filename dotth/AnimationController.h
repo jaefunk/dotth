@@ -22,8 +22,18 @@ public:
 
 class AnimationController
 {
+public:
+	bool Load(const std::string& key)
+	{
+		animations["idle"] = nullptr;
+		animations["walk"] = nullptr;
+		animations["run"] = nullptr;
+		animations["jump"] = nullptr;
+		return true;
+	}
+
 private:
-	std::unordered_map<std::string, Animation*> Animations;
+	std::unordered_map<std::string, Animation*> animations;
 	
 public:
 	float accTime = 0.f;
@@ -39,26 +49,26 @@ public:
 	std::vector<dotth::matrix> finalMatrixes;
 
 public:
-	void AddClip(const std::string& key, Animation* clip)
+	void SetAnimation(const std::string& key, Animation* clip)
 	{
-		Animations.insert({ key, clip });
+		animations[key] = clip;
 	}
 		
 public:
-	void SetClip(const std::string& key, float blending = 0.5f)
+	void BlendTo(const std::string& key, float blending = 0.5f)
 	{
 		blendFactor = 0.f;
 		blendDuration = blending;
 		
 		if (activeClip == nullptr)
 		{
-			activeClip = Animations[key];
+			activeClip = animations[key];
 			finalMatrixes.resize(activeClip->ModelRaw->mapBones.size());
 			for (auto& matrix : finalMatrixes)
 				matrix.set_identity();
 		}
 		else
-			blendClip = Animations[key];
+			blendClip = animations[key];
 	}
 
 public:

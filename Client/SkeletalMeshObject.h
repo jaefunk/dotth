@@ -16,7 +16,6 @@ public:
 private:
 	std::shared_ptr<SkeletalMeshComponent> skeletalMeshComponent;
 	AnimationController* animationController;
-	AnimationControllerAdapter* animationControllerAdapter = nullptr;
 
 public:
 	void SetSkeletalMesh(SkeletalMesh* inSkeletalMesh)
@@ -28,13 +27,9 @@ public:
 	}
 
 public:
-	void SetAnimationController(AnimationController* inAnimationController, AnimationControllerAdapter** outAdapter)
+	void SetAnimationController(AnimationController* inAnimationController)
 	{
 		animationController = inAnimationController;
-		if (animationControllerAdapter != nullptr)
-			delete animationControllerAdapter;
-		(*outAdapter) = new AnimationControllerAdapter;
-		animationControllerAdapter = *outAdapter;
 	}
 
 protected:
