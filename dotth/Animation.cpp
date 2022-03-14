@@ -75,14 +75,18 @@ void Animation::BoneUpdate(void)
 
 void Animation::Update(float delta)
 {
-	current = delta * duration;
+	//current = delta * duration;
 	//if (status == ANIMATION_STATUS::RUNNING)
-	//	current += delta * tickPerSecond;
+	current += delta * tickPerSecond;
+	//current = duration * fmod(current, 1.f);
 
-	//if (current >= duration)
-	//{
-	//	if (loop == true)
-	//	{
+	if (current >= duration)
+	{
+		current = fmod(current, duration);
+	//	printf("Aa\n");
+	}
+		//if (loop == true)
+//		{
 	//		current = fmod(current, duration);
 	//	}
 	//	else

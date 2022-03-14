@@ -2,9 +2,12 @@
 
 #include "Scene.h"
 
+
+
 class EntryPoint : public Scene
 {
 public:
+	class AnimationController* animationController;
 	virtual void OnInit(void) override;
 	//virtual void OnDestroy(void) override;
 	virtual void OnUpdate(void) override;

@@ -16,7 +16,7 @@ void SkeletalMeshObject::OnDestroy(void)
 
 void SkeletalMeshObject::OnUpdate(void)
 {
-	animationController->Update(0.016f);
+	animationController->Update(GetDeltaSeconds());
 	skeletalMeshComponent->finalMatrixes = animationController->finalMatrixes;
 }
 

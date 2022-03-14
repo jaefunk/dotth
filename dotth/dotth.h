@@ -15,6 +15,7 @@
 #include <list>
 #include <queue>
 #include <set>
+#include <array>
 #include <algorithm>
 #include <future>
 #include <thread>
