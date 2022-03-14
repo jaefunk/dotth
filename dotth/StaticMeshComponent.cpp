@@ -1,12 +1,8 @@
 #include "StaticMeshComponent.h"
 #include "Camera.h"
 
-#include "ResourceManager.h"
-
 void StaticMeshComponent::OnInit(void)
-{	
-	mesh->Load("Resource/blue/skin0.gltf");
-	material->Load("viking_blue_C_texture", "../Output/Client/x64/Debug/deferred_vs.cso", "../Output/Client/x64/Debug/deferred_ps.cso");
+{		
 }
 
 void StaticMeshComponent::OnUpdate(void)
@@ -15,16 +11,18 @@ void StaticMeshComponent::OnUpdate(void)
 
 void StaticMeshComponent::OnDraw(void)
 {
-	XMFLOAT4X4 world, view, proj;
-	XMStoreFloat4x4(&world, GetOwner()->GetWorldMatrix());
-	XMStoreFloat4x4(&view, XMMatrixTranspose(GetOwner()->GetActiveCamera()->GetView()));
-	XMStoreFloat4x4(&proj, XMMatrixTranspose(GetOwner()->GetActiveCamera()->GetPerspective()));
+	dotth::matrix world = GetOwner()->GetWorldMatrix();
+	dotth::matrix view = GetOwner()->GetActiveCamera()->GetView();
+	dotth::matrix proj = GetOwner()->GetActiveCamera()->GetPerspective();
 
-	for (unsigned int i = 0; i < mesh->GetSectionSize(); ++i)
-	{
-		//material->Bind(world, view, proj, nullptr, 0);
-		mesh->Draw(i);
-	}
+	std::vector<MeshRenderParameter> parameters;
+	parameters.push_back(MeshRenderParameter({ "world", &world, sizeof(world) }));
+	parameters.push_back(MeshRenderParameter({ "view", &view, sizeof(view) }));
+	parameters.push_back(MeshRenderParameter({ "proj", &proj, sizeof(proj) }));
+
+	staticMesh->SetVertexParameters(0, parameters);
+	staticMesh->SetVertexParameters(1, parameters);
+	staticMesh->Draw();
 }
 
 void StaticMeshComponent::OnDestroy(void)

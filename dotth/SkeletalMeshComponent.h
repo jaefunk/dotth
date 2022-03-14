@@ -16,9 +16,6 @@ public:
 			skeletalMesh = inSkeletalMesh;
 	}
 
-private:
-	std::vector<Material*> materials;
-
 public:
 	std::vector<dotth::matrix> finalMatrixes;
 

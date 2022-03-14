@@ -3,7 +3,6 @@
 #include "Renderable.h"
 #include "Material.h"
 
-
 class SkeletalMesh
 {
 public:
@@ -12,11 +11,11 @@ public:
 	std::vector<Material*> materials;
 
 public:
-	std::map<int, std::vector<SkeletalMeshRenderParameter>> parameters;
+	std::map<int, std::vector<MeshRenderParameter>> parameters;
 	bool Load(const std::string& key);
 
 public:
-	void SetVertexParameters(unsigned int index, const std::vector<SkeletalMeshRenderParameter>& inParameters)
+	void SetVertexParameters(unsigned int index, const std::vector<MeshRenderParameter>& inParameters)
 	{
 		parameters[index] = inParameters;
 	}

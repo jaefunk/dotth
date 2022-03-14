@@ -19,7 +19,6 @@ public:
 
 	std::vector<dotth::matrix> finalMatrixes;
 	std::shared_ptr<dotth::model> ModelRaw;
-	dotth::node* root;
 	std::map<std::string, Bone> mapBones;
 
 public:

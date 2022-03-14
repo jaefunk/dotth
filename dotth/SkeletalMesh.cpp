@@ -4,14 +4,14 @@
 
 bool SkeletalMesh::Load(const std::string& key)
 {
-	std::shared_ptr<dotth::model> loadedModel = FBXLoader::Load(key);
+	raw = FBXLoader::Load(key);
 	
-	if (loadedModel == nullptr)
+	if (raw == nullptr)
 		return false;
-	raw = loadedModel;
+
 	renderables.clear();
 	materials.clear();
-	for (auto mesh : loadedModel->meshes)
+	for (auto mesh : raw->meshes)
 	{
 		renderables.push_back(new Renderable(mesh));
 		materials.push_back(new Material);

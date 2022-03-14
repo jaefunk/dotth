@@ -47,36 +47,7 @@ public:
 	}
 };
 
-//struct AnimationBlend {
-//	Animation* anim = nullptr;
-//	bool isActive = false;
-//	float blendDuration = 0.f;
-//	float blendFactor = 0.f;
-//	float weight = 0.f;
-//
-//	bool IsBlendValid(void) {
-//		return anim != nullptr && blendFactor > 0.f;
-//	}
-//
-//	void Update(float delta) {
-//		blendFactor -= delta;
-//		float factor = 1.f - (blendFactor / blendDuration);
-//		weight = 1.f - (blendFactor / blendDuration);
-//		anim->Update(delta);
-//	}
-//
-//	Bone* FindBoneMatrix(const std::string& boneName) {
-//		if (IsBlendValid()) {
-//			auto iter = anim->mapBones.find(boneName);
-//			if (iter != anim->mapBones.end())
-//				return &(iter->second);
-//		}
-//
-//		return nullptr;
-//	}
-//};
-//
-#define MAX_BLEND_SIZE 4
+#define MAX_BLEND_SIZE 8
 
 class AnimationController
 {
@@ -89,7 +60,6 @@ public:
 public:
 	std::shared_ptr<dotth::model> model;
 	std::vector<std::string> boneNames;
-	std::unordered_map<std::string, Animation*> animations;
 	std::vector<Animation*> animArray;
 
 	AnimationBlendSystem<MAX_BLEND_SIZE> BlendSystem;
@@ -99,11 +69,10 @@ public:
 	std::vector<dotth::matrix> finalMatrixes;
 
 public:
-	void SetAnimation(const std::string& key, Animation* clip)
+	void SetAnimation(int index, Animation* clip)
 	{
-		animations[key] = clip;
 		animArray.push_back(clip);
-		BlendSystem[animArray.size() - 1] = clip;
+		BlendSystem[index] = clip;
 	}
 		
 public:
@@ -116,13 +85,6 @@ public:
 	void Update(float delta)
 	{
 		BlendSystem.Update(delta);
-
-		Assimp::Interpolator<aiVector3D> interpolationScale;
-		
-		Assimp::Interpolator<aiQuaternion> interpolationQuaternion;
-		
-		Assimp::Interpolator<aiVector3D> interpolationPosition;
-		
 
 		for (auto name : boneNames) {
 			aiVector3D scaleResult;
@@ -153,6 +115,7 @@ public:
 						auto rotIter2 = BlendSystem[i]->mapBones.find(name);
 						if (rotIter2 != BlendSystem[i]->mapBones.end())
 						{
+							Assimp::Interpolator<aiQuaternion> interpolationQuaternion;
 							interpolationQuaternion(rotationResult, rotationResult, rotIter2->second.finalQuaternion, factor);
 							beforeIndex = i;
 						}
@@ -180,7 +143,6 @@ public:
 			auto pp = XMMatrixTranslationFromVector(XMLoadFloat3(&p));
 			result[name] = ss * rr * pp;
 		}
-		printf("%f %f %f %f\n", BlendSystem.Weight(0), BlendSystem.Weight(1), BlendSystem.Weight(2), BlendSystem.Weight(3));
 
 		dotth::matrix m;
 		m.set_identity();

@@ -5,7 +5,7 @@
 #include "Shader.h"
 
 
-struct SkeletalMeshRenderParameter
+struct MeshRenderParameter
 {
 	std::string name;
 	void* value;
@@ -51,7 +51,7 @@ public:
 	}
 
 public:
-	void Bind(std::vector<SkeletalMeshRenderParameter> parameters)
+	void Bind(std::vector<MeshRenderParameter> parameters)
 	{
 		if (texture2D)
 			texture2D->Draw();
