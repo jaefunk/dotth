@@ -4,46 +4,45 @@ void Application::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
 	if (ImGui_ImplWin32_WndProcHandler(hWnd, message, wParam, lParam))
 		return;
+	
+	POINT p;
+	GetCursorPos(&p);
+	ScreenToClient(hWnd, &p);
+	InputSystem::Instance()->UpdateMouseCursorPosition(p.x, p.y);
 
 	switch (message)
 	{
 	case WM_KEYDOWN:
-		//printf("%lld key down %llu\n", wParam, lParam);
-		break;
-		//case WM_CHAR:
-		//	printf("b\n");
-		//	break;
 	case WM_KEYUP:
-		//printf("%lld key up %llu\n", wParam, lParam);
-		break;
-	case WM_MOUSEMOVE: 
-		//printf("%lld mousemove %llu\n", wParam, lParam);
-		break;
-	case WM_LBUTTONDOWN: break;
-	case WM_LBUTTONUP: break;
-	case WM_LBUTTONDBLCLK: break;
-	case WM_RBUTTONDOWN: break;
-	case WM_RBUTTONUP: break;
-	case WM_RBUTTONDBLCLK: break;
-	case WM_MBUTTONDOWN: break;
-	case WM_MBUTTONUP: break;
+	case WM_LBUTTONDOWN:
+	case WM_LBUTTONUP: 
+	case WM_LBUTTONDBLCLK: 
+	case WM_RBUTTONDOWN:
+	case WM_RBUTTONUP:
+	case WM_RBUTTONDBLCLK:
+	case WM_MBUTTONDOWN:
+	case WM_MBUTTONUP:
+		InputSystem::Instance()->PushBuffer(message, wParam, lParam);
 		break;
 	}
-	//printf("message: %d %lld %llu\n", message, wParam, lParam);
 }
 
 bool Application::Loop()
 {	
+	InputSystem::Instance()->ArrangeBuffer();
+	InputSystem::Instance()->BroadcastEvent();
 	Scenario::Instance()->Update();
+	InputSystem::Instance()->ReleaseBuffer();
 
 	D3D11RHI::StandbyDeferred();
 	Scenario::Instance()->Draw();
 	D3D11RHI::Draw();
+	
 	D3D11RHI::BeginImGui();
 	Scenario::Instance()->DrawImGui();
-	//static bool b = true;
-	//ImGui::ShowDemoWindow(&b);
 	D3D11RHI::EndImGui();
+
 	D3D11RHI::Present();
+
 	return true;
 }

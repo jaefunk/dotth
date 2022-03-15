@@ -161,7 +161,6 @@ public:
 		if (boneIter != result.end())
 		{
 			boneMatrix = boneIter->second;
-			//boneID = boneIter->second.id;
 		}
 
 		auto offsetIter = model->mapBones.find(target->name);

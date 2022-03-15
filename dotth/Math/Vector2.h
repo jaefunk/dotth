@@ -3,75 +3,79 @@
 
 namespace dotth
 {
-	struct vector2 {
+	template<typename ty>
+	struct vector2d {
 		union {
-			struct { float f[2]; };
-			struct { float x, y; };
+			struct { ty f[2]; };
+			struct { ty x, y; };
 		};
 
-		vector2(void)
-			: x(0.f), y(0.f)
+		vector2d(void)
+			: x(0), y(0)
 		{
 		}
 
-		vector2(float f)
+		vector2d(ty f)
 			: x(f), y(f)
 		{
 		}
 
-		vector2(float* f)
+		vector2d(ty* f)
 			: x(f[0]), y(f[1])
 		{
 		}
 
-		vector2(float _x, float _y)
+		vector2d(ty _x, ty _y)
 			: x(_x), y(_y)
 		{
 		}
 
-		static void add(const vector2& left, const vector2& right, vector2& result)
+		static void add(const vector2d& left, const vector2d& right, vector2d& result)
 		{
 			result.x = left.x + right.x;
 			result.y = left.y + right.y;
 		}
 
-		static void subtract(const vector2& left, const vector2& right, vector2& result)
+		static void subtract(const vector2d& left, const vector2d& right, vector2d& result)
 		{
 			result.x = left.x - right.x;
 			result.y = left.y - right.y;
 		}
 
-		static void multiply(const vector2& left, const vector2& right, vector2& result)
+		static void multiply(const vector2d& left, const vector2d& right, vector2d& result)
 		{
 			result.x = left.x * right.x;
 			result.y = left.y * right.y;
 		}
 
-		static void multiply(const vector2& left, float right, vector2& result)
+		static void multiply(const vector2d& left, ty right, vector2d& result)
 		{
 			result.x = left.x * right;
 			result.y = left.y * right;
 		}
 
-		static void devide(const vector2& left, float right, vector2& result)
+		static void devide(const vector2d& left, ty right, vector2d& result)
 		{
 			result.x = left.x / right;
 			result.y = left.y / right;
 		}
 
-		static bool equal(const vector2& left, const vector2& right, float tolerance = std::numeric_limits<float>::epsilon())
+		static bool equal(const vector2d& left, const vector2d& right, ty tolerance = std::numeric_limits<ty>::epsilon())
 		{
 			return abs(left.x - right.x) <= tolerance && abs(left.y - right.y) <= tolerance;
 		}
 
-		float& operator[](int index)
+		ty& operator[](int index)
 		{
 			return f[index];
 		}
 
-		float operator[](int index) const
+		ty operator[](int index) const
 		{
 			return f[index];
 		}
 	};
+
+	using vector2 = vector2d<float>;
+	using vector2i = vector2d<int>;
 };

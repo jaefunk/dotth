@@ -4,6 +4,7 @@
 #include "../dotth/StaticMeshComponent.h"
 #include "Camera.h"
 #include "../dotth/Math/Easing.h"
+#include "../dotth/InputSystem.h"
 
 void EntryPoint::OnInit(void)
 {
@@ -11,8 +12,8 @@ void EntryPoint::OnInit(void)
 	GetActiveCamera()->GetCameraComponent()->SetUp(vector3::up());
 	GetActiveCamera()->GetCameraComponent()->SetAt(vector3(0.f, 0.f, 0.f));
 
-	// create
-	auto skeltalMeshObject = std::make_shared<SkeletalMeshObject>();
+	//// create
+	skeltalMeshObject = std::make_shared<SkeletalMeshObject>();
 	SpawnObject(skeltalMeshObject);
 
 	// set skeletal mesh
@@ -50,39 +51,46 @@ void EntryPoint::OnInit(void)
 	animationController->BlendTo(0);
 
 
-	auto Plane = std::make_shared<Object>();
-	SpawnObject(Plane);
-	Plane->Scaling(dotth::vector3(10.f, 10.f, 10.f));
-	Plane->RotatePitch(3.14f * 0.5f);
+	//auto Plane = std::make_shared<Object>();
+	//SpawnObject(Plane);
+	//Plane->Scaling(dotth::vector3(10.f, 10.f, 10.f));
+	//Plane->RotatePitch(3.14f * 0.5f);
 
-	auto SMC = Plane->AddComponent<StaticMeshComponent>();
+	//auto SMC = Plane->AddComponent<StaticMeshComponent>();
 
-	auto SM = new StaticMesh;
-	SM->Load("Resource/Plane.fbx");
-	SM->GetMaterial(0)->Load("uv_checker", "../Output/Client/x64/Debug/deferred_vs.cso", "../Output/Client/x64/Debug/deferred_ps.cso");
-	SMC->SetStaticMesh(SM);
+	//auto SM = new StaticMesh;
+	//SM->Load("Resource/Plane.fbx");
+	//SM->GetMaterial(0)->Load("uv_checker", "../Output/Client/x64/Debug/deferred_vs.cso", "../Output/Client/x64/Debug/deferred_ps.cso");
+	//SMC->SetStaticMesh(SM);
+
+	InputSystem::BindInputDelegate(this, std::bind(&EntryPoint::BindTestFunction, this, std::placeholders::_1, std::placeholders::_2));
 }
 
 void EntryPoint::OnUpdate(void)
 {
 }
 
-//void EntryPoint::OnDraw(void)
-//{
-//}
-//
-
 void EntryPoint::OnDrawImGui(void)
 {
-	//float f = 0.f;
-	std::string a[4];
-	a[0] = "0";
-	a[1] = "1";
-	a[2] = "2";
-	a[3] = "3";
-	for (auto i = 0; i < 4; ++i) {
-		if (ImGui::Button(a[i].c_str())) {
-			animationController->BlendTo(i);
+	//std::string a[4];
+	//a[0] = "0";
+	//a[1] = "1";
+	//a[2] = "2";
+	//a[3] = "3";
+	//for (auto i = 0; i < 4; ++i) {
+	if (ImGui::Button("asdf")) {
+		if (skeltalMeshObject)
+		{
+			RemoveObject(skeltalMeshObject);
+			skeltalMeshObject.reset();
 		}
+	}
+}
+
+void EntryPoint::BindTestFunction(InputState is, InputKey ik)
+{
+	if (InputKey::Mouse_Left == ik && InputState::Press == is) {
+		auto mp = InputSystem::GetMousePosition();
+		printf("%d left mouse button down on x = %d, y = %d\n", GetSerial(), mp.x, mp.y);
 	}
 }

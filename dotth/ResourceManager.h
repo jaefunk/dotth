@@ -5,6 +5,7 @@
 
 class ResourceManager2 : public SingleInstance<ResourceManager2>
 {
+	PREVENT_INSTANCING(ResourceManager2)
 private:
 	std::map<std::string, std::shared_ptr<Resource>> resources;
 

@@ -5,7 +5,7 @@
 
 #include "SkeletalMeshComponent.h"
 #include "AnimationController.h"
-
+#include "InputSystem.h"
 // animationController only status managing
 
 class SkeletalMeshObject : public Object
@@ -31,6 +31,8 @@ public:
 	{
 		animationController = inAnimationController;
 	}
+
+	void BindTestFunction(InputState is, InputKey ik);
 
 protected:
 	virtual void OnInit(void) override;

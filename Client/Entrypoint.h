@@ -13,4 +13,9 @@ public:
 	virtual void OnUpdate(void) override;
 	//virtual void OnDraw(void) override;
 	virtual void OnDrawImGui(void) override;
+
+private:
+	void BindTestFunction(InputState is, InputKey ik);
+
+	std::shared_ptr<class SkeletalMeshObject> skeltalMeshObject;
 };
