@@ -36,3 +36,5 @@
 
 Output/
 .vs/
+Client/imgui.ini
+Client/ResourceTemp/

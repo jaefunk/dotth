@@ -5,10 +5,17 @@
 #include "Shader.h"
 
 
+struct MeshRenderParameter
+{
+	std::string name;
+	void* value;
+	unsigned int size;
+};
+
 class Material : public Base
 {
 public:
-	Material(void) = default;
+	Material(void);
 	void Load(std::string texture, std::string vShader, std::string pShader);
 
 private:
@@ -44,18 +51,18 @@ public:
 	}
 
 public:
-	void Bind(const XMFLOAT4X4& world, const XMFLOAT4X4& view, const XMFLOAT4X4& proj, dotth::matrix* bonelist, unsigned int size)
+	void Bind(std::vector<MeshRenderParameter> parameters)
 	{
-		texture2D->Draw();
+		if (texture2D)
+			texture2D->Draw();
 
-		vertexShader->SetData("world", &world, sizeof(decltype(world)));
-		vertexShader->SetData("view", &view, sizeof(decltype(view)));
-		vertexShader->SetData("proj", &proj, sizeof(decltype(proj)));
-		if (size != 0)
-			vertexShader->SetData("bones", bonelist, size);
+		for (auto parameter : parameters)
+		{
+			vertexShader->SetData(parameter.name, parameter.value, parameter.size);
+		}
 		vertexShader->CopyAllBufferData();
 		vertexShader->SetShader();
-
+		
 		pixelShader->SetSamplerState("Sampler", D3D11RHI::Sampler());
 		pixelShader->SetShaderResourceView("Texture", texture2D->GetShaderResourceView());
 		pixelShader->CopyAllBufferData();

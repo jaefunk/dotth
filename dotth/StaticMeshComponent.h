@@ -7,8 +7,13 @@
 class StaticMeshComponent : public MeshComponent
 {
 private:
-	std::shared_ptr<StaticMesh> mesh{ new StaticMesh };
-	std::shared_ptr<Material> material{ new Material };
+	StaticMesh* staticMesh;
+public:
+	void SetStaticMesh(StaticMesh* inStaticMesh)
+	{
+		if (staticMesh != inStaticMesh)
+			staticMesh = inStaticMesh;
+	}
 
 public:
 	virtual void OnInit(void) override;

@@ -5,6 +5,7 @@
 
 class Scenario : public SingleInstance<Scenario>
 {
+	PREVENT_INSTANCING(Scenario)
 private:
 	bool _SceneChanged = false;
 	std::stack<std::string> _SceneStack;

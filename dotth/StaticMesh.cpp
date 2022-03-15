@@ -4,18 +4,30 @@
 
 bool StaticMesh::Load(const std::string& key)
 {
-	Raw = FBXLoader::Load(key);
-	if (Raw == nullptr)
+	raw = FBXLoader::Load(key);
+
+	if (raw == nullptr)
 		return false;
 
-	for (auto mesh : Raw->meshes)
+	renderables.clear();
+	materials.clear();
+
+	for (auto mesh : raw->meshes)
 	{
-		Renderables.push_back(new Renderable(mesh));
+		renderables.push_back(new Renderable(mesh));
+		materials.push_back(new Material);
 	}
 	return true;
 }
 
-void StaticMesh::Draw(unsigned int index)
+void StaticMesh::Draw(void)
 {
-	Renderables[index]->Draw();
+	size_t renderableSize = renderables.size();
+
+	Material* mat = nullptr;
+	for (size_t index = 0; index < renderableSize; ++index)
+	{
+		materials[index]->Bind(parameters[index]);
+		renderables[index]->Draw();
+	}
 }

@@ -1,6 +1,11 @@
 
 #include "Material.h"
 
+Material::Material(void)
+{
+	Load("tex0", "../Output/Client/x64/Debug/skin_vs.cso", "../Output/Client/x64/Debug/skin_ps.cso");
+}
+
 void Material::Load(std::string texture, std::string vShader, std::string pShader)
 {
 	if (texture2D == nullptr)

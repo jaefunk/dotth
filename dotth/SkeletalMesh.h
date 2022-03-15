@@ -1,18 +1,24 @@
 #pragma once
 
 #include "Renderable.h"
+#include "Material.h"
 
 class SkeletalMesh
 {
 public:
-	std::shared_ptr<dotth::model> Raw;
-	std::vector<Renderable*> Renderables;
+	std::shared_ptr<dotth::model> raw;
+	std::vector<Renderable*> renderables;
+	std::vector<Material*> materials;
 
 public:
-	unsigned int GetSectionSize(void)
-	{
-		return static_cast<unsigned int>(Renderables.size());
-	}
+	std::map<int, std::vector<MeshRenderParameter>> parameters;
 	bool Load(const std::string& key);
-	void Draw(unsigned int index);
+
+public:
+	void SetVertexParameters(unsigned int index, const std::vector<MeshRenderParameter>& inParameters)
+	{
+		parameters[index] = inParameters;
+	}
+
+	void Draw(void);
 };

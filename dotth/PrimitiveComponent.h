@@ -1,7 +1,6 @@
 #pragma once
 
 #include "Component.h"
-#include "Object.h"
 
 class PrimitiveComponent : public Component
 {

@@ -92,6 +92,10 @@ float Scene::GetDeltaSeconds(void)
 void Scene::DrawImGui(void)
 {
 	OnDrawImGui();
+	for (auto obj : Objects)
+	{
+		obj->DrawImGui();
+	}
 }
 
 void Scene::DrawImGuiHierarchy(void)

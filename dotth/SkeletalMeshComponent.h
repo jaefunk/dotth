@@ -3,15 +3,21 @@
 #include "MeshComponent.h"
 #include "SkeletalMesh.h"
 #include "Material.h"
-#include "Animation.h"
+#include "AnimationController.h"
 
 class SkeletalMeshComponent : public MeshComponent
 {
+private:
+	SkeletalMesh* skeletalMesh;
 public:
-	std::shared_ptr<Material> material{ new Material };
-	std::shared_ptr<Material> material2{ new Material };
-	std::shared_ptr<SkeletalMesh> mesh{ new SkeletalMesh };
-	std::shared_ptr<Animation> animation{ new Animation };
+	void SetSkeletalMesh(SkeletalMesh* inSkeletalMesh)
+	{
+		if (skeletalMesh != inSkeletalMesh)
+			skeletalMesh = inSkeletalMesh;
+	}
+
+public:
+	std::vector<dotth::matrix> finalMatrixes;
 
 public:
 	virtual void OnInit(void) override;

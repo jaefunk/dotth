@@ -13,3 +13,5 @@ public:
 		return &v;
 	}
 };
+
+#define PREVENT_INSTANCING(CLASSNAME) friend SingleInstance<CLASSNAME>;private:CLASSNAME(void)=default;

@@ -20,6 +20,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Animation.cpp" />
+    <ClCompile Include="AnimationController.cpp" />
     <ClCompile Include="Application.cpp" />
     <ClCompile Include="AssetBase.cpp" />
     <ClCompile Include="Base.cpp" />
@@ -31,6 +32,7 @@
     <ClCompile Include="D3D11OrthoRect.cpp" />
     <ClCompile Include="D3D11RHI.cpp" />
     <ClCompile Include="External\tinygltf\tiny_gltf.cc" />
+    <ClCompile Include="InputSystem.cpp" />
     <ClCompile Include="Renderable.cpp" />
     <ClCompile Include="Shader.cpp" />
     <ClCompile Include="External\imgui\backends\imgui_impl_dx11.cpp" />
@@ -58,6 +60,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animation.h" />
+    <ClInclude Include="AnimationController.h" />
     <ClInclude Include="Application.h" />
     <ClInclude Include="AssetBase.h" />
     <ClInclude Include="Base.h" />
@@ -184,6 +187,7 @@
     <ClInclude Include="External\zlib\zlib_include\zconf.h" />
     <ClInclude Include="External\zlib\zlib_include\zlib.h" />
     <ClInclude Include="External\zlib\zlib_include\zutil.h" />
+    <ClInclude Include="InputSystem.h" />
     <ClInclude Include="Material.h" />
     <ClInclude Include="Math\Easing.h" />
     <ClInclude Include="Math\MathUtility.h" />

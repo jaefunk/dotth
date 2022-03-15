@@ -65,7 +65,7 @@ bool Object::AddComponent(std::shared_ptr<Component> component)
 {
 	if (auto Owner = component->GetOwner())
 		return false;
-	component->SetOwner(this->weak_from_this());
+	component->SetOwner(this);
 	Components.push_back(component);
 	return true;
 }
@@ -92,10 +92,27 @@ void Object::UpdateTransform(void)
 		});
 }
 
+void Object::DrawImGui(void)
+{
+	OnDrawImGui();
+	for (auto comp : Components)
+	{
+		comp->OnDrawImGui();
+	}
+}
+
 void Object::DrawImGuiHierarchy(void)
 {
 	if (ImGui::TreeNode(std::to_string(GetSerial()).c_str(), "%s", GetName().c_str()))
 	{
+		if (ImGui::IsItemActivated())
+		{
+			if (!ImGui::Begin("aa"))
+			{
+				ImGui::Text("asdf");
+				ImGui::End();
+			}
+		}
 		Foreach<Object>(
 			[](std::shared_ptr<Object> child) {
 				child->DrawImGuiHierarchy();

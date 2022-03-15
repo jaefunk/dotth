@@ -65,6 +65,8 @@
     <ClCompile Include="SkeletalMeshComponent.cpp" />
     <ClCompile Include="SkeletalMesh.cpp" />
     <ClCompile Include="External\tinygltf\tiny_gltf.cc" />
+    <ClCompile Include="AnimationController.cpp" />
+    <ClCompile Include="InputSystem.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.h">
@@ -268,6 +270,8 @@
     <ClInclude Include="External\tinygltf\tiny_gltf.h" />
     <ClInclude Include="External\tinygltf\stb_image_write.h" />
     <ClInclude Include="External\tinygltf\stb_image.h" />
+    <ClInclude Include="AnimationController.h" />
+    <ClInclude Include="InputSystem.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Framework">

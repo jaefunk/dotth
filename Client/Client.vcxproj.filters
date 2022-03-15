@@ -8,7 +8,7 @@
       <Filter>etc</Filter>
     </ClInclude>
     <ClInclude Include="Entrypoint.h" />
-    <ClInclude Include="SampleObject.h" />
+    <ClInclude Include="SkeletalMeshObject.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Client.ico">
@@ -21,7 +21,7 @@
   <ItemGroup>
     <ClCompile Include="Client.cpp" />
     <ClCompile Include="EntryPoint.cpp" />
-    <ClCompile Include="SampleObject.cpp" />
+    <ClCompile Include="SkeletalMeshObject.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="etc">

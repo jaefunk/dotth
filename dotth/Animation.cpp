@@ -1,10 +1,9 @@
 
 #include "Animation.h"
 
-bool Animation::Load(const std::string& key, std::shared_ptr<SkeletalMesh> mesh)
+bool Animation::Load(const std::string& key, SkeletalMesh* skeletalMesh)
 {
-	ModelRaw = mesh->Raw;
-	root = mesh->Raw->root;
+	ModelRaw = skeletalMesh->raw;
 	Assimp::Importer importer;
 	const aiScene* scene = importer.ReadFile(key, aiProcess_ConvertToLeftHanded | aiProcess_Triangulate | aiProcess_OptimizeMeshes | aiProcess_PopulateArmatureData | aiProcess_LimitBoneWeights);
 	if (scene == nullptr)
@@ -65,30 +64,43 @@ void Animation::CalculateBoneTransform(dotth::node* target, const dotth::matrix&
 	}
 }
 
+void Animation::BoneUpdate(void)
+{
+	for (auto& bone : mapBones)
+	{
+		bone.second.Update(current);
+	}
+}
+
 void Animation::Update(float delta)
 {
-	if (status == ANIMATION_STATUS::RUNNING)
-		current += delta * tickPerSecond;
+	//current = delta * duration;
+	//if (status == ANIMATION_STATUS::RUNNING)
+	current += delta * tickPerSecond;
+	//current = duration * fmod(current, 1.f);
 
 	if (current >= duration)
 	{
-		if (loop == true)
-		{
-			current = fmod(current, duration);
-		}
-		else
-		{
-			current = duration;
-			status = ANIMATION_STATUS::PAUSE;
-		}
+		current = fmod(current, duration);
+	//	printf("Aa\n");
 	}
+		//if (loop == true)
+//		{
+	//		current = fmod(current, duration);
+	//	}
+	//	else
+	//	{
+	//		current = duration;
+	//		status = ANIMATION_STATUS::PAUSE;
+	//	}
+	//}
 
 	for (auto& bone : mapBones)
 	{
 		bone.second.Update(current);
 	}
 
-	dotth::matrix m;
-	m.set_identity();
-	CalculateBoneTransform(root, m);
+	//dotth::matrix m;
+	//m.set_identity();
+	//CalculateBoneTransform(root, m);
 }

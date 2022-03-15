@@ -21,7 +21,7 @@
   <ItemGroup>
     <ClInclude Include="Entrypoint.h" />
     <ClInclude Include="Resource.h" />
-    <ClInclude Include="SampleObject.h" />
+    <ClInclude Include="SkeletalMeshObject.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
@@ -37,7 +37,7 @@
       <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release|x64'">../dotth/source/</AdditionalIncludeDirectories>
     </ClCompile>
     <ClCompile Include="EntryPoint.cpp" />
-    <ClCompile Include="SampleObject.cpp" />
+    <ClCompile Include="SkeletalMeshObject.cpp" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="shaders\deferred_ps.hlsl">
