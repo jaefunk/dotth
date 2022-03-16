@@ -76,7 +76,7 @@ void Animation::Update(float delta)
 {
 	//current = delta * duration;
 	//if (status == ANIMATION_STATUS::RUNNING)
-	current += delta * tickPerSecond;
+	current += delta * 1000.f;
 	//current = duration * fmod(current, 1.f);
 
 	if (current >= duration)

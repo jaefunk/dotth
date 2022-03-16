@@ -211,6 +211,7 @@
     <ClInclude Include="SkeletalMeshComponent.h" />
     <ClInclude Include="StaticMesh.h" />
     <ClInclude Include="StaticMeshComponent.h" />
+    <ClInclude Include="SystemDefine.h" />
     <ClInclude Include="Texture2D.h" />
     <ClInclude Include="TransformComponent.h" />
     <ClInclude Include="Utility.h" />

@@ -9,6 +9,7 @@ public:
 	std::shared_ptr<dotth::model> raw;
 	std::vector<Renderable*> renderables;
 	std::vector<Material*> materials;
+	std::vector<std::string> boneNames;
 
 public:
 	std::map<int, std::vector<MeshRenderParameter>> parameters;

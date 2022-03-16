@@ -1,5 +1,7 @@
 #pragma once
 
+#include "Windows.h"
+
 // stl
 #include <cstring>
 #include <string>
@@ -55,6 +57,8 @@ using namespace DirectX;
 #include "Math/Matrix.h"
 #include "Math/Transform.h"
 
+#include "Base.h"
+
 namespace dotth 
 {
 };
@@ -65,8 +69,9 @@ to do list {
 	resource manager		- done
 	directional light		- done
 	imgui					- done
-	arrange					- on going...
-	user input	-
-	skeletal mesh
+	arrange					- done
+	user input				- work
+	skeletal mesh			- work
+	particle				- yet
 }
 */ 

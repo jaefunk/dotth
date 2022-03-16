@@ -21,18 +21,11 @@ void EntryPoint::OnInit(void)
 	skeletalMesh->Load("Resource/Human.fbx");
 	skeltalMeshObject->SetSkeletalMesh(skeletalMesh);
 
-	std::vector<std::string> boneNames;
-	boneNames.resize(skeletalMesh->raw->mapBones.size());
-	for (auto bones : skeletalMesh->raw->mapBones)
-	{
-		boneNames[bones.second.id] = bones.first;
-	}
-
 	// set animation control
 	animationController = new AnimationController;
 	animationController->Load("Resource/AnimControlHuman.json");
 	animationController->model = skeletalMesh->raw;
-	animationController->boneNames = boneNames;
+	animationController->boneNames = skeletalMesh->boneNames;
 	animationController->finalMatrixes.resize(animationController->boneNames.size());
 	skeltalMeshObject->SetAnimationController(animationController);
 	Animation* anim0 = new Animation();
@@ -50,14 +43,11 @@ void EntryPoint::OnInit(void)
 
 	animationController->BlendTo(0);
 
-
 	//auto Plane = std::make_shared<Object>();
 	//SpawnObject(Plane);
 	//Plane->Scaling(dotth::vector3(10.f, 10.f, 10.f));
 	//Plane->RotatePitch(3.14f * 0.5f);
-
 	//auto SMC = Plane->AddComponent<StaticMeshComponent>();
-
 	//auto SM = new StaticMesh;
 	//SM->Load("Resource/Plane.fbx");
 	//SM->GetMaterial(0)->Load("uv_checker", "../Output/Client/x64/Debug/deferred_vs.cso", "../Output/Client/x64/Debug/deferred_ps.cso");
@@ -72,12 +62,13 @@ void EntryPoint::OnUpdate(void)
 
 void EntryPoint::OnDrawImGui(void)
 {
-	//std::string a[4];
-	//a[0] = "0";
-	//a[1] = "1";
-	//a[2] = "2";
-	//a[3] = "3";
-	//for (auto i = 0; i < 4; ++i) {
+	for (auto i = 0; i < 4; ++i) {
+		
+		if (ImGui::Button(std::to_string(i).c_str())) {
+			animationController->BlendTo(i);
+		}
+	}
+
 	if (ImGui::Button("asdf")) {
 		if (skeltalMeshObject)
 		{
@@ -89,8 +80,12 @@ void EntryPoint::OnDrawImGui(void)
 
 void EntryPoint::BindTestFunction(InputState is, InputKey ik)
 {
-	if (InputKey::Mouse_Left == ik && InputState::Press == is) {
-		auto mp = InputSystem::GetMousePosition();
-		printf("%d left mouse button down on x = %d, y = %d\n", GetSerial(), mp.x, mp.y);
+	if (ik == InputKey::Mouse_Right)
+	{
+		if (is == InputState::Press)
+		{
+			auto mp = InputSystem::GetMousePosition();
+			printf("right mouse button down on x = %d, y = %d\n", mp.x, mp.y);
+		}
 	}
 }

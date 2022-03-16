@@ -45,6 +45,19 @@ void InputSystem::ArrangeBuffer(void)
 		if (ik == InputKey::Invalid)
 			continue;
 
+		bool isDuplicate = false;
+		for (unsigned int eventIndex = 0; eventIndex < lastEventIndex; ++eventIndex)
+		{
+			if (InputEvents[eventIndex]->key == ik && InputEvents[eventIndex]->state == is)
+			{
+				isDuplicate = true;
+				break;
+			}
+		}
+
+		if (isDuplicate == true)
+			continue;
+
 		if (is == InputState::DoubleClick)
 		{
 			InputEvent* ie = InputEvents[lastEventIndex];
@@ -142,3 +155,32 @@ int InputSystem::BindInputDelegate(Base* object, std::function<void(InputState, 
 	return bindID++;
 }
 
+void InputSystem::UnbindInputDelegate(Base* object)
+{
+	auto iter = InputSystem::Instance()->inputBinds.begin();
+	auto end = InputSystem::Instance()->inputBinds.end();
+	while (iter != InputSystem::Instance()->inputBinds.end())
+	{
+		if (iter->object == object)
+		{
+			iter = InputSystem::Instance()->inputBinds.erase(iter);
+			continue;
+		}
+		iter++;
+	}
+}
+
+void InputSystem::UnbindInputDelegate(int bindID)
+{
+	auto iter = InputSystem::Instance()->inputBinds.begin();
+	auto end = InputSystem::Instance()->inputBinds.end();
+	while (iter != end)
+	{
+		if (iter->id == bindID)
+		{
+			iter = InputSystem::Instance()->inputBinds.erase(iter);
+			continue;
+		}
+		iter++;
+	}
+}

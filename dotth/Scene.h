@@ -1,7 +1,7 @@
 #pragma once
 
+#include "SystemDefine.h"
 #include "Object.h"
-#include "InputSystem.h"
 
 class Scene : public Base
 {

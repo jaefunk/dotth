@@ -1,7 +1,7 @@
 
 #pragma once
 
-#include "Base.h"
+#include "dotth.h"
 
 template <typename Ty>
 class SingleInstance : public Base

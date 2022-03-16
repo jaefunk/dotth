@@ -1,6 +1,7 @@
 #include "Scene.h"
 #include "D3D11RHI.h"
 #include "Camera.h"
+#include "InputSystem.h"
 
 Scene::Scene(void)
 {
@@ -55,7 +56,7 @@ void Scene::Destroy(void)
 	OnDestroy();
 	for (std::shared_ptr<Object> Obj : Objects)
 	{
-		Obj->Destroy();
+		RemoveObject(Obj);
 	}
 }
 
@@ -75,6 +76,7 @@ void Scene::SpawnObject(std::shared_ptr<Object> object)
 
 void Scene::RemoveObject(std::shared_ptr<Object> object)
 {
+	InputSystem::Instance()->UnbindInputDelegate(object.get());
 	object->Destroy();
 	Objects.remove(object);
 }

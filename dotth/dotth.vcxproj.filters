@@ -272,6 +272,7 @@
     <ClInclude Include="External\tinygltf\stb_image.h" />
     <ClInclude Include="AnimationController.h" />
     <ClInclude Include="InputSystem.h" />
+    <ClInclude Include="SystemDefine.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Framework">

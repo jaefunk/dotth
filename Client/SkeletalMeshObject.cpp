@@ -1,5 +1,6 @@
 
 #include "SkeletalMeshObject.h"
+#include "InputSystem.h"
 
 SkeletalMeshObject::SkeletalMeshObject(void)
 {

@@ -9,6 +9,12 @@ bool SkeletalMesh::Load(const std::string& key)
 	if (raw == nullptr)
 		return false;
 
+	boneNames.resize(raw->mapBones.size());
+	for (const auto& bones : raw->mapBones)
+	{
+		boneNames[bones.second.id] = bones.first;
+	}
+
 	renderables.clear();
 	materials.clear();
 	for (auto mesh : raw->meshes)

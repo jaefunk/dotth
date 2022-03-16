@@ -1,9 +1,10 @@
+
 #include "Base.h"
 
 Base::Base(void)
 {
-	static std::atomic<unsigned int> s;
-	serial = s.fetch_add(1);
+	static unsigned int s;
+	serial = s++;
 	name = std::to_string(serial);
 }
 

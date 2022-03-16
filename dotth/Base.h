@@ -1,6 +1,6 @@
 #pragma once
 
-#include "dotth.h"
+#include <string>
 
 class NonCopyable
 {
