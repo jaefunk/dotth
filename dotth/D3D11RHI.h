@@ -65,5 +65,7 @@ public:
 	static std::shared_ptr<D3D11DeferredBuffer> DeferredBuffer(void);
 
 	static void GetViewportSize(unsigned int& width, unsigned int& height);
+	static vector2i GetViewportSize(void);
+	static void ScreenToWorld(const ViewInfo& vi, const vector2i& screenPosition, vector3& origin, vector3& direction);
 };
 

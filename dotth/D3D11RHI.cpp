@@ -301,3 +301,31 @@ void D3D11RHI::GetViewportSize(unsigned int& width, unsigned int& height)
 	width = D3D11RHI::Instance()->_Width;
 	height = D3D11RHI::Instance()->_Height;
 }
+
+vector2i D3D11RHI::GetViewportSize(void)
+{
+	vector2i size;
+	size.x = D3D11RHI::Instance()->_Width;
+	size.y = D3D11RHI::Instance()->_Height;
+	return size;
+}
+
+void D3D11RHI::ScreenToWorld(const ViewInfo& vi, const vector2i& screenPosition, vector3& origin, vector3& direction)
+{
+	vector2 ViewportSize = D3D11RHI::GetViewportSize().cast<float>();
+	vector2 fScreenPosition = screenPosition.cast<float>();
+
+	DirectX::XMVECTOR MouseNear = DirectX::XMVectorSet(fScreenPosition.x, fScreenPosition.y, vi.Near, 0.0f);
+	DirectX::XMVECTOR MouseFar = DirectX::XMVectorSet((float)fScreenPosition.x, (float)fScreenPosition.y, vi.Far, 0.0f);
+	DirectX::XMVECTOR UnprojectedNear =
+		DirectX::XMVector3Unproject(MouseNear, 0, 0, ViewportSize.x, ViewportSize.y, vi.Near, vi.Far, vi.Perspective, vi.View, DirectX::XMMatrixIdentity());
+	DirectX::XMVECTOR UnprojectedFar =
+		DirectX::XMVector3Unproject(MouseFar, 0, 0, ViewportSize.x, ViewportSize.y, vi.Near, vi.Far, vi.Perspective, vi.View, DirectX::XMMatrixIdentity());
+	DirectX::XMVECTOR result = DirectX::XMVector3Normalize(DirectX::XMVectorSubtract(UnprojectedFar, UnprojectedNear));
+	DirectX::XMFLOAT3 dir;
+	DirectX::XMStoreFloat3(&dir, result);
+	origin = vi.Eye;
+	direction.x = dir.x;
+	direction.y = dir.y;
+	direction.z = dir.z;
+}

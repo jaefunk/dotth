@@ -74,6 +74,15 @@ namespace dotth
 		{
 			return f[index];
 		}
+
+		template <typename castTy>
+		vector2d<castTy> cast(void) const
+		{
+			vector2d<castTy> v;
+			v.x = static_cast<castTy>(this->x);
+			v.y = static_cast<castTy>(this->y);
+			return v;
+		}
 	};
 
 	using vector2 = vector2d<float>;

@@ -58,6 +58,7 @@ using namespace DirectX;
 #include "Math/Transform.h"
 
 #include "Base.h"
+#include "SystemDefine.h"
 
 namespace dotth 
 {

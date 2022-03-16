@@ -6,8 +6,8 @@ CameraComponent::CameraComponent(unsigned int ViewportWidth, unsigned int Viewpo
 	Eye = vector3(0.f, 250, -500.f);
 	Up = vector3::up();
 	At = vector3::zero();
-	Near = 0.1f;
-	Far = 100000.f;
+	Near = 1.f;
+	Far = 10000.f;
 	Fov = 3.141592f * 0.3f;
 	Width = ViewportWidth;
 	Height = ViewportHeight;
@@ -28,6 +28,20 @@ void CameraComponent::OnDraw(void)
 
 void CameraComponent::OnDestroy(void)
 {
+}
+
+void CameraComponent::GetViewInfo(ViewInfo& viewInfo)
+{
+	viewInfo.View = View.transpose();
+	viewInfo.Perspective = Perspective.transpose();
+	viewInfo.Eye = Eye;
+	viewInfo.Up = Up;
+	viewInfo.At = At;
+	viewInfo.Near = Near;
+	viewInfo.Far = Far;
+	viewInfo.Fov = Fov;
+	viewInfo.Width = Width;
+	viewInfo.Height = Height;
 }
 
 const matrix& CameraComponent::GetView(void)
@@ -95,11 +109,10 @@ void CameraComponent::Sync(void)
 {
 	if (DirtyFlags & CAMERA_TRANFSFORM_DIRTY_FLAG::VIEW)
 	{
-		XMFLOAT3 eye = XMFLOAT3(Eye);
-		XMFLOAT3 up = XMFLOAT3(Up);
-		XMFLOAT3 at = XMFLOAT3(At);
-		XMVECTOR EyeDirection = XMVectorSubtract(XMLoadFloat3(&at), XMLoadFloat3(&eye));
-		View = XMMatrixTranspose(XMMatrixLookToLH(XMLoadFloat3(&eye), EyeDirection, XMLoadFloat3(&up)));
+		XMFLOAT3 eye = Eye;// XMFLOAT3(Eye);
+		XMFLOAT3 up = Up;// XMFLOAT3(Up);
+		XMFLOAT3 at = At;// XMFLOAT3(At);
+		View = XMMatrixTranspose(XMMatrixLookAtLH(XMLoadFloat3(&eye), XMLoadFloat3(&at), XMLoadFloat3(&up)));
 	}
 
 	if (DirtyFlags & CAMERA_TRANFSFORM_DIRTY_FLAG::PERSPECTIVE)

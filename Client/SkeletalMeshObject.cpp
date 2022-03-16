@@ -31,8 +31,6 @@ void SkeletalMeshObject::OnDrawImGui(void)
 {
 }
 
-
-
 void SkeletalMeshObject::BindTestFunction(InputState is, InputKey ik)
 {
 	if (InputKey::Mouse_Left == ik && InputState::Press == is) {

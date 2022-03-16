@@ -96,7 +96,7 @@ namespace dotth {
 			return result;
 		}
 
-		matrix operator*(const matrix& right)
+		matrix operator*(const matrix& right) const
 		{
 			matrix result;
 			matrix::multiply(*this, right, result);

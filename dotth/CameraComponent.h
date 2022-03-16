@@ -42,6 +42,8 @@ private:
 	int Height;
 
 public:
+	void GetViewInfo(ViewInfo& viewInfo);
+
 	const matrix& GetView(void);
 	const matrix& GetPerspective(void);
 	const matrix& GetOrtho(void);

@@ -33,6 +33,39 @@ namespace dotth {
 		{
 		}
 
+		float length(void) const
+		{
+			return std::sqrt((x * x) + (y * y) + (z * z));
+		}
+
+		vector3 normalize(void) const
+		{
+			vector3 v;
+			vector3::multiply(*this, this->length(), v);
+			return v;
+		}
+
+		vector3 operator+(const vector3& right) const
+		{
+			vector3 v;
+			vector3::add(*this, right, v);
+			return v;
+		}
+
+		vector3 operator-(const vector3& right) const
+		{
+			vector3 v;
+			vector3::subtract(*this, right, v);
+			return v;
+		}
+
+		vector3 operator*(float right) const
+		{
+			vector3 v;
+			vector3::multiply(*this, right, v);
+			return v;
+		}
+
 		static void add(const vector3& left, const vector3& right, vector3& result)
 		{
 			result.x = left.x + right.x;

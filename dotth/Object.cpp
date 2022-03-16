@@ -107,7 +107,7 @@ void Object::DrawImGuiHierarchy(void)
 	{
 		if (ImGui::IsItemActivated())
 		{
-			if (!ImGui::Begin("aa"))
+			if (ImGui::Begin("aa"))
 			{
 				ImGui::Text("asdf");
 				ImGui::End();
