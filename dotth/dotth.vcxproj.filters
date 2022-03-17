@@ -67,6 +67,7 @@
     <ClCompile Include="External\tinygltf\tiny_gltf.cc" />
     <ClCompile Include="AnimationController.cpp" />
     <ClCompile Include="InputSystem.cpp" />
+    <ClCompile Include="MovementComponent.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.h">
@@ -273,6 +274,7 @@
     <ClInclude Include="AnimationController.h" />
     <ClInclude Include="InputSystem.h" />
     <ClInclude Include="SystemDefine.h" />
+    <ClInclude Include="MovementComponent.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Framework">

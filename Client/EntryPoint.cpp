@@ -1,10 +1,11 @@
 
 #include "EntryPoint.h"
 #include "SkeletalMeshObject.h"
-#include "../dotth/StaticMeshComponent.h"
+#include "StaticMeshComponent.h"
 #include "Camera.h"
-#include "../dotth/Math/Easing.h"
-#include "../dotth/InputSystem.h"
+#include "Math/Easing.h"
+#include "InputSystem.h"
+#include "MovementComponent.h"
 
 void EntryPoint::OnInit(void)
 {
@@ -15,6 +16,8 @@ void EntryPoint::OnInit(void)
 	//// create
 	skeltalMeshObject = std::make_shared<SkeletalMeshObject>();
 	SpawnObject(skeltalMeshObject);
+
+	skeltalMeshObject->AddComponent<MovementComponent>();
 
 	// set skeletal mesh
 	SkeletalMesh* skeletalMesh = new SkeletalMesh;
@@ -116,7 +119,8 @@ void EntryPoint::BindTestFunction(InputState is, InputKey ik)
 			float K = (0 - start.y) / (end.y - start.y);
 			result.x = K * (end.x - start.x) + start.x;
 			result.z = K * (end.z - start.z) + start.z;
-			skeltalMeshObject->SetPosition(result);
+			skeltalMeshObject->FindComponent<MovementComponent>()->MoveTo(result);
+			//skeltalMeshObject->SetPosition(result);
 		}
 	}
 }

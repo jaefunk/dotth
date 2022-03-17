@@ -41,7 +41,7 @@ namespace dotth {
 		vector3 normalize(void) const
 		{
 			vector3 v;
-			vector3::multiply(*this, this->length(), v);
+			vector3::multiply(*this, 1.f/this->length(), v);
 			return v;
 		}
 
