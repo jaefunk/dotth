@@ -48,7 +48,11 @@ public:
 			WorldMatrixNoScale = pitch * yaw * roll * pos * Parent->WorldMatrixNoScale;
 		else
 			WorldMatrixNoScale = pitch * yaw * roll * pos;
-		WorldMatrix = scl * WorldMatrixNoScale;
+		//if (Parent != nullptr)
+		//	WorldMatrixNoScale = Parent->WorldMatrixNoScale * pos * roll * yaw * pitch;
+		//else
+		//	WorldMatrixNoScale = pos * roll * yaw * pitch;
+		WorldMatrix = WorldMatrixNoScale * scl;
 	}
 
 	matrix GetWorldMatrix(void) const

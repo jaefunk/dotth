@@ -66,6 +66,15 @@ namespace dotth {
 			return v;
 		}
 
+		static float angle(const vector3& left, const vector3& right)
+		{
+			float dot = (left.x * right.x) + (left.y * right.y) + (left.z * right.z);
+			float length = left.length() * right.length();
+			float cos = dot / length;
+			float acos = std::acosf(cos);
+			return acos;
+		}
+
 		static void add(const vector3& left, const vector3& right, vector3& result)
 		{
 			result.x = left.x + right.x;
@@ -168,6 +177,14 @@ namespace dotth {
 		static const vector3& axis_z(void) {
 			static vector3 v = vector3(0.f, 0.f, 1.f);
 			return v;
+		}
+
+		const std::string to_string(void) const {
+			std::string s;
+			s.append("x: ").append(std::to_string(x)).append(" ");
+			s.append("y: ").append(std::to_string(y)).append(" ");
+			s.append("z: ").append(std::to_string(z)).append("");
+			return s;
 		}
 	};
 }

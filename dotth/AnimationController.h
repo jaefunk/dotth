@@ -173,11 +173,11 @@ public:
 			boneID = offsetIter->second.id;
 		}
 
-		dotth::matrix finalMatrix = boneMatrix * parentTransform;
+		dotth::matrix finalMatrix = parentTransform * boneMatrix;
 
 		if (boneID != -1)
 		{
-			finalMatrixes[boneID] = (modelOffset * finalMatrix).transpose();
+			finalMatrixes[boneID] = (finalMatrix * modelOffset).transpose();
 		}
 
 		for (auto child : target->children)

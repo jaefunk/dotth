@@ -139,8 +139,8 @@ namespace dotth {
 			{
 				for (int c = 0; c < 4; c++)
 				{
-					matrix::get_row(left, r, row);
-					matrix::get_column(right, c, col);
+					matrix::get_column(left, c, col);
+					matrix::get_row(right, r, row);
 					vector4::multiply(row, col, last);
 					result.rc[r][c] = last.f[0] + last.f[1] + last.f[2] + last.f[3];
 				}
