@@ -27,15 +27,13 @@ void MovementComponent::OnUpdate(void)
 	float diffLength = diff.length();
 	float translateLength = diffLength >= movementInfo.moveSpeed ? movementInfo.moveSpeed : diffLength;
 	owner->Translate(direction * translateLength);
-
-	
-
-	float yaw = owner->GetLocalRotation().y;
-
-
+		
+	dotth::vector3 cross = dotth::vector3::cross(dotth::vector3::forward(), direction);
 	float yawGoal = dotth::vector3::angle(dotth::vector3::forward(), direction);
-	printf("%f\n", yawGoal);
+	yawGoal = (cross.y >= 0.f ? yawGoal : -yawGoal);
+	yawGoal += 3.141592f;
 	owner->SetRotation(dotth::vector3(0.f, yawGoal, 0.f));
+	
 }
 
 void MovementComponent::OnDraw(void)

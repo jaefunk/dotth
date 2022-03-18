@@ -66,11 +66,25 @@ namespace dotth {
 			return v;
 		}
 
+		static float dot(const vector3& left, const vector3& right)
+		{
+			float d = (left.x * right.x) + (left.y * right.y) + (left.z * right.z);
+			return d;
+		}
+
+		static vector3 cross(const vector3& left, const vector3& right)
+		{
+			vector3 r;
+			r.x = left.y * right.z - left.z * right.y;
+			r.y = left.z * right.x - left.x * right.z;
+			r.z = left.x * right.y - left.y * right.x;
+			return r;
+		}
 		static float angle(const vector3& left, const vector3& right)
 		{
-			float dot = (left.x * right.x) + (left.y * right.y) + (left.z * right.z);
+			float d = vector3::dot(left, right);
 			float length = left.length() * right.length();
-			float cos = dot / length;
+			float cos = d / length;
 			float acos = std::acosf(cos);
 			return acos;
 		}
