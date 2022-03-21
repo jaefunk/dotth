@@ -4,7 +4,7 @@
 
 struct MovementInfo {
 	float angularSpeed = 0.1f;
-	float moveSpeed = 10.f;
+	float walkSpeed = 3.f;
 	bool lookAtGoal = false;
 
 };
@@ -26,10 +26,7 @@ private:
 	dotth::vector3 moveGoal;
 
 public:
-	void MoveTo(const dotth::vector3& location, bool teleport = false)
-	{
-		printf("%d move to %s\n", GetSerial(), location.to_string().c_str());
-		isReached = false;
-		moveGoal = location;
-	}
+	std::function<void(void)> OnReached;
+	void MoveTo(const dotth::vector3& location, bool teleport = false);
+	void LookAt(const dotth::vector3& location, bool pitchHold = true);
 };

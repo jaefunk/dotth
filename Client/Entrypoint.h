@@ -16,6 +16,7 @@ public:
 
 private:
 	void BindTestFunction(InputState is, InputKey ik);
+	void BindOnReached(void);
 
 	std::shared_ptr<class SkeletalMeshObject> skeltalMeshObject;
 };

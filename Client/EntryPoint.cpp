@@ -17,7 +17,8 @@ void EntryPoint::OnInit(void)
 	skeltalMeshObject = std::make_shared<SkeletalMeshObject>();
 	SpawnObject(skeltalMeshObject);
 
-	skeltalMeshObject->AddComponent<MovementComponent>();
+	auto mc = skeltalMeshObject->AddComponent<MovementComponent>();
+	mc->OnReached = std::bind(&EntryPoint::BindOnReached, this);
 
 	// set skeletal mesh
 	SkeletalMesh* skeletalMesh = new SkeletalMesh;
@@ -120,7 +121,13 @@ void EntryPoint::BindTestFunction(InputState is, InputKey ik)
 			result.x = K * (end.x - start.x) + start.x;
 			result.z = K * (end.z - start.z) + start.z;
 			skeltalMeshObject->FindComponent<MovementComponent>()->MoveTo(result);
+			animationController->BlendTo(1);
 			//skeltalMeshObject->SetPosition(result);
 		}
 	}
+}
+
+void EntryPoint::BindOnReached(void)
+{
+	animationController->BlendTo(0);
 }

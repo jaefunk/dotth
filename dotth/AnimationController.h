@@ -21,7 +21,7 @@ public:
 			return min >= value ? min : max <= value ? max : value;
 		};
 
-		float blendDurationScalar = 4.f;
+		float blendDurationScalar = 8.f;
 		valueSum = 0.f;
 		for (auto index = 0; index < PoolSize; ++index) {
 
