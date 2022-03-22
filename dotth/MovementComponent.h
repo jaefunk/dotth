@@ -26,6 +26,8 @@ private:
 	dotth::vector3 moveGoal;
 
 public:
+	//					remain time, remain distance
+	std::function<void(float, float)> OnMove;
 	std::function<void(void)> OnReached;
 	void MoveTo(const dotth::vector3& location, bool teleport = false);
 	void LookAt(const dotth::vector3& location, bool pitchHold = true);

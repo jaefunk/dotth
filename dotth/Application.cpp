@@ -5,7 +5,7 @@ void Application::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 	if (ImGui_ImplWin32_WndProcHandler(hWnd, message, wParam, lParam))
 		return;
 	
-	POINT p;
+	static POINT p;
 	GetCursorPos(&p);
 	ScreenToClient(hWnd, &p);
 	InputSystem::Instance()->UpdateMouseCursorPosition(p.x, p.y);

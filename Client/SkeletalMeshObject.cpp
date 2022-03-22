@@ -29,6 +29,14 @@ void SkeletalMeshObject::OnDraw(void)
 
 void SkeletalMeshObject::OnDrawImGui(void)
 {
+	ImGui::Begin("SkeletalMeshObject");
+	for (unsigned int a = 0; a < 8; ++a)
+	{
+		float weight = animationController->BlendSystem.Weight(a);
+		ImGui::SliderFloat(std::to_string(a).c_str(), &weight, 0.f, 1.f, "%f");
+	}
+	ImGui::NewLine();
+	ImGui::End();
 }
 
 void SkeletalMeshObject::BindTestFunction(InputState is, InputKey ik)

@@ -29,6 +29,11 @@ void MovementComponent::OnUpdate(void)
 	float diffLength = diff.length();
 	float translateLength = diffLength >= movementInfo.walkSpeed ? movementInfo.walkSpeed : diffLength;
 	owner->Translate(direction * translateLength);
+	
+	float distance = diff.length();
+	float time = distance / movementInfo.walkSpeed;
+	if (OnMove)
+		OnMove(time, distance);
 }
 
 void MovementComponent::OnDraw(void)

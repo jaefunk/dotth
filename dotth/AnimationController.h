@@ -12,6 +12,9 @@ private:
 	float valueSum = 0.f;
 
 public:
+	int GetActiveIndex(void) {
+		return activeIndex;
+	}
 	void SetActiveIndex(int index) {
 		activeIndex = index;
 	}
@@ -21,7 +24,7 @@ public:
 			return min >= value ? min : max <= value ? max : value;
 		};
 
-		float blendDurationScalar = 8.f;
+		float blendDurationScalar = 5.f;
 		valueSum = 0.f;
 		for (auto index = 0; index < PoolSize; ++index) {
 
@@ -80,6 +83,9 @@ public:
 		
 public:
 	void BlendTo(int index) {
+		if (BlendSystem.GetActiveIndex() == index)
+			return;
+		printf("Blend To %d\n", index);
 		BlendSystem.SetActiveIndex(index);
 		BlendSystem[index]->current = 0.f;
 	}
