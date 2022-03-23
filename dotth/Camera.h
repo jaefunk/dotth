@@ -20,6 +20,5 @@ private:
 public:
 	std::shared_ptr<CameraComponent> GetCameraComponent(void);
 	const matrix& GetView(void);
-	const matrix& GetPerspective(void);
-	const matrix& GetOrtho(void);
+	const matrix& GetProjection(void);
 };

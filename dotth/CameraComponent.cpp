@@ -33,7 +33,7 @@ void CameraComponent::OnDestroy(void)
 void CameraComponent::GetViewInfo(ViewInfo& viewInfo)
 {
 	viewInfo.View = View.transpose();
-	viewInfo.Perspective = Perspective.transpose();
+	viewInfo.Perspective = Projection.transpose();
 	viewInfo.Eye = Eye;
 	viewInfo.Up = Up;
 	viewInfo.At = At;
@@ -49,14 +49,9 @@ const matrix& CameraComponent::GetView(void)
 	return View;
 }
 
-const matrix& CameraComponent::GetPerspective(void)
+const matrix& CameraComponent::GetProjection(void)
 {
-	return Perspective;
-}
-
-const matrix& CameraComponent::GetOrtho(void)
-{
-	return Ortho;
+	return Projection;
 }
 
 void CameraComponent::SetEye(const vector3& value)
@@ -79,29 +74,26 @@ void CameraComponent::SetAt(const vector3& value)
 
 void CameraComponent::SetFieldOfView(float value)
 {
-	DirtyFlags |= CAMERA_TRANFSFORM_DIRTY_FLAG::PERSPECTIVE;
+	DirtyFlags |= CAMERA_TRANFSFORM_DIRTY_FLAG::PROJECTION;
 	Fov = value;
 }
 
 void CameraComponent::SetViewportSize(int width, int height)
 {
-	DirtyFlags |= CAMERA_TRANFSFORM_DIRTY_FLAG::PERSPECTIVE;
-	DirtyFlags |= CAMERA_TRANFSFORM_DIRTY_FLAG::ORTHO;
+	DirtyFlags |= CAMERA_TRANFSFORM_DIRTY_FLAG::PROJECTION;
 	Width = width;
 	Height = height;
 }
 
 void CameraComponent::SetNear(float value)
 {
-	DirtyFlags |= CAMERA_TRANFSFORM_DIRTY_FLAG::PERSPECTIVE;
-	DirtyFlags |= CAMERA_TRANFSFORM_DIRTY_FLAG::ORTHO;
+	DirtyFlags |= CAMERA_TRANFSFORM_DIRTY_FLAG::PROJECTION;
 	Near = value;
 }
 
 void CameraComponent::SetFar(float value)
 {
-	DirtyFlags |= CAMERA_TRANFSFORM_DIRTY_FLAG::PERSPECTIVE;
-	DirtyFlags |= CAMERA_TRANFSFORM_DIRTY_FLAG::ORTHO;
+	DirtyFlags |= CAMERA_TRANFSFORM_DIRTY_FLAG::PROJECTION;
 	Far = value;
 }
 
@@ -115,14 +107,10 @@ void CameraComponent::Sync(void)
 		View = XMMatrixTranspose(XMMatrixLookAtLH(XMLoadFloat3(&eye), XMLoadFloat3(&at), XMLoadFloat3(&up)));
 	}
 
-	if (DirtyFlags & CAMERA_TRANFSFORM_DIRTY_FLAG::PERSPECTIVE)
+	if (DirtyFlags & CAMERA_TRANFSFORM_DIRTY_FLAG::PROJECTION)
 	{
-		Perspective = XMMatrixTranspose(XMMatrixPerspectiveFovLH(Fov, static_cast<float>(Width) / static_cast<float>(Height), Near, Far));
+		Projection = XMMatrixTranspose(XMMatrixPerspectiveFovLH(Fov, static_cast<float>(Width) / static_cast<float>(Height), Near, Far));
 	}
 
-	if (DirtyFlags & CAMERA_TRANFSFORM_DIRTY_FLAG::ORTHO)
-	{
-		Ortho = XMMatrixOrthographicLH(static_cast<float>(Width), static_cast<float>(Height), 0.f, 1000.f);
-	}
 	DirtyFlags = CAMERA_TRANFSFORM_DIRTY_FLAG::NONE;
 }

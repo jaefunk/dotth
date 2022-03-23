@@ -33,12 +33,7 @@ const matrix& Camera::GetView(void)
 	return Comp->GetView();
 }
 
-const matrix& Camera::GetPerspective(void)
+const matrix& Camera::GetProjection(void)
 {
-	return Comp->GetPerspective();
-}
-
-const matrix& Camera::GetOrtho(void)
-{
-	return Comp->GetOrtho();
+	return Comp->GetProjection();
 }

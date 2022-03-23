@@ -4,15 +4,13 @@
 
 enum class ProjectMode {
 	Perspective,
-	OrthoGraphic,
 };
 
 enum CAMERA_TRANFSFORM_DIRTY_FLAG {
 	NONE = 0x0000,
 	VIEW = 0x0001,
-	PERSPECTIVE = 0x0010,
-	ORTHO = 0x0100,
-	ALL = VIEW | PERSPECTIVE | ORTHO
+	PROJECTION = 0x0010,
+	ALL = VIEW | PROJECTION
 };
 
 using namespace dotth;
@@ -30,8 +28,7 @@ public:
 private:
 	int DirtyFlags = CAMERA_TRANFSFORM_DIRTY_FLAG::NONE;
 	matrix View;
-	matrix Perspective;
-	matrix Ortho;
+	matrix Projection;
 	vector3 Eye;
 	vector3 Up;
 	vector3 At;
@@ -45,8 +42,7 @@ public:
 	void GetViewInfo(ViewInfo& viewInfo);
 
 	const matrix& GetView(void);
-	const matrix& GetPerspective(void);
-	const matrix& GetOrtho(void);
+	const matrix& GetProjection(void);
 	void SetEye(const vector3& value);
 	void SetUp(const vector3& value);
 	void SetAt(const vector3& value);

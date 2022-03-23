@@ -14,7 +14,7 @@ void SkeletalMeshComponent::OnDraw(void)
 {	
 	dotth::matrix world = GetOwner()->GetWorldMatrix();
 	dotth::matrix view = GetOwner()->GetActiveCamera()->GetView();
-	dotth::matrix proj = GetOwner()->GetActiveCamera()->GetPerspective();
+	dotth::matrix proj = GetOwner()->GetActiveCamera()->GetProjection();
 
 	std::vector<MeshRenderParameter> parameters;
 	parameters.push_back(MeshRenderParameter({ "world", &world, sizeof(world) }));
