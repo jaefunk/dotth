@@ -9,14 +9,14 @@
 
 void EntryPoint::OnInit(void)
 {
-	GetActiveCamera()->GetCameraComponent()->SetEye(vector3(0.f, 1000.f, -500.f));
+	GetActiveCamera()->GetCameraComponent()->SetEye(vector3(0.f, 2000.f, -1000.f));
 	GetActiveCamera()->GetCameraComponent()->SetUp(vector3::up());
 	GetActiveCamera()->GetCameraComponent()->SetAt(vector3(0.f, 0.f, 0.f));
 
 	{	// Plane
 		auto Plane = std::make_shared<Object>();
 		SpawnObject(Plane);
-		Plane->Scaling(dotth::vector3(10.f, 10.f, 10.f));
+		Plane->Scaling(dotth::vector3(20.f, 20.f, 20.f));
 		Plane->RotatePitch(3.14f * 0.5f);
 		auto SMC = Plane->AddComponent<StaticMeshComponent>();
 		auto SM = new StaticMesh;
@@ -139,7 +139,7 @@ void EntryPoint::BindOnReached(void)
 
 void EntryPoint::BindOnMove(float remainTime, float remainDistance)
 {
-	if (remainDistance <= 30.0f)
+	if (remainTime <= 2.f)
 		animationController->BlendTo(0);
-	printf("%f %f\n", remainTime, remainDistance);
+	//printf("%f %f\n", remainTime, remainDistance);
 }

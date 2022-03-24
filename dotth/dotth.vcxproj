@@ -33,6 +33,7 @@
     <ClCompile Include="D3D11RHI.cpp" />
     <ClCompile Include="External\tinygltf\tiny_gltf.cc" />
     <ClCompile Include="InputSystem.cpp" />
+    <ClCompile Include="LineRenderer.cpp" />
     <ClCompile Include="MovementComponent.cpp" />
     <ClCompile Include="Renderable.cpp" />
     <ClCompile Include="Shader.cpp" />
@@ -189,6 +190,7 @@
     <ClInclude Include="External\zlib\zlib_include\zlib.h" />
     <ClInclude Include="External\zlib\zlib_include\zutil.h" />
     <ClInclude Include="InputSystem.h" />
+    <ClInclude Include="LineRenderer.h" />
     <ClInclude Include="Material.h" />
     <ClInclude Include="Math\Easing.h" />
     <ClInclude Include="Math\MathUtility.h" />

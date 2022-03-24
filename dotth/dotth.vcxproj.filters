@@ -68,6 +68,7 @@
     <ClCompile Include="AnimationController.cpp" />
     <ClCompile Include="InputSystem.cpp" />
     <ClCompile Include="MovementComponent.cpp" />
+    <ClCompile Include="LineRenderer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.h">
@@ -275,6 +276,7 @@
     <ClInclude Include="InputSystem.h" />
     <ClInclude Include="SystemDefine.h" />
     <ClInclude Include="MovementComponent.h" />
+    <ClInclude Include="LineRenderer.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Framework">
