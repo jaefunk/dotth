@@ -5,6 +5,7 @@
 #include "InputSystem.h"
 #include "D3D11RHI.h"
 #include "ResourceManager.h"
+#include "LineRenderer.h"
 
 struct Configuration
 {
@@ -35,6 +36,7 @@ void Application::Initialize(const Configuration & config)
 	ResourceManager2::Instance()->Load();
 	D3D11RHI::Initialize(config.Hwnd, config.Width, config.Height);
 	D3D11RHI::InitializeImGui(config.Hwnd, config.Width, config.Height);
+	LineRenderer::Instance()->Init();
 	Scenario::Instance()->Assign<SceneTy>("entrypoint");
 	Scenario::Instance()->Push("entrypoint");
 }

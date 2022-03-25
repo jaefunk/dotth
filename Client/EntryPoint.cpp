@@ -6,6 +6,7 @@
 #include "Math/Easing.h"
 #include "InputSystem.h"
 #include "MovementComponent.h"
+#include "LineRenderer.h"
 
 void EntryPoint::OnInit(void)
 {
@@ -68,6 +69,30 @@ void EntryPoint::OnInit(void)
 
 void EntryPoint::OnUpdate(void)
 {
+	{
+		Line line;
+		line.from = dotth::vector3(0.f, 0.f, 0.f);
+		line.to = dotth::vector3(0.f, 100.f, 0.f);
+		line.color = dotth::vector4(1.f, 1.f, 1.f, 1.f);
+		line.duration = 10.f;
+		LineRenderer::Push(line);
+	}
+	{
+		Line line;
+		line.from = dotth::vector3(0.f, 0.f, 0.f);
+		line.to = dotth::vector3(100.f, 0.f, 0.f);
+		line.color = dotth::vector4(1.f, 1.f, 1.f, 1.f);
+		line.duration = 10.f;
+		LineRenderer::Push(line);
+	}
+	{
+		Line line;
+		line.from = dotth::vector3(0.f, 0.f, 0.f);
+		line.to = dotth::vector3(0.f, 0.f, 100.f);
+		line.color = dotth::vector4(1.f, 1.f, 1.f, 1.f);
+		line.duration = 10.f;
+		LineRenderer::Push(line);
+	}
 }
 
 void EntryPoint::OnDrawImGui(void)
