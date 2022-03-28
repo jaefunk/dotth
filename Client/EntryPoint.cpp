@@ -10,21 +10,21 @@
 
 void EntryPoint::OnInit(void)
 {
-	GetActiveCamera()->GetCameraComponent()->SetEye(vector3(0.f, 2000.f, -1000.f));
+	GetActiveCamera()->GetCameraComponent()->SetEye(vector3(0.f, 1000.f, -1000.f));
 	GetActiveCamera()->GetCameraComponent()->SetUp(vector3::up());
 	GetActiveCamera()->GetCameraComponent()->SetAt(vector3(0.f, 0.f, 0.f));
 
-	{	// Plane
-		auto Plane = std::make_shared<Object>();
-		SpawnObject(Plane);
-		Plane->Scaling(dotth::vector3(20.f, 20.f, 20.f));
-		Plane->RotatePitch(3.14f * 0.5f);
-		auto SMC = Plane->AddComponent<StaticMeshComponent>();
-		auto SM = new StaticMesh;
-		SM->Load("Resource/Plane.fbx");
-		SM->GetMaterial(0)->Load("uv_checker", "../Output/Client/x64/Debug/deferred_vs.cso", "../Output/Client/x64/Debug/deferred_ps.cso");
-		SMC->SetStaticMesh(SM);
-	}
+	//{	// Plane
+	//	auto Plane = std::make_shared<Object>();
+	//	SpawnObject(Plane);
+	//	Plane->Scaling(dotth::vector3(20.f, 20.f, 20.f));
+	//	Plane->RotatePitch(3.14f * 0.5f);
+	//	auto SMC = Plane->AddComponent<StaticMeshComponent>();
+	//	auto SM = new StaticMesh;
+	//	SM->Load("Resource/Plane.fbx");
+	//	SM->GetMaterial(0)->Load("uv_checker", "../Output/Client/x64/Debug/deferred_vs.cso", "../Output/Client/x64/Debug/deferred_ps.cso");
+	//	SMC->SetStaticMesh(SM);
+	//}
 
 	{	// Human
 		skeltalMeshObject = SpawnObject<SkeletalMeshObject>();
@@ -69,30 +69,52 @@ void EntryPoint::OnInit(void)
 
 void EntryPoint::OnUpdate(void)
 {
+	auto p = skeltalMeshObject->GetLocalPosition();
 	{
 		Line line;
-		line.from = dotth::vector3(0.f, 0.f, 0.f);
-		line.to = dotth::vector3(0.f, 100.f, 0.f);
-		line.color = dotth::vector4(1.f, 1.f, 1.f, 1.f);
-		line.duration = 10.f;
+		line.from = dotth::vector3(0.f, 0.f, 0.f) + p;
+		line.to = dotth::vector3(0.f, 500.f, 0.f) + p;
+		line.color = dotth::vector4(0.f, 1.f, 0.f, 1.f);
+		line.duration = 0.f;
 		LineRenderer::Push(line);
 	}
 	{
 		Line line;
-		line.from = dotth::vector3(0.f, 0.f, 0.f);
-		line.to = dotth::vector3(100.f, 0.f, 0.f);
-		line.color = dotth::vector4(1.f, 1.f, 1.f, 1.f);
-		line.duration = 10.f;
+		line.from = dotth::vector3(0.f, 0.f, 0.f) + p;
+		line.to = dotth::vector3(500.f, 0.f, 0.f) + p;
+		line.color = dotth::vector4(1.f, 0.f, 0.f, 1.f);
+		line.duration = 0.f;
 		LineRenderer::Push(line);
 	}
 	{
 		Line line;
-		line.from = dotth::vector3(0.f, 0.f, 0.f);
-		line.to = dotth::vector3(0.f, 0.f, 100.f);
-		line.color = dotth::vector4(1.f, 1.f, 1.f, 1.f);
-		line.duration = 10.f;
+		line.from = dotth::vector3(0.f, 0.f, 0.f) + p;
+		line.to = dotth::vector3(0.f, 0.f, 500.f) + p;
+		line.color = dotth::vector4(0.f, 0.f, 1.f, 1.f);
+		line.duration = 0.f;
 		LineRenderer::Push(line);
 	}
+	//for (auto x = 0; x < 10; ++x)
+	//{
+	//	{
+	//		Line line;
+	//		line.from = dotth::vector3(0.f, 0.f, x * 100.f);
+	//		line.to = dotth::vector3(1000.f, 0.f, x * 100.f);
+	//		line.color = dotth::vector4(1.f, 0.f, 0.f, 1.f);
+	//		line.duration = 10.f;
+	//		LineRenderer::Push(line);
+	//	}
+	//	
+	//	{
+	//		Line line;
+	//		line.from = dotth::vector3(x * 100.f, 0.f, 0.f);
+	//		line.to = dotth::vector3(x * 100.f, 0.f, 1000.f);
+	//		line.color = dotth::vector4(0.f, 0.f, 1.f, 1.f);
+	//		line.duration = 10.f;
+	//		LineRenderer::Push(line);
+	//	}
+	//}
+
 }
 
 void EntryPoint::OnDrawImGui(void)
@@ -111,9 +133,11 @@ void EntryPoint::OnDrawImGui(void)
 			skeltalMeshObject.reset();
 		}
 	}
-	if (ImGui::Begin("EntryPoint"))
+	
+	
+	ImGui::Begin("EntryPoint");
 	{
-		static float eye[3] = { 0.f, 1000.f, -500.f };
+		static float eye[3] = { 1000.f, 1000.f, -1000.f };
 		if (ImGui::DragFloat3("eye", eye, 1.f, -1000.f, 1000.f, "%f"))
 		{
 			GetActiveCamera()->GetCameraComponent()->SetEye(dotth::vector3(eye));
@@ -124,8 +148,15 @@ void EntryPoint::OnDrawImGui(void)
 		{
 			GetActiveCamera()->GetCameraComponent()->SetAt(dotth::vector3(at));
 		}
-		ImGui::End();
+
+		static float fov = 90.f;
+		if (ImGui::DragFloat("fov", &fov, 1.f, 0.f, 180.f, "%f"))
+		{
+			float jj = (fov / 180.f) * 3.141592f;
+			GetActiveCamera()->GetCameraComponent()->SetFieldOfView(jj);
+		}
 	}
+	ImGui::End();
 }
 
 void EntryPoint::BindTestFunction(InputState is, InputKey ik)

@@ -5,8 +5,8 @@ Texture2D Texture		: register(t0);
 struct VertexOutputType
 {
 	float4 position		: POSITION;
-	float3 color		: COLOR;
-	float3 worldPos		: POSITIONWS;
+	float4 color		: COLOR;
+	//float3 worldPos		: POSITIONWS;
 	//float3 tangent		: TANGENTWS;
 };
 
@@ -22,7 +22,7 @@ PixelOutputType main(VertexOutputType input)
 	PixelOutputType output;
 
 	output.Position = input.position;
-	output.Diffuse = float4(input.color, 1.f);
+	output.Diffuse = input.color;
 	output.Normal = float4(1.f, 1.f, 1.f, 1.f);
 
 	return output;

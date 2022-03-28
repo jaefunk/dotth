@@ -1,6 +1,11 @@
 #include "Scenario.h"
 #include "LineRenderer.h"
 
+std::shared_ptr<Scene> Scenario::CurrentScene(void)
+{
+	return _CurrentScene;
+}
+
 void Scenario::Push(std::string key)
 {
 	_SceneStack.push(key);

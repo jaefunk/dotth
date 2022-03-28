@@ -8,25 +8,19 @@ cbuffer MatrixBuffer : register(b0)
 struct VertexInputType
 {
 	float3 position : POSITION0;
-	float3 color : COLOR0;
+	float4 color : COLOR0;
 };
 
 struct VertexOutputType
 {
 	float4 position		: SV_POSITION;
-	float3 color		: COLOR;
-	float3 worldPos		: POSITIONWS;
+	float4 color		: COLOR;
 };
-
-#define IDENTITY_MATRIX float4x4(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1)
 
 VertexOutputType main(VertexInputType input)
 {
-	matrix worldViewProj = mul(view, proj);
-
 	VertexOutputType output;	
-	output.position = mul(float4(input.position, 1.f), worldViewProj);
-	output.worldPos = mul(float4(input.position, 1.0f), world).xyz;
+	output.position = mul(float4(input.position, 1.f), mul(view, proj));
 	output.color = input.color;
 	return output;
 }
