@@ -94,27 +94,27 @@ void EntryPoint::OnUpdate(void)
 		line.duration = 0.f;
 		LineRenderer::Push(line);
 	}
-	//for (auto x = 0; x < 10; ++x)
-	//{
-	//	{
-	//		Line line;
-	//		line.from = dotth::vector3(0.f, 0.f, x * 100.f);
-	//		line.to = dotth::vector3(1000.f, 0.f, x * 100.f);
-	//		line.color = dotth::vector4(1.f, 0.f, 0.f, 1.f);
-	//		line.duration = 10.f;
-	//		LineRenderer::Push(line);
-	//	}
-	//	
-	//	{
-	//		Line line;
-	//		line.from = dotth::vector3(x * 100.f, 0.f, 0.f);
-	//		line.to = dotth::vector3(x * 100.f, 0.f, 1000.f);
-	//		line.color = dotth::vector4(0.f, 0.f, 1.f, 1.f);
-	//		line.duration = 10.f;
-	//		LineRenderer::Push(line);
-	//	}
-	//}
-
+	
+	for (auto x = 0; x < 21; ++x)
+	{
+		{
+			Line line;
+			line.from = dotth::vector3(-500 + 0.f, 0.f, -500 + x * 50.f);
+			line.to = dotth::vector3(-500 + 1000.f, 0.f, -500 + x * 50.f);
+			line.color = dotth::vector4(1.f, 1.f, 1.f, 1.f);
+			line.duration = 0.f;
+			LineRenderer::Push(line);
+		}
+		
+		{
+			Line line;
+			line.from = dotth::vector3(-500 + x * 50.f, 0.f, -500);
+			line.to = dotth::vector3(-500 + x * 50.f, 0.f, 1000.f - 500);
+			line.color = dotth::vector4(1.f, 1.f, 1.f, 1.f);
+			line.duration = 0.f;
+			LineRenderer::Push(line);
+		}
+	}
 }
 
 void EntryPoint::OnDrawImGui(void)
@@ -137,7 +137,7 @@ void EntryPoint::OnDrawImGui(void)
 	
 	ImGui::Begin("EntryPoint");
 	{
-		static float eye[3] = { 1000.f, 1000.f, -1000.f };
+		static float eye[3] = { 0.f, 200.f, -500.f };
 		if (ImGui::DragFloat3("eye", eye, 1.f, -1000.f, 1000.f, "%f"))
 		{
 			GetActiveCamera()->GetCameraComponent()->SetEye(dotth::vector3(eye));

@@ -27,10 +27,12 @@
     <ClCompile Include="CameraComponent.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Component.cpp" />
+    <ClCompile Include="D3D11.cpp" />
     <ClCompile Include="D3D11DeferredBuffer.cpp" />
     <ClCompile Include="D3D11Light.cpp" />
     <ClCompile Include="D3D11OrthoRect.cpp" />
     <ClCompile Include="D3D11RHI.cpp" />
+    <ClCompile Include="D3D11RHI2.cpp" />
     <ClCompile Include="External\tinygltf\tiny_gltf.cc" />
     <ClCompile Include="InputSystem.cpp" />
     <ClCompile Include="LineRenderer.cpp" />
@@ -75,6 +77,7 @@
     <ClInclude Include="D3D11Light.h" />
     <ClInclude Include="D3D11OrthoRect.h" />
     <ClInclude Include="D3D11RHI.h" />
+    <ClInclude Include="D3D11RHI2.h" />
     <ClInclude Include="dotth.h" />
     <ClInclude Include="External\assimp\aabb.h" />
     <ClInclude Include="External\assimp\ai_assert.h" />
