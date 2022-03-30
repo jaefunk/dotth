@@ -98,7 +98,6 @@ void D3D11DeferredBuffer::Destroy(void)
 void D3D11DeferredBuffer::SetRenderTargets(ID3D11DeviceContext* context)
 {
 	context->OMSetRenderTargets(DEFERRED_RENDER_TARGET_TYPE_MAX, RenderTargetViewArray, DepthStencilView);
-	context->RSSetViewports(1, &Viewport);
 }
 
 void D3D11DeferredBuffer::ClearRenderTargets(ID3D11DeviceContext* context, float* color)

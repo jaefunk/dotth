@@ -54,8 +54,9 @@ namespace D3D11
 		ID3D11SamplerState** ppSamplerState);
 
 	void CreateRenderTargetView(
-		ID3D11Texture2D* pTexture, 
 		IDXGISwapChain* pSwapChain, 
 		ID3D11Device* pDevice, 
 		ID3D11RenderTargetView** ppRenderTargetView);
+
+	
 }

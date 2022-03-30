@@ -3,6 +3,11 @@
 #include "dotth.h"
 #include "D3D11.h"
 
+class D3D11DeferredRenderer
+{
+
+};
+
 class D3D11RHI2 : public SingleInstance<D3D11RHI2>
 {
 	PREVENT_INSTANCING(D3D11RHI2)
@@ -30,6 +35,5 @@ private:
 	ID3D11SamplerState* samplerState;
 	ID3D11DepthStencilView* depthStencilView;
 	ID3D11DepthStencilState* depthStencilState;
-	D3D_FEATURE_LEVEL featureLevel;
 };
 

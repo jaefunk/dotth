@@ -18,12 +18,18 @@ bool D3D11RHI2::Initialize(void* handle, unsigned int width, unsigned int height
 	depthStencilTexture->Release();
 
 	D3D11::CreateRasterizerState(D3D11_FILL_SOLID, D3D11_CULL_BACK, true, device, &rasterizerState);
-	
-	ID3D11Texture2D* renderTargetTexture = nullptr;
-	D3D11::CreateRenderTargetView(renderTargetTexture, swapChain, device, &renderTargetView);
-	renderTargetTexture->Release();
+	D3D11::CreateRenderTargetView(swapChain, device, &renderTargetView);
 
-	return false;
+	D3D11_VIEWPORT viewport;
+	viewport.TopLeftX = 0.0f;
+	viewport.TopLeftY = 0.0f;
+	viewport.Width = static_cast<float>(width);
+	viewport.Height = static_cast<float>(height);
+	viewport.MinDepth = 0.0f;
+	viewport.MaxDepth = 1.0f;
+	context->RSSetViewports(1, &viewport);
+
+	return true;
 }
 
 bool D3D11RHI2::InitializeImGui(void* handle, ID3D11Device* device, ID3D11DeviceContext* context)

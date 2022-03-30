@@ -154,13 +154,16 @@ void D3D11::CreateSamplerState(D3D11_TEXTURE_ADDRESS_MODE addressU, D3D11_TEXTUR
 	assert(SUCCEEDED(result));
 }
 
-void D3D11::CreateRenderTargetView(ID3D11Texture2D* pTexture, IDXGISwapChain* pSwapChain, ID3D11Device* pDevice, ID3D11RenderTargetView** ppRenderTargetView)
+void D3D11::CreateRenderTargetView(IDXGISwapChain* pSwapChain, ID3D11Device* pDevice, ID3D11RenderTargetView** ppRenderTargetView)
 {
 	HRESULT result;
 
-	result = pSwapChain->GetBuffer(0, __uuidof(ID3D11Texture2D), (void**)&pTexture);
+	ID3D11Texture2D* renderTargetTexture = nullptr;
+	result = pSwapChain->GetBuffer(0, __uuidof(ID3D11Texture2D), (void**)&renderTargetTexture);
 	assert(SUCCEEDED(result));
 
-	result = pDevice->CreateRenderTargetView(pTexture, nullptr, ppRenderTargetView);
+	result = pDevice->CreateRenderTargetView(renderTargetTexture, nullptr, ppRenderTargetView);
 	assert(SUCCEEDED(result));
+
+	renderTargetTexture->Release();
 }

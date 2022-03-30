@@ -48,6 +48,7 @@
 #include <d3dcompiler.h>
 #include <directxmath.h>
 #include <d3d11shader.h>
+using namespace DirectX;
 
 // dotth
 #include "Math/Vector2.h"
