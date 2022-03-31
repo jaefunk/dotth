@@ -1,3 +1,6 @@
 [submodule "dotth/External/tinygltf"]
 	path = dotth/External/tinygltf
 	url = https://github.com/syoyo/tinygltf.git
+[submodule "dotth/External/DirectXTK"]
+	path = dotth/External/DirectXTK
+	url = https://github.com/microsoft/DirectXTK.git
