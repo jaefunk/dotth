@@ -167,3 +167,19 @@ void D3D11::CreateRenderTargetView(IDXGISwapChain* pSwapChain, ID3D11Device* pDe
 
 	renderTargetTexture->Release();
 }
+
+void D3D11::CreateRenderTargetView(ID3D11Resource* pResource, D3D11_RENDER_TARGET_VIEW_DESC* pDesc, ID3D11Device* pDevice, ID3D11RenderTargetView** ppRenderTargetView)
+{
+	HRESULT result;
+
+	result = pDevice->CreateRenderTargetView(pResource, pDesc, ppRenderTargetView);
+	assert(SUCCEEDED(result));
+}
+
+void D3D11::CreateShaderResourceView(ID3D11Resource* pResource, D3D11_SHADER_RESOURCE_VIEW_DESC* pDesc, ID3D11Device* pDevice, ID3D11ShaderResourceView** ppShaderResourceView)
+{
+	HRESULT result;
+
+	result = pDevice->CreateShaderResourceView(pResource, pDesc, ppShaderResourceView);
+	assert(SUCCEEDED(result));
+}

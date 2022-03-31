@@ -159,6 +159,27 @@
     <ClInclude Include="External\assimp\XmlParser.h" />
     <ClInclude Include="External\assimp\XMLTools.h" />
     <ClInclude Include="External\assimp\ZipArchiveIOSystem.h" />
+    <ClInclude Include="External\DirectXTK\Audio.h" />
+    <ClInclude Include="External\DirectXTK\BufferHelpers.h" />
+    <ClInclude Include="External\DirectXTK\CommonStates.h" />
+    <ClInclude Include="External\DirectXTK\DDSTextureLoader.h" />
+    <ClInclude Include="External\DirectXTK\DirectXHelpers.h" />
+    <ClInclude Include="External\DirectXTK\Effects.h" />
+    <ClInclude Include="External\DirectXTK\GamePad.h" />
+    <ClInclude Include="External\DirectXTK\GeometricPrimitive.h" />
+    <ClInclude Include="External\DirectXTK\GraphicsMemory.h" />
+    <ClInclude Include="External\DirectXTK\Keyboard.h" />
+    <ClInclude Include="External\DirectXTK\Model.h" />
+    <ClInclude Include="External\DirectXTK\Mouse.h" />
+    <ClInclude Include="External\DirectXTK\PostProcess.h" />
+    <ClInclude Include="External\DirectXTK\PrimitiveBatch.h" />
+    <ClInclude Include="External\DirectXTK\ScreenGrab.h" />
+    <ClInclude Include="External\DirectXTK\SimpleMath.h" />
+    <ClInclude Include="External\DirectXTK\SpriteBatch.h" />
+    <ClInclude Include="External\DirectXTK\SpriteFont.h" />
+    <ClInclude Include="External\DirectXTK\VertexTypes.h" />
+    <ClInclude Include="External\DirectXTK\WICTextureLoader.h" />
+    <ClInclude Include="External\DirectXTK\XboxDDSTextureLoader.h" />
     <ClInclude Include="External\imgui\backends\imgui_impl_dx11.h" />
     <ClInclude Include="External\imgui\backends\imgui_impl_win32.h" />
     <ClInclude Include="External\imgui\imconfig.h" />
@@ -232,6 +253,7 @@
     <None Include="External\assimp\SmoothingGroups.inl" />
     <None Include="External\assimp\vector2.inl" />
     <None Include="External\assimp\vector3.inl" />
+    <None Include="External\DirectXTK\SimpleMath.inl" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>

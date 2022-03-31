@@ -184,7 +184,7 @@
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>%(AdditionalDependencies);dotth.lib;libcurl\lib\$(PlatformTarget)\libcurl.lib;assimp\lib\$(Configuration)\assimp-vc142-mt.lib</AdditionalDependencies>
+      <AdditionalDependencies>%(AdditionalDependencies);dotth.lib;libcurl\lib\$(PlatformTarget)\libcurl.lib;assimp\lib\$(Configuration)\assimp-vc142-mt.lib;DirectXTK\$(Configuration)\DirectXTK.lib</AdditionalDependencies>
       <AdditionalLibraryDirectories>../Output/dotth/$(PlatformTarget)/$(Configuration)/</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
@@ -204,7 +204,7 @@
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>%(AdditionalDependencies);dotth.lib;libcurl\lib\$(PlatformTarget)\libcurl.lib;assimp\lib\$(Configuration)\assimp-vc142-mt.lib</AdditionalDependencies>
+      <AdditionalDependencies>%(AdditionalDependencies);dotth.lib;libcurl\lib\$(PlatformTarget)\libcurl.lib;assimp\lib\$(Configuration)\assimp-vc142-mt.lib;DirectXTK\$(Configuration)\DirectXTK.lib</AdditionalDependencies>
       <AdditionalLibraryDirectories>../Output/dotth/$(PlatformTarget)/$(Configuration)/</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
@@ -227,7 +227,7 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>%(AdditionalDependencies);dotth.lib;libcurl\lib\$(PlatformTarget)\libcurl.lib;assimp\lib\$(Configuration)\assimp-vc142-mt.lib</AdditionalDependencies>
+      <AdditionalDependencies>%(AdditionalDependencies);dotth.lib;libcurl\lib\$(PlatformTarget)\libcurl.lib;assimp\lib\$(Configuration)\assimp-vc142-mt.lib;DirectXTK\$(Configuration)\DirectXTK.lib</AdditionalDependencies>
       <AdditionalLibraryDirectories>../Output/dotth/$(PlatformTarget)/$(Configuration)/</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
@@ -251,7 +251,7 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>%(AdditionalDependencies);dotth.lib;libcurl\lib\$(PlatformTarget)\libcurl.lib;assimp\lib\$(Configuration)\assimp-vc142-mt.lib</AdditionalDependencies>
+      <AdditionalDependencies>%(AdditionalDependencies);dotth.lib;libcurl\lib\$(PlatformTarget)\libcurl.lib;assimp\lib\$(Configuration)\assimp-vc142-mt.lib;DirectXTK\$(Configuration)\DirectXTK.lib</AdditionalDependencies>
       <AdditionalLibraryDirectories>../Output/dotth/$(PlatformTarget)/$(Configuration)/</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>

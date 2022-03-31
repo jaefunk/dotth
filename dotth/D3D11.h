@@ -58,5 +58,15 @@ namespace D3D11
 		ID3D11Device* pDevice, 
 		ID3D11RenderTargetView** ppRenderTargetView);
 
-	
+	void CreateRenderTargetView(
+		ID3D11Resource* pResource,
+		D3D11_RENDER_TARGET_VIEW_DESC* pDesc,
+		ID3D11Device* pDevice,
+		ID3D11RenderTargetView** ppRenderTargetView);
+
+	void CreateShaderResourceView(
+		ID3D11Resource* pResource, 
+		D3D11_SHADER_RESOURCE_VIEW_DESC* pDesc,
+		ID3D11Device* pDevice,
+		ID3D11ShaderResourceView** ppShaderResourceView);
 }

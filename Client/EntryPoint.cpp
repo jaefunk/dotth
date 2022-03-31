@@ -38,7 +38,7 @@ void EntryPoint::OnInit(void)
 		// set skeletal mesh
 		if (SkeletalMesh* skeletalMesh = new SkeletalMesh)
 		{
-			skeletalMesh->Load("Resource/Human.fbx");
+			skeletalMesh->Load("Resource/Idle.fbx");
 			skeltalMeshObject->SetSkeletalMesh(skeletalMesh);
 
 			// set animation control
