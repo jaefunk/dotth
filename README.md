@@ -16,6 +16,8 @@ Microsoft Visual Studio Community 2019
 
 디퍼드렌더링
 
+라인드로잉
+
 fbx로드
 
 본 애니메이션
