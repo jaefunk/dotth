@@ -59,6 +59,7 @@ using namespace DirectX;
 
 #include "Base.h"
 #include "SystemDefine.h"
+#include "SingleInstance.h"
 
 namespace dotth 
 {

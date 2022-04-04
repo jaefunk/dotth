@@ -121,8 +121,15 @@ bool D3D11RHI::Initialize(HWND hwnd, unsigned int width, unsigned int height)
 	rd.ScissorEnable = false;
 	rd.SlopeScaledDepthBias = 0.0f;
 	D3D11RHI::Device()->CreateRasterizerState(&rd, &D3D11RHI::Instance()->_RasterizerStateSolid);
-	D3D11RHI::Context()->RSSetState(D3D11RHI::Instance()->_RasterizerStateSolid);
 
+	CD3D11_RASTERIZER_DESC rastDesc(D3D11_FILL_SOLID, D3D11_CULL_NONE, FALSE,
+		D3D11_DEFAULT_DEPTH_BIAS, D3D11_DEFAULT_DEPTH_BIAS_CLAMP,
+		D3D11_DEFAULT_SLOPE_SCALED_DEPTH_BIAS, TRUE, FALSE, TRUE, TRUE);
+	rastDesc.MultisampleEnable = true;
+	D3D11RHI::Device()->CreateRasterizerState(&rastDesc, &D3D11RHI::Instance()->_RasterizerStateSolid2);
+
+
+	D3D11RHI::Context()->RSSetState(D3D11RHI::Instance()->_RasterizerStateSolid2);
 	D3D11_SAMPLER_DESC sd;
 	ZeroMemory(&sd, sizeof(sd));
 	sd.Filter = D3D11_FILTER_MIN_MAG_MIP_LINEAR;

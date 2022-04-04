@@ -1,7 +1,6 @@
 #pragma once
 
-#include "SystemDefine.h"
-#include "SingleInstance.h"
+#include "dotth.h"
 
 class InputSystem : public SingleInstance<InputSystem>
 {

@@ -27,12 +27,15 @@
     <ClCompile Include="CameraComponent.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Component.cpp" />
+    <ClCompile Include="D3D11.cpp" />
     <ClCompile Include="D3D11DeferredBuffer.cpp" />
     <ClCompile Include="D3D11Light.cpp" />
     <ClCompile Include="D3D11OrthoRect.cpp" />
     <ClCompile Include="D3D11RHI.cpp" />
+    <ClCompile Include="D3D11RHI2.cpp" />
     <ClCompile Include="External\tinygltf\tiny_gltf.cc" />
     <ClCompile Include="InputSystem.cpp" />
+    <ClCompile Include="LineRenderer.cpp" />
     <ClCompile Include="MovementComponent.cpp" />
     <ClCompile Include="Renderable.cpp" />
     <ClCompile Include="Shader.cpp" />
@@ -74,6 +77,7 @@
     <ClInclude Include="D3D11Light.h" />
     <ClInclude Include="D3D11OrthoRect.h" />
     <ClInclude Include="D3D11RHI.h" />
+    <ClInclude Include="D3D11RHI2.h" />
     <ClInclude Include="dotth.h" />
     <ClInclude Include="External\assimp\aabb.h" />
     <ClInclude Include="External\assimp\ai_assert.h" />
@@ -155,6 +159,27 @@
     <ClInclude Include="External\assimp\XmlParser.h" />
     <ClInclude Include="External\assimp\XMLTools.h" />
     <ClInclude Include="External\assimp\ZipArchiveIOSystem.h" />
+    <ClInclude Include="External\DirectXTK\Audio.h" />
+    <ClInclude Include="External\DirectXTK\BufferHelpers.h" />
+    <ClInclude Include="External\DirectXTK\CommonStates.h" />
+    <ClInclude Include="External\DirectXTK\DDSTextureLoader.h" />
+    <ClInclude Include="External\DirectXTK\DirectXHelpers.h" />
+    <ClInclude Include="External\DirectXTK\Effects.h" />
+    <ClInclude Include="External\DirectXTK\GamePad.h" />
+    <ClInclude Include="External\DirectXTK\GeometricPrimitive.h" />
+    <ClInclude Include="External\DirectXTK\GraphicsMemory.h" />
+    <ClInclude Include="External\DirectXTK\Keyboard.h" />
+    <ClInclude Include="External\DirectXTK\Model.h" />
+    <ClInclude Include="External\DirectXTK\Mouse.h" />
+    <ClInclude Include="External\DirectXTK\PostProcess.h" />
+    <ClInclude Include="External\DirectXTK\PrimitiveBatch.h" />
+    <ClInclude Include="External\DirectXTK\ScreenGrab.h" />
+    <ClInclude Include="External\DirectXTK\SimpleMath.h" />
+    <ClInclude Include="External\DirectXTK\SpriteBatch.h" />
+    <ClInclude Include="External\DirectXTK\SpriteFont.h" />
+    <ClInclude Include="External\DirectXTK\VertexTypes.h" />
+    <ClInclude Include="External\DirectXTK\WICTextureLoader.h" />
+    <ClInclude Include="External\DirectXTK\XboxDDSTextureLoader.h" />
     <ClInclude Include="External\imgui\backends\imgui_impl_dx11.h" />
     <ClInclude Include="External\imgui\backends\imgui_impl_win32.h" />
     <ClInclude Include="External\imgui\imconfig.h" />
@@ -189,6 +214,7 @@
     <ClInclude Include="External\zlib\zlib_include\zlib.h" />
     <ClInclude Include="External\zlib\zlib_include\zutil.h" />
     <ClInclude Include="InputSystem.h" />
+    <ClInclude Include="LineRenderer.h" />
     <ClInclude Include="Material.h" />
     <ClInclude Include="Math\Easing.h" />
     <ClInclude Include="Math\MathUtility.h" />
@@ -227,6 +253,7 @@
     <None Include="External\assimp\SmoothingGroups.inl" />
     <None Include="External\assimp\vector2.inl" />
     <None Include="External\assimp\vector3.inl" />
+    <None Include="External\DirectXTK\SimpleMath.inl" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>

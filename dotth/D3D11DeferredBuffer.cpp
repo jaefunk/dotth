@@ -1,6 +1,15 @@
 ﻿#include "D3D11DeferredBuffer.h"
 #include "D3D11RHI.h"
 
+static D3D11DefferedRenderSystem* GD3D11DefferedRenderSystem = nullptr;
+
+D3D11DefferedRenderSystem& D3D11DefferedRenderSystem::Get(void)
+{
+	if (GD3D11DefferedRenderSystem == nullptr)
+		GD3D11DefferedRenderSystem = new D3D11DefferedRenderSystem;
+	return *GD3D11DefferedRenderSystem;
+}
+
 D3D11DeferredBuffer::D3D11DeferredBuffer()
 {
 }
@@ -98,7 +107,6 @@ void D3D11DeferredBuffer::Destroy(void)
 void D3D11DeferredBuffer::SetRenderTargets(ID3D11DeviceContext* context)
 {
 	context->OMSetRenderTargets(DEFERRED_RENDER_TARGET_TYPE_MAX, RenderTargetViewArray, DepthStencilView);
-	context->RSSetViewports(1, &Viewport);
 }
 
 void D3D11DeferredBuffer::ClearRenderTargets(ID3D11DeviceContext* context, float* color)

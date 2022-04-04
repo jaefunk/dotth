@@ -44,11 +44,8 @@ struct PixelInputType
 float4 main(PixelInputType input) : SV_TARGET
 {
 	float3 position = positionTexture.Sample(SampleTypePoint, input.coord).xyz;
-	//return float4(normalize(position), 1.0f);
 	float3 color = diffuseTexture.Sample(SampleTypePoint, input.coord).xyz;
-	//return float4(color, 1.0f);
 	float3 normal = normalTexture.Sample(SampleTypePoint, input.coord).xyz;
-	//return float4(normal, 1.0f);
 
 	float3 inverse_light_direction = -1.0f * lightDirection;
 	float sat = max(0.3f, dot(normal, normalize(inverse_light_direction)));

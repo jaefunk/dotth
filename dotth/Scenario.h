@@ -14,6 +14,7 @@ private:
 	void ApplyNewScene(void);
 
 public:
+	std::shared_ptr<Scene> CurrentScene(void);
 	void Push(std::string key);
 	void Pop(void);
 

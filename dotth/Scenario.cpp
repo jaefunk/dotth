@@ -1,4 +1,10 @@
 #include "Scenario.h"
+#include "LineRenderer.h"
+
+std::shared_ptr<Scene> Scenario::CurrentScene(void)
+{
+	return _CurrentScene;
+}
 
 void Scenario::Push(std::string key)
 {
@@ -36,11 +42,13 @@ void Scenario::Update(void)
 	if (_CurrentScene == nullptr)
 		return;
 	_CurrentScene->Update();
+	LineRenderer::Update();
 }
 
 void Scenario::Draw(void)
 {
 	_CurrentScene->Draw();
+	LineRenderer::Draw();
 }
 
 void Scenario::DrawImGui(void)

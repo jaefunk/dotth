@@ -1,6 +1,5 @@
 #pragma once
 
-#include "SystemDefine.h"
 #include "Object.h"
 
 class Scene : public Base

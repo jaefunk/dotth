@@ -75,7 +75,7 @@ void CameraComponent::SetAt(const vector3& value)
 void CameraComponent::SetFieldOfView(float value)
 {
 	DirtyFlags |= CAMERA_TRANFSFORM_DIRTY_FLAG::PROJECTION;
-	Fov = value;
+	Fov = std::max<float>(value, 1.f);
 }
 
 void CameraComponent::SetViewportSize(int width, int height)

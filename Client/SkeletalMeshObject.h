@@ -5,7 +5,7 @@
 
 #include "SkeletalMeshComponent.h"
 #include "AnimationController.h"
-#include "SystemDefine.h"
+
 // animationController only status managing
 
 class SkeletalMeshObject : public Object
