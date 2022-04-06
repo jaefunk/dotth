@@ -33,7 +33,6 @@
     <ClCompile Include="D3D11OrthoRect.cpp" />
     <ClCompile Include="D3D11RHI.cpp" />
     <ClCompile Include="D3D11RHI2.cpp" />
-    <ClCompile Include="External\tinygltf\tiny_gltf.cc" />
     <ClCompile Include="InputSystem.cpp" />
     <ClCompile Include="LineRenderer.cpp" />
     <ClCompile Include="MovementComponent.cpp" />
@@ -199,9 +198,6 @@
     <ClInclude Include="External\libpng\include\pngprefix.h" />
     <ClInclude Include="External\libpng\include\pngpriv.h" />
     <ClInclude Include="External\libpng\include\pngstruct.h" />
-    <ClInclude Include="External\tinygltf\stb_image.h" />
-    <ClInclude Include="External\tinygltf\stb_image_write.h" />
-    <ClInclude Include="External\tinygltf\tiny_gltf.h" />
     <ClInclude Include="External\zlib\zlib_include\crc32.h" />
     <ClInclude Include="External\zlib\zlib_include\deflate.h" />
     <ClInclude Include="External\zlib\zlib_include\gzguts.h" />

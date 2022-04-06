@@ -64,7 +64,6 @@
     <ClCompile Include="Renderable.cpp" />
     <ClCompile Include="SkeletalMeshComponent.cpp" />
     <ClCompile Include="SkeletalMesh.cpp" />
-    <ClCompile Include="External\tinygltf\tiny_gltf.cc" />
     <ClCompile Include="AnimationController.cpp" />
     <ClCompile Include="InputSystem.cpp" />
     <ClCompile Include="MovementComponent.cpp" />
@@ -272,9 +271,6 @@
     <ClInclude Include="SkeletalMesh.h" />
     <ClInclude Include="SkeletalMeshComponent.h" />
     <ClInclude Include="Bone.h" />
-    <ClInclude Include="External\tinygltf\tiny_gltf.h" />
-    <ClInclude Include="External\tinygltf\stb_image_write.h" />
-    <ClInclude Include="External\tinygltf\stb_image.h" />
     <ClInclude Include="AnimationController.h" />
     <ClInclude Include="InputSystem.h" />
     <ClInclude Include="SystemDefine.h" />
