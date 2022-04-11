@@ -2,12 +2,6 @@
 
 #include "D3D11.h"
 
-enum GBUFFER_TYPE {
-	GBUFFER_TYPE_DIFFUSE,
-	GBUFFER_TYPE_NORMAL,
-	GBUFFER_TYPE_MAX,
-};
-
 struct D3D11GBuffer {
 	ID3D11RenderTargetView* renderTargetView = nullptr;
 	ID3D11ShaderResourceView* shaderResourceView = nullptr;
@@ -33,14 +27,14 @@ struct D3D11GBuffer {
 	}
 };
 
-
-
+enum GBUFFER_TYPE {
+	GBUFFER_TYPE_DIFFUSE,
+	GBUFFER_TYPE_NORMAL,
+	GBUFFER_TYPE_MAX,
+};
 
 class D3D11DefferedRenderSystem 
 {
-public:
-	static D3D11DefferedRenderSystem& Get(void);
-
 public:
 	void Initialize(ID3D11Device* pDevice, uint32_t width, uint32_t height)
 	{
@@ -58,11 +52,16 @@ public:
 		pContext->OMSetRenderTargets(GBUFFER_TYPE_MAX, GBufferArray, pDepthStencilView);
 	}
 
+	void ClearRenderTarget(ID3D11DeviceContext* pContext, float* color)
+	{
+		for (uint32_t index = 0; index < GBUFFER_TYPE_MAX; index++)
+		{
+			pContext->ClearRenderTargetView(GBuffers[index]->renderTargetView, color);
+		}
+	}
+
 private:
 	D3D11GBuffer* GBuffers[GBUFFER_TYPE_MAX];
-private:
-	D3D11DefferedRenderSystem(void) = default;
-	~D3D11DefferedRenderSystem(void) = default;
 };
 
 #include "dotth.h"

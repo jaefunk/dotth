@@ -2,17 +2,14 @@
 
 #include "dotth.h"
 #include "D3D11.h"
+#include "D3D11DeferredBuffer.h"
+#include "D3D11OrthoRect.h"
 
-class D3D11DeferredRenderer
+class D3D11RHI2
 {
-
-};
-
-class D3D11RHI2 : public SingleInstance<D3D11RHI2>
-{
-	PREVENT_INSTANCING(D3D11RHI2)
 public:
-	virtual ~D3D11RHI2();
+	D3D11RHI2(void);
+	~D3D11RHI2(void);
 
 	bool Initialize(void* handle, unsigned int width, unsigned int height);
 	bool InitializeImGui(void* handle, ID3D11Device* device, ID3D11DeviceContext* context);
@@ -22,6 +19,9 @@ public:
 	void BeginImGui(void);
 	void EndImGui(void);
 	void Present(void);
+
+private:
+	D3D11DefferedRenderSystem deferredRenderSystem;
 
 private:
 	vector2i viewportSize;

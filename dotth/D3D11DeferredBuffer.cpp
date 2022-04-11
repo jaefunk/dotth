@@ -1,14 +1,6 @@
 ﻿#include "D3D11DeferredBuffer.h"
 #include "D3D11RHI.h"
 
-static D3D11DefferedRenderSystem* GD3D11DefferedRenderSystem = nullptr;
-
-D3D11DefferedRenderSystem& D3D11DefferedRenderSystem::Get(void)
-{
-	if (GD3D11DefferedRenderSystem == nullptr)
-		GD3D11DefferedRenderSystem = new D3D11DefferedRenderSystem;
-	return *GD3D11DefferedRenderSystem;
-}
 
 D3D11DeferredBuffer::D3D11DeferredBuffer()
 {

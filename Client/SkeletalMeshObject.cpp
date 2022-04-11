@@ -30,10 +30,14 @@ void SkeletalMeshObject::OnDraw(void)
 void SkeletalMeshObject::OnDrawImGui(void)
 {
 	ImGui::Begin("SkeletalMeshObject");
-	for (unsigned int a = 0; a < 8; ++a)
+
+	static std::string s[4] = {
+		"idle", "walk", "run", "jump"
+	};
+	for (unsigned int a = 0; a < 4; ++a)
 	{
 		float weight = animationController->BlendSystem.Weight(a);
-		ImGui::SliderFloat(std::to_string(a).c_str(), &weight, 0.f, 1.f, "%f");
+		ImGui::SliderFloat(s[a].c_str(), &weight, 0.f, 1.f, "%f");
 	}
 	ImGui::NewLine();
 	ImGui::End();

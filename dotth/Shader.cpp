@@ -43,6 +43,13 @@ void IShader::CleanUp()
 	textureTable.clear();
 }
 
+bool IShader::LoadShaderFile(const std::string& shaderFile)
+{
+	std::wstring vShader_w;
+	vShader_w.assign(shaderFile.begin(), shaderFile.end());
+	return LoadShaderFile(vShader_w.c_str());
+}
+
 bool IShader::LoadShaderFile(LPCWSTR shaderFile)
 {
 	HRESULT hr = D3DReadFileToBlob(shaderFile, &shaderBlob);

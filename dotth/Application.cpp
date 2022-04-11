@@ -34,8 +34,11 @@ bool Application::Loop()
 	Scenario::Instance()->Update();
 	InputSystem::Instance()->ReleaseBuffer();
 
+	//RHI.StandbyDeferred();
 	D3D11RHI::StandbyDeferred();
 	Scenario::Instance()->Draw();
+
+	//RHI.Draw();
 	D3D11RHI::Draw();
 	
 	D3D11RHI::BeginImGui();

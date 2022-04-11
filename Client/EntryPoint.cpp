@@ -119,18 +119,13 @@ void EntryPoint::OnUpdate(void)
 
 void EntryPoint::OnDrawImGui(void)
 {
+	static std::string s[4] = {
+		"idle", "walk", "run", "jump"
+	};
 	for (auto i = 0; i < 4; ++i) {
 
-		if (ImGui::Button(std::to_string(i).c_str())) {
+		if (ImGui::Button(s[i].c_str())) {
 			animationController->BlendTo(i);
-		}
-	}
-
-	if (ImGui::Button("asdf")) {
-		if (skeltalMeshObject)
-		{
-			RemoveObject(skeltalMeshObject);
-			skeltalMeshObject.reset();
 		}
 	}
 	

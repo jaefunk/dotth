@@ -31,6 +31,7 @@
     <ClCompile Include="D3D11DeferredBuffer.cpp" />
     <ClCompile Include="D3D11Light.cpp" />
     <ClCompile Include="D3D11OrthoRect.cpp" />
+    <ClCompile Include="D3D11Renderable.cpp" />
     <ClCompile Include="D3D11RHI.cpp" />
     <ClCompile Include="D3D11RHI2.cpp" />
     <ClCompile Include="InputSystem.cpp" />
@@ -75,6 +76,7 @@
     <ClInclude Include="D3D11DeferredBuffer.h" />
     <ClInclude Include="D3D11Light.h" />
     <ClInclude Include="D3D11OrthoRect.h" />
+    <ClInclude Include="D3D11Renderable.h" />
     <ClInclude Include="D3D11RHI.h" />
     <ClInclude Include="D3D11RHI2.h" />
     <ClInclude Include="dotth.h" />

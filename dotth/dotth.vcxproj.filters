@@ -70,7 +70,7 @@
     <ClCompile Include="LineRenderer.cpp" />
     <ClCompile Include="D3D11RHI2.cpp" />
     <ClCompile Include="D3D11.cpp" />
-    <ClCompile Include="Math\MathStructures.cpp" />
+    <ClCompile Include="D3D11Renderable.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.h">
@@ -277,7 +277,6 @@
     <ClInclude Include="MovementComponent.h" />
     <ClInclude Include="LineRenderer.h" />
     <ClInclude Include="D3D11RHI2.h" />
-    <ClInclude Include="Math\MathStructures.h" />
     <ClInclude Include="External\DirectXTK\XboxDDSTextureLoader.h" />
     <ClInclude Include="External\DirectXTK\Audio.h" />
     <ClInclude Include="External\DirectXTK\BufferHelpers.h" />
@@ -299,6 +298,7 @@
     <ClInclude Include="External\DirectXTK\SpriteFont.h" />
     <ClInclude Include="External\DirectXTK\VertexTypes.h" />
     <ClInclude Include="External\DirectXTK\WICTextureLoader.h" />
+    <ClInclude Include="D3D11Renderable.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Framework">

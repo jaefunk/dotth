@@ -1,6 +1,6 @@
 #pragma once
 
-#include "D3D11RHI.h"
+#include "dotth.h"
 
 struct ShaderVariable
 {
@@ -37,6 +37,7 @@ public:
 	IShader(ID3D11Device* device, ID3D11DeviceContext* context);
 	virtual ~IShader(void);
 
+	bool LoadShaderFile(const std::string& shaderFile);
 	bool LoadShaderFile(LPCWSTR shaderFile);
 
 	bool IsShaderValid(void);

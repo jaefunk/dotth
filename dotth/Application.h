@@ -27,6 +27,9 @@ public:
 	void Initialize(const Configuration& config);
 	void WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);
 	bool Loop();
+
+private:
+	D3D11RHI2 RHI;
 };
 
 template<typename SceneTy>
@@ -35,7 +38,7 @@ void Application::Initialize(const Configuration & config)
 	assert(config.Validation());
 	InputSystem::Instance()->Initialize();
 	ResourceManager2::Instance()->Load();
-	D3D11RHI2::Instance()->Initialize(config.Hwnd, config.Width, config.Height);
+	//RHI.Initialize(config.Hwnd, config.Width, config.Height);
 	D3D11RHI::Initialize(config.Hwnd, config.Width, config.Height);
 	D3D11RHI::InitializeImGui(config.Hwnd, config.Width, config.Height);
 	LineRenderer::Instance()->Init();

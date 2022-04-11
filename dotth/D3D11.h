@@ -69,4 +69,5 @@ namespace D3D11
 		D3D11_SHADER_RESOURCE_VIEW_DESC* pDesc,
 		ID3D11Device* pDevice,
 		ID3D11ShaderResourceView** ppShaderResourceView);
+
 }
