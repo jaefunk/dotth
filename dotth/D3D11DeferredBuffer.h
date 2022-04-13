@@ -50,9 +50,9 @@ public:
 		std::vector<dotth::vector2> textureCoords = { {0.f, 0.f}, {1.f, 0.f}, {0.f, 1.f}, {1.f, 1.f} };	
 		std::vector<unsigned int> indices = { 0, 1, 2, 1, 3, 2 };
 		view = new D3D11Renderable(pDevice, pContext);
-		view->AddVertexBuffer(positions.data(), sizeof(dotth::vector3), positions.size());
-		view->AddVertexBuffer(textureCoords.data(), sizeof(dotth::vector2), textureCoords.size());
-		view->SetIndexBuffer(indices.data(), sizeof(unsigned int), indices.size());
+		view->AddVertexBuffer(positions.data(), sizeof(dotth::vector3), static_cast<unsigned int>(positions.size()));
+		view->AddVertexBuffer(textureCoords.data(), sizeof(dotth::vector2), static_cast<unsigned int>(textureCoords.size()));
+		view->SetIndexBuffer(indices.data(), sizeof(unsigned int), static_cast<unsigned int>(indices.size()));
 		view->LoadVertexShader("../Output/Client/x64/Debug/light_vs.cso");
 		view->LoadPixelShader("../Output/Client/x64/Debug/light_ps.cso");
 	}
