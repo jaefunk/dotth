@@ -1,7 +1,6 @@
-﻿#include "D3D11DeferredBuffer.h"
+﻿
+#include "D3D11DeferredBuffer.h"
 #include "D3D11RHI.h"
-
-
 D3D11DeferredBuffer::D3D11DeferredBuffer()
 {
 }

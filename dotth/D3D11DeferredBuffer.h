@@ -1,6 +1,13 @@
 #pragma once
 
 #include "D3D11.h"
+#include "D3D11Renderable.h"
+
+enum GBUFFER_TYPE {
+	GBUFFER_TYPE_DIFFUSE,
+	GBUFFER_TYPE_NORMAL,
+	GBUFFER_TYPE_MAX,
+};
 
 struct D3D11GBuffer {
 	ID3D11RenderTargetView* renderTargetView = nullptr;
@@ -27,19 +34,27 @@ struct D3D11GBuffer {
 	}
 };
 
-enum GBUFFER_TYPE {
-	GBUFFER_TYPE_DIFFUSE,
-	GBUFFER_TYPE_NORMAL,
-	GBUFFER_TYPE_MAX,
-};
-
 class D3D11DefferedRenderSystem 
 {
 public:
-	void Initialize(ID3D11Device* pDevice, uint32_t width, uint32_t height)
+	void Initialize(ID3D11Device* pDevice, ID3D11DeviceContext* pContext, uint32_t width, uint32_t height)
 	{
 		GBuffers[GBUFFER_TYPE_DIFFUSE] = new D3D11GBuffer(pDevice, DXGI_FORMAT_R32G32B32A32_FLOAT, width, height);
 		GBuffers[GBUFFER_TYPE_NORMAL] = new D3D11GBuffer(pDevice, DXGI_FORMAT_R32G32B32A32_FLOAT, width, height);
+
+		float left = ((float)width / 2.f) * -1.f;
+		float right = left + (float)width;
+		float top = (float)height * 0.5f;
+		float bottom = top - (float)height;
+		std::vector<dotth::vector3> positions = { {left, top, 0.f}, {right, top, 0.f}, {left, bottom, 0.f}, {right, bottom, 0.f} };
+		std::vector<dotth::vector2> textureCoords = { {0.f, 0.f}, {1.f, 0.f}, {0.f, 1.f}, {1.f, 1.f} };	
+		std::vector<unsigned int> indices = { 0, 1, 2, 1, 3, 2 };
+		view = new D3D11Renderable(pDevice, pContext);
+		view->AddVertexBuffer(positions.data(), sizeof(dotth::vector3), positions.size());
+		view->AddVertexBuffer(textureCoords.data(), sizeof(dotth::vector2), textureCoords.size());
+		view->SetIndexBuffer(indices.data(), sizeof(unsigned int), indices.size());
+		view->LoadVertexShader("../Output/Client/x64/Debug/light_vs.cso");
+		view->LoadPixelShader("../Output/Client/x64/Debug/light_ps.cso");
 	}
 
 	void CommitRenderTarget(ID3D11DeviceContext* pContext, ID3D11DepthStencilView* pDepthStencilView)
@@ -60,8 +75,14 @@ public:
 		}
 	}
 
+	void Draw(void)
+	{
+		view->Draw();
+	}
+
 private:
 	D3D11GBuffer* GBuffers[GBUFFER_TYPE_MAX];
+	D3D11Renderable* view;
 };
 
 #include "dotth.h"

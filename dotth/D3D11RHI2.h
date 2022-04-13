@@ -27,13 +27,13 @@ private:
 	vector2i viewportSize;
 
 private:
-	ID3D11Device* device;
-	ID3D11DeviceContext* context;
-	IDXGISwapChain* swapChain;
-	ID3D11RenderTargetView* renderTargetView;
-	ID3D11RasterizerState* rasterizerState;
-	ID3D11SamplerState* samplerState;
-	ID3D11DepthStencilView* depthStencilView;
-	ID3D11DepthStencilState* depthStencilState;
+	ID3D11Device* device = nullptr;
+	ID3D11DeviceContext* context = nullptr;
+	IDXGISwapChain* swapChain = nullptr;
+	ID3D11RenderTargetView* renderTargetView = nullptr;
+	ID3D11RasterizerState* rasterizerState = nullptr;
+	ID3D11SamplerState* samplerState = nullptr;
+	ID3D11DepthStencilView* depthStencilView = nullptr;
+	ID3D11DepthStencilState* depthStencilState = nullptr;
 };
 

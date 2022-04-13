@@ -34,32 +34,20 @@ bool D3D11RHI2::Initialize(void* handle, unsigned int width, unsigned int height
 	viewport.MaxDepth = 1.0f;
 	context->RSSetViewports(1, &viewport);
 
-	deferredRenderSystem.Initialize(device, width, height);
-
-	//float left = (viewport.Width / 2.f) * -1.f;
-	//float right = left + viewport.Width;
-	//float top = viewport.Height * 0.5f;
-	//float bottom = top - viewport.Height;
-
-	//std::vector<dotth::vector3> positions = { {left, top, 0.f}, {right, top, 0.f}, {left, bottom, 0.f}, {right, bottom, 0.f} };
-	//std::vector<dotth::vector2> textureCoords = { {0.f, 0.f}, {1.f, 0.f}, {0.f, 1.f}, {1.f, 1.f} };	
-	//std::vector<unsigned int> indices = { 0, 1, 2, 1, 3, 2 };
-	//renderTargetBuffer.AddVertexBuffer(device, positions.data(), sizeof(dotth::vector3), positions.size());
-	//renderTargetBuffer.AddVertexBuffer(device, textureCoords.data(), sizeof(dotth::vector2), textureCoords.size());
-	//renderTargetBuffer.SetIndexBuffer(device, indices.data(), sizeof(unsigned int), indices.size());
+	deferredRenderSystem.Initialize(device, context, width, height);
 
 	InitializeImGui(handle, device, context);
 
 	return true;
 }
 
-bool D3D11RHI2::InitializeImGui(void* handle, ID3D11Device* device, ID3D11DeviceContext* context)
+bool D3D11RHI2::InitializeImGui(void* handle, ID3D11Device* pDevice, ID3D11DeviceContext* pContext)
 {
 	IMGUI_CHECKVERSION();
 	ImGui::CreateContext();
 	ImGui::StyleColorsDark();
 	ImGui_ImplWin32_Init(handle);
-	ImGui_ImplDX11_Init(device, context);
+	ImGui_ImplDX11_Init(pDevice, pContext);
 	return true;
 }
 
@@ -77,21 +65,23 @@ void D3D11RHI2::Draw(void)
 	context->OMSetRenderTargets(1, &renderTargetView, depthStencilView);
 	context->ClearRenderTargetView(renderTargetView, clearColor);
 	context->OMSetDepthStencilState(depthStencilState, 0);
-
-	//renderTargetBuffer.Draw(context);
+	deferredRenderSystem.Draw();
 }
 
 void D3D11RHI2::BeginImGui(void)
 {
-
+	ImGui_ImplDX11_NewFrame();
+	ImGui_ImplWin32_NewFrame();
+	ImGui::NewFrame();
 }
 
-void D3D11RHI2::EndImGui(void)
+void D3D11RHI2::EndImGui(void)		
 {
-
+	ImGui::Render();
+	ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
 }
 
 void D3D11RHI2::Present(void)
 {
-
+	swapChain->Present(1, 0);
 }
