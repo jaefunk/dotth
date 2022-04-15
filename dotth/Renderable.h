@@ -6,6 +6,7 @@ class Renderable
 {
 public:
 	Renderable(dotth::mesh* raw);
+
 public:
 	void Draw(void);
 
@@ -16,6 +17,7 @@ private:
 private:
 	std::vector<ID3D11Buffer**> VertexBuffers;
 	ID3D11Buffer* PositionBuffer = nullptr;
+	ID3D11Buffer* ColorBuffer = nullptr;
 	ID3D11Buffer* NormalBuffer = nullptr;
 	ID3D11Buffer* TextureCoordBuffer = nullptr;
 	ID3D11Buffer* BoneIdBuffer = nullptr;

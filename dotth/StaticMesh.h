@@ -13,6 +13,7 @@ private:
 public:
 	std::map<int, std::vector<MeshRenderParameter>> parameters;
 	bool Load(const std::string& key);
+	bool Load(const std::shared_ptr<dotth::model> model);
 
 	Material* GetMaterial(int index)
 	{

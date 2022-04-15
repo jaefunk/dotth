@@ -10,6 +10,8 @@
     <ClInclude Include="Entrypoint.h" />
     <ClInclude Include="SkeletalMeshObject.h" />
     <ClInclude Include="MarchingCube.h" />
+    <ClInclude Include="Primitive.h" />
+    <ClInclude Include="PrimitiveTestScene.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Client.ico">
@@ -24,6 +26,8 @@
     <ClCompile Include="EntryPoint.cpp" />
     <ClCompile Include="SkeletalMeshObject.cpp" />
     <ClCompile Include="MarchingCube.cpp" />
+    <ClCompile Include="Primitive.cpp" />
+    <ClCompile Include="PrimitiveTestScene.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="etc">
@@ -61,6 +65,15 @@
       <Filter>shaders</Filter>
     </FxCompile>
     <FxCompile Include="shaders\line_vs.hlsl">
+      <Filter>shaders</Filter>
+    </FxCompile>
+    <FxCompile Include="shaders\test_gs.hlsl">
+      <Filter>shaders</Filter>
+    </FxCompile>
+    <FxCompile Include="shaders\test_ps.hlsl">
+      <Filter>shaders</Filter>
+    </FxCompile>
+    <FxCompile Include="shaders\test_vs.hlsl">
       <Filter>shaders</Filter>
     </FxCompile>
   </ItemGroup>

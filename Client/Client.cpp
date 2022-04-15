@@ -12,6 +12,7 @@
 #include "targetver.h"
 #include "Application.h"
 #include "EntryPoint.h"
+#include "PrimitiveTestScene.h"
 
 #define MAX_LOADSTRING 100
 
@@ -111,7 +112,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance
 	Config.Width = rect.right - rect.left;
 	Config.Height = rect.bottom - rect.top;
 	
-	App.Initialize<EntryPoint>(Config);
+	App.Initialize<PrimitiveTestScene>(Config);
 
     // Main message loop:
 	MSG msg = { 0 };

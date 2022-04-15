@@ -93,6 +93,7 @@ namespace dotth
 		unsigned int depth = 0;
 
 	public:
+		node(void) = default;
 		node(const aiNode* raw, node* inParent = nullptr)
 		{
 			name = raw->mName.C_Str();
@@ -153,6 +154,7 @@ namespace dotth
 		unsigned int mateiralIndex = 0;
 
 		std::vector<vector3> positions;
+		std::vector<vector4> colors;
 		std::vector<vector3> normals;
 		std::vector<vector2> textureCoords;
 		std::vector<unsigned int> indices;
@@ -160,6 +162,7 @@ namespace dotth
 		std::vector<vector4> weights;
 
 	public:
+		mesh(void) = default;
 		mesh(const aiMesh* raw)
 		{
 			name = raw->mName.C_Str();
@@ -234,6 +237,7 @@ namespace dotth
 		matrix globalInverse;
 
 	public:
+		model(void) = default;
 		model(const aiScene* raw)
 		{
 			name = raw->mName.C_Str();

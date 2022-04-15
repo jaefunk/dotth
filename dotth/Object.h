@@ -8,6 +8,9 @@ using namespace dotth;
 class Object : public Node<Object>
 {
 public:
+	virtual ~Object(void) {}
+
+public:
 	void Init(void);
 	void Update(float InDeltaSeconds);
 	void Draw(void);

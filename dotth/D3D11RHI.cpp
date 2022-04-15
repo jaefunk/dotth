@@ -110,26 +110,28 @@ bool D3D11RHI::Initialize(HWND hwnd, unsigned int width, unsigned int height)
 
 	D3D11_RASTERIZER_DESC rd;
 	ZeroMemory(&rd, sizeof(D3D11_RASTERIZER_DESC));
-	rd.AntialiasedLineEnable = false;
 	rd.CullMode = D3D11_CULL_BACK;
-	rd.DepthBias = 0;
-	rd.DepthBiasClamp = 0.0f;
-	rd.DepthClipEnable = true;
+	//rd.DepthBias = 0;
+	//rd.DepthBiasClamp = 0.0f;
+	//rd.DepthClipEnable = true;
+	rd.FillMode = D3D11_FILL_WIREFRAME;
+	//rd.FrontCounterClockwise = false;
+	//rd.MultisampleEnable = false;
+	//rd.ScissorEnable = false;
+	//rd.SlopeScaledDepthBias = 0.0f;
+	D3D11RHI::Device()->CreateRasterizerState(&rd, &D3D11RHI::Instance()->_RasterizerStateWireFrame);
+
 	rd.FillMode = D3D11_FILL_SOLID;
-	rd.FrontCounterClockwise = false;
-	rd.MultisampleEnable = false;
-	rd.ScissorEnable = false;
-	rd.SlopeScaledDepthBias = 0.0f;
 	D3D11RHI::Device()->CreateRasterizerState(&rd, &D3D11RHI::Instance()->_RasterizerStateSolid);
 
-	CD3D11_RASTERIZER_DESC rastDesc(D3D11_FILL_SOLID, D3D11_CULL_NONE, FALSE,
-		D3D11_DEFAULT_DEPTH_BIAS, D3D11_DEFAULT_DEPTH_BIAS_CLAMP,
-		D3D11_DEFAULT_SLOPE_SCALED_DEPTH_BIAS, TRUE, FALSE, TRUE, TRUE);
-	rastDesc.MultisampleEnable = true;
-	D3D11RHI::Device()->CreateRasterizerState(&rastDesc, &D3D11RHI::Instance()->_RasterizerStateSolid2);
+	//CD3D11_RASTERIZER_DESC rastDesc(D3D11_FILL_SOLID, D3D11_CULL_NONE, FALSE,
+	//	D3D11_DEFAULT_DEPTH_BIAS, D3D11_DEFAULT_DEPTH_BIAS_CLAMP,
+	//	D3D11_DEFAULT_SLOPE_SCALED_DEPTH_BIAS, TRUE, FALSE, TRUE, TRUE);
+	//rastDesc.MultisampleEnable = true;
+	//D3D11RHI::Device()->CreateRasterizerState(&rastDesc, &D3D11RHI::Instance()->_RasterizerStateSolid2);
 
 
-	D3D11RHI::Context()->RSSetState(D3D11RHI::Instance()->_RasterizerStateSolid2);
+	
 	D3D11_SAMPLER_DESC sd;
 	ZeroMemory(&sd, sizeof(sd));
 	sd.Filter = D3D11_FILTER_MIN_MAG_MIP_LINEAR;
@@ -182,10 +184,13 @@ void D3D11RHI::StandbyDeferred(void)
 	float clear_color_with_alpha[4] = { 0.f, 0.f, 0.f, 0.f };
 	D3D11RHI::DeferredBuffer()->SetRenderTargets(D3D11RHI::Context());
 	D3D11RHI::DeferredBuffer()->ClearRenderTargets(D3D11RHI::Context(), clear_color_with_alpha);
+
+	D3D11RHI::Context()->RSSetState(D3D11RHI::Instance()->_RasterizerStateWireFrame);
 }
 
 void D3D11RHI::Draw(void)
 {
+	D3D11RHI::Context()->RSSetState(D3D11RHI::Instance()->_RasterizerStateSolid);
 	float clear_color_with_alpha[4] = { 0.f, 0.f, 0.f, 0.f };
 	D3D11RHI::Context()->OMSetRenderTargets(1, &D3D11RHI::Instance()->_BackBufferRTV, D3D11RHI::DepthStencilView());	
 	D3D11RHI::Context()->ClearRenderTargetView(D3D11RHI::BackBuffer(), clear_color_with_alpha);

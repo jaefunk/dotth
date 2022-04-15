@@ -142,3 +142,61 @@ protected:
 	void SetShaderAndConstantsBuffers(void);
 	void CleanUp(void);
 };
+
+class GeometryShader : public IShader
+{
+public:
+	GeometryShader(ID3D11Device* device, ID3D11DeviceContext* context)
+		: IShader(device, context)
+	{
+		this->shader = nullptr;
+	}
+
+	virtual ~GeometryShader(void)
+	{
+		CleanUp();
+	}
+	ID3D11GeometryShader* GetShader(void)
+	{
+		return shader;
+	}
+
+protected:
+	ID3D11GeometryShader* shader;
+	bool CreateShader(ID3DBlob* shaderBlob)
+	{
+		this->CleanUp();
+		HRESULT result = device->CreateGeometryShader(shaderBlob->GetBufferPointer(), shaderBlob->GetBufferSize(), 0, &shader);
+		return result == S_OK;
+	}
+	void SetShaderAndConstantsBuffers(void)
+	{
+		if (!shaderValid)
+			return;
+
+		deviceContext->GSSetShader(shader, 0, 0);
+
+		for (unsigned int i = 0; i < constantBufferCount; i++)
+		{
+			deviceContext->GSSetConstantBuffers(constantBuffers[i].bindIndex, 1, &constantBuffers[i].buffer);
+		}
+	}
+	void CleanUp(void)
+	{
+		if (shader)
+		{
+			shader->Release();
+			shader = 0;
+		}
+	}
+
+	virtual bool SetShaderResourceView(std::string name, ID3D11ShaderResourceView* srv)
+	{
+		return true;
+	}
+
+	virtual bool SetSamplerState(std::string name, ID3D11SamplerState* samplerState)
+	{
+		return true;
+	}
+};

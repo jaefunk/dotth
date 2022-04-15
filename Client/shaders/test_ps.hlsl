@@ -5,10 +5,7 @@ Texture2D Texture		: register(t0);
 struct VertexOutputType
 {
 	float4 position		: SV_POSITION;
-	float3 normal		: NORMALWS;
-	float2 coord		: TEXCOORD;
-	float3 worldPos		: POSITIONWS;
-	//float3 tangent		: TANGENTWS;
+	float4 color		: COLOR;
 };
 
 struct PixelOutputType
@@ -20,13 +17,10 @@ struct PixelOutputType
 
 PixelOutputType main(VertexOutputType input)
 {
-	PixelOutputType output;	
+	PixelOutputType output;
 
-	output.Position = float4(input.worldPos, 1.0f);
-	output.Diffuse = Texture.Sample(Sampler, input.coord);;
-	//output.Normal = float4(input.normal, 1.0f);
-
-	//output.Diffuse = float4(1.0f, 1.0f, 1.0f, 1.0f);
+	output.Position = input.position;
+	output.Diffuse = input.color;
 	output.Normal = float4(1.0f, 1.0f, 1.0f, 1.0f);
 
 	return output;

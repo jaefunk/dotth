@@ -8,11 +8,18 @@ bool StaticMesh::Load(const std::string& key)
 
 	if (raw == nullptr)
 		return false;
+	
+	Load(raw);
 
+	return true;
+}
+
+bool StaticMesh::Load(const std::shared_ptr<dotth::model> model)
+{
 	renderables.clear();
 	materials.clear();
 
-	for (auto mesh : raw->meshes)
+	for (auto mesh : model->meshes)
 	{
 		renderables.push_back(new Renderable(mesh));
 		materials.push_back(new Material);

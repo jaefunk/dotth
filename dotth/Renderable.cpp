@@ -12,6 +12,13 @@ Renderable::Renderable(dotth::mesh* raw)
 		BufferStrides.push_back(sizeof(dotth::vector3));
 	}
 
+	if (raw->colors.size() > 0)
+	{
+		CreateVertexBuffer(&ColorBuffer, raw->colors.data(), static_cast<unsigned int>(sizeof(dotth::vector4) * raw->colors.size()));
+		VertexBuffers.push_back(&ColorBuffer);
+		BufferStrides.push_back(sizeof(dotth::vector4));
+	}
+
 	if (raw->normals.size() > 0)
 	{
 		CreateVertexBuffer(&NormalBuffer, raw->normals.data(), static_cast<unsigned int>(sizeof(dotth::vector3) * raw->normals.size()));
@@ -55,7 +62,7 @@ void Renderable::Draw(void)
 		D3D11RHI::Context()->IASetVertexBuffers(i, 1, VertexBuffers[i], &BufferStrides[i], &offset);
 	}
 	D3D11RHI::Context()->IASetIndexBuffer(IndexBuffer, DXGI_FORMAT_R32_UINT, 0);
-	D3D11RHI::Context()->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+	D3D11RHI::Context()->IASetPrimitiveTopology(D3D_PRIMITIVE_TOPOLOGY_POINTLIST);
 	D3D11RHI::Context()->DrawIndexed(IndexSize, 0, 0);
 }
 

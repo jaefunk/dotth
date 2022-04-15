@@ -50,5 +50,5 @@ float4 main(PixelInputType input) : SV_TARGET
 	float3 inverse_light_direction = -1.0f * lightDirection;
 	float sat = max(0.3f, dot(normal, normalize(inverse_light_direction)));
 	float3 final = color * sat;
-	return float4(final, 1.0f);
+	return float4(color, 1.0f);
 }
